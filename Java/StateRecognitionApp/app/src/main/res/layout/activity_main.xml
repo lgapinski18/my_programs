@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/re"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/StateLayout"
+        android:layout_width="371dp"
+        android:layout_height="306dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="176dp"
+        android:textAlignment="viewEnd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/stateTextView"
+            android:layout_width="338dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="128dp"
+            android:scaleX="4"
+            android:scaleY="4"
+            android:text="Nieznany"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/infoTextView"
+            android:layout_width="338dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:text="Twój obecny stan:"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/statesChartLayout"
+        android:layout_width="344dp"
+        android:layout_height="217dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

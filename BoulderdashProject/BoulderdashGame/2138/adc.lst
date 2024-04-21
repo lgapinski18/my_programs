@@ -1,0 +1,1394 @@
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 1
+
+
+   1              		.cpu arm7tdmi
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 0
+  10              		.eabi_attribute 18, 4
+  11              		.file	"adc.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.rodata
+  16              		.align	2
+  17              		.type	one32, %object
+  18              		.size	one32, 4
+  19              	one32:
+  20 0000 01000000 		.word	1
+  21              		.text
+  22              		.align	1
+  23              		.global	getAnalogueInputAdc0
+  24              		.syntax unified
+  25              		.code	16
+  26              		.thumb_func
+  27              		.fpu softvfp
+  28              		.type	getAnalogueInputAdc0, %function
+  29              	getAnalogueInputAdc0:
+  30              	.LFB0:
+  31              		.file 1 "adc.c"
+   1:adc.c         **** /*
+   2:adc.c         ****  *	@Descritpion:	Zawariera zbior definicji funkcji zwiazanych
+   3:adc.c         ****  *					z wykorzystaniem przetwornikow analogowo-cyfrowych
+   4:adc.c         ****  */
+   5:adc.c         **** 
+   6:adc.c         **** #include "general.h"
+   7:adc.c         **** #include <printf_P.h>
+   8:adc.c         **** #include <lpc2xxx.h>
+   9:adc.c         **** #include <config.h>
+  10:adc.c         **** #include "functionals.h"
+  11:adc.c         **** #include "adc.h"
+  12:adc.c         **** 
+  13:adc.c         **** /* Definicje */
+  14:adc.c         **** #define CRYSTAL_FREQUENCY	FOSC		/* Czestotliwosc taktowania zewetrznego zegara */
+  15:adc.c         **** #define PLL_FACTOR			PLL_MUL	/* Wspolczynnik mnozenia PLL */
+  16:adc.c         **** #define VPBDIV_FACTOR		PBSD		/* Wspolczynik dzielenia dla predkosci magistrli urzadzen peryferyjnyc
+  17:adc.c         **** 
+  18:adc.c         **** /* Jedynka 32-bitowa */
+  19:adc.c         **** static const tU32 one32 = 1u;
+  20:adc.c         **** 
+  21:adc.c         **** 
+  22:adc.c         **** /*
+  23:adc.c         ****  *  @brief			Funkcja odczytujaca wartosc podanego kanalu przetwornika analogowo-cyfrowego ADC0
+  24:adc.c         ****  *
+  25:adc.c         ****  *  @Description	Funkcja wykonuje zapis do rejestru kontrolnego przetwornika ADC0 informacji o wybr
+  26:adc.c         ****  *					kanale, z ktorego ma byc odczytana wartosc (po przez ustawienie odpowiedniego bitu
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 2
+
+
+  27:adc.c         ****  *					- numer bitu rowny numerowi kanalu), oraz ustawia bit informujacy (nr 24), iz przetworzenie
+  28:adc.c         ****  *					ma nastapic odrazu.
+  29:adc.c         ****  *
+  30:adc.c         ****  *  @param 			[in]	channel
+  31:adc.c         ****  *						numer kanalu, z ktorego ma zostac odczytana wartosc
+  32:adc.c         ****  *
+  33:adc.c         ****  *  @returns  		odczytana wartosc z rejestru ADC0 po wykonaniu konwersji dla podanego kanalu
+  34:adc.c         ****  *
+  35:adc.c         ****  *  @side effects	Modyfikacja rejestru ADCR przetwornika analogowo-cyfrowego ADC0
+  36:adc.c         ****  */
+  37:adc.c         **** tU16 getAnalogueInputAdc0(AdcChanel channel)
+  38:adc.c         **** {
+  32              		.loc 1 38 0
+  33              		.cfi_startproc
+  34              		@ Function supports interworking.
+  35              		@ args = 0, pretend = 0, frame = 16
+  36              		@ frame_needed = 1, uses_anonymous_args = 0
+  37 0000 90B5     		push	{r4, r7, lr}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 12
+  40              		.cfi_offset 4, -12
+  41              		.cfi_offset 7, -8
+  42              		.cfi_offset 14, -4
+  43 0002 85B0     		sub	sp, sp, #20
+  44              	.LCFI1:
+  45              		.cfi_def_cfa_offset 32
+  46 0004 00AF     		add	r7, sp, #0
+  47              	.LCFI2:
+  48              		.cfi_def_cfa_register 7
+  49 0006 0200     		movs	r2, r0
+  50 0008 FB1D     		adds	r3, r7, #7
+  51 000a 1A70     		strb	r2, [r3]
+  39:adc.c         **** 	/*Ustawienie stanu pinu P0.14 na niski, aby dokladnosc pomiarowa byla +- 1.5 g (800mV/g) */
+  40:adc.c         ****     IOCLR = one32 << GS2;
+  52              		.loc 1 40 0
+  53 000c 0122     		movs	r2, #1
+  54 000e 284B     		ldr	r3, .L4
+  55 0010 9203     		lsls	r2, r2, #14
+  56 0012 1A60     		str	r2, [r3]
+  41:adc.c         **** 
+  42:adc.c         **** 	/* Zmienna, do ktorej zapisany zostanie wynik odczytu */
+  43:adc.c         **** 	tU16 returnResult;
+  44:adc.c         **** 	
+  45:adc.c         **** 	/* Wybor kanalu, z ktorego maja byc odczytywane dane */
+  46:adc.c         **** 	ADCR &= ~(0xFFu);
+  57              		.loc 1 46 0
+  58 0014 274B     		ldr	r3, .L4+4
+  59 0016 1A68     		ldr	r2, [r3]
+  60 0018 264B     		ldr	r3, .L4+4
+  61 001a FF21     		movs	r1, #255
+  62 001c 8A43     		bics	r2, r1
+  63 001e 1A60     		str	r2, [r3]
+  47:adc.c         **** 	ADCR |= one32 << (tU8)channel;
+  64              		.loc 1 47 0
+  65 0020 244B     		ldr	r3, .L4+4
+  66 0022 1968     		ldr	r1, [r3]
+  67 0024 0122     		movs	r2, #1
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 3
+
+
+  68 0026 FB1D     		adds	r3, r7, #7
+  69 0028 1B78     		ldrb	r3, [r3]
+  70 002a 9A40     		lsls	r2, r2, r3
+  71 002c 214B     		ldr	r3, .L4+4
+  72 002e 0A43     		orrs	r2, r1
+  73 0030 1A60     		str	r2, [r3]
+  48:adc.c         **** 
+  49:adc.c         **** 	/* Ustawienie trybu przetwornika na operacyjny i ustawienie konwersji na teraz */
+  50:adc.c         **** 	ADCR |= (one32 << 21) | (one32 << 24);
+  74              		.loc 1 50 0
+  75 0032 204B     		ldr	r3, .L4+4
+  76 0034 1968     		ldr	r1, [r3]
+  77 0036 0123     		movs	r3, #1
+  78 0038 5A05     		lsls	r2, r3, #21
+  79 003a 0123     		movs	r3, #1
+  80 003c 1B06     		lsls	r3, r3, #24
+  81 003e 1A43     		orrs	r2, r3
+  82 0040 1C4B     		ldr	r3, .L4+4
+  83 0042 0A43     		orrs	r2, r1
+  84 0044 1A60     		str	r2, [r3]
+  51:adc.c         **** 	ADCR &= ~((one32 << 26) | (one32 << 25));
+  85              		.loc 1 51 0
+  86 0046 1B4B     		ldr	r3, .L4+4
+  87 0048 1A68     		ldr	r2, [r3]
+  88 004a 0123     		movs	r3, #1
+  89 004c 9906     		lsls	r1, r3, #26
+  90 004e 0123     		movs	r3, #1
+  91 0050 5B06     		lsls	r3, r3, #25
+  92 0052 0B43     		orrs	r3, r1
+  93 0054 D943     		mvns	r1, r3
+  94 0056 174B     		ldr	r3, .L4+4
+  95 0058 0A40     		ands	r2, r1
+  96 005a 1A60     		str	r2, [r3]
+  52:adc.c         **** 	
+  53:adc.c         **** 	/* Sprawdzanie, czy konwersja sie zakonczyla */
+  54:adc.c         **** 	while ((ADDR & 0x80000000U) == 0)
+  97              		.loc 1 54 0
+  98 005c C046     		nop
+  99              	.L2:
+ 100              		.loc 1 54 0 is_stmt 0 discriminator 1
+ 101 005e 164B     		ldr	r3, .L4+8
+ 102 0060 1B68     		ldr	r3, [r3]
+ 103 0062 002B     		cmp	r3, #0
+ 104 0064 FBDA     		bge	.L2
+  55:adc.c         **** 	{
+  56:adc.c         **** 		;
+  57:adc.c         **** 	}
+  58:adc.c         **** 	  
+  59:adc.c         **** 	/* Odczytanie z rejestru wyniku, ktory jest 10 bitowa liczba calkowita */
+  60:adc.c         **** 	returnResult = (ADDR >> 6) & 0x3FF;
+ 105              		.loc 1 60 0 is_stmt 1
+ 106 0066 144B     		ldr	r3, .L4+8
+ 107 0068 1B68     		ldr	r3, [r3]
+ 108 006a 9B09     		lsrs	r3, r3, #6
+ 109 006c 1B04     		lsls	r3, r3, #16
+ 110 006e 1A0C     		lsrs	r2, r3, #16
+ 111 0070 0E24     		movs	r4, #14
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 4
+
+
+ 112 0072 3B19     		adds	r3, r7, r4
+ 113 0074 9205     		lsls	r2, r2, #22
+ 114 0076 920D     		lsrs	r2, r2, #22
+ 115 0078 1A80     		strh	r2, [r3]
+  61:adc.c         **** 
+  62:adc.c         **** 	/* Ustawienie trybu przetwornika na power-down i wylaczenie rozpoczecia*/
+  63:adc.c         **** 	ADCR &= ~((one32 << 21) | (one32 << 24));
+ 116              		.loc 1 63 0
+ 117 007a 0E4B     		ldr	r3, .L4+4
+ 118 007c 1A68     		ldr	r2, [r3]
+ 119 007e 0123     		movs	r3, #1
+ 120 0080 5905     		lsls	r1, r3, #21
+ 121 0082 0123     		movs	r3, #1
+ 122 0084 1B06     		lsls	r3, r3, #24
+ 123 0086 0B43     		orrs	r3, r1
+ 124 0088 D943     		mvns	r1, r3
+ 125 008a 0A4B     		ldr	r3, .L4+4
+ 126 008c 0A40     		ands	r2, r1
+ 127 008e 1A60     		str	r2, [r3]
+  64:adc.c         **** 	
+  65:adc.c         **** 	delay_ms(100);
+ 128              		.loc 1 65 0
+ 129 0090 6420     		movs	r0, #100
+ 130 0092 FFF7FEFF 		bl	delay_ms
+  66:adc.c         **** 
+  67:adc.c         **** 	/* Ustawienie pinu P0.14, zwiazanego z dokladoscia akcelerometru i chip select kontrolera Ethernet
+  68:adc.c         ****     IOSET  = one32 << GS2;
+ 131              		.loc 1 68 0
+ 132 0096 0122     		movs	r2, #1
+ 133 0098 084B     		ldr	r3, .L4+12
+ 134 009a 9203     		lsls	r2, r2, #14
+ 135 009c 1A60     		str	r2, [r3]
+  69:adc.c         **** 
+  70:adc.c         **** 	return returnResult;
+ 136              		.loc 1 70 0
+ 137 009e 3B19     		adds	r3, r7, r4
+ 138 00a0 1B88     		ldrh	r3, [r3]
+  71:adc.c         **** }
+ 139              		.loc 1 71 0
+ 140 00a2 1800     		movs	r0, r3
+ 141 00a4 BD46     		mov	sp, r7
+ 142 00a6 05B0     		add	sp, sp, #20
+ 143              		@ sp needed
+ 144 00a8 90BC     		pop	{r4, r7}
+ 145 00aa 02BC     		pop	{r1}
+ 146 00ac 0847     		bx	r1
+ 147              	.L5:
+ 148 00ae C046     		.align	2
+ 149              	.L4:
+ 150 00b0 0C8002E0 		.word	-536707060
+ 151 00b4 004003E0 		.word	-536657920
+ 152 00b8 044003E0 		.word	-536657916
+ 153 00bc 048002E0 		.word	-536707068
+ 154              		.cfi_endproc
+ 155              	.LFE0:
+ 156              		.size	getAnalogueInputAdc0, .-getAnalogueInputAdc0
+ 157              		.align	1
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 5
+
+
+ 158              		.global	getAnalogueInputAdc1
+ 159              		.syntax unified
+ 160              		.code	16
+ 161              		.thumb_func
+ 162              		.fpu softvfp
+ 163              		.type	getAnalogueInputAdc1, %function
+ 164              	getAnalogueInputAdc1:
+ 165              	.LFB1:
+  72:adc.c         **** 
+  73:adc.c         **** /*
+  74:adc.c         ****  *  @brief			Funkcja odczytujaca wartosc podanego kanalu przetwornika analogowo-cyfrowego ADC1
+  75:adc.c         ****  *
+  76:adc.c         ****  *  @Description	Funkcja wykonuje zapis do rejestru kontrolnego przetwornika ADC1 informacji o wybr
+  77:adc.c         ****  *					kanale, z ktorego ma byc odczytana wartosc (po przez ustawienie odpowiedniego bitu
+  78:adc.c         ****  *					- numer bitu rowny numerowi kanalu), oraz ustawia bit informujacy (nr 24), iz przetworzenie
+  79:adc.c         ****  *					ma nastapic odrazu.
+  80:adc.c         ****  *
+  81:adc.c         ****  *  @param 			[in]	channel
+  82:adc.c         ****  *						numer kanalu, z ktorego ma zostac odczytana wartosc
+  83:adc.c         ****  *
+  84:adc.c         ****  *  @returns  		odczytana wartosc z rejestru ADC1 po wykonaniu konwersji dla podanego kanalu
+  85:adc.c         ****  *
+  86:adc.c         ****  *  @side effects	Modyfikacja rejestru AD1CR przetwornika analogowo-cyfrowego ADC1
+  87:adc.c         ****  */
+  88:adc.c         **** tU16 getAnalogueInputAdc1(AdcChanel channel)
+  89:adc.c         **** {
+ 166              		.loc 1 89 0
+ 167              		.cfi_startproc
+ 168              		@ Function supports interworking.
+ 169              		@ args = 0, pretend = 0, frame = 16
+ 170              		@ frame_needed = 1, uses_anonymous_args = 0
+ 171 00c0 90B5     		push	{r4, r7, lr}
+ 172              	.LCFI3:
+ 173              		.cfi_def_cfa_offset 12
+ 174              		.cfi_offset 4, -12
+ 175              		.cfi_offset 7, -8
+ 176              		.cfi_offset 14, -4
+ 177 00c2 85B0     		sub	sp, sp, #20
+ 178              	.LCFI4:
+ 179              		.cfi_def_cfa_offset 32
+ 180 00c4 00AF     		add	r7, sp, #0
+ 181              	.LCFI5:
+ 182              		.cfi_def_cfa_register 7
+ 183 00c6 0200     		movs	r2, r0
+ 184 00c8 FB1D     		adds	r3, r7, #7
+ 185 00ca 1A70     		strb	r2, [r3]
+  90:adc.c         **** 	/*Ustawienie stanu pinu P0.14 na niski, aby dokladnosc pomiarowa byla +- 1.5 g (800mV/g) */
+  91:adc.c         ****     IOCLR  = one32 << GS2;
+ 186              		.loc 1 91 0
+ 187 00cc 0122     		movs	r2, #1
+ 188 00ce 284B     		ldr	r3, .L9
+ 189 00d0 9203     		lsls	r2, r2, #14
+ 190 00d2 1A60     		str	r2, [r3]
+  92:adc.c         **** 	/* Zmienna, do ktorej zapisany zostanie wynik odczytu */
+  93:adc.c         **** 	tU16 returnResult;
+  94:adc.c         **** 
+  95:adc.c         **** 	/* Wybor kanalu, z ktorego maja byc odczytywane dane */
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 6
+
+
+  96:adc.c         **** 	AD1CR &= ~(0xFF);
+ 191              		.loc 1 96 0
+ 192 00d4 274B     		ldr	r3, .L9+4
+ 193 00d6 1A68     		ldr	r2, [r3]
+ 194 00d8 264B     		ldr	r3, .L9+4
+ 195 00da FF21     		movs	r1, #255
+ 196 00dc 8A43     		bics	r2, r1
+ 197 00de 1A60     		str	r2, [r3]
+  97:adc.c         **** 	AD1CR |= one32 << (tU8)channel;
+ 198              		.loc 1 97 0
+ 199 00e0 244B     		ldr	r3, .L9+4
+ 200 00e2 1968     		ldr	r1, [r3]
+ 201 00e4 0122     		movs	r2, #1
+ 202 00e6 FB1D     		adds	r3, r7, #7
+ 203 00e8 1B78     		ldrb	r3, [r3]
+ 204 00ea 9A40     		lsls	r2, r2, r3
+ 205 00ec 214B     		ldr	r3, .L9+4
+ 206 00ee 0A43     		orrs	r2, r1
+ 207 00f0 1A60     		str	r2, [r3]
+  98:adc.c         **** 
+  99:adc.c         **** 	/* Ustawienie trybu przetwornika na operacyjny i ustawienie konwersji na teraz */
+ 100:adc.c         **** 	AD1CR |= (one32 << 21) | (one32 << 24);
+ 208              		.loc 1 100 0
+ 209 00f2 204B     		ldr	r3, .L9+4
+ 210 00f4 1968     		ldr	r1, [r3]
+ 211 00f6 0123     		movs	r3, #1
+ 212 00f8 5A05     		lsls	r2, r3, #21
+ 213 00fa 0123     		movs	r3, #1
+ 214 00fc 1B06     		lsls	r3, r3, #24
+ 215 00fe 1A43     		orrs	r2, r3
+ 216 0100 1C4B     		ldr	r3, .L9+4
+ 217 0102 0A43     		orrs	r2, r1
+ 218 0104 1A60     		str	r2, [r3]
+ 101:adc.c         **** 	AD1CR &= ~((one32 << 26) | (one32 << 25));
+ 219              		.loc 1 101 0
+ 220 0106 1B4B     		ldr	r3, .L9+4
+ 221 0108 1A68     		ldr	r2, [r3]
+ 222 010a 0123     		movs	r3, #1
+ 223 010c 9906     		lsls	r1, r3, #26
+ 224 010e 0123     		movs	r3, #1
+ 225 0110 5B06     		lsls	r3, r3, #25
+ 226 0112 0B43     		orrs	r3, r1
+ 227 0114 D943     		mvns	r1, r3
+ 228 0116 174B     		ldr	r3, .L9+4
+ 229 0118 0A40     		ands	r2, r1
+ 230 011a 1A60     		str	r2, [r3]
+ 102:adc.c         **** 
+ 103:adc.c         **** 	/* Sprawdzanie, czy konwersja sie zakonczyla */
+ 104:adc.c         **** 	while ((AD1DR & 0x80000000U) == 0)
+ 231              		.loc 1 104 0
+ 232 011c C046     		nop
+ 233              	.L7:
+ 234              		.loc 1 104 0 is_stmt 0 discriminator 1
+ 235 011e 164B     		ldr	r3, .L9+8
+ 236 0120 1B68     		ldr	r3, [r3]
+ 237 0122 002B     		cmp	r3, #0
+ 238 0124 FBDA     		bge	.L7
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 7
+
+
+ 105:adc.c         **** 	{
+ 106:adc.c         **** 		;
+ 107:adc.c         **** 	}
+ 108:adc.c         **** 
+ 109:adc.c         **** 	/* Odczytanie z rejestru wyniku, ktory jest 10 bitowa liczba calkowita */
+ 110:adc.c         **** 	returnResult = (AD1DR >> 6) & 0x3FF;
+ 239              		.loc 1 110 0 is_stmt 1
+ 240 0126 144B     		ldr	r3, .L9+8
+ 241 0128 1B68     		ldr	r3, [r3]
+ 242 012a 9B09     		lsrs	r3, r3, #6
+ 243 012c 1B04     		lsls	r3, r3, #16
+ 244 012e 1A0C     		lsrs	r2, r3, #16
+ 245 0130 0E24     		movs	r4, #14
+ 246 0132 3B19     		adds	r3, r7, r4
+ 247 0134 9205     		lsls	r2, r2, #22
+ 248 0136 920D     		lsrs	r2, r2, #22
+ 249 0138 1A80     		strh	r2, [r3]
+ 111:adc.c         **** 
+ 112:adc.c         **** 	/* Ustawienie trybu przetwornika na power-down i wylaczenie rozpoczecia*/
+ 113:adc.c         **** 	AD1CR &= ~((one32 << 21) | (one32 << 24));
+ 250              		.loc 1 113 0
+ 251 013a 0E4B     		ldr	r3, .L9+4
+ 252 013c 1A68     		ldr	r2, [r3]
+ 253 013e 0123     		movs	r3, #1
+ 254 0140 5905     		lsls	r1, r3, #21
+ 255 0142 0123     		movs	r3, #1
+ 256 0144 1B06     		lsls	r3, r3, #24
+ 257 0146 0B43     		orrs	r3, r1
+ 258 0148 D943     		mvns	r1, r3
+ 259 014a 0A4B     		ldr	r3, .L9+4
+ 260 014c 0A40     		ands	r2, r1
+ 261 014e 1A60     		str	r2, [r3]
+ 114:adc.c         **** 
+ 115:adc.c         **** 	delay_ms(100);
+ 262              		.loc 1 115 0
+ 263 0150 6420     		movs	r0, #100
+ 264 0152 FFF7FEFF 		bl	delay_ms
+ 116:adc.c         **** 
+ 117:adc.c         **** 	/* Ustawienie pinu P0.14, zwiazanego z dokladoscia akcelerometru i chip select kontrolera Ethernet
+ 118:adc.c         **** 	IOSET = one32 << GS2;
+ 265              		.loc 1 118 0
+ 266 0156 0122     		movs	r2, #1
+ 267 0158 084B     		ldr	r3, .L9+12
+ 268 015a 9203     		lsls	r2, r2, #14
+ 269 015c 1A60     		str	r2, [r3]
+ 119:adc.c         ****   
+ 120:adc.c         **** 	return returnResult;
+ 270              		.loc 1 120 0
+ 271 015e 3B19     		adds	r3, r7, r4
+ 272 0160 1B88     		ldrh	r3, [r3]
+ 121:adc.c         **** }
+ 273              		.loc 1 121 0
+ 274 0162 1800     		movs	r0, r3
+ 275 0164 BD46     		mov	sp, r7
+ 276 0166 05B0     		add	sp, sp, #20
+ 277              		@ sp needed
+ 278 0168 90BC     		pop	{r4, r7}
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 8
+
+
+ 279 016a 02BC     		pop	{r1}
+ 280 016c 0847     		bx	r1
+ 281              	.L10:
+ 282 016e C046     		.align	2
+ 283              	.L9:
+ 284 0170 0C8002E0 		.word	-536707060
+ 285 0174 000006E0 		.word	-536477696
+ 286 0178 040006E0 		.word	-536477692
+ 287 017c 048002E0 		.word	-536707068
+ 288              		.cfi_endproc
+ 289              	.LFE1:
+ 290              		.size	getAnalogueInputAdc1, .-getAnalogueInputAdc1
+ 291              		.align	1
+ 292              		.global	initAdc
+ 293              		.syntax unified
+ 294              		.code	16
+ 295              		.thumb_func
+ 296              		.fpu softvfp
+ 297              		.type	initAdc, %function
+ 298              	initAdc:
+ 299              	.LFB2:
+ 122:adc.c         **** 
+ 123:adc.c         **** 
+ 124:adc.c         **** /*
+ 125:adc.c         ****  *  @brief			Funkcja incijalizujaca przetworniki analogowo-cyfrowe ADC0 i ADC1, aby moc odczytywac
+ 126:adc.c         ****  *					przyspieszenie z akcelerometru w trzeh osiach
+ 127:adc.c         ****  *
+ 128:adc.c         ****  *  @Description	Funckja ustawia odpowiednia wartosci w rejestrze PINSEL1 (bity 10.,13.,29. na 0,
+ 129:adc.c         ****  *					a bity 11., 12., 28. na 1), aby odpowiednie piny (P0.21, P0.22, P0.30) pelnily
+ 130:adc.c         ****  * 					funkcje zwiazane z odczytem z akcelerometru wartosci przyspieszenia wzdluz osi X, Y i Z.
+ 131:adc.c         ****  *
+ 132:adc.c         ****  *  @param 			brak
+ 133:adc.c         ****  *
+ 134:adc.c         ****  *  @returns  		nic
+ 135:adc.c         ****  *
+ 136:adc.c         ****  *  @side effects	Modyfikacja rejestru PINSEL1
+ 137:adc.c         ****  * 					Modyfikacja rejestru ADCR
+ 138:adc.c         ****  * 					Modyfikacja rejestru AD1CR
+ 139:adc.c         ****  */
+ 140:adc.c         **** void initAdc(void)
+ 141:adc.c         **** {
+ 300              		.loc 1 141 0
+ 301              		.cfi_startproc
+ 302              		@ Function supports interworking.
+ 303              		@ args = 0, pretend = 0, frame = 8
+ 304              		@ frame_needed = 1, uses_anonymous_args = 0
+ 305 0180 80B5     		push	{r7, lr}
+ 306              	.LCFI6:
+ 307              		.cfi_def_cfa_offset 8
+ 308              		.cfi_offset 7, -8
+ 309              		.cfi_offset 14, -4
+ 310 0182 82B0     		sub	sp, sp, #8
+ 311              	.LCFI7:
+ 312              		.cfi_def_cfa_offset 16
+ 313 0184 00AF     		add	r7, sp, #0
+ 314              	.LCFI8:
+ 315              		.cfi_def_cfa_register 7
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 9
+
+
+ 142:adc.c         **** 	/* Zero 32-bitowe */
+ 143:adc.c         **** 	const tU32 zero32 = 0u;
+ 316              		.loc 1 143 0
+ 317 0186 0023     		movs	r3, #0
+ 318 0188 7B60     		str	r3, [r7, #4]
+ 144:adc.c         **** 
+ 145:adc.c         **** 	/* Ustawienie dokladnosci pomiarowej na +- 1.5 g (800mV/g) - ustawienie stanu niskiego na pinach P
+ 146:adc.c         ****     IODIR |= (one32 << GS1) | (one32 << GS2);
+ 319              		.loc 1 146 0
+ 320 018a 374B     		ldr	r3, .L12
+ 321 018c 1968     		ldr	r1, [r3]
+ 322 018e 0123     		movs	r3, #1
+ 323 0190 5A03     		lsls	r2, r3, #13
+ 324 0192 0123     		movs	r3, #1
+ 325 0194 9B03     		lsls	r3, r3, #14
+ 326 0196 1A43     		orrs	r2, r3
+ 327 0198 334B     		ldr	r3, .L12
+ 328 019a 0A43     		orrs	r2, r1
+ 329 019c 1A60     		str	r2, [r3]
+ 147:adc.c         ****     IOCLR  = (one32 << GS1) | (one32 << GS2);
+ 330              		.loc 1 147 0
+ 331 019e 0123     		movs	r3, #1
+ 332 01a0 5903     		lsls	r1, r3, #13
+ 333 01a2 0123     		movs	r3, #1
+ 334 01a4 9A03     		lsls	r2, r3, #14
+ 335 01a6 314B     		ldr	r3, .L12+4
+ 336 01a8 0A43     		orrs	r2, r1
+ 337 01aa 1A60     		str	r2, [r3]
+ 148:adc.c         **** 
+ 149:adc.c         **** 	/*	Inicjalizacja wejscia ADC1: AIN1.6 (P0.21)*/
+ 150:adc.c         **** 	/*	Ustawienie funkcji pinu P0.21 na AIN1.6.
+ 151:adc.c         **** 	*	Umozliwia po przez przetwornik ADC1 (kanal 6)
+ 152:adc.c         **** 	*	odczyt przyspieszenia z akcelerometru wzdluz osi X.
+ 153:adc.c         **** 	*/
+ 154:adc.c         **** 	PINSEL1 &= ~((one32 << 10) | (one32 << 11));
+ 338              		.loc 1 154 0
+ 339 01ac 304B     		ldr	r3, .L12+8
+ 340 01ae 1A68     		ldr	r2, [r3]
+ 341 01b0 0123     		movs	r3, #1
+ 342 01b2 9902     		lsls	r1, r3, #10
+ 343 01b4 0123     		movs	r3, #1
+ 344 01b6 DB02     		lsls	r3, r3, #11
+ 345 01b8 0B43     		orrs	r3, r1
+ 346 01ba D943     		mvns	r1, r3
+ 347 01bc 2C4B     		ldr	r3, .L12+8
+ 348 01be 0A40     		ands	r2, r1
+ 349 01c0 1A60     		str	r2, [r3]
+ 155:adc.c         **** 	PINSEL1 |= (one32 << 11);
+ 350              		.loc 1 155 0
+ 351 01c2 2B4B     		ldr	r3, .L12+8
+ 352 01c4 1968     		ldr	r1, [r3]
+ 353 01c6 0123     		movs	r3, #1
+ 354 01c8 DA02     		lsls	r2, r3, #11
+ 355 01ca 294B     		ldr	r3, .L12+8
+ 356 01cc 0A43     		orrs	r2, r1
+ 357 01ce 1A60     		str	r2, [r3]
+ 156:adc.c         **** 	
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 10
+
+
+ 157:adc.c         **** 	/*	Inicjalizacja wejscia ADC1: AIN1.7 (P0.22)*/
+ 158:adc.c         **** 	/*	Ustawienie funkcji pinu P0.22 na AIN1.7.
+ 159:adc.c         **** 	*	Umozliwia po przez przetwornik ADC1 (kanal 7)
+ 160:adc.c         **** 	*	odczyt przyspieszenia z akcelerometru wzdluz osi Y.
+ 161:adc.c         **** 	*/
+ 162:adc.c         **** 	PINSEL1 &= ~((one32 << 12) | (one32 << 13));
+ 358              		.loc 1 162 0
+ 359 01d0 274B     		ldr	r3, .L12+8
+ 360 01d2 1A68     		ldr	r2, [r3]
+ 361 01d4 0123     		movs	r3, #1
+ 362 01d6 1903     		lsls	r1, r3, #12
+ 363 01d8 0123     		movs	r3, #1
+ 364 01da 5B03     		lsls	r3, r3, #13
+ 365 01dc 0B43     		orrs	r3, r1
+ 366 01de D943     		mvns	r1, r3
+ 367 01e0 234B     		ldr	r3, .L12+8
+ 368 01e2 0A40     		ands	r2, r1
+ 369 01e4 1A60     		str	r2, [r3]
+ 163:adc.c         **** 	PINSEL1 |= (one32 << 12);
+ 370              		.loc 1 163 0
+ 371 01e6 224B     		ldr	r3, .L12+8
+ 372 01e8 1968     		ldr	r1, [r3]
+ 373 01ea 0123     		movs	r3, #1
+ 374 01ec 1A03     		lsls	r2, r3, #12
+ 375 01ee 204B     		ldr	r3, .L12+8
+ 376 01f0 0A43     		orrs	r2, r1
+ 377 01f2 1A60     		str	r2, [r3]
+ 164:adc.c         **** 
+ 165:adc.c         **** 	/*	Inicjalizacja wejscia ADC0: AIN0.3 (P0.30)*/
+ 166:adc.c         **** 	/*	Ustawienie funkcji pinu P0.30 na AIN0.3.
+ 167:adc.c         **** 	*	Umozliwia po przez przetwornik ADC0 (kanal 3)
+ 168:adc.c         **** 	*	odczyt przyspieszenia z akcelerometru wzdluz osi Z.
+ 169:adc.c         **** 	*/
+ 170:adc.c         **** 	PINSEL1 &= ~((one32 << 28) | (one32 << 29));
+ 378              		.loc 1 170 0
+ 379 01f4 1E4B     		ldr	r3, .L12+8
+ 380 01f6 1A68     		ldr	r2, [r3]
+ 381 01f8 0123     		movs	r3, #1
+ 382 01fa 1907     		lsls	r1, r3, #28
+ 383 01fc 0123     		movs	r3, #1
+ 384 01fe 5B07     		lsls	r3, r3, #29
+ 385 0200 0B43     		orrs	r3, r1
+ 386 0202 D943     		mvns	r1, r3
+ 387 0204 1A4B     		ldr	r3, .L12+8
+ 388 0206 0A40     		ands	r2, r1
+ 389 0208 1A60     		str	r2, [r3]
+ 171:adc.c         **** 	PINSEL1 |= (one32 << 28);
+ 390              		.loc 1 171 0
+ 391 020a 194B     		ldr	r3, .L12+8
+ 392 020c 1968     		ldr	r1, [r3]
+ 393 020e 0123     		movs	r3, #1
+ 394 0210 1A07     		lsls	r2, r3, #28
+ 395 0212 174B     		ldr	r3, .L12+8
+ 396 0214 0A43     		orrs	r2, r1
+ 397 0216 1A60     		str	r2, [r3]
+ 172:adc.c         **** 	
+ 173:adc.c         **** 	/* Inicjalizacja przetwornikow analogow0-cyfrowych ADC0 i ADC1 */
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 11
+
+
+ 174:adc.c         **** 
+ 175:adc.c         **** 	/* Inicjalizacja przetwornika ADC0
+ 176:adc.c         **** 	*	Wybranie probnego kanalu
+ 177:adc.c         **** 	*	Ustawienie odpowiedniej wartosci dzielnika dla zegara, aby czestotliwosc taktowania zegara dla A
+ 178:adc.c         **** 	*	Ustawienie BURST na 0 (sterowanie software'em), umozliwia m.in. wybranie opcji "conversion now" 
+ 179:adc.c         **** 	*	Ustawienie liczby wykorzystywanych zegarow na 11 (wartosc 0)
+ 180:adc.c         **** 	*	Ustawienie trybu przetwornika na power-down (wartosc 0)
+ 181:adc.c         **** 	*	Ustawienie rozpoczrcia konwersji no start (wartosc 1)
+ 182:adc.c         **** 	*/
+ 183:adc.c         **** 	ADCR = (one32)                             		| /* Kanal 0 */
+ 184:adc.c         **** 	       ((((CRYSTAL_FREQUENCY *
+ 185:adc.c         **** 	         PLL_FACTOR /
+ 186:adc.c         **** 	         VPBDIV_FACTOR) / 2000000) - 1) << 8)	| /* Ustawienie dzielnika */
+ 187:adc.c         **** 	       (zero32 << 16)								| /* BURST = 0 */
+ 398              		.loc 1 187 0
+ 399 0218 7B68     		ldr	r3, [r7, #4]
+ 400 021a 1B04     		lsls	r3, r3, #16
+ 186:adc.c         **** 	       (zero32 << 16)								| /* BURST = 0 */
+ 401              		.loc 1 186 0
+ 402 021c 0122     		movs	r2, #1
+ 403 021e 1A43     		orrs	r2, r3
+ 188:adc.c         **** 	       (zero32 << 17)								| /* CLKS = 0 */
+ 404              		.loc 1 188 0
+ 405 0220 7B68     		ldr	r3, [r7, #4]
+ 406 0222 5B04     		lsls	r3, r3, #17
+ 187:adc.c         **** 	       (zero32 << 17)								| /* CLKS = 0 */
+ 407              		.loc 1 187 0
+ 408 0224 1A43     		orrs	r2, r3
+ 189:adc.c         **** 	       (zero32 << 21)								| /* PDN = 0 */
+ 409              		.loc 1 189 0
+ 410 0226 7B68     		ldr	r3, [r7, #4]
+ 411 0228 5B05     		lsls	r3, r3, #21
+ 188:adc.c         **** 	       (zero32 << 17)								| /* CLKS = 0 */
+ 412              		.loc 1 188 0
+ 413 022a 1A43     		orrs	r2, r3
+ 190:adc.c         **** 	       (zero32 << 24);								  /* START = 0 */
+ 414              		.loc 1 190 0
+ 415 022c 7B68     		ldr	r3, [r7, #4]
+ 416 022e 1B06     		lsls	r3, r3, #24
+ 189:adc.c         **** 	       (zero32 << 21)								| /* PDN = 0 */
+ 417              		.loc 1 189 0
+ 418 0230 1A43     		orrs	r2, r3
+ 183:adc.c         **** 	       ((((CRYSTAL_FREQUENCY *
+ 419              		.loc 1 183 0
+ 420 0232 104B     		ldr	r3, .L12+12
+ 189:adc.c         **** 	       (zero32 << 21)								| /* PDN = 0 */
+ 421              		.loc 1 189 0
+ 422 0234 E021     		movs	r1, #224
+ 423 0236 4901     		lsls	r1, r1, #5
+ 424 0238 0A43     		orrs	r2, r1
+ 183:adc.c         **** 	       ((((CRYSTAL_FREQUENCY *
+ 425              		.loc 1 183 0
+ 426 023a 1A60     		str	r2, [r3]
+ 191:adc.c         **** 	
+ 192:adc.c         **** 
+ 193:adc.c         **** 	/*Inicjalizacja przetwornika ADC1
+ 194:adc.c         **** 	*	Wybranie probnego kanalu
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 12
+
+
+ 195:adc.c         **** 	*	Ustawienie odpowiedniej wartosci dzielnika dla zegara, aby czestotliwosc taktowania zegara dla A
+ 196:adc.c         **** 	*	Ustawienie BURST na 0 (sterowanie software'em), umozliwia m.in. wybranie opcji "conversion now" 
+ 197:adc.c         **** 	*	Ustawienie liczby wykorzystywanych zegarow na 11 (wartosc 0)
+ 198:adc.c         **** 	*	Ustawienie trybu przetwornika na power-down (wartosc 0)
+ 199:adc.c         **** 	*	Ustawienie rozpoczecia konwersji no start (wartosc 0)
+ 200:adc.c         **** 	*/
+ 201:adc.c         **** 	AD1CR = (1u)                            		| /* Kanal 0 */
+ 202:adc.c         **** 	       ((((CRYSTAL_FREQUENCY *
+ 203:adc.c         **** 	         PLL_FACTOR /
+ 204:adc.c         **** 	         VPBDIV_FACTOR) / 2000000) - 1) << 8)	| /* Ustawienie dzielnika */
+ 205:adc.c         **** 	       (zero32 << 16)								| /* BURST = 0 */
+ 427              		.loc 1 205 0
+ 428 023c 7B68     		ldr	r3, [r7, #4]
+ 429 023e 1A04     		lsls	r2, r3, #16
+ 206:adc.c         **** 	       (zero32 << 17)								| /* CLKS = 0 */
+ 430              		.loc 1 206 0
+ 431 0240 7B68     		ldr	r3, [r7, #4]
+ 432 0242 5B04     		lsls	r3, r3, #17
+ 205:adc.c         **** 	       (zero32 << 17)								| /* CLKS = 0 */
+ 433              		.loc 1 205 0
+ 434 0244 1A43     		orrs	r2, r3
+ 207:adc.c         **** 	       (zero32 << 21)								| /* PDN = 0 */
+ 435              		.loc 1 207 0
+ 436 0246 7B68     		ldr	r3, [r7, #4]
+ 437 0248 5B05     		lsls	r3, r3, #21
+ 206:adc.c         **** 	       (zero32 << 17)								| /* CLKS = 0 */
+ 438              		.loc 1 206 0
+ 439 024a 1A43     		orrs	r2, r3
+ 208:adc.c         **** 	       (zero32 << 24);								  /* START = 0 */
+ 440              		.loc 1 208 0
+ 441 024c 7B68     		ldr	r3, [r7, #4]
+ 442 024e 1B06     		lsls	r3, r3, #24
+ 207:adc.c         **** 	       (zero32 << 21)								| /* PDN = 0 */
+ 443              		.loc 1 207 0
+ 444 0250 1A43     		orrs	r2, r3
+ 201:adc.c         **** 	       ((((CRYSTAL_FREQUENCY *
+ 445              		.loc 1 201 0
+ 446 0252 094B     		ldr	r3, .L12+16
+ 207:adc.c         **** 	       (zero32 << 21)								| /* PDN = 0 */
+ 447              		.loc 1 207 0
+ 448 0254 0949     		ldr	r1, .L12+20
+ 449 0256 0A43     		orrs	r2, r1
+ 201:adc.c         **** 	       ((((CRYSTAL_FREQUENCY *
+ 450              		.loc 1 201 0
+ 451 0258 1A60     		str	r2, [r3]
+ 209:adc.c         **** }
+ 452              		.loc 1 209 0
+ 453 025a C046     		nop
+ 454 025c BD46     		mov	sp, r7
+ 455 025e 02B0     		add	sp, sp, #8
+ 456              		@ sp needed
+ 457 0260 80BC     		pop	{r7}
+ 458 0262 01BC     		pop	{r0}
+ 459 0264 0047     		bx	r0
+ 460              	.L13:
+ 461 0266 C046     		.align	2
+ 462              	.L12:
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 13
+
+
+ 463 0268 088002E0 		.word	-536707064
+ 464 026c 0C8002E0 		.word	-536707060
+ 465 0270 04C002E0 		.word	-536690684
+ 466 0274 004003E0 		.word	-536657920
+ 467 0278 000006E0 		.word	-536477696
+ 468 027c 011C0000 		.word	7169
+ 469              		.cfi_endproc
+ 470              	.LFE2:
+ 471              		.size	initAdc, .-initAdc
+ 472              	.Letext0:
+ 473              		.file 2 "general.h"
+ 474              		.file 3 "adc.h"
+ 475              		.section	.debug_info,"",%progbits
+ 476              	.Ldebug_info0:
+ 477 0000 75010000 		.4byte	0x175
+ 478 0004 0200     		.2byte	0x2
+ 479 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 480 000a 04       		.byte	0x4
+ 481 000b 01       		.uleb128 0x1
+ 482 000c 8D000000 		.4byte	.LASF24
+ 483 0010 0C       		.byte	0xc
+ 484 0011 79010000 		.4byte	.LASF25
+ 485 0015 1B010000 		.4byte	.LASF26
+ 486 0019 00000000 		.4byte	.Ltext0
+ 487 001d 80020000 		.4byte	.Letext0
+ 488 0021 00000000 		.4byte	.Ldebug_line0
+ 489 0025 02       		.uleb128 0x2
+ 490 0026 74553800 		.ascii	"tU8\000"
+ 491 002a 02       		.byte	0x2
+ 492 002b 07       		.byte	0x7
+ 493 002c 30000000 		.4byte	0x30
+ 494 0030 03       		.uleb128 0x3
+ 495 0031 01       		.byte	0x1
+ 496 0032 08       		.byte	0x8
+ 497 0033 55000000 		.4byte	.LASF1
+ 498 0037 04       		.uleb128 0x4
+ 499 0038 65010000 		.4byte	.LASF0
+ 500 003c 02       		.byte	0x2
+ 501 003d 08       		.byte	0x8
+ 502 003e 42000000 		.4byte	0x42
+ 503 0042 03       		.uleb128 0x3
+ 504 0043 02       		.byte	0x2
+ 505 0044 07       		.byte	0x7
+ 506 0045 39010000 		.4byte	.LASF2
+ 507 0049 04       		.uleb128 0x4
+ 508 004a 93010000 		.4byte	.LASF3
+ 509 004e 02       		.byte	0x2
+ 510 004f 09       		.byte	0x9
+ 511 0050 59000000 		.4byte	0x59
+ 512 0054 05       		.uleb128 0x5
+ 513 0055 49000000 		.4byte	0x49
+ 514 0059 03       		.uleb128 0x3
+ 515 005a 04       		.byte	0x4
+ 516 005b 07       		.byte	0x7
+ 517 005c 13000000 		.4byte	.LASF4
+ 518 0060 03       		.uleb128 0x3
+ 519 0061 08       		.byte	0x8
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 14
+
+
+ 520 0062 07       		.byte	0x7
+ 521 0063 2F000000 		.4byte	.LASF5
+ 522 0067 03       		.uleb128 0x3
+ 523 0068 01       		.byte	0x1
+ 524 0069 06       		.byte	0x6
+ 525 006a 4C010000 		.4byte	.LASF6
+ 526 006e 03       		.uleb128 0x3
+ 527 006f 02       		.byte	0x2
+ 528 0070 05       		.byte	0x5
+ 529 0071 6F010000 		.4byte	.LASF7
+ 530 0075 06       		.uleb128 0x6
+ 531 0076 04       		.byte	0x4
+ 532 0077 05       		.byte	0x5
+ 533 0078 696E7400 		.ascii	"int\000"
+ 534 007c 03       		.uleb128 0x3
+ 535 007d 08       		.byte	0x8
+ 536 007e 05       		.byte	0x5
+ 537 007f 00000000 		.4byte	.LASF8
+ 538 0083 07       		.uleb128 0x7
+ 539 0084 07       		.byte	0x7
+ 540 0085 01       		.byte	0x1
+ 541 0086 30000000 		.4byte	0x30
+ 542 008a 03       		.byte	0x3
+ 543 008b 0E       		.byte	0xe
+ 544 008c C1000000 		.4byte	0xc1
+ 545 0090 08       		.uleb128 0x8
+ 546 0091 6A010000 		.4byte	.LASF9
+ 547 0095 00       		.byte	0
+ 548 0096 08       		.uleb128 0x8
+ 549 0097 98010000 		.4byte	.LASF10
+ 550 009b 01       		.byte	0x1
+ 551 009c 08       		.uleb128 0x8
+ 552 009d 0E000000 		.4byte	.LASF11
+ 553 00a1 02       		.byte	0x2
+ 554 00a2 08       		.uleb128 0x8
+ 555 00a3 7F010000 		.4byte	.LASF12
+ 556 00a7 03       		.byte	0x3
+ 557 00a8 08       		.uleb128 0x8
+ 558 00a9 84010000 		.4byte	.LASF13
+ 559 00ad 04       		.byte	0x4
+ 560 00ae 08       		.uleb128 0x8
+ 561 00af 89010000 		.4byte	.LASF14
+ 562 00b3 05       		.byte	0x5
+ 563 00b4 08       		.uleb128 0x8
+ 564 00b5 8E010000 		.4byte	.LASF15
+ 565 00b9 06       		.byte	0x6
+ 566 00ba 08       		.uleb128 0x8
+ 567 00bb 20000000 		.4byte	.LASF16
+ 568 00bf 07       		.byte	0x7
+ 569 00c0 00       		.byte	0
+ 570 00c1 04       		.uleb128 0x4
+ 571 00c2 25000000 		.4byte	.LASF17
+ 572 00c6 03       		.byte	0x3
+ 573 00c7 0E       		.byte	0xe
+ 574 00c8 83000000 		.4byte	0x83
+ 575 00cc 09       		.uleb128 0x9
+ 576 00cd 0D010000 		.4byte	.LASF18
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 15
+
+
+ 577 00d1 01       		.byte	0x1
+ 578 00d2 13       		.byte	0x13
+ 579 00d3 54000000 		.4byte	0x54
+ 580 00d7 05       		.byte	0x5
+ 581 00d8 03       		.byte	0x3
+ 582 00d9 00000000 		.4byte	one32
+ 583 00dd 0A       		.uleb128 0xa
+ 584 00de 01       		.byte	0x1
+ 585 00df 4D000000 		.4byte	.LASF21
+ 586 00e3 01       		.byte	0x1
+ 587 00e4 8C       		.byte	0x8c
+ 588 00e5 01       		.byte	0x1
+ 589 00e6 80010000 		.4byte	.LFB2
+ 590 00ea 80020000 		.4byte	.LFE2
+ 591 00ee 00000000 		.4byte	.LLST2
+ 592 00f2 01       		.byte	0x1
+ 593 00f3 06010000 		.4byte	0x106
+ 594 00f7 09       		.uleb128 0x9
+ 595 00f8 46000000 		.4byte	.LASF19
+ 596 00fc 01       		.byte	0x1
+ 597 00fd 8F       		.byte	0x8f
+ 598 00fe 54000000 		.4byte	0x54
+ 599 0102 02       		.byte	0x2
+ 600 0103 91       		.byte	0x91
+ 601 0104 74       		.sleb128 -12
+ 602 0105 00       		.byte	0
+ 603 0106 0B       		.uleb128 0xb
+ 604 0107 01       		.byte	0x1
+ 605 0108 78000000 		.4byte	.LASF27
+ 606 010c 01       		.byte	0x1
+ 607 010d 58       		.byte	0x58
+ 608 010e 01       		.byte	0x1
+ 609 010f 37000000 		.4byte	0x37
+ 610 0113 C0000000 		.4byte	.LFB1
+ 611 0117 80010000 		.4byte	.LFE1
+ 612 011b 38000000 		.4byte	.LLST1
+ 613 011f 01       		.byte	0x1
+ 614 0120 41010000 		.4byte	0x141
+ 615 0124 0C       		.uleb128 0xc
+ 616 0125 13010000 		.4byte	.LASF23
+ 617 0129 01       		.byte	0x1
+ 618 012a 58       		.byte	0x58
+ 619 012b C1000000 		.4byte	0xc1
+ 620 012f 02       		.byte	0x2
+ 621 0130 91       		.byte	0x91
+ 622 0131 67       		.sleb128 -25
+ 623 0132 09       		.uleb128 0x9
+ 624 0133 58010000 		.4byte	.LASF20
+ 625 0137 01       		.byte	0x1
+ 626 0138 5D       		.byte	0x5d
+ 627 0139 37000000 		.4byte	0x37
+ 628 013d 02       		.byte	0x2
+ 629 013e 91       		.byte	0x91
+ 630 013f 6E       		.sleb128 -18
+ 631 0140 00       		.byte	0
+ 632 0141 0D       		.uleb128 0xd
+ 633 0142 01       		.byte	0x1
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 16
+
+
+ 634 0143 63000000 		.4byte	.LASF22
+ 635 0147 01       		.byte	0x1
+ 636 0148 25       		.byte	0x25
+ 637 0149 01       		.byte	0x1
+ 638 014a 37000000 		.4byte	0x37
+ 639 014e 00000000 		.4byte	.LFB0
+ 640 0152 C0000000 		.4byte	.LFE0
+ 641 0156 70000000 		.4byte	.LLST0
+ 642 015a 01       		.byte	0x1
+ 643 015b 0C       		.uleb128 0xc
+ 644 015c 13010000 		.4byte	.LASF23
+ 645 0160 01       		.byte	0x1
+ 646 0161 25       		.byte	0x25
+ 647 0162 C1000000 		.4byte	0xc1
+ 648 0166 02       		.byte	0x2
+ 649 0167 91       		.byte	0x91
+ 650 0168 67       		.sleb128 -25
+ 651 0169 09       		.uleb128 0x9
+ 652 016a 58010000 		.4byte	.LASF20
+ 653 016e 01       		.byte	0x1
+ 654 016f 2B       		.byte	0x2b
+ 655 0170 37000000 		.4byte	0x37
+ 656 0174 02       		.byte	0x2
+ 657 0175 91       		.byte	0x91
+ 658 0176 6E       		.sleb128 -18
+ 659 0177 00       		.byte	0
+ 660 0178 00       		.byte	0
+ 661              		.section	.debug_abbrev,"",%progbits
+ 662              	.Ldebug_abbrev0:
+ 663 0000 01       		.uleb128 0x1
+ 664 0001 11       		.uleb128 0x11
+ 665 0002 01       		.byte	0x1
+ 666 0003 25       		.uleb128 0x25
+ 667 0004 0E       		.uleb128 0xe
+ 668 0005 13       		.uleb128 0x13
+ 669 0006 0B       		.uleb128 0xb
+ 670 0007 03       		.uleb128 0x3
+ 671 0008 0E       		.uleb128 0xe
+ 672 0009 1B       		.uleb128 0x1b
+ 673 000a 0E       		.uleb128 0xe
+ 674 000b 11       		.uleb128 0x11
+ 675 000c 01       		.uleb128 0x1
+ 676 000d 12       		.uleb128 0x12
+ 677 000e 01       		.uleb128 0x1
+ 678 000f 10       		.uleb128 0x10
+ 679 0010 06       		.uleb128 0x6
+ 680 0011 00       		.byte	0
+ 681 0012 00       		.byte	0
+ 682 0013 02       		.uleb128 0x2
+ 683 0014 16       		.uleb128 0x16
+ 684 0015 00       		.byte	0
+ 685 0016 03       		.uleb128 0x3
+ 686 0017 08       		.uleb128 0x8
+ 687 0018 3A       		.uleb128 0x3a
+ 688 0019 0B       		.uleb128 0xb
+ 689 001a 3B       		.uleb128 0x3b
+ 690 001b 0B       		.uleb128 0xb
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 17
+
+
+ 691 001c 49       		.uleb128 0x49
+ 692 001d 13       		.uleb128 0x13
+ 693 001e 00       		.byte	0
+ 694 001f 00       		.byte	0
+ 695 0020 03       		.uleb128 0x3
+ 696 0021 24       		.uleb128 0x24
+ 697 0022 00       		.byte	0
+ 698 0023 0B       		.uleb128 0xb
+ 699 0024 0B       		.uleb128 0xb
+ 700 0025 3E       		.uleb128 0x3e
+ 701 0026 0B       		.uleb128 0xb
+ 702 0027 03       		.uleb128 0x3
+ 703 0028 0E       		.uleb128 0xe
+ 704 0029 00       		.byte	0
+ 705 002a 00       		.byte	0
+ 706 002b 04       		.uleb128 0x4
+ 707 002c 16       		.uleb128 0x16
+ 708 002d 00       		.byte	0
+ 709 002e 03       		.uleb128 0x3
+ 710 002f 0E       		.uleb128 0xe
+ 711 0030 3A       		.uleb128 0x3a
+ 712 0031 0B       		.uleb128 0xb
+ 713 0032 3B       		.uleb128 0x3b
+ 714 0033 0B       		.uleb128 0xb
+ 715 0034 49       		.uleb128 0x49
+ 716 0035 13       		.uleb128 0x13
+ 717 0036 00       		.byte	0
+ 718 0037 00       		.byte	0
+ 719 0038 05       		.uleb128 0x5
+ 720 0039 26       		.uleb128 0x26
+ 721 003a 00       		.byte	0
+ 722 003b 49       		.uleb128 0x49
+ 723 003c 13       		.uleb128 0x13
+ 724 003d 00       		.byte	0
+ 725 003e 00       		.byte	0
+ 726 003f 06       		.uleb128 0x6
+ 727 0040 24       		.uleb128 0x24
+ 728 0041 00       		.byte	0
+ 729 0042 0B       		.uleb128 0xb
+ 730 0043 0B       		.uleb128 0xb
+ 731 0044 3E       		.uleb128 0x3e
+ 732 0045 0B       		.uleb128 0xb
+ 733 0046 03       		.uleb128 0x3
+ 734 0047 08       		.uleb128 0x8
+ 735 0048 00       		.byte	0
+ 736 0049 00       		.byte	0
+ 737 004a 07       		.uleb128 0x7
+ 738 004b 04       		.uleb128 0x4
+ 739 004c 01       		.byte	0x1
+ 740 004d 3E       		.uleb128 0x3e
+ 741 004e 0B       		.uleb128 0xb
+ 742 004f 0B       		.uleb128 0xb
+ 743 0050 0B       		.uleb128 0xb
+ 744 0051 49       		.uleb128 0x49
+ 745 0052 13       		.uleb128 0x13
+ 746 0053 3A       		.uleb128 0x3a
+ 747 0054 0B       		.uleb128 0xb
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 18
+
+
+ 748 0055 3B       		.uleb128 0x3b
+ 749 0056 0B       		.uleb128 0xb
+ 750 0057 01       		.uleb128 0x1
+ 751 0058 13       		.uleb128 0x13
+ 752 0059 00       		.byte	0
+ 753 005a 00       		.byte	0
+ 754 005b 08       		.uleb128 0x8
+ 755 005c 28       		.uleb128 0x28
+ 756 005d 00       		.byte	0
+ 757 005e 03       		.uleb128 0x3
+ 758 005f 0E       		.uleb128 0xe
+ 759 0060 1C       		.uleb128 0x1c
+ 760 0061 0B       		.uleb128 0xb
+ 761 0062 00       		.byte	0
+ 762 0063 00       		.byte	0
+ 763 0064 09       		.uleb128 0x9
+ 764 0065 34       		.uleb128 0x34
+ 765 0066 00       		.byte	0
+ 766 0067 03       		.uleb128 0x3
+ 767 0068 0E       		.uleb128 0xe
+ 768 0069 3A       		.uleb128 0x3a
+ 769 006a 0B       		.uleb128 0xb
+ 770 006b 3B       		.uleb128 0x3b
+ 771 006c 0B       		.uleb128 0xb
+ 772 006d 49       		.uleb128 0x49
+ 773 006e 13       		.uleb128 0x13
+ 774 006f 02       		.uleb128 0x2
+ 775 0070 0A       		.uleb128 0xa
+ 776 0071 00       		.byte	0
+ 777 0072 00       		.byte	0
+ 778 0073 0A       		.uleb128 0xa
+ 779 0074 2E       		.uleb128 0x2e
+ 780 0075 01       		.byte	0x1
+ 781 0076 3F       		.uleb128 0x3f
+ 782 0077 0C       		.uleb128 0xc
+ 783 0078 03       		.uleb128 0x3
+ 784 0079 0E       		.uleb128 0xe
+ 785 007a 3A       		.uleb128 0x3a
+ 786 007b 0B       		.uleb128 0xb
+ 787 007c 3B       		.uleb128 0x3b
+ 788 007d 0B       		.uleb128 0xb
+ 789 007e 27       		.uleb128 0x27
+ 790 007f 0C       		.uleb128 0xc
+ 791 0080 11       		.uleb128 0x11
+ 792 0081 01       		.uleb128 0x1
+ 793 0082 12       		.uleb128 0x12
+ 794 0083 01       		.uleb128 0x1
+ 795 0084 40       		.uleb128 0x40
+ 796 0085 06       		.uleb128 0x6
+ 797 0086 9742     		.uleb128 0x2117
+ 798 0088 0C       		.uleb128 0xc
+ 799 0089 01       		.uleb128 0x1
+ 800 008a 13       		.uleb128 0x13
+ 801 008b 00       		.byte	0
+ 802 008c 00       		.byte	0
+ 803 008d 0B       		.uleb128 0xb
+ 804 008e 2E       		.uleb128 0x2e
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 19
+
+
+ 805 008f 01       		.byte	0x1
+ 806 0090 3F       		.uleb128 0x3f
+ 807 0091 0C       		.uleb128 0xc
+ 808 0092 03       		.uleb128 0x3
+ 809 0093 0E       		.uleb128 0xe
+ 810 0094 3A       		.uleb128 0x3a
+ 811 0095 0B       		.uleb128 0xb
+ 812 0096 3B       		.uleb128 0x3b
+ 813 0097 0B       		.uleb128 0xb
+ 814 0098 27       		.uleb128 0x27
+ 815 0099 0C       		.uleb128 0xc
+ 816 009a 49       		.uleb128 0x49
+ 817 009b 13       		.uleb128 0x13
+ 818 009c 11       		.uleb128 0x11
+ 819 009d 01       		.uleb128 0x1
+ 820 009e 12       		.uleb128 0x12
+ 821 009f 01       		.uleb128 0x1
+ 822 00a0 40       		.uleb128 0x40
+ 823 00a1 06       		.uleb128 0x6
+ 824 00a2 9642     		.uleb128 0x2116
+ 825 00a4 0C       		.uleb128 0xc
+ 826 00a5 01       		.uleb128 0x1
+ 827 00a6 13       		.uleb128 0x13
+ 828 00a7 00       		.byte	0
+ 829 00a8 00       		.byte	0
+ 830 00a9 0C       		.uleb128 0xc
+ 831 00aa 05       		.uleb128 0x5
+ 832 00ab 00       		.byte	0
+ 833 00ac 03       		.uleb128 0x3
+ 834 00ad 0E       		.uleb128 0xe
+ 835 00ae 3A       		.uleb128 0x3a
+ 836 00af 0B       		.uleb128 0xb
+ 837 00b0 3B       		.uleb128 0x3b
+ 838 00b1 0B       		.uleb128 0xb
+ 839 00b2 49       		.uleb128 0x49
+ 840 00b3 13       		.uleb128 0x13
+ 841 00b4 02       		.uleb128 0x2
+ 842 00b5 0A       		.uleb128 0xa
+ 843 00b6 00       		.byte	0
+ 844 00b7 00       		.byte	0
+ 845 00b8 0D       		.uleb128 0xd
+ 846 00b9 2E       		.uleb128 0x2e
+ 847 00ba 01       		.byte	0x1
+ 848 00bb 3F       		.uleb128 0x3f
+ 849 00bc 0C       		.uleb128 0xc
+ 850 00bd 03       		.uleb128 0x3
+ 851 00be 0E       		.uleb128 0xe
+ 852 00bf 3A       		.uleb128 0x3a
+ 853 00c0 0B       		.uleb128 0xb
+ 854 00c1 3B       		.uleb128 0x3b
+ 855 00c2 0B       		.uleb128 0xb
+ 856 00c3 27       		.uleb128 0x27
+ 857 00c4 0C       		.uleb128 0xc
+ 858 00c5 49       		.uleb128 0x49
+ 859 00c6 13       		.uleb128 0x13
+ 860 00c7 11       		.uleb128 0x11
+ 861 00c8 01       		.uleb128 0x1
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 20
+
+
+ 862 00c9 12       		.uleb128 0x12
+ 863 00ca 01       		.uleb128 0x1
+ 864 00cb 40       		.uleb128 0x40
+ 865 00cc 06       		.uleb128 0x6
+ 866 00cd 9642     		.uleb128 0x2116
+ 867 00cf 0C       		.uleb128 0xc
+ 868 00d0 00       		.byte	0
+ 869 00d1 00       		.byte	0
+ 870 00d2 00       		.byte	0
+ 871              		.section	.debug_loc,"",%progbits
+ 872              	.Ldebug_loc0:
+ 873              	.LLST2:
+ 874 0000 80010000 		.4byte	.LFB2-.Ltext0
+ 875 0004 82010000 		.4byte	.LCFI6-.Ltext0
+ 876 0008 0200     		.2byte	0x2
+ 877 000a 7D       		.byte	0x7d
+ 878 000b 00       		.sleb128 0
+ 879 000c 82010000 		.4byte	.LCFI6-.Ltext0
+ 880 0010 84010000 		.4byte	.LCFI7-.Ltext0
+ 881 0014 0200     		.2byte	0x2
+ 882 0016 7D       		.byte	0x7d
+ 883 0017 08       		.sleb128 8
+ 884 0018 84010000 		.4byte	.LCFI7-.Ltext0
+ 885 001c 86010000 		.4byte	.LCFI8-.Ltext0
+ 886 0020 0200     		.2byte	0x2
+ 887 0022 7D       		.byte	0x7d
+ 888 0023 10       		.sleb128 16
+ 889 0024 86010000 		.4byte	.LCFI8-.Ltext0
+ 890 0028 80020000 		.4byte	.LFE2-.Ltext0
+ 891 002c 0200     		.2byte	0x2
+ 892 002e 77       		.byte	0x77
+ 893 002f 10       		.sleb128 16
+ 894 0030 00000000 		.4byte	0
+ 895 0034 00000000 		.4byte	0
+ 896              	.LLST1:
+ 897 0038 C0000000 		.4byte	.LFB1-.Ltext0
+ 898 003c C2000000 		.4byte	.LCFI3-.Ltext0
+ 899 0040 0200     		.2byte	0x2
+ 900 0042 7D       		.byte	0x7d
+ 901 0043 00       		.sleb128 0
+ 902 0044 C2000000 		.4byte	.LCFI3-.Ltext0
+ 903 0048 C4000000 		.4byte	.LCFI4-.Ltext0
+ 904 004c 0200     		.2byte	0x2
+ 905 004e 7D       		.byte	0x7d
+ 906 004f 0C       		.sleb128 12
+ 907 0050 C4000000 		.4byte	.LCFI4-.Ltext0
+ 908 0054 C6000000 		.4byte	.LCFI5-.Ltext0
+ 909 0058 0200     		.2byte	0x2
+ 910 005a 7D       		.byte	0x7d
+ 911 005b 20       		.sleb128 32
+ 912 005c C6000000 		.4byte	.LCFI5-.Ltext0
+ 913 0060 80010000 		.4byte	.LFE1-.Ltext0
+ 914 0064 0200     		.2byte	0x2
+ 915 0066 77       		.byte	0x77
+ 916 0067 20       		.sleb128 32
+ 917 0068 00000000 		.4byte	0
+ 918 006c 00000000 		.4byte	0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 21
+
+
+ 919              	.LLST0:
+ 920 0070 00000000 		.4byte	.LFB0-.Ltext0
+ 921 0074 02000000 		.4byte	.LCFI0-.Ltext0
+ 922 0078 0200     		.2byte	0x2
+ 923 007a 7D       		.byte	0x7d
+ 924 007b 00       		.sleb128 0
+ 925 007c 02000000 		.4byte	.LCFI0-.Ltext0
+ 926 0080 04000000 		.4byte	.LCFI1-.Ltext0
+ 927 0084 0200     		.2byte	0x2
+ 928 0086 7D       		.byte	0x7d
+ 929 0087 0C       		.sleb128 12
+ 930 0088 04000000 		.4byte	.LCFI1-.Ltext0
+ 931 008c 06000000 		.4byte	.LCFI2-.Ltext0
+ 932 0090 0200     		.2byte	0x2
+ 933 0092 7D       		.byte	0x7d
+ 934 0093 20       		.sleb128 32
+ 935 0094 06000000 		.4byte	.LCFI2-.Ltext0
+ 936 0098 C0000000 		.4byte	.LFE0-.Ltext0
+ 937 009c 0200     		.2byte	0x2
+ 938 009e 77       		.byte	0x77
+ 939 009f 20       		.sleb128 32
+ 940 00a0 00000000 		.4byte	0
+ 941 00a4 00000000 		.4byte	0
+ 942              		.section	.debug_aranges,"",%progbits
+ 943 0000 1C000000 		.4byte	0x1c
+ 944 0004 0200     		.2byte	0x2
+ 945 0006 00000000 		.4byte	.Ldebug_info0
+ 946 000a 04       		.byte	0x4
+ 947 000b 00       		.byte	0
+ 948 000c 0000     		.2byte	0
+ 949 000e 0000     		.2byte	0
+ 950 0010 00000000 		.4byte	.Ltext0
+ 951 0014 80020000 		.4byte	.Letext0-.Ltext0
+ 952 0018 00000000 		.4byte	0
+ 953 001c 00000000 		.4byte	0
+ 954              		.section	.debug_line,"",%progbits
+ 955              	.Ldebug_line0:
+ 956 0000 9E000000 		.section	.debug_str,"MS",%progbits,1
+ 956      02003200 
+ 956      00000201 
+ 956      FB0E0D00 
+ 956      01010101 
+ 957              	.LASF8:
+ 958 0000 6C6F6E67 		.ascii	"long long int\000"
+ 958      206C6F6E 
+ 958      6720696E 
+ 958      7400
+ 959              	.LASF11:
+ 960 000e 41494E32 		.ascii	"AIN2\000"
+ 960      00
+ 961              	.LASF4:
+ 962 0013 756E7369 		.ascii	"unsigned int\000"
+ 962      676E6564 
+ 962      20696E74 
+ 962      00
+ 963              	.LASF16:
+ 964 0020 41494E37 		.ascii	"AIN7\000"
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 22
+
+
+ 964      00
+ 965              	.LASF17:
+ 966 0025 41646343 		.ascii	"AdcChanel\000"
+ 966      68616E65 
+ 966      6C00
+ 967              	.LASF5:
+ 968 002f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 968      206C6F6E 
+ 968      6720756E 
+ 968      7369676E 
+ 968      65642069 
+ 969              	.LASF19:
+ 970 0046 7A65726F 		.ascii	"zero32\000"
+ 970      333200
+ 971              	.LASF21:
+ 972 004d 696E6974 		.ascii	"initAdc\000"
+ 972      41646300 
+ 973              	.LASF1:
+ 974 0055 756E7369 		.ascii	"unsigned char\000"
+ 974      676E6564 
+ 974      20636861 
+ 974      7200
+ 975              	.LASF22:
+ 976 0063 67657441 		.ascii	"getAnalogueInputAdc0\000"
+ 976      6E616C6F 
+ 976      67756549 
+ 976      6E707574 
+ 976      41646330 
+ 977              	.LASF27:
+ 978 0078 67657441 		.ascii	"getAnalogueInputAdc1\000"
+ 978      6E616C6F 
+ 978      67756549 
+ 978      6E707574 
+ 978      41646331 
+ 979              	.LASF24:
+ 980 008d 474E5520 		.ascii	"GNU C11 7.3.1 20180622 (release) [ARM/embedded-7-br"
+ 980      43313120 
+ 980      372E332E 
+ 980      31203230 
+ 980      31383036 
+ 981 00c0 616E6368 		.ascii	"anch revision 261907] -mcpu=arm7tdmi -mthumb -mthum"
+ 981      20726576 
+ 981      6973696F 
+ 981      6E203236 
+ 981      31393037 
+ 982 00f3 622D696E 		.ascii	"b-interwork -gdwarf-2 -O0\000"
+ 982      74657277 
+ 982      6F726B20 
+ 982      2D676477 
+ 982      6172662D 
+ 983              	.LASF18:
+ 984 010d 6F6E6533 		.ascii	"one32\000"
+ 984      3200
+ 985              	.LASF23:
+ 986 0113 6368616E 		.ascii	"channel\000"
+ 986      6E656C00 
+ 987              	.LASF26:
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 23
+
+
+ 988 011b 433A5C45 		.ascii	"C:\\Embedded\\2138MiniDemo\\2138\000"
+ 988      6D626564 
+ 988      6465645C 
+ 988      32313338 
+ 988      4D696E69 
+ 989              	.LASF2:
+ 990 0139 73686F72 		.ascii	"short unsigned int\000"
+ 990      7420756E 
+ 990      7369676E 
+ 990      65642069 
+ 990      6E7400
+ 991              	.LASF6:
+ 992 014c 7369676E 		.ascii	"signed char\000"
+ 992      65642063 
+ 992      68617200 
+ 993              	.LASF20:
+ 994 0158 72657475 		.ascii	"returnResult\000"
+ 994      726E5265 
+ 994      73756C74 
+ 994      00
+ 995              	.LASF0:
+ 996 0165 74553136 		.ascii	"tU16\000"
+ 996      00
+ 997              	.LASF9:
+ 998 016a 41494E30 		.ascii	"AIN0\000"
+ 998      00
+ 999              	.LASF7:
+ 1000 016f 73686F72 		.ascii	"short int\000"
+ 1000      7420696E 
+ 1000      7400
+ 1001              	.LASF25:
+ 1002 0179 6164632E 		.ascii	"adc.c\000"
+ 1002      6300
+ 1003              	.LASF12:
+ 1004 017f 41494E33 		.ascii	"AIN3\000"
+ 1004      00
+ 1005              	.LASF13:
+ 1006 0184 41494E34 		.ascii	"AIN4\000"
+ 1006      00
+ 1007              	.LASF14:
+ 1008 0189 41494E35 		.ascii	"AIN5\000"
+ 1008      00
+ 1009              	.LASF15:
+ 1010 018e 41494E36 		.ascii	"AIN6\000"
+ 1010      00
+ 1011              	.LASF3:
+ 1012 0193 74553332 		.ascii	"tU32\000"
+ 1012      00
+ 1013              	.LASF10:
+ 1014 0198 41494E31 		.ascii	"AIN1\000"
+ 1014      00
+ 1015              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 7.3.1 20180622 (release) [AR
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s 			page 24
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 adc.c
+C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s:16     .rodata:00000000 $d
+C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s:19     .rodata:00000000 one32
+C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s:29     .text:00000000 getAnalogueInputAdc0
+C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s:37     .text:00000000 $t
+C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s:150    .text:000000b0 $d
+C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s:157    .text:000000c0 $t
+C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s:164    .text:000000c0 getAnalogueInputAdc1
+C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s:284    .text:00000170 $d
+C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s:291    .text:00000180 $t
+C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s:298    .text:00000180 initAdc
+C:\Users\embedded\AppData\Local\Temp\cctMD7zZ.s:463    .text:00000268 $d
+
+UNDEFINED SYMBOLS
+delay_ms

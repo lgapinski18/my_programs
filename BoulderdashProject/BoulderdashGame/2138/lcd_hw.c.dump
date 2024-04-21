@@ -1,0 +1,792 @@
+<?xml version="1.0"?>
+<dumps language="c">
+  <platform name="win64" char_bit="8" short_bit="16" int_bit="32" long_bit="32" long_long_bit="64" pointer_bit="64"/>
+  <rawtokens>
+    <file index="0" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c"/>
+    <file index="1" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h"/>
+    <file index="2" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h"/>
+    <tok fileIndex="0" linenr="1" column="1" str="/******************************************************************************x *x * Copyright:x *    (C) 2006 Embedded Artists ABx *x * File:x *    pca9532.cx *x * Description:x *    Implements hardware specific routinesx *x *****************************************************************************/"/>
+    <tok fileIndex="0" linenr="14" column="2" str="/* Includes */"/>
+    <tok fileIndex="0" linenr="15" column="1" str="//#include &quot;../pre_emptive_os/api/osapi.h&quot;"/>
+    <tok fileIndex="0" linenr="16" column="1" str="//#include &quot;../pre_emptive_os/api/general.h&quot;"/>
+    <tok fileIndex="0" linenr="17" column="1" str="#"/>
+    <tok fileIndex="0" linenr="17" column="2" str="include"/>
+    <tok fileIndex="0" linenr="17" column="10" str="&lt;lpc2xxx.h&gt;"/>
+    <tok fileIndex="0" linenr="18" column="1" str="#"/>
+    <tok fileIndex="0" linenr="18" column="2" str="include"/>
+    <tok fileIndex="0" linenr="18" column="10" str="&quot;lcd_hw.h&quot;"/>
+    <tok fileIndex="0" linenr="19" column="1" str="#"/>
+    <tok fileIndex="0" linenr="19" column="2" str="include"/>
+    <tok fileIndex="0" linenr="19" column="10" str="&quot;general.h&quot;"/>
+    <tok fileIndex="0" linenr="21" column="1" str="/* *  @briefxxxFunckja sluzaca do transmisji danych do LCD. * *  @DescriptionxFunkcja transmitujxxxca dane do LCD, z oczekiwaniem na zakoxxxczenie poprzedniej transmisji. * *  @param xxx[in]    data *                      Pakiet danych do wyslania do LCD. * *  @returns  xxnic * *  @side effectsx Modyfikacja ustawiexxx rejestrow PINSEL0, SPI_SPCCR, SPI_SPCR, IODIR */"/>
+    <tok fileIndex="0" linenr="33" column="1" str="void"/>
+    <tok fileIndex="0" linenr="33" column="6" str="sendToLCD"/>
+    <tok fileIndex="0" linenr="33" column="15" str="("/>
+    <tok fileIndex="0" linenr="33" column="16" str="tU8"/>
+    <tok fileIndex="0" linenr="33" column="20" str="firstBit"/>
+    <tok fileIndex="0" linenr="33" column="28" str=","/>
+    <tok fileIndex="0" linenr="33" column="30" str="tU8"/>
+    <tok fileIndex="0" linenr="33" column="34" str="data"/>
+    <tok fileIndex="0" linenr="33" column="38" str=")"/>
+    <tok fileIndex="0" linenr="34" column="1" str="{"/>
+    <tok fileIndex="0" linenr="35" column="5" str="//Wylaczenie SPI"/>
+    <tok fileIndex="0" linenr="36" column="5" str="IOCLR"/>
+    <tok fileIndex="0" linenr="36" column="11" str="="/>
+    <tok fileIndex="0" linenr="36" column="13" str="LCD_CLK"/>
+    <tok fileIndex="0" linenr="36" column="20" str=";"/>
+    <tok fileIndex="0" linenr="37" column="5" str="PINSEL0"/>
+    <tok fileIndex="0" linenr="37" column="13" str="&amp;="/>
+    <tok fileIndex="0" linenr="37" column="16" str="0xffffc0ffU"/>
+    <tok fileIndex="0" linenr="37" column="27" str=";"/>
+    <tok fileIndex="0" linenr="39" column="5" str="if"/>
+    <tok fileIndex="0" linenr="39" column="8" str="("/>
+    <tok fileIndex="0" linenr="39" column="9" str="firstBit"/>
+    <tok fileIndex="0" linenr="39" column="18" str="=="/>
+    <tok fileIndex="0" linenr="39" column="21" str="("/>
+    <tok fileIndex="0" linenr="39" column="22" str="tU8"/>
+    <tok fileIndex="0" linenr="39" column="25" str=")"/>
+    <tok fileIndex="0" linenr="39" column="27" str="1"/>
+    <tok fileIndex="0" linenr="39" column="28" str=")"/>
+    <tok fileIndex="0" linenr="40" column="5" str="{"/>
+    <tok fileIndex="0" linenr="41" column="9" str="IOSET"/>
+    <tok fileIndex="0" linenr="41" column="15" str="="/>
+    <tok fileIndex="0" linenr="41" column="17" str="LCD_MOSI"/>
+    <tok fileIndex="0" linenr="41" column="25" str=";"/>
+    <tok fileIndex="0" linenr="41" column="29" str="//set MOSI"/>
+    <tok fileIndex="0" linenr="42" column="5" str="}"/>
+    <tok fileIndex="0" linenr="43" column="5" str="else"/>
+    <tok fileIndex="0" linenr="44" column="5" str="{"/>
+    <tok fileIndex="0" linenr="45" column="9" str="IOCLR"/>
+    <tok fileIndex="0" linenr="45" column="15" str="="/>
+    <tok fileIndex="0" linenr="45" column="17" str="LCD_MOSI"/>
+    <tok fileIndex="0" linenr="45" column="25" str=";"/>
+    <tok fileIndex="0" linenr="45" column="29" str="//reset MOSI"/>
+    <tok fileIndex="0" linenr="46" column="5" str="}"/>
+    <tok fileIndex="0" linenr="48" column="5" str="tU16"/>
+    <tok fileIndex="0" linenr="48" column="10" str="dataToSend"/>
+    <tok fileIndex="0" linenr="48" column="21" str="="/>
+    <tok fileIndex="0" linenr="48" column="23" str="0"/>
+    <tok fileIndex="0" linenr="48" column="24" str=";"/>
+    <tok fileIndex="0" linenr="49" column="5" str="if"/>
+    <tok fileIndex="0" linenr="49" column="8" str="("/>
+    <tok fileIndex="0" linenr="49" column="9" str="firstBit"/>
+    <tok fileIndex="0" linenr="49" column="18" str="=="/>
+    <tok fileIndex="0" linenr="49" column="21" str="("/>
+    <tok fileIndex="0" linenr="49" column="22" str="tU8"/>
+    <tok fileIndex="0" linenr="49" column="25" str=")"/>
+    <tok fileIndex="0" linenr="49" column="27" str="1"/>
+    <tok fileIndex="0" linenr="49" column="28" str=")"/>
+    <tok fileIndex="0" linenr="50" column="5" str="{"/>
+    <tok fileIndex="0" linenr="51" column="9" str="dataToSend"/>
+    <tok fileIndex="0" linenr="51" column="20" str="="/>
+    <tok fileIndex="0" linenr="51" column="22" str="("/>
+    <tok fileIndex="0" linenr="51" column="23" str="("/>
+    <tok fileIndex="0" linenr="51" column="24" str="tU16"/>
+    <tok fileIndex="0" linenr="51" column="28" str=")"/>
+    <tok fileIndex="0" linenr="51" column="30" str="data"/>
+    <tok fileIndex="0" linenr="51" column="34" str=")"/>
+    <tok fileIndex="0" linenr="51" column="36" str="&amp;"/>
+    <tok fileIndex="0" linenr="51" column="38" str="("/>
+    <tok fileIndex="0" linenr="51" column="39" str="("/>
+    <tok fileIndex="0" linenr="51" column="40" str="tU16"/>
+    <tok fileIndex="0" linenr="51" column="44" str=")"/>
+    <tok fileIndex="0" linenr="51" column="46" str="~"/>
+    <tok fileIndex="0" linenr="51" column="47" str="0x0100u"/>
+    <tok fileIndex="0" linenr="51" column="54" str=")"/>
+    <tok fileIndex="0" linenr="51" column="55" str=";"/>
+    <tok fileIndex="0" linenr="52" column="5" str="}"/>
+    <tok fileIndex="0" linenr="53" column="5" str="else"/>
+    <tok fileIndex="0" linenr="54" column="5" str="{"/>
+    <tok fileIndex="0" linenr="55" column="9" str="dataToSend"/>
+    <tok fileIndex="0" linenr="55" column="20" str="="/>
+    <tok fileIndex="0" linenr="55" column="22" str="("/>
+    <tok fileIndex="0" linenr="55" column="23" str="("/>
+    <tok fileIndex="0" linenr="55" column="24" str="tU16"/>
+    <tok fileIndex="0" linenr="55" column="28" str=")"/>
+    <tok fileIndex="0" linenr="55" column="30" str="data"/>
+    <tok fileIndex="0" linenr="55" column="34" str=")"/>
+    <tok fileIndex="0" linenr="55" column="36" str="|"/>
+    <tok fileIndex="0" linenr="55" column="38" str="("/>
+    <tok fileIndex="0" linenr="55" column="39" str="("/>
+    <tok fileIndex="0" linenr="55" column="40" str="tU16"/>
+    <tok fileIndex="0" linenr="55" column="44" str=")"/>
+    <tok fileIndex="0" linenr="55" column="46" str="0x0100"/>
+    <tok fileIndex="0" linenr="55" column="52" str=")"/>
+    <tok fileIndex="0" linenr="55" column="53" str=";"/>
+    <tok fileIndex="0" linenr="56" column="5" str="}"/>
+    <tok fileIndex="0" linenr="58" column="5" str="//Set clock high"/>
+    <tok fileIndex="0" linenr="59" column="5" str="IOSET"/>
+    <tok fileIndex="0" linenr="59" column="11" str="="/>
+    <tok fileIndex="0" linenr="59" column="13" str="LCD_CLK"/>
+    <tok fileIndex="0" linenr="59" column="20" str=";"/>
+    <tok fileIndex="0" linenr="61" column="5" str="//Set clock low"/>
+    <tok fileIndex="0" linenr="62" column="5" str="IOCLR"/>
+    <tok fileIndex="0" linenr="62" column="11" str="="/>
+    <tok fileIndex="0" linenr="62" column="13" str="LCD_CLK"/>
+    <tok fileIndex="0" linenr="62" column="20" str=";"/>
+    <tok fileIndex="0" linenr="64" column="5" str="//Ponowna inicjalizacja rejetrxxxw"/>
+    <tok fileIndex="0" linenr="65" column="5" str="SPI_SPCCR"/>
+    <tok fileIndex="0" linenr="65" column="15" str="="/>
+    <tok fileIndex="0" linenr="65" column="17" str="0x08"/>
+    <tok fileIndex="0" linenr="65" column="21" str=";"/>
+    <tok fileIndex="0" linenr="66" column="5" str="SPI_SPCR"/>
+    <tok fileIndex="0" linenr="66" column="15" str="="/>
+    <tok fileIndex="0" linenr="66" column="17" str="0x20"/>
+    <tok fileIndex="0" linenr="66" column="21" str=";"/>
+    <tok fileIndex="0" linenr="68" column="5" str="//Ponowna konfiguracja PINSELu"/>
+    <tok fileIndex="0" linenr="69" column="5" str="PINSEL0"/>
+    <tok fileIndex="0" linenr="69" column="13" str="|="/>
+    <tok fileIndex="0" linenr="69" column="16" str="0x00001500"/>
+    <tok fileIndex="0" linenr="69" column="26" str=";"/>
+    <tok fileIndex="0" linenr="71" column="5" str="//Przeslanie bajtu informacji"/>
+    <tok fileIndex="0" linenr="72" column="5" str="SPI_SPDR"/>
+    <tok fileIndex="0" linenr="72" column="14" str="="/>
+    <tok fileIndex="0" linenr="72" column="16" str="dataToSend"/>
+    <tok fileIndex="0" linenr="72" column="26" str=";"/>
+    <tok fileIndex="0" linenr="74" column="5" str="//Pxxxtla oczekujxxxca na zakoxxxczenie transmisji"/>
+    <tok fileIndex="0" linenr="75" column="5" str="while"/>
+    <tok fileIndex="0" linenr="75" column="10" str="("/>
+    <tok fileIndex="0" linenr="75" column="11" str="("/>
+    <tok fileIndex="0" linenr="75" column="12" str="SPI_SPSR"/>
+    <tok fileIndex="0" linenr="75" column="21" str="&amp;"/>
+    <tok fileIndex="0" linenr="75" column="23" str="0x80"/>
+    <tok fileIndex="0" linenr="75" column="27" str=")"/>
+    <tok fileIndex="0" linenr="75" column="29" str="=="/>
+    <tok fileIndex="0" linenr="75" column="32" str="0"/>
+    <tok fileIndex="0" linenr="75" column="33" str=")"/>
+    <tok fileIndex="0" linenr="76" column="5" str="{"/>
+    <tok fileIndex="0" linenr="77" column="7" str=";"/>
+    <tok fileIndex="0" linenr="78" column="5" str="}"/>
+    <tok fileIndex="0" linenr="79" column="1" str="}"/>
+    <tok fileIndex="0" linenr="81" column="1" str="/*x *  @briefxxxFunckja inicjalizujaca interfejs SPI w celu umoxxxliwienia korzystania z LCD.x *x *  @DescriptionxFunkcja ustawiajaca odpowiednie wartosci na rejestrach PINSEL0 oraz rejestrach magistrali SPIx *                  w celu poprawnego dzialania wyswietlacza LCDx *x *  @param xxxbrakx *x *  @returns  xxnicx *x *  @side effectsx Modyfikacja ustawiexxx rejestrow PINSEL0, SPI_SPCCR, SPI_SPCR, IODIRx */"/>
+    <tok fileIndex="0" linenr="93" column="1" str="void"/>
+    <tok fileIndex="0" linenr="93" column="6" str="initSpiForLcd"/>
+    <tok fileIndex="0" linenr="93" column="19" str="("/>
+    <tok fileIndex="0" linenr="93" column="20" str="void"/>
+    <tok fileIndex="0" linenr="93" column="24" str=")"/>
+    <tok fileIndex="0" linenr="94" column="1" str="{"/>
+    <tok fileIndex="0" linenr="95" column="7" str="//make SPI slave chip select an output and set signal high"/>
+    <tok fileIndex="0" linenr="96" column="7" str="IODIR"/>
+    <tok fileIndex="0" linenr="96" column="13" str="|="/>
+    <tok fileIndex="0" linenr="96" column="16" str="("/>
+    <tok fileIndex="0" linenr="96" column="17" str="LCD_CS"/>
+    <tok fileIndex="0" linenr="96" column="24" str="|"/>
+    <tok fileIndex="0" linenr="96" column="26" str="LCD_CLK"/>
+    <tok fileIndex="0" linenr="96" column="34" str="|"/>
+    <tok fileIndex="0" linenr="96" column="36" str="LCD_MOSI"/>
+    <tok fileIndex="0" linenr="96" column="44" str=")"/>
+    <tok fileIndex="0" linenr="96" column="45" str=";"/>
+    <tok fileIndex="0" linenr="98" column="7" str="//Wyxxxxcza slave&apos;a"/>
+    <tok fileIndex="0" linenr="99" column="7" str="selectLCD"/>
+    <tok fileIndex="0" linenr="99" column="16" str="("/>
+    <tok fileIndex="0" linenr="99" column="17" str="FALSE"/>
+    <tok fileIndex="0" linenr="99" column="22" str=")"/>
+    <tok fileIndex="0" linenr="99" column="23" str=";"/>
+    <tok fileIndex="0" linenr="101" column="7" str="//Ustawienie PINSELU to jest:"/>
+    <tok fileIndex="0" linenr="102" column="7" str="//Ustawienie pinu P0.4 na funkcje SCK0"/>
+    <tok fileIndex="0" linenr="103" column="7" str="//Ustawienie pinu P0.5 na funckje MISO0"/>
+    <tok fileIndex="0" linenr="104" column="7" str="//Ustawienie pinu P0.6 na funckje MOSI0"/>
+    <tok fileIndex="0" linenr="105" column="7" str="PINSEL0"/>
+    <tok fileIndex="0" linenr="105" column="15" str="|="/>
+    <tok fileIndex="0" linenr="105" column="18" str="0x00001500"/>
+    <tok fileIndex="0" linenr="105" column="28" str=";"/>
+    <tok fileIndex="0" linenr="107" column="7" str="//Ustawienie odpowiednich wartosci rejestrow"/>
+    <tok fileIndex="0" linenr="109" column="7" str="//Ustawienie wartosci rejestru Clock Counter"/>
+    <tok fileIndex="0" linenr="110" column="7" str="SPI_SPCCR"/>
+    <tok fileIndex="0" linenr="110" column="17" str="="/>
+    <tok fileIndex="0" linenr="110" column="19" str="0x08"/>
+    <tok fileIndex="0" linenr="110" column="23" str=";"/>
+    <tok fileIndex="0" linenr="111" column="7" str="//Wxxxxxxczenie z wykorzystaniem rejestru kontroli trynu master"/>
+    <tok fileIndex="0" linenr="112" column="7" str="SPI_SPCR"/>
+    <tok fileIndex="0" linenr="112" column="17" str="="/>
+    <tok fileIndex="0" linenr="112" column="19" str="0x20"/>
+    <tok fileIndex="0" linenr="112" column="23" str=";"/>
+    <tok fileIndex="0" linenr="113" column="1" str="}"/>
+    <tok fileIndex="0" linenr="115" column="1" str="/*x *  @briefxxxFunkcja wlaczajaca i wylaczajaca wyswietlacz LCD jako slave w transmisji przez magistale SPI.x *x *  @DescriptionxFunkcja wlaczajaca i wylaczajaca wyswietlacz LCD jako slave w transmisji przez magistale SPIx *                  po przez ustawienie stanu LOW na pinie P0.7 SSEL w celu wybrania LCD jako cel transmisji, x *                  w przeciwnym wypadku wylacza go z transmisji.x *x *  @param xxx[in]    selectx *                      TRUE okresla, ze LCD ma byc celem transmisji przez SPI, FALSE okresla, ze nim ma nie byc.x *x *  @returns  xxnicx *x *  @side effectsxUstawienie pinu P0.7 SSEL na stan wysoki badz niskix */"/>
+    <tok fileIndex="0" linenr="129" column="1" str="void"/>
+    <tok fileIndex="0" linenr="130" column="1" str="selectLCD"/>
+    <tok fileIndex="0" linenr="130" column="10" str="("/>
+    <tok fileIndex="0" linenr="130" column="11" str="tBool"/>
+    <tok fileIndex="0" linenr="130" column="17" str="select"/>
+    <tok fileIndex="0" linenr="130" column="23" str=")"/>
+    <tok fileIndex="0" linenr="131" column="1" str="{"/>
+    <tok fileIndex="0" linenr="132" column="5" str="if"/>
+    <tok fileIndex="0" linenr="132" column="8" str="("/>
+    <tok fileIndex="0" linenr="132" column="9" str="TRUE"/>
+    <tok fileIndex="0" linenr="132" column="14" str="=="/>
+    <tok fileIndex="0" linenr="132" column="17" str="select"/>
+    <tok fileIndex="0" linenr="132" column="23" str=")"/>
+    <tok fileIndex="0" linenr="133" column="5" str="{"/>
+    <tok fileIndex="0" linenr="134" column="9" str="IOCLR"/>
+    <tok fileIndex="0" linenr="134" column="15" str="="/>
+    <tok fileIndex="0" linenr="134" column="17" str="LCD_CS"/>
+    <tok fileIndex="0" linenr="134" column="23" str=";"/>
+    <tok fileIndex="0" linenr="135" column="5" str="}"/>
+    <tok fileIndex="0" linenr="136" column="5" str="else"/>
+    <tok fileIndex="0" linenr="137" column="5" str="{"/>
+    <tok fileIndex="0" linenr="138" column="9" str="IOSET"/>
+    <tok fileIndex="0" linenr="138" column="15" str="="/>
+    <tok fileIndex="0" linenr="138" column="17" str="LCD_CS"/>
+    <tok fileIndex="0" linenr="138" column="23" str=";"/>
+    <tok fileIndex="0" linenr="139" column="5" str="}"/>
+    <tok fileIndex="0" linenr="140" column="1" str="}"/>
+  </rawtokens>
+  <suppressions>
+    <suppression errorId="misra-c2012-2.3" />
+    <suppression errorId="misra-c2012-2.5" />
+    <suppression errorId="misra-c2012-11.4" />
+  </suppressions>
+<dump cfg="">
+  <standards>
+    <c version="c11"/>
+    <cpp version="c++23"/>
+  </standards>
+  <directivelist>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="17" str="#include &lt;lpc2xxx.h&gt;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="18" str="#include &quot;lcd_hw.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="19" str="#include &quot;general.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="4" str="#ifndef GENERAL_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="5" str="#define GENERAL_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="18" str="#define BIT(n) (1u &lt;&lt; (n))"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="21" str="#endif"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="13" str="#ifndef PCA9532_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="14" str="#define PCA9532_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="17" str="#include &quot;general.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="18" str="#include &lt;lpc2xxx.h&gt;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="22" str="#define LCD_CS 0x00000080"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="23" str="#define LCD_CLK 0x00000010"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="24" str="#define LCD_MOSI 0x00000040"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="73" str="#endif"/>
+  </directivelist>
+  <macro-usage>
+    <macro name="GENERAL_H" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="5" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" useline="4" usecolumn="9" is-known-value="true"/>
+    <macro name="GENERAL_H" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="5" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" useline="4" usecolumn="9" is-known-value="true"/>
+    <macro name="PCA9532_H" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" line="14" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" useline="13" usecolumn="9" is-known-value="true"/>
+    <macro name="LCD_CS" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" line="22" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" useline="96" usecolumn="17" is-known-value="true"/>
+    <macro name="LCD_CS" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" line="22" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" useline="134" usecolumn="17" is-known-value="true"/>
+    <macro name="LCD_CS" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" line="22" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" useline="138" usecolumn="17" is-known-value="true"/>
+    <macro name="LCD_CLK" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" line="23" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" useline="36" usecolumn="13" is-known-value="true"/>
+    <macro name="LCD_CLK" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" line="23" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" useline="59" usecolumn="13" is-known-value="true"/>
+    <macro name="LCD_CLK" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" line="23" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" useline="62" usecolumn="13" is-known-value="true"/>
+    <macro name="LCD_CLK" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" line="23" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" useline="96" usecolumn="26" is-known-value="true"/>
+    <macro name="LCD_MOSI" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" line="24" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" useline="41" usecolumn="17" is-known-value="true"/>
+    <macro name="LCD_MOSI" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" line="24" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" useline="45" usecolumn="17" is-known-value="true"/>
+    <macro name="LCD_MOSI" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" line="24" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" useline="96" usecolumn="36" is-known-value="true"/>
+  </macro-usage>
+  <tokenlist>
+    <token id="0000014121482A80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="9" str="enum" scope="00000141231B1BC0" type="name"/>
+    <token id="00000141214827E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="0" str="tBool" scope="00000141231B1BC0" type="name" type-scope="00000141231B1300"/>
+    <token id="0000014121482BA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="13" str="{" scope="00000141231B1300" link="00000141214849A0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="00000141231B1300"/>
+    <token id="0000014121484700" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="14" str="FALSE" scope="00000141231B1300" type="name" values="00000141232CBE00" astParent="00000141214846A0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="00000141231B1300"/>
+    <token id="00000141214846A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="20" str="=" scope="00000141231B1300" type="op" isAssignmentOp="true" values="00000141232CBAC0" astParent="0000014121484040" astOperand1="0000014121484700" astOperand2="0000014121483E00" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="00000141231B1300"/>
+    <token id="0000014121483E00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="22" str="0" scope="00000141231B1300" type="number" isInt="true" values="00000141232CB8C0" astParent="00000141214846A0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121484040" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="23" str="," scope="00000141231B1300" values="00000141232CBA60" astOperand1="00000141214846A0" astOperand2="0000014121483BC0"/>
+    <token id="0000014121484DC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="14" str="TRUE" scope="00000141231B1300" type="name" values="00000141232CBB60" astParent="0000014121483BC0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="00000141231B1300"/>
+    <token id="0000014121483BC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="20" str="=" scope="00000141231B1300" type="op" isAssignmentOp="true" values="00000141232CBCA0" astParent="0000014121484040" astOperand1="0000014121484DC0" astOperand2="0000014121483EC0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="00000141231B1300"/>
+    <token id="0000014121483EC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="22" str="!" scope="00000141231B1300" type="op" isLogicalOp="true" values="00000141232CBB00" astParent="0000014121483BC0" astOperand1="0000014121484280" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014121484280" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="23" str="FALSE" scope="00000141231B1300" type="name" values="00000141232CB900" astParent="0000014121483EC0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="00000141231B1300"/>
+    <token id="00000141214849A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="28" str="}" scope="00000141231B1300" link="0000014121482BA0"/>
+    <token id="0000014121482C00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="0" str=";" scope="00000141231B1BC0"/>
+    <token id="0000014121482E40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="41" column="1" str="void" scope="00000141231B1BC0" type="name"/>
+    <token id="0000014121483FE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="41" column="6" str="sendToLCD" scope="00000141231B1BC0" type="name" function="0000014121469C40"/>
+    <token id="0000014121484400" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="41" column="15" str="(" scope="00000141231B1BC0" link="0000014121485240" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121484640" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="41" column="0" str="char" scope="00000141231B1BC0" type="name" isUnsigned="true"/>
+    <token id="00000141214842E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="41" column="20" str="firstBit" scope="00000141231B1BC0" type="name" varId="1" exprId="1"/>
+    <token id="0000014121483F20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="41" column="28" str="," scope="00000141231B1BC0"/>
+    <token id="0000014121484760" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="41" column="0" str="char" scope="00000141231B1BC0" type="name" isUnsigned="true"/>
+    <token id="0000014121484F40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="41" column="34" str="data" scope="00000141231B1BC0" type="name" varId="2" exprId="2"/>
+    <token id="0000014121485240" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="41" column="38" str=")" scope="00000141231B1BC0" link="0000014121484400"/>
+    <token id="0000014121485000" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="41" column="39" str=";" scope="00000141231B1BC0"/>
+    <token id="0000014121484460" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="55" column="1" str="void" scope="00000141231B1BC0" type="name"/>
+    <token id="0000014121484880" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="55" column="6" str="initSpiForLcd" scope="00000141231B1BC0" type="name" function="0000014121469EC0"/>
+    <token id="0000014121483B60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="55" column="19" str="(" scope="00000141231B1BC0" isRemovedVoidParameter="true" link="0000014121484B20" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121484B20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="55" column="24" str=")" scope="00000141231B1BC0" link="0000014121483B60"/>
+    <token id="0000014121485300" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="55" column="25" str=";" scope="00000141231B1BC0"/>
+    <token id="0000014121484AC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="71" column="1" str="void" scope="00000141231B1BC0" type="name"/>
+    <token id="0000014121484340" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="71" column="6" str="selectLCD" scope="00000141231B1BC0" type="name" function="00000141214696A0"/>
+    <token id="00000141214848E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="71" column="15" str="(" scope="00000141231B1BC0" link="00000141214847C0" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121484940" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="71" column="16" str="tBool" scope="00000141231B1BC0" type="name" type-scope="00000141231B1300"/>
+    <token id="0000014121484B80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="71" column="22" str="select" scope="00000141231B1BC0" type="name" varId="3" exprId="3"/>
+    <token id="00000141214847C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="71" column="28" str=")" scope="00000141231B1BC0" link="00000141214848E0"/>
+    <token id="00000141214843A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.h" linenr="71" column="29" str=";" scope="00000141231B1BC0"/>
+    <token id="00000141214844C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="33" column="1" str="void" scope="00000141231B1BC0" type="name"/>
+    <token id="0000014121485060" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="33" column="6" str="sendToLCD" scope="00000141231B1BC0" type="name" function="0000014121469C40"/>
+    <token id="0000014121484BE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="33" column="15" str="(" scope="00000141231B1BC0" link="0000014121484CA0" valueType-type="void" valueType-reference="None"/>
+    <token id="00000141214852A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="33" column="0" str="char" scope="00000141231B1BC0" type="name" isUnsigned="true"/>
+    <token id="0000014121483E60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="33" column="20" str="firstBit" scope="00000141231B1BC0" type="name" varId="4" exprId="4" variable="00000141234424C0" values="00000141232CC080" valueType-type="char" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121484C40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="33" column="28" str="," scope="00000141231B1BC0"/>
+    <token id="00000141214850C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="33" column="0" str="char" scope="00000141231B1BC0" type="name" isUnsigned="true"/>
+    <token id="0000014121485120" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="33" column="34" str="data" scope="00000141231B1BC0" type="name" varId="5" exprId="5" variable="0000014123442518" values="00000141232CC240" valueType-type="char" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121484CA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="33" column="38" str=")" scope="00000141231B1BC0" link="0000014121484BE0"/>
+    <token id="0000014121484E20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="34" column="1" str="{" scope="00000141231B1D00" link="0000014121487700"/>
+    <token id="00000141214851E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="36" column="5" str="IOCLR" scope="00000141231B1D00" type="name" exprId="8" astParent="0000014121484D00"/>
+    <token id="0000014121484D00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="36" column="11" str="=" scope="00000141231B1D00" type="op" isAssignmentOp="true" exprId="15" values="00000141232CBC60" astOperand1="00000141214851E0" astOperand2="0000014121484E80"/>
+    <token id="0000014121484E80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="36" column="13" str="0x00000010" scope="00000141231B1D00" type="number" isInt="true" isExpandedMacro="true" values="00000141232CBBA0" astParent="0000014121484D00" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000141214845E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="36" column="20" str=";" scope="00000141231B1D00"/>
+    <token id="0000014121484520" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="37" column="5" str="PINSEL0" scope="00000141231B1D00" type="name" exprId="9" astParent="00000141214840A0"/>
+    <token id="00000141214840A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="37" column="13" str="&amp;=" scope="00000141231B1D00" type="op" isAssignmentOp="true" exprId="16" astOperand1="0000014121484520" astOperand2="0000014121484EE0"/>
+    <token id="0000014121484EE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="37" column="16" str="0xffffc0ffU" scope="00000141231B1D00" type="number" isInt="true" values="00000141232CBBC0" astParent="00000141214840A0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121484220" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="37" column="27" str=";" scope="00000141231B1D00"/>
+    <token id="0000014121485180" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="39" column="5" str="if" scope="00000141231B1D00" type="name" astParent="0000014121484D60"/>
+    <token id="0000014121484D60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="39" column="8" str="(" scope="00000141231B1D00" link="0000014121484820" exprId="17" astOperand1="0000014121485180" astOperand2="0000014121483F80"/>
+    <token id="0000014121483C20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="39" column="9" str="firstBit" scope="00000141231B1D00" type="name" varId="4" exprId="4" variable="00000141234424C0" values="00000141232CC560" astParent="0000014121483F80" valueType-type="char" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121483F80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="39" column="18" str="==" scope="00000141231B1D00" type="op" isComparisonOp="true" exprId="18" values="00000141232CC4A0" astParent="0000014121484D60" astOperand1="0000014121483C20" astOperand2="0000014121484580" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014121484580" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="39" column="21" str="(" scope="00000141231B1D00" isCast="true" link="0000014121483D40" exprId="19" values="00000141232CBA80" astParent="0000014121483F80" astOperand1="0000014121483DA0" valueType-type="char" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121483CE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="39" column="0" str="char" scope="00000141231B1D00" type="name" isUnsigned="true"/>
+    <token id="0000014121483D40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="39" column="25" str=")" scope="00000141231B1D00" link="0000014121484580"/>
+    <token id="0000014121483DA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="39" column="27" str="1" scope="00000141231B1D00" type="number" isInt="true" values="00000141232CBC80" astParent="0000014121484580" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121484820" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="39" column="28" str=")" scope="00000141231B1D00" link="0000014121484D60"/>
+    <token id="0000014121484100" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="40" column="5" str="{" scope="00000141231B11C0" link="0000014121485F60"/>
+    <token id="0000014121484160" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="41" column="9" str="IOSET" scope="00000141231B11C0" type="name" exprId="10" astParent="00000141214841C0"/>
+    <token id="00000141214841C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="41" column="15" str="=" scope="00000141231B11C0" type="op" isAssignmentOp="true" exprId="20" values="00000141232CB920" astOperand1="0000014121484160" astOperand2="0000014121485FC0"/>
+    <token id="0000014121485FC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="41" column="17" str="0x00000040" scope="00000141231B11C0" type="number" isInt="true" isExpandedMacro="true" values="00000141232CBEC0" astParent="00000141214841C0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121485C00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="41" column="25" str=";" scope="00000141231B11C0"/>
+    <token id="0000014121485F60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="42" column="5" str="}" scope="00000141231B11C0" link="0000014121484100"/>
+    <token id="0000014121485660" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="43" column="5" str="else" scope="00000141231B1D00" type="name"/>
+    <token id="00000141214867A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="44" column="5" str="{" scope="00000141231B1800" link="0000014121485E40"/>
+    <token id="00000141214856C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="45" column="9" str="IOCLR" scope="00000141231B1800" type="name" exprId="8" astParent="0000014121485900"/>
+    <token id="0000014121485900" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="45" column="15" str="=" scope="00000141231B1800" type="op" isAssignmentOp="true" exprId="21" values="00000141232CB980" astOperand1="00000141214856C0" astOperand2="0000014121486560"/>
+    <token id="0000014121486560" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="45" column="17" str="0x00000040" scope="00000141231B1800" type="number" isInt="true" isExpandedMacro="true" values="00000141232CB9C0" astParent="0000014121485900" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121485720" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="45" column="25" str=";" scope="00000141231B1800"/>
+    <token id="0000014121485E40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="46" column="5" str="}" scope="00000141231B1800" link="00000141214867A0"/>
+    <token id="0000014121486680" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="48" column="0" str="short" scope="00000141231B1D00" type="name" isUnsigned="true"/>
+    <token id="0000014121486380" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="48" column="10" str="dataToSend" scope="00000141231B1D00" type="name" varId="6" exprId="6" variable="00000141214947B0" values="00000141232CC5E0" valueType-type="short" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121486920" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="48" column="21" str=";" scope="00000141231B1D00" isSplittedVarDeclEq="true"/>
+    <token id="0000014121488F00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="48" column="10" str="dataToSend" scope="00000141231B1D00" type="name" varId="6" exprId="6" variable="00000141214947B0" values="00000141232CC520" astParent="0000014121488B40" valueType-type="short" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121488B40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="48" column="21" str="=" scope="00000141231B1D00" type="op" isAssignmentOp="true" exprId="22" values="00000141232CBCC0" astOperand1="0000014121488F00" astOperand2="0000014121485C60" valueType-type="short" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121485C60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="48" column="23" str="0" scope="00000141231B1D00" type="number" isInt="true" values="00000141232CBB40" astParent="0000014121488B40" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121485F00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="48" column="24" str=";" scope="00000141231B1D00"/>
+    <token id="00000141214868C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="49" column="5" str="if" scope="00000141231B1D00" type="name" astParent="00000141214863E0"/>
+    <token id="00000141214863E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="49" column="8" str="(" scope="00000141231B1D00" link="00000141214859C0" exprId="17" astOperand1="00000141214868C0" astOperand2="0000014121485780"/>
+    <token id="00000141214860E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="49" column="9" str="firstBit" scope="00000141231B1D00" type="name" varId="4" exprId="4" variable="00000141234424C0" values="00000141232CC500" astParent="0000014121485780" valueType-type="char" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121485780" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="49" column="18" str="==" scope="00000141231B1D00" type="op" isComparisonOp="true" exprId="18" values="00000141232CC3A0" astParent="00000141214863E0" astOperand1="00000141214860E0" astOperand2="0000014121485CC0" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014121485CC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="49" column="21" str="(" scope="00000141231B1D00" isCast="true" link="0000014121486140" exprId="19" values="00000141232CBFE0" astParent="0000014121485780" astOperand1="0000014121486860" valueType-type="char" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121486260" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="49" column="0" str="char" scope="00000141231B1D00" type="name" isUnsigned="true"/>
+    <token id="0000014121486140" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="49" column="25" str=")" scope="00000141231B1D00" link="0000014121485CC0"/>
+    <token id="0000014121486860" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="49" column="27" str="1" scope="00000141231B1D00" type="number" isInt="true" values="00000141232CBD00" astParent="0000014121485CC0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000141214859C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="49" column="28" str=")" scope="00000141231B1D00" link="00000141214863E0"/>
+    <token id="00000141214861A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="50" column="5" str="{" scope="00000141231B16C0" link="0000014121485D20"/>
+    <token id="0000014121485EA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="9" str="dataToSend" scope="00000141231B16C0" type="name" varId="6" exprId="6" variable="00000141214947B0" values="00000141232CC0E0" astParent="0000014121486B00" valueType-type="short" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121486B00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="20" str="=" scope="00000141231B16C0" type="op" isAssignmentOp="true" exprId="26" values="00000141232CC380" astOperand1="0000014121485EA0" astOperand2="00000141214865C0" valueType-type="short" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000141214862C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="22" str="(" scope="00000141231B16C0" link="0000014121485840" exprId="27"/>
+    <token id="0000014121486980" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="23" str="(" scope="00000141231B16C0" isCast="true" link="0000014121486320" exprId="28" values="00000141232CC3C0" astParent="00000141214865C0" astOperand1="00000141214857E0" valueType-type="short" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121486200" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="0" str="short" scope="00000141231B16C0" type="name" isUnsigned="true"/>
+    <token id="0000014121486320" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="28" str=")" scope="00000141231B16C0" link="0000014121486980"/>
+    <token id="00000141214857E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="30" str="data" scope="00000141231B16C0" type="name" varId="5" exprId="5" variable="0000014123442518" values="00000141232CC0C0" astParent="0000014121486980" valueType-type="char" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121485840" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="34" str=")" scope="00000141231B16C0" link="00000141214862C0"/>
+    <token id="00000141214865C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="36" str="&amp;" scope="00000141231B16C0" type="op" exprId="29" astParent="0000014121486B00" astOperand1="0000014121486980" astOperand2="00000141214858A0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000141214853C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="38" str="(" scope="00000141231B16C0" link="0000014121485480" exprId="30"/>
+    <token id="00000141214858A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="39" str="(" scope="00000141231B16C0" isCast="true" link="0000014121486440" exprId="31" values="00000141232CBAA0" astParent="00000141214865C0" astOperand1="00000141214864A0" valueType-type="short" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121485A80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="0" str="short" scope="00000141231B16C0" type="name" isUnsigned="true"/>
+    <token id="0000014121486440" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="44" str=")" scope="00000141231B16C0" link="00000141214858A0"/>
+    <token id="00000141214864A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="46" str="~" scope="00000141231B16C0" type="op" exprId="32" values="00000141232CBD20" astParent="00000141214858A0" astOperand1="0000014121486500" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121486500" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="47" str="0x0100u" scope="00000141231B16C0" type="number" isInt="true" values="00000141232CB940" astParent="00000141214864A0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121485480" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="54" str=")" scope="00000141231B16C0" link="00000141214853C0"/>
+    <token id="0000014121485960" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="51" column="55" str=";" scope="00000141231B16C0"/>
+    <token id="0000014121485D20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="52" column="5" str="}" scope="00000141231B16C0" link="00000141214861A0"/>
+    <token id="0000014121486620" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="53" column="5" str="else" scope="00000141231B1D00" type="name"/>
+    <token id="0000014121485AE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="54" column="5" str="{" scope="00000141231B1E40" link="0000014121487640"/>
+    <token id="0000014121485A20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="9" str="dataToSend" scope="00000141231B1E40" type="name" varId="6" exprId="6" variable="00000141214947B0" values="00000141232CC360" astParent="00000141214866E0" valueType-type="short" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000141214866E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="20" str="=" scope="00000141231B1E40" type="op" isAssignmentOp="true" exprId="33" values="00000141232CC400" astOperand1="0000014121485A20" astOperand2="0000014121486AA0" valueType-type="short" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121486740" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="22" str="(" scope="00000141231B1E40" link="0000014121485360" exprId="34"/>
+    <token id="0000014121486A40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="23" str="(" scope="00000141231B1E40" isCast="true" link="0000014121485D80" exprId="28" values="00000141232CC3E0" astParent="0000014121486AA0" astOperand1="00000141214869E0" valueType-type="short" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121486800" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="0" str="short" scope="00000141231B1E40" type="name" isUnsigned="true"/>
+    <token id="0000014121485D80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="28" str=")" scope="00000141231B1E40" link="0000014121486A40"/>
+    <token id="00000141214869E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="30" str="data" scope="00000141231B1E40" type="name" varId="5" exprId="5" variable="0000014123442518" values="00000141232CC1A0" astParent="0000014121486A40" valueType-type="char" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121485360" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="34" str=")" scope="00000141231B1E40" link="0000014121486740"/>
+    <token id="0000014121486AA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="36" str="|" scope="00000141231B1E40" type="op" exprId="36" astParent="00000141214866E0" astOperand1="0000014121486A40" astOperand2="00000141214854E0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121485420" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="38" str="(" scope="00000141231B1E40" link="0000014121485BA0" exprId="37"/>
+    <token id="00000141214854E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="39" str="(" scope="00000141231B1E40" isCast="true" link="0000014121485B40" exprId="38" values="00000141232CB9A0" astParent="0000014121486AA0" astOperand1="00000141214855A0" valueType-type="short" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121485540" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="0" str="short" scope="00000141231B1E40" type="name" isUnsigned="true"/>
+    <token id="0000014121485B40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="44" str=")" scope="00000141231B1E40" link="00000141214854E0"/>
+    <token id="00000141214855A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="46" str="0x0100" scope="00000141231B1E40" type="number" isInt="true" values="00000141232CB960" astParent="00000141214854E0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121485BA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="52" str=")" scope="00000141231B1E40" link="0000014121485420"/>
+    <token id="0000014121485DE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="55" column="53" str=";" scope="00000141231B1E40"/>
+    <token id="0000014121487640" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="56" column="5" str="}" scope="00000141231B1E40" link="0000014121485AE0"/>
+    <token id="00000141214872E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="59" column="5" str="IOSET" scope="00000141231B1D00" type="name" exprId="10" astParent="00000141214874C0"/>
+    <token id="00000141214874C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="59" column="11" str="=" scope="00000141231B1D00" type="op" isAssignmentOp="true" exprId="39" values="00000141232CC040" astOperand1="00000141214872E0" astOperand2="0000014121488060"/>
+    <token id="0000014121488060" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="59" column="13" str="0x00000010" scope="00000141231B1D00" type="number" isInt="true" isExpandedMacro="true" values="00000141232CB8A0" astParent="00000141214874C0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121487B20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="59" column="20" str=";" scope="00000141231B1D00"/>
+    <token id="0000014121487880" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="62" column="5" str="IOCLR" scope="00000141231B1D00" type="name" exprId="8" astParent="00000141214880C0"/>
+    <token id="00000141214880C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="62" column="11" str="=" scope="00000141231B1D00" type="op" isAssignmentOp="true" exprId="40" values="00000141232CBAE0" astOperand1="0000014121487880" astOperand2="0000014121487820"/>
+    <token id="0000014121487820" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="62" column="13" str="0x00000010" scope="00000141231B1D00" type="number" isInt="true" isExpandedMacro="true" values="00000141232CBFA0" astParent="00000141214880C0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000141214878E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="62" column="20" str=";" scope="00000141231B1D00"/>
+    <token id="00000141214871C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="65" column="5" str="SPI_SPCCR" scope="00000141231B1D00" type="name" exprId="11" astParent="0000014121487B80"/>
+    <token id="0000014121487B80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="65" column="15" str="=" scope="00000141231B1D00" type="op" isAssignmentOp="true" exprId="41" values="00000141232CBD40" astOperand1="00000141214871C0" astOperand2="00000141214879A0"/>
+    <token id="00000141214879A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="65" column="17" str="0x08" scope="00000141231B1D00" type="number" isInt="true" values="00000141232CB9E0" astParent="0000014121487B80" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000141214881E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="65" column="21" str=";" scope="00000141231B1D00"/>
+    <token id="00000141214882A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="66" column="5" str="SPI_SPCR" scope="00000141231B1D00" type="name" exprId="12" astParent="0000014121486DA0"/>
+    <token id="0000014121486DA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="66" column="15" str="=" scope="00000141231B1D00" type="op" isAssignmentOp="true" exprId="42" values="00000141232CB8E0" astOperand1="00000141214882A0" astOperand2="0000014121486D40"/>
+    <token id="0000014121486D40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="66" column="17" str="0x20" scope="00000141231B1D00" type="number" isInt="true" values="00000141232CBBE0" astParent="0000014121486DA0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121487940" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="66" column="21" str=";" scope="00000141231B1D00"/>
+    <token id="0000014121487D60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="69" column="5" str="PINSEL0" scope="00000141231B1D00" type="name" exprId="9" astParent="0000014121487AC0"/>
+    <token id="0000014121487AC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="69" column="13" str="|=" scope="00000141231B1D00" type="op" isAssignmentOp="true" exprId="43" astOperand1="0000014121487D60" astOperand2="0000014121487400"/>
+    <token id="0000014121487400" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="69" column="16" str="0x00001500" scope="00000141231B1D00" type="number" isInt="true" values="00000141232CBA20" astParent="0000014121487AC0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121486FE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="69" column="26" str=";" scope="00000141231B1D00"/>
+    <token id="0000014121486E00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="72" column="5" str="SPI_SPDR" scope="00000141231B1D00" type="name" exprId="13" astParent="0000014121488120"/>
+    <token id="0000014121488120" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="72" column="14" str="=" scope="00000141231B1D00" type="op" isAssignmentOp="true" exprId="44" values="00000141232CC4C0" astOperand1="0000014121486E00" astOperand2="0000014121486F80"/>
+    <token id="0000014121486F80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="72" column="16" str="dataToSend" scope="00000141231B1D00" type="name" varId="6" exprId="6" variable="00000141214947B0" values="00000141232CC1C0" astParent="0000014121488120" valueType-type="short" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121487580" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="72" column="26" str=";" scope="00000141231B1D00"/>
+    <token id="0000014121487BE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="75" column="5" str="while" scope="00000141231B1D00" type="name" astParent="0000014121487100"/>
+    <token id="0000014121487100" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="75" column="10" str="(" scope="00000141231B1D00" link="0000014121486C20" exprId="45" astOperand1="0000014121487BE0" astOperand2="0000014121487160"/>
+    <token id="0000014121487460" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="75" column="11" str="(" scope="00000141231B1D00" link="0000014121487A00" exprId="46"/>
+    <token id="0000014121487520" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="75" column="12" str="SPI_SPSR" scope="00000141231B1D00" type="name" exprId="14" astParent="0000014121487FA0"/>
+    <token id="0000014121487FA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="75" column="21" str="&amp;" scope="00000141231B1D00" type="op" exprId="47" values="00000141232CC020" astParent="0000014121487160" astOperand1="0000014121487520" astOperand2="0000014121487280"/>
+    <token id="0000014121487280" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="75" column="23" str="0x80" scope="00000141231B1D00" type="number" isInt="true" values="00000141232CBC00" astParent="0000014121487FA0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121487A00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="75" column="27" str=")" scope="00000141231B1D00" link="0000014121487460"/>
+    <token id="0000014121487160" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="75" column="29" str="==" scope="00000141231B1D00" type="op" isComparisonOp="true" exprId="48" values="00000141232CC060" astParent="0000014121487100" astOperand1="0000014121487FA0" astOperand2="00000141214875E0" valueType-type="bool" valueType-reference="None"/>
+    <token id="00000141214875E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="75" column="32" str="0" scope="00000141231B1D00" type="number" isInt="true" values="00000141232CBD60" astParent="0000014121487160" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121486C20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="75" column="33" str=")" scope="00000141231B1D00" link="0000014121487100"/>
+    <token id="0000014121486E60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="76" column="5" str="{" scope="00000141231B1440" link="00000141214876A0"/>
+    <token id="0000014121487C40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="77" column="7" str=";" scope="00000141231B1440"/>
+    <token id="00000141214876A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="78" column="5" str="}" scope="00000141231B1440" link="0000014121486E60"/>
+    <token id="0000014121487700" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="79" column="1" str="}" scope="00000141231B1D00" link="0000014121484E20"/>
+    <token id="0000014121486B60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="93" column="1" str="void" scope="00000141231B1BC0" type="name"/>
+    <token id="0000014121487760" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="93" column="6" str="initSpiForLcd" scope="00000141231B1BC0" type="name" function="0000014121469EC0"/>
+    <token id="0000014121487340" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="93" column="19" str="(" scope="00000141231B1BC0" isRemovedVoidParameter="true" link="0000014121488180" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121488180" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="93" column="24" str=")" scope="00000141231B1BC0" link="0000014121487340"/>
+    <token id="0000014121487CA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="94" column="1" str="{" scope="00000141231B1080" link="0000014121488960"/>
+    <token id="0000014121487A60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="96" column="7" str="IODIR" scope="00000141231B1080" type="name" exprId="49" astParent="0000014121488240"/>
+    <token id="0000014121488240" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="96" column="13" str="|=" scope="00000141231B1080" type="op" isAssignmentOp="true" exprId="53" astOperand1="0000014121487A60" astOperand2="0000014121487E80"/>
+    <token id="0000014121487D00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="96" column="16" str="(" scope="00000141231B1080" link="0000014121486BC0" exprId="54"/>
+    <token id="0000014121487DC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="96" column="17" str="0x00000080" scope="00000141231B1080" type="number" isInt="true" isExpandedMacro="true" values="00000141232CBD80" astParent="0000014121487220" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121487220" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="96" column="24" str="|" scope="00000141231B1080" type="op" exprId="55" values="00000141232CBDC0" astParent="0000014121487E80" astOperand1="0000014121487DC0" astOperand2="0000014121487E20" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121487E20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="96" column="26" str="0x00000010" scope="00000141231B1080" type="number" isInt="true" isExpandedMacro="true" values="00000141232CBDA0" astParent="0000014121487220" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121487E80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="96" column="34" str="|" scope="00000141231B1080" type="op" exprId="56" values="00000141232CBDE0" astParent="0000014121488240" astOperand1="0000014121487220" astOperand2="0000014121488300" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121488300" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="96" column="36" str="0x00000040" scope="00000141231B1080" type="number" isInt="true" isExpandedMacro="true" values="00000141232CBE20" astParent="0000014121487E80" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121486BC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="96" column="44" str=")" scope="00000141231B1080" link="0000014121487D00"/>
+    <token id="0000014121486EC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="96" column="45" str=";" scope="00000141231B1080"/>
+    <token id="0000014121486F20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="99" column="7" str="selectLCD" scope="00000141231B1080" type="name" function="00000141214696A0" astParent="0000014121487EE0"/>
+    <token id="0000014121487EE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="99" column="16" str="(" scope="00000141231B1080" link="0000014121488000" exprId="57" astOperand1="0000014121486F20" astOperand2="0000014121487F40" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121487F40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="99" column="17" str="FALSE" scope="00000141231B1080" type="name" values="00000141232CBE40" astParent="0000014121487EE0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="00000141231B1300"/>
+    <token id="0000014121488000" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="99" column="22" str=")" scope="00000141231B1080" link="0000014121487EE0"/>
+    <token id="0000014121486C80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="99" column="23" str=";" scope="00000141231B1080"/>
+    <token id="0000014121487040" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="105" column="7" str="PINSEL0" scope="00000141231B1080" type="name" exprId="50" astParent="00000141214870A0"/>
+    <token id="00000141214870A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="105" column="15" str="|=" scope="00000141231B1080" type="op" isAssignmentOp="true" exprId="58" astOperand1="0000014121487040" astOperand2="0000014121486CE0"/>
+    <token id="0000014121486CE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="105" column="18" str="0x00001500" scope="00000141231B1080" type="number" isInt="true" values="00000141232CBE60" astParent="00000141214870A0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000141214873A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="105" column="28" str=";" scope="00000141231B1080"/>
+    <token id="0000014121488D80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="110" column="7" str="SPI_SPCCR" scope="00000141231B1080" type="name" exprId="51" astParent="0000014121489500"/>
+    <token id="0000014121489500" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="110" column="17" str="=" scope="00000141231B1080" type="op" isAssignmentOp="true" exprId="59" values="00000141232CBEE0" astOperand1="0000014121488D80" astOperand2="0000014121488900"/>
+    <token id="0000014121488900" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="110" column="19" str="0x08" scope="00000141231B1080" type="number" isInt="true" values="00000141232CBE80" astParent="0000014121489500" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121488C00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="110" column="23" str=";" scope="00000141231B1080"/>
+    <token id="0000014121488C60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="112" column="7" str="SPI_SPCR" scope="00000141231B1080" type="name" exprId="52" astParent="00000141214897A0"/>
+    <token id="00000141214897A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="112" column="17" str="=" scope="00000141231B1080" type="op" isAssignmentOp="true" exprId="60" values="00000141232CBF00" astOperand1="0000014121488C60" astOperand2="0000014121488A80"/>
+    <token id="0000014121488A80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="112" column="19" str="0x20" scope="00000141231B1080" type="number" isInt="true" values="00000141232CBEA0" astParent="00000141214897A0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000141214891A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="112" column="23" str=";" scope="00000141231B1080"/>
+    <token id="0000014121488960" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="113" column="1" str="}" scope="00000141231B1080" link="0000014121487CA0"/>
+    <token id="0000014121488CC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="129" column="1" str="void" scope="00000141231B1BC0" type="name"/>
+    <token id="0000014121488480" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="130" column="1" str="selectLCD" scope="00000141231B1BC0" type="name" function="00000141214696A0"/>
+    <token id="00000141214885A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="130" column="10" str="(" scope="00000141231B1BC0" link="0000014121488DE0" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121489560" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="130" column="11" str="tBool" scope="00000141231B1BC0" type="name" type-scope="00000141231B1300"/>
+    <token id="0000014121488D20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="130" column="17" str="select" scope="00000141231B1BC0" type="name" varId="7" exprId="7" variable="00000141214877C0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="00000141231B1300"/>
+    <token id="0000014121488DE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="130" column="23" str=")" scope="00000141231B1BC0" link="00000141214885A0"/>
+    <token id="0000014121488360" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="131" column="1" str="{" scope="00000141231B1940" link="0000014121488EA0"/>
+    <token id="0000014121489A40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="132" column="5" str="if" scope="00000141231B1940" type="name" astParent="0000014121488660"/>
+    <token id="0000014121488660" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="132" column="8" str="(" scope="00000141231B1940" link="0000014121489320" exprId="63" astOperand1="0000014121489A40" astOperand2="00000141214899E0"/>
+    <token id="00000141214895C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="132" column="9" str="TRUE" scope="00000141231B1940" type="name" values="00000141232CBF20" astParent="00000141214899E0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="00000141231B1300"/>
+    <token id="00000141214899E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="132" column="14" str="==" scope="00000141231B1940" type="op" isComparisonOp="true" exprId="64" values="00000141232CC6E0" astParent="0000014121488660" astOperand1="00000141214895C0" astOperand2="0000014121489B00" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014121489B00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="132" column="17" str="select" scope="00000141231B1940" type="name" varId="7" exprId="7" variable="00000141214877C0" values="00000141232CC160" astParent="00000141214899E0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="00000141231B1300"/>
+    <token id="0000014121489320" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="132" column="23" str=")" scope="00000141231B1940" link="0000014121488660"/>
+    <token id="0000014121489620" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="133" column="5" str="{" scope="00000141231B1A80" link="0000014121488AE0"/>
+    <token id="00000141214884E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="134" column="9" str="IOCLR" scope="00000141231B1A80" type="name" exprId="61" astParent="00000141214890E0"/>
+    <token id="00000141214890E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="134" column="15" str="=" scope="00000141231B1A80" type="op" isAssignmentOp="true" exprId="65" values="00000141232CBF80" astOperand1="00000141214884E0" astOperand2="0000014121489680"/>
+    <token id="0000014121489680" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="134" column="17" str="0x00000080" scope="00000141231B1A80" type="number" isInt="true" isExpandedMacro="true" values="00000141232CBF60" astParent="00000141214890E0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121488E40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="134" column="23" str=";" scope="00000141231B1A80"/>
+    <token id="0000014121488AE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="135" column="5" str="}" scope="00000141231B1A80" link="0000014121489620"/>
+    <token id="00000141214887E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="136" column="5" str="else" scope="00000141231B1940" type="name"/>
+    <token id="00000141214896E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="137" column="5" str="{" scope="00000141214C0AD0" link="0000014121488720"/>
+    <token id="0000014121488A20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="138" column="9" str="IOSET" scope="00000141214C0AD0" type="name" exprId="62" astParent="0000014121488540"/>
+    <token id="0000014121488540" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="138" column="15" str="=" scope="00000141214C0AD0" type="op" isAssignmentOp="true" exprId="66" values="00000141232CC000" astOperand1="0000014121488A20" astOperand2="0000014121489140"/>
+    <token id="0000014121489140" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="138" column="17" str="0x00000080" scope="00000141214C0AD0" type="number" isInt="true" isExpandedMacro="true" values="00000141232CBFC0" astParent="0000014121488540" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121488600" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="138" column="23" str=";" scope="00000141214C0AD0"/>
+    <token id="0000014121488720" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="139" column="5" str="}" scope="00000141214C0AD0" link="00000141214896E0"/>
+    <token id="0000014121488EA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/lcd_hw.c" linenr="140" column="1" str="}" scope="00000141231B1940" link="0000014121488360"/>
+  </tokenlist>
+  <scopes>
+    <scope id="00000141231B1BC0" type="Global">
+      <functionList>
+        <function id="0000014121469C40" token="0000014121485060" tokenDef="0000014121483FE0" name="sendToLCD" type="Function" access="Public">
+          <arg nr="1" variable="00000141234424C0"/>
+          <arg nr="2" variable="0000014123442518"/>
+        </function>
+        <function id="0000014121469EC0" token="0000014121487760" tokenDef="0000014121484880" name="initSpiForLcd" type="Function" access="Public"/>
+        <function id="00000141214696A0" token="0000014121488480" tokenDef="0000014121484340" name="selectLCD" type="Function" access="Public">
+          <arg nr="1" variable="00000141214877C0"/>
+        </function>
+      </functionList>
+    </scope>
+    <scope id="00000141231B1300" type="Enum" className="tBool" bodyStart="0000014121482BA0" bodyEnd="00000141214849A0" nestedIn="00000141231B1BC0" definedType="00000141233BEB30"/>
+    <scope id="00000141231B1D00" type="Function" className="sendToLCD" bodyStart="0000014121484E20" bodyEnd="0000014121487700" nestedIn="00000141231B1BC0" function="0000014121469C40">
+      <varlist>
+        <var id="00000141214947B0"/>
+      </varlist>
+    </scope>
+    <scope id="00000141231B11C0" type="If" bodyStart="0000014121484100" bodyEnd="0000014121485F60" nestedIn="00000141231B1D00"/>
+    <scope id="00000141231B1800" type="Else" bodyStart="00000141214867A0" bodyEnd="0000014121485E40" nestedIn="00000141231B1D00"/>
+    <scope id="00000141231B16C0" type="If" bodyStart="00000141214861A0" bodyEnd="0000014121485D20" nestedIn="00000141231B1D00"/>
+    <scope id="00000141231B1E40" type="Else" bodyStart="0000014121485AE0" bodyEnd="0000014121487640" nestedIn="00000141231B1D00"/>
+    <scope id="00000141231B1440" type="While" bodyStart="0000014121486E60" bodyEnd="00000141214876A0" nestedIn="00000141231B1D00"/>
+    <scope id="00000141231B1080" type="Function" className="initSpiForLcd" bodyStart="0000014121487CA0" bodyEnd="0000014121488960" nestedIn="00000141231B1BC0" function="0000014121469EC0"/>
+    <scope id="00000141231B1940" type="Function" className="selectLCD" bodyStart="0000014121488360" bodyEnd="0000014121488EA0" nestedIn="00000141231B1BC0" function="00000141214696A0"/>
+    <scope id="00000141231B1A80" type="If" bodyStart="0000014121489620" bodyEnd="0000014121488AE0" nestedIn="00000141231B1940"/>
+    <scope id="00000141214C0AD0" type="Else" bodyStart="00000141214896E0" bodyEnd="0000014121488720" nestedIn="00000141231B1940"/>
+  </scopes>
+  <types>
+    <type id="00000141233BEB30" classScope="00000141231B1300"/>
+  </types>
+  <variables>
+    <var id="00000141214877C0" nameToken="0000014121488D20" typeStartToken="0000014121489560" typeEndToken="0000014121489560" access="Argument" scope="00000141231B1940" constness="0" isArray="false" isClass="false" isConst="false" isExtern="false" isPointer="false" isReference="false" isStatic="false" isVolatile="false"/>
+    <var id="00000141214947B0" nameToken="0000014121486380" typeStartToken="0000014121486680" typeEndToken="0000014121486680" access="Local" scope="00000141231B1D00" constness="0" isArray="false" isClass="false" isConst="false" isExtern="false" isPointer="false" isReference="false" isStatic="false" isVolatile="false"/>
+    <var id="00000141234424C0" nameToken="0000014121483E60" typeStartToken="00000141214852A0" typeEndToken="00000141214852A0" access="Argument" scope="00000141231B1D00" constness="0" isArray="false" isClass="false" isConst="false" isExtern="false" isPointer="false" isReference="false" isStatic="false" isVolatile="false"/>
+    <var id="0000014123442518" nameToken="0000014121485120" typeStartToken="00000141214850C0" typeEndToken="00000141214850C0" access="Argument" scope="00000141231B1D00" constness="0" isArray="false" isClass="false" isConst="false" isExtern="false" isPointer="false" isReference="false" isStatic="false" isVolatile="false"/>
+  </variables>
+  <valueflow>
+    <values id="00000141232CBE00">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBAC0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB8C0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBA60">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBB60">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBCA0">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBB00">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB900">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC080">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CC240">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CBC60">
+      <value intvalue="16" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBBA0">
+      <value intvalue="16" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBBC0">
+      <value intvalue="4294951167" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC560">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+      <value intvalue="1" bound="Point" condition-line="49" possible="true" path="0"/>
+    </values>
+    <values id="00000141232CC4A0">
+      <value intvalue="-1" bound="Upper" impossible="true" path="0"/>
+      <value intvalue="2" bound="Lower" impossible="true" path="0"/>
+      <value intvalue="1" bound="Point" condition-line="49" possible="true" path="0"/>
+    </values>
+    <values id="00000141232CBA80">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBC80">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB920">
+      <value intvalue="64" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBEC0">
+      <value intvalue="64" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB980">
+      <value intvalue="64" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB9C0">
+      <value intvalue="64" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC5E0">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CC520">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CBCC0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBB40">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC500">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+      <value intvalue="1" bound="Point" condition-line="39" possible="true" path="0"/>
+    </values>
+    <values id="00000141232CC3A0">
+      <value intvalue="-1" bound="Upper" impossible="true" path="0"/>
+      <value intvalue="2" bound="Lower" impossible="true" path="0"/>
+      <value intvalue="1" bound="Point" condition-line="39" possible="true" path="0"/>
+    </values>
+    <values id="00000141232CBFE0">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBD00">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC0E0">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CC380">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CC3C0">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CC0C0">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CBAA0">
+      <value intvalue="65279" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBD20">
+      <value intvalue="4294967039" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB940">
+      <value intvalue="256" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC360">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CC400">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CC3E0">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CC1A0">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CB9A0">
+      <value intvalue="256" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB960">
+      <value intvalue="256" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC040">
+      <value intvalue="16" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB8A0">
+      <value intvalue="16" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBAE0">
+      <value intvalue="16" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBFA0">
+      <value intvalue="16" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBD40">
+      <value intvalue="8" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB9E0">
+      <value intvalue="8" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB8E0">
+      <value intvalue="32" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBBE0">
+      <value intvalue="32" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBA20">
+      <value intvalue="5376" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC4C0">
+      <value intvalue="-1" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CC1C0">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CC020">
+      <value intvalue="0" bound="Point" possible="true" path="0"/>
+      <value intvalue="128" bound="Point" possible="true" path="0"/>
+    </values>
+    <values id="00000141232CBC00">
+      <value intvalue="128" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC060">
+      <value intvalue="1" bound="Point" possible="true" path="0"/>
+      <value intvalue="0" bound="Point" possible="true" path="0"/>
+      <value intvalue="-1" bound="Upper" impossible="true" path="0"/>
+      <value intvalue="2" bound="Lower" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CBD60">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBD80">
+      <value intvalue="128" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBDC0">
+      <value intvalue="144" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBDA0">
+      <value intvalue="16" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBDE0">
+      <value intvalue="208" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBE20">
+      <value intvalue="64" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBE40">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBE60">
+      <value intvalue="5376" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBEE0">
+      <value intvalue="8" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBE80">
+      <value intvalue="8" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBF00">
+      <value intvalue="32" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBEA0">
+      <value intvalue="32" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBF20">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC6E0">
+      <value intvalue="-1" bound="Upper" impossible="true" path="0"/>
+      <value intvalue="2" bound="Lower" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CC160">
+      <value intvalue="0" bound="Point" possible="true" path="1"/>
+    </values>
+    <values id="00000141232CBF80">
+      <value intvalue="128" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBF60">
+      <value intvalue="128" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC000">
+      <value intvalue="128" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBFC0">
+      <value intvalue="128" bound="Point" known="true" path="0"/>
+    </values>
+  </valueflow>
+  <typedef-info>
+    <info name="tU8" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="7" column="35" used="1"/>
+    <info name="tU16" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="8" column="35" used="1"/>
+    <info name="tU32" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="9" column="35" used="0"/>
+    <info name="tU64" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="10" column="35" used="0"/>
+    <info name="tS8" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="11" column="35" used="0"/>
+    <info name="tS16" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="12" column="35" used="0"/>
+    <info name="tS32" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="13" column="35" used="0"/>
+    <info name="tS64" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="14" column="35" used="0"/>
+  </typedef-info>
+</dump>
+</dumps>

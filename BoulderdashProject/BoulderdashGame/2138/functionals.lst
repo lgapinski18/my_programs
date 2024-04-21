@@ -1,0 +1,1300 @@
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 1
+
+
+   1              		.cpu arm7tdmi
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 0
+  10              		.eabi_attribute 18, 4
+  11              		.file	"functionals.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.align	1
+  16              		.global	getAccelerationDirection
+  17              		.syntax unified
+  18              		.code	16
+  19              		.thumb_func
+  20              		.fpu softvfp
+  21              		.type	getAccelerationDirection, %function
+  22              	getAccelerationDirection:
+  23              	.LFB0:
+  24              		.file 1 "functionals.c"
+   1:functionals.c **** /*
+   2:functionals.c **** * @Descritpion: Zawariera zbior definicji funkcji uzywanych w programie
+   3:functionals.c **** *				(nie sie sklasyfikowane wedlug konkretnego przeznaczenia)
+   4:functionals.c **** */
+   5:functionals.c **** 
+   6:functionals.c **** #include "general.h"
+   7:functionals.c **** #include <lpc2xxx.h>
+   8:functionals.c **** #include <config.h>
+   9:functionals.c **** #include <printf_P.h>
+  10:functionals.c **** #include "functionals.h"
+  11:functionals.c **** #include "dac.h"
+  12:functionals.c **** #include "timer.h"
+  13:functionals.c **** #include "VIC.h"
+  14:functionals.c **** #include "irq/irq_handler.h"
+  15:functionals.c **** 
+  16:functionals.c **** 
+  17:functionals.c **** /*
+  18:functionals.c ****  *  @brief			Funkcja informujaca o kierunku dzialania przypieszenia wzgledem urzadzenia.
+  19:functionals.c ****  *
+  20:functionals.c ****  *  @Description	Funkcja ta realizuje odczyt za pomoca przetwornikow analogowo-cyfrowych wartosci p
+  21:functionals.c ****  * 					dla osi X, Y, Z i odpowiednio je analizuje, aby wyznaczyc kierunek wypadkowego przyspieszen
+  22:functionals.c ****  * 					(uwzgledniajac grawitacyjne).
+  23:functionals.c ****  *
+  24:functionals.c ****  *  @param 			brak
+  25:functionals.c ****  *
+  26:functionals.c ****  *  @returns  		informacja o kierunku dzialania przyspieszenia w formie jednej z wartosci listy wyl
+  27:functionals.c ****  *
+  28:functionals.c ****  *  @side effects	Modyfikacja rejestru ADCR przetwornika analogowo-cyfrowego ADC0 (wykorzystanie fu
+  29:functionals.c ****  * 					Modyfikacja rejestru AD1CR przetwornika analogowo-cyfrowego ADC1 (wykorzystanie funkcji get
+  30:functionals.c ****  */
+  31:functionals.c **** AccelerationDirection getAccelerationDirection(void) {
+  25              		.loc 1 31 0
+  26              		.cfi_startproc
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 2
+
+
+  27              		@ Function supports interworking.
+  28              		@ args = 0, pretend = 0, frame = 16
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30 0000 B0B5     		push	{r4, r5, r7, lr}
+  31              	.LCFI0:
+  32              		.cfi_def_cfa_offset 16
+  33              		.cfi_offset 4, -16
+  34              		.cfi_offset 5, -12
+  35              		.cfi_offset 7, -8
+  36              		.cfi_offset 14, -4
+  37 0002 84B0     		sub	sp, sp, #16
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 32
+  40 0004 00AF     		add	r7, sp, #0
+  41              	.LCFI2:
+  42              		.cfi_def_cfa_register 7
+  32:functionals.c **** 	/* Zmienna, ktorej wartosc bedzie stanowic ustalony kierunek przyspieszenia */
+  33:functionals.c **** 	AccelerationDirection direction;
+  34:functionals.c **** 
+  35:functionals.c **** 	tU16 accelX = getAnalogueInputAdc1(ACCEL_X_CHANEL_NO);
+  43              		.loc 1 35 0
+  44 0006 0C23     		movs	r3, #12
+  45 0008 FC18     		adds	r4, r7, r3
+  46 000a 0620     		movs	r0, #6
+  47 000c FFF7FEFF 		bl	getAnalogueInputAdc1
+  48 0010 0300     		movs	r3, r0
+  49 0012 2380     		strh	r3, [r4]
+  36:functionals.c **** 	tU16 accelY = getAnalogueInputAdc1(ACCEL_Y_CHANEL_NO);
+  50              		.loc 1 36 0
+  51 0014 0A23     		movs	r3, #10
+  52 0016 FC18     		adds	r4, r7, r3
+  53 0018 0720     		movs	r0, #7
+  54 001a FFF7FEFF 		bl	getAnalogueInputAdc1
+  55 001e 0300     		movs	r3, r0
+  56 0020 2380     		strh	r3, [r4]
+  37:functionals.c **** 	tU16 accelZ = getAnalogueInputAdc0(ACCEL_Z_CHANEL_NO);
+  57              		.loc 1 37 0
+  58 0022 0825     		movs	r5, #8
+  59 0024 7C19     		adds	r4, r7, r5
+  60 0026 0320     		movs	r0, #3
+  61 0028 FFF7FEFF 		bl	getAnalogueInputAdc0
+  62 002c 0300     		movs	r3, r0
+  63 002e 2380     		strh	r3, [r4]
+  38:functionals.c **** 
+  39:functionals.c **** 	/* Wartosc referencyjna reprezentujaca wartosc, powyzej ktorej dla danego kanalu można stwierdzic
+  40:functionals.c **** 	const tU16 PC = 700;//0x179; //0x2EB
+  64              		.loc 1 40 0
+  65 0030 BB1D     		adds	r3, r7, #6
+  66 0032 AF22     		movs	r2, #175
+  67 0034 9200     		lsls	r2, r2, #2
+  68 0036 1A80     		strh	r2, [r3]
+  41:functionals.c **** 	/* To samo co powyzej tylko dla osi X */
+  42:functionals.c **** 	const tU16 PCX = 650;
+  69              		.loc 1 42 0
+  70 0038 3B1D     		adds	r3, r7, #4
+  71 003a 2E4A     		ldr	r2, .L10
+  72 003c 1A80     		strh	r2, [r3]
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 3
+
+
+  43:functionals.c **** 	/* Wartosc referencyjna reprezentujaca wartosc, pownizej ktorej dla danego kanalu można stwierdzi
+  44:functionals.c **** 	const tU16 NC = 400;//0xBA; //0x174
+  73              		.loc 1 44 0
+  74 003e BB1C     		adds	r3, r7, #2
+  75 0040 C822     		movs	r2, #200
+  76 0042 5200     		lsls	r2, r2, #1
+  77 0044 1A80     		strh	r2, [r3]
+  45:functionals.c **** 	/* To samo co powyzej tylko dla osi X */
+  46:functionals.c **** 	const tU16 NCX = 575;
+  78              		.loc 1 46 0
+  79 0046 3B00     		movs	r3, r7
+  80 0048 2B4A     		ldr	r2, .L10+4
+  81 004a 1A80     		strh	r2, [r3]
+  47:functionals.c **** 
+  48:functionals.c **** 	/*	Sprawdzenie przyblizonego kierunku przyspieszenia na podstawie porownania wartosci odczytu przy
+  49:functionals.c **** 	*	dla kolejnych osi z wartoscia referencyjna�.
+  50:functionals.c **** 	*/
+  51:functionals.c **** 	if (accelZ > PC)
+  82              		.loc 1 51 0
+  83 004c 7A19     		adds	r2, r7, r5
+  84 004e BB1D     		adds	r3, r7, #6
+  85 0050 1288     		ldrh	r2, [r2]
+  86 0052 1B88     		ldrh	r3, [r3]
+  87 0054 9A42     		cmp	r2, r3
+  88 0056 04D9     		bls	.L2
+  52:functionals.c **** 	{
+  53:functionals.c **** 		direction = BACK;
+  89              		.loc 1 53 0
+  90 0058 0F23     		movs	r3, #15
+  91 005a FB18     		adds	r3, r7, r3
+  92 005c 0522     		movs	r2, #5
+  93 005e 1A70     		strb	r2, [r3]
+  94 0060 3FE0     		b	.L3
+  95              	.L2:
+  54:functionals.c **** 	}
+  55:functionals.c **** 	else if (accelZ < NC)
+  96              		.loc 1 55 0
+  97 0062 0823     		movs	r3, #8
+  98 0064 FA18     		adds	r2, r7, r3
+  99 0066 BB1C     		adds	r3, r7, #2
+ 100 0068 1288     		ldrh	r2, [r2]
+ 101 006a 1B88     		ldrh	r3, [r3]
+ 102 006c 9A42     		cmp	r2, r3
+ 103 006e 04D2     		bcs	.L4
+  56:functionals.c **** 	{
+  57:functionals.c **** 		direction = FRONT;
+ 104              		.loc 1 57 0
+ 105 0070 0F23     		movs	r3, #15
+ 106 0072 FB18     		adds	r3, r7, r3
+ 107 0074 0422     		movs	r2, #4
+ 108 0076 1A70     		strb	r2, [r3]
+ 109 0078 33E0     		b	.L3
+ 110              	.L4:
+  58:functionals.c **** 	}
+  59:functionals.c **** 	else if (accelY > PC)
+ 111              		.loc 1 59 0
+ 112 007a 0A23     		movs	r3, #10
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 4
+
+
+ 113 007c FA18     		adds	r2, r7, r3
+ 114 007e BB1D     		adds	r3, r7, #6
+ 115 0080 1288     		ldrh	r2, [r2]
+ 116 0082 1B88     		ldrh	r3, [r3]
+ 117 0084 9A42     		cmp	r2, r3
+ 118 0086 04D9     		bls	.L5
+  60:functionals.c **** 	{
+  61:functionals.c **** 		direction = LEFT;
+ 119              		.loc 1 61 0
+ 120 0088 0F23     		movs	r3, #15
+ 121 008a FB18     		adds	r3, r7, r3
+ 122 008c 0322     		movs	r2, #3
+ 123 008e 1A70     		strb	r2, [r3]
+ 124 0090 27E0     		b	.L3
+ 125              	.L5:
+  62:functionals.c **** 	}
+  63:functionals.c **** 	else if (accelY < NC)
+ 126              		.loc 1 63 0
+ 127 0092 0A23     		movs	r3, #10
+ 128 0094 FA18     		adds	r2, r7, r3
+ 129 0096 BB1C     		adds	r3, r7, #2
+ 130 0098 1288     		ldrh	r2, [r2]
+ 131 009a 1B88     		ldrh	r3, [r3]
+ 132 009c 9A42     		cmp	r2, r3
+ 133 009e 04D2     		bcs	.L6
+  64:functionals.c **** 	{
+  65:functionals.c **** 		direction = RIGHT;
+ 134              		.loc 1 65 0
+ 135 00a0 0F23     		movs	r3, #15
+ 136 00a2 FB18     		adds	r3, r7, r3
+ 137 00a4 0222     		movs	r2, #2
+ 138 00a6 1A70     		strb	r2, [r3]
+ 139 00a8 1BE0     		b	.L3
+ 140              	.L6:
+  66:functionals.c **** 	}
+  67:functionals.c **** 	else if(accelX > PCX)
+ 141              		.loc 1 67 0
+ 142 00aa 0C23     		movs	r3, #12
+ 143 00ac FA18     		adds	r2, r7, r3
+ 144 00ae 3B1D     		adds	r3, r7, #4
+ 145 00b0 1288     		ldrh	r2, [r2]
+ 146 00b2 1B88     		ldrh	r3, [r3]
+ 147 00b4 9A42     		cmp	r2, r3
+ 148 00b6 04D9     		bls	.L7
+  68:functionals.c **** 	{
+  69:functionals.c **** 		direction = DOWN;
+ 149              		.loc 1 69 0
+ 150 00b8 0F23     		movs	r3, #15
+ 151 00ba FB18     		adds	r3, r7, r3
+ 152 00bc 0122     		movs	r2, #1
+ 153 00be 1A70     		strb	r2, [r3]
+ 154 00c0 0FE0     		b	.L3
+ 155              	.L7:
+  70:functionals.c **** 	}
+  71:functionals.c **** 	else if (accelX <= NCX)
+ 156              		.loc 1 71 0
+ 157 00c2 0C23     		movs	r3, #12
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 5
+
+
+ 158 00c4 FA18     		adds	r2, r7, r3
+ 159 00c6 3B00     		movs	r3, r7
+ 160 00c8 1288     		ldrh	r2, [r2]
+ 161 00ca 1B88     		ldrh	r3, [r3]
+ 162 00cc 9A42     		cmp	r2, r3
+ 163 00ce 04D8     		bhi	.L8
+  72:functionals.c **** 	{
+  73:functionals.c **** 		direction = UP;
+ 164              		.loc 1 73 0
+ 165 00d0 0F23     		movs	r3, #15
+ 166 00d2 FB18     		adds	r3, r7, r3
+ 167 00d4 0022     		movs	r2, #0
+ 168 00d6 1A70     		strb	r2, [r3]
+ 169 00d8 03E0     		b	.L3
+ 170              	.L8:
+  74:functionals.c **** 	}
+  75:functionals.c **** 	else 
+  76:functionals.c **** 	{
+  77:functionals.c **** 		direction = BACK;
+ 171              		.loc 1 77 0
+ 172 00da 0F23     		movs	r3, #15
+ 173 00dc FB18     		adds	r3, r7, r3
+ 174 00de 0522     		movs	r2, #5
+ 175 00e0 1A70     		strb	r2, [r3]
+ 176              	.L3:
+  78:functionals.c **** 	}
+  79:functionals.c **** 
+  80:functionals.c **** 	return direction;
+ 177              		.loc 1 80 0
+ 178 00e2 0F23     		movs	r3, #15
+ 179 00e4 FB18     		adds	r3, r7, r3
+ 180 00e6 1B78     		ldrb	r3, [r3]
+  81:functionals.c **** }
+ 181              		.loc 1 81 0
+ 182 00e8 1800     		movs	r0, r3
+ 183 00ea BD46     		mov	sp, r7
+ 184 00ec 04B0     		add	sp, sp, #16
+ 185              		@ sp needed
+ 186 00ee B0BC     		pop	{r4, r5, r7}
+ 187 00f0 02BC     		pop	{r1}
+ 188 00f2 0847     		bx	r1
+ 189              	.L11:
+ 190              		.align	2
+ 191              	.L10:
+ 192 00f4 8A020000 		.word	650
+ 193 00f8 3F020000 		.word	575
+ 194              		.cfi_endproc
+ 195              	.LFE0:
+ 196              		.size	getAccelerationDirection, .-getAccelerationDirection
+ 197              		.align	1
+ 198              		.global	playBackgroundSoundtrack
+ 199              		.syntax unified
+ 200              		.code	16
+ 201              		.thumb_func
+ 202              		.fpu softvfp
+ 203              		.type	playBackgroundSoundtrack, %function
+ 204              	playBackgroundSoundtrack:
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 6
+
+
+ 205              	.LFB1:
+  82:functionals.c **** 
+  83:functionals.c **** /*
+  84:functionals.c ****  *  @brief			Funkcja, ktora wlacza odtwarzanie melodi w tle do gry.
+  85:functionals.c ****  *
+  86:functionals.c ****  *  @Description	Funkcja realizuje wlaczenie odtwarzania utworu muzycznego w tle, po przez
+  87:functionals.c ****  * 					ustawianienie dzialania Timer'a #1 aby co okreslony interwal czasu (225 ms)
+  88:functionals.c ****  * 					generowal przerwanie. Funkcja ta takze ustawia odpowiednia funkcje (IRQ_PutNextSample)
+  89:functionals.c ****  * 					stanowiaca obsluge zglaszanego przerwania.
+  90:functionals.c ****  *
+  91:functionals.c ****  *  @param 			brak
+  92:functionals.c ****  *
+  93:functionals.c ****  *  @returns  		nic
+  94:functionals.c ****  *
+  95:functionals.c ****  *  @side effects	Modyfikacja rejestru VICIntSelect
+  96:functionals.c ****  * 					Modyfikacja rejestru VICVectAddr3
+  97:functionals.c ****  * 					Modyfikacja rejestru VICVectCntl3
+  98:functionals.c ****  * 					Modyfikacja rejestru VICIntEnable
+  99:functionals.c ****  * 					Modyfikacja rejestrow Timer'a #1 (T1TCR, T1PR, T1MR0, T1IR, T1MCR)
+ 100:functionals.c ****  */
+ 101:functionals.c **** void playBackgroundSoundtrack(void)
+ 102:functionals.c **** {
+ 206              		.loc 1 102 0
+ 207              		.cfi_startproc
+ 208              		@ Function supports interworking.
+ 209              		@ args = 0, pretend = 0, frame = 0
+ 210              		@ frame_needed = 1, uses_anonymous_args = 0
+ 211 00fc 80B5     		push	{r7, lr}
+ 212              	.LCFI3:
+ 213              		.cfi_def_cfa_offset 8
+ 214              		.cfi_offset 7, -8
+ 215              		.cfi_offset 14, -4
+ 216 00fe 00AF     		add	r7, sp, #0
+ 217              	.LCFI4:
+ 218              		.cfi_def_cfa_register 7
+ 103:functionals.c **** 	initDac();
+ 219              		.loc 1 103 0
+ 220 0100 FFF7FEFF 		bl	initDac
+ 104:functionals.c **** 
+ 105:functionals.c **** 	/* Zainicjowanie VIC przerwania Timer'a #1 */
+ 106:functionals.c **** 	VICIntSelect &= ~TIMER_1_IRQ;           	/*Przerwanie od Timera #1 przypisane do IRQ (nie do FIQ)*
+ 221              		.loc 1 106 0
+ 222 0104 124B     		ldr	r3, .L13
+ 223 0106 1A68     		ldr	r2, [r3]
+ 224 0108 114B     		ldr	r3, .L13
+ 225 010a 2021     		movs	r1, #32
+ 226 010c 8A43     		bics	r2, r1
+ 227 010e 1A60     		str	r2, [r3]
+ 107:functionals.c **** 	VICVectAddr5  = (tU32)IRQ_PutNextSample;    /* adres procedury przerwania */
+ 228              		.loc 1 107 0
+ 229 0110 104B     		ldr	r3, .L13+4
+ 230 0112 114A     		ldr	r2, .L13+8
+ 231 0114 1A60     		str	r2, [r3]
+ 108:functionals.c **** 	VICVectCntl5  = VIC_ENABLE_SLOT | TIMER_1_IRQ_NO;
+ 232              		.loc 1 108 0
+ 233 0116 114B     		ldr	r3, .L13+12
+ 234 0118 2522     		movs	r2, #37
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 7
+
+
+ 235 011a 1A60     		str	r2, [r3]
+ 109:functionals.c **** 	VICIntEnable  = TIMER_1_IRQ;            	/* Przypisanie i odblokowanie slotu w VIC od Timer'a #1 *
+ 236              		.loc 1 109 0
+ 237 011c 104B     		ldr	r3, .L13+16
+ 238 011e 2022     		movs	r2, #32
+ 239 0120 1A60     		str	r2, [r3]
+ 110:functionals.c **** 
+ 111:functionals.c **** 	T1TCR = TIMER_RESET;                    	/* Zatrzymanie i zresetowanie Timer'a #1*/
+ 240              		.loc 1 111 0
+ 241 0122 104B     		ldr	r3, .L13+20
+ 242 0124 0222     		movs	r2, #2
+ 243 0126 1A60     		str	r2, [r3]
+ 112:functionals.c **** 	T1PR  = 0;                              	/* Ustawienie preskalera na 0, aby co kazde PCLK incremen
+ 244              		.loc 1 112 0
+ 245 0128 0F4B     		ldr	r3, .L13+24
+ 246 012a 0022     		movs	r2, #0
+ 247 012c 1A60     		str	r2, [r3]
+ 113:functionals.c **** 	T1MR0 = ((tU64)TimeToNextSample) * ((tU64)PERIPHERAL_CLOCK) / 1000000UL; /* Ustawienie wartosci do
+ 248              		.loc 1 113 0
+ 249 012e 0F4B     		ldr	r3, .L13+28
+ 250 0130 0F4A     		ldr	r2, .L13+32
+ 251 0132 1A60     		str	r2, [r3]
+ 114:functionals.c **** 	T1IR  = TIMER_ALL_INT;                  	/* Zresetowanie flagi przerwa� */
+ 252              		.loc 1 114 0
+ 253 0134 0F4B     		ldr	r3, .L13+36
+ 254 0136 FF22     		movs	r2, #255
+ 255 0138 1A60     		str	r2, [r3]
+ 115:functionals.c **** 	T1MCR = MR0_I | MR0_R;          			/* Ustawienie,  aby na dopasowanie MR0 do TC bylo generowane pr
+ 256              		.loc 1 115 0
+ 257 013a 0F4B     		ldr	r3, .L13+40
+ 258 013c 0322     		movs	r2, #3
+ 259 013e 1A60     		str	r2, [r3]
+ 116:functionals.c **** 
+ 117:functionals.c **** 	T1TCR = TIMER_RUN;                      	/* Uruchomienie Timer'a #1*/
+ 260              		.loc 1 117 0
+ 261 0140 084B     		ldr	r3, .L13+20
+ 262 0142 0122     		movs	r2, #1
+ 263 0144 1A60     		str	r2, [r3]
+ 118:functionals.c **** }
+ 264              		.loc 1 118 0
+ 265 0146 C046     		nop
+ 266 0148 BD46     		mov	sp, r7
+ 267              		@ sp needed
+ 268 014a 80BC     		pop	{r7}
+ 269 014c 01BC     		pop	{r0}
+ 270 014e 0047     		bx	r0
+ 271              	.L14:
+ 272              		.align	2
+ 273              	.L13:
+ 274 0150 0CF0FFFF 		.word	-4084
+ 275 0154 14F1FFFF 		.word	-3820
+ 276 0158 00000000 		.word	IRQ_PutNextSample
+ 277 015c 14F2FFFF 		.word	-3564
+ 278 0160 10F0FFFF 		.word	-4080
+ 279 0164 048000E0 		.word	-536838140
+ 280 0168 0C8000E0 		.word	-536838132
+ 281 016c 188000E0 		.word	-536838120
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 8
+
+
+ 282 0170 47A10000 		.word	41287
+ 283 0174 008000E0 		.word	-536838144
+ 284 0178 148000E0 		.word	-536838124
+ 285              		.cfi_endproc
+ 286              	.LFE1:
+ 287              		.size	playBackgroundSoundtrack, .-playBackgroundSoundtrack
+ 288              		.align	1
+ 289              		.global	delay_ms
+ 290              		.syntax unified
+ 291              		.code	16
+ 292              		.thumb_func
+ 293              		.fpu softvfp
+ 294              		.type	delay_ms, %function
+ 295              	delay_ms:
+ 296              	.LFB2:
+ 119:functionals.c **** 
+ 120:functionals.c **** /*
+ 121:functionals.c ****  *  @brief			Funkcja sluzaca do wstrzymania dzialania programu na okreslona liczbe milisekund.
+ 122:functionals.c ****  *
+ 123:functionals.c ****  *  @Description	Funkcja realizuje opoznienie dzialania programu o przekazana liczbe milisekund.
+ 124:functionals.c ****  * 					Do wykonania tej operacji wykorzystywany jest Timer #0
+ 125:functionals.c ****  *
+ 126:functionals.c ****  *  @param 			[in]	delayIn_ms
+ 127:functionals.c ****  *						liczba milisekund na ile ma byc wstrzymany program
+ 128:functionals.c ****  *
+ 129:functionals.c ****  *  @returns  		nic
+ 130:functionals.c ****  *
+ 131:functionals.c ****  *  @side effects	Modyfikacja rejestrow Timer'a #0 (T0TCR, T0PR, T0MR0, T0IR, T0MCR)
+ 132:functionals.c ****  */
+ 133:functionals.c **** void delay_ms(tU16 delayIn_ms)
+ 134:functionals.c **** {
+ 297              		.loc 1 134 0
+ 298              		.cfi_startproc
+ 299              		@ Function supports interworking.
+ 300              		@ args = 0, pretend = 0, frame = 8
+ 301              		@ frame_needed = 1, uses_anonymous_args = 0
+ 302 017c 80B5     		push	{r7, lr}
+ 303              	.LCFI5:
+ 304              		.cfi_def_cfa_offset 8
+ 305              		.cfi_offset 7, -8
+ 306              		.cfi_offset 14, -4
+ 307 017e 82B0     		sub	sp, sp, #8
+ 308              	.LCFI6:
+ 309              		.cfi_def_cfa_offset 16
+ 310 0180 00AF     		add	r7, sp, #0
+ 311              	.LCFI7:
+ 312              		.cfi_def_cfa_register 7
+ 313 0182 0200     		movs	r2, r0
+ 314 0184 BB1D     		adds	r3, r7, #6
+ 315 0186 1A80     		strh	r2, [r3]
+ 135:functionals.c **** 	/* Przygotowanie Timer'a #0 do realizacji opoznienia */
+ 136:functionals.c **** 	T0TCR = 0x02;          	/* Wstrzymanie i zresetowanie timera */
+ 316              		.loc 1 136 0
+ 317 0188 104B     		ldr	r3, .L17
+ 318 018a 0222     		movs	r2, #2
+ 319 018c 1A60     		str	r2, [r3]
+ 137:functionals.c **** 	T0PR = 0x00;        	/* Ustawienie wartosci rejestru Preskaler Register na 0, tym samym Timer Coun
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 9
+
+
+ 320              		.loc 1 137 0
+ 321 018e 104B     		ldr	r3, .L17+4
+ 322 0190 0022     		movs	r2, #0
+ 323 0192 1A60     		str	r2, [r3]
+ 138:functionals.c **** 	T0MR0 = delayIn_ms * (PERIPHERAL_CLOCK / 1000); /* Ustawienio wartosci rejestru MR0 na ta odpowiad
+ 324              		.loc 1 138 0
+ 325 0194 BB1D     		adds	r3, r7, #6
+ 326 0196 1888     		ldrh	r0, [r3]
+ 327 0198 0E4B     		ldr	r3, .L17+8
+ 328 019a 0F49     		ldr	r1, .L17+12
+ 329 019c 0200     		movs	r2, r0
+ 330 019e 4A43     		muls	r2, r1
+ 331 01a0 1A60     		str	r2, [r3]
+ 139:functionals.c **** 	T0IR = 0xff;          	/* Zresetowanie flag przerwan */
+ 332              		.loc 1 139 0
+ 333 01a2 0E4B     		ldr	r3, .L17+16
+ 334 01a4 FF22     		movs	r2, #255
+ 335 01a6 1A60     		str	r2, [r3]
+ 140:functionals.c **** 	/*
+ 141:functionals.c **** 	* Okreslenie akcji jaka ma nastapic gdy wartosc rejestru TC bedzie rowna tej w MR0.
+ 142:functionals.c **** 	* Akcja to zatrzymanie timer'a na dopasowanie TC i MR0. Skutkujaca ustawieniem
+ 143:functionals.c **** 	* najmlodszego bitu rejestru TCR Timera #0 na 0.
+ 144:functionals.c **** 	*/
+ 145:functionals.c **** 	T0MCR = 0x04;
+ 336              		.loc 1 145 0
+ 337 01a8 0D4B     		ldr	r3, .L17+20
+ 338 01aa 0422     		movs	r2, #4
+ 339 01ac 1A60     		str	r2, [r3]
+ 146:functionals.c **** 	T0TCR = 0x01;          /* Uruchomienie Timer'a #0 */
+ 340              		.loc 1 146 0
+ 341 01ae 074B     		ldr	r3, .L17
+ 342 01b0 0122     		movs	r2, #1
+ 343 01b2 1A60     		str	r2, [r3]
+ 147:functionals.c **** 
+ 148:functionals.c **** 	/* Odczekanie uplywu czasu */
+ 149:functionals.c **** 	while ((T0TCR & 1) != 0)
+ 344              		.loc 1 149 0
+ 345 01b4 C046     		nop
+ 346              	.L16:
+ 347              		.loc 1 149 0 is_stmt 0 discriminator 1
+ 348 01b6 054B     		ldr	r3, .L17
+ 349 01b8 1B68     		ldr	r3, [r3]
+ 350 01ba 0122     		movs	r2, #1
+ 351 01bc 1340     		ands	r3, r2
+ 352 01be FAD1     		bne	.L16
+ 150:functionals.c **** 	{
+ 151:functionals.c **** 		;
+ 152:functionals.c **** 	}
+ 153:functionals.c **** }
+ 353              		.loc 1 153 0 is_stmt 1
+ 354 01c0 C046     		nop
+ 355 01c2 BD46     		mov	sp, r7
+ 356 01c4 02B0     		add	sp, sp, #8
+ 357              		@ sp needed
+ 358 01c6 80BC     		pop	{r7}
+ 359 01c8 01BC     		pop	{r0}
+ 360 01ca 0047     		bx	r0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 10
+
+
+ 361              	.L18:
+ 362              		.align	2
+ 363              	.L17:
+ 364 01cc 044000E0 		.word	-536854524
+ 365 01d0 0C4000E0 		.word	-536854516
+ 366 01d4 184000E0 		.word	-536854504
+ 367 01d8 66E60000 		.word	58982
+ 368 01dc 004000E0 		.word	-536854528
+ 369 01e0 144000E0 		.word	-536854508
+ 370              		.cfi_endproc
+ 371              	.LFE2:
+ 372              		.size	delay_ms, .-delay_ms
+ 373              	.Letext0:
+ 374              		.file 2 "general.h"
+ 375              		.file 3 "adc.h"
+ 376              		.file 4 "functionals.h"
+ 377              		.section	.debug_info,"",%progbits
+ 378              	.Ldebug_info0:
+ 379 0000 C2010000 		.4byte	0x1c2
+ 380 0004 0200     		.2byte	0x2
+ 381 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 382 000a 04       		.byte	0x4
+ 383 000b 01       		.uleb128 0x1
+ 384 000c 31000000 		.4byte	.LASF30
+ 385 0010 0C       		.byte	0xc
+ 386 0011 00000000 		.4byte	.LASF31
+ 387 0015 1E010000 		.4byte	.LASF32
+ 388 0019 00000000 		.4byte	.Ltext0
+ 389 001d E4010000 		.4byte	.Letext0
+ 390 0021 00000000 		.4byte	.Ldebug_line0
+ 391 0025 02       		.uleb128 0x2
+ 392 0026 01       		.byte	0x1
+ 393 0027 08       		.byte	0x8
+ 394 0028 CF000000 		.4byte	.LASF0
+ 395 002c 03       		.uleb128 0x3
+ 396 002d 8F010000 		.4byte	.LASF2
+ 397 0031 02       		.byte	0x2
+ 398 0032 08       		.byte	0x8
+ 399 0033 3C000000 		.4byte	0x3c
+ 400 0037 04       		.uleb128 0x4
+ 401 0038 2C000000 		.4byte	0x2c
+ 402 003c 02       		.uleb128 0x2
+ 403 003d 02       		.byte	0x2
+ 404 003e 07       		.byte	0x7
+ 405 003f F6000000 		.4byte	.LASF1
+ 406 0043 03       		.uleb128 0x3
+ 407 0044 A2010000 		.4byte	.LASF3
+ 408 0048 02       		.byte	0x2
+ 409 0049 09       		.byte	0x9
+ 410 004a 4E000000 		.4byte	0x4e
+ 411 004e 02       		.uleb128 0x2
+ 412 004f 04       		.byte	0x4
+ 413 0050 07       		.byte	0x7
+ 414 0051 3C010000 		.4byte	.LASF4
+ 415 0055 03       		.uleb128 0x3
+ 416 0056 E6000000 		.4byte	.LASF5
+ 417 005a 02       		.byte	0x2
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 11
+
+
+ 418 005b 0A       		.byte	0xa
+ 419 005c 60000000 		.4byte	0x60
+ 420 0060 02       		.uleb128 0x2
+ 421 0061 08       		.byte	0x8
+ 422 0062 07       		.byte	0x7
+ 423 0063 49010000 		.4byte	.LASF6
+ 424 0067 02       		.uleb128 0x2
+ 425 0068 01       		.byte	0x1
+ 426 0069 06       		.byte	0x6
+ 427 006a D1010000 		.4byte	.LASF7
+ 428 006e 02       		.uleb128 0x2
+ 429 006f 02       		.byte	0x2
+ 430 0070 05       		.byte	0x5
+ 431 0071 C2010000 		.4byte	.LASF8
+ 432 0075 05       		.uleb128 0x5
+ 433 0076 04       		.byte	0x4
+ 434 0077 05       		.byte	0x5
+ 435 0078 696E7400 		.ascii	"int\000"
+ 436 007c 02       		.uleb128 0x2
+ 437 007d 08       		.byte	0x8
+ 438 007e 05       		.byte	0x5
+ 439 007f 94010000 		.4byte	.LASF9
+ 440 0083 06       		.uleb128 0x6
+ 441 0084 07       		.byte	0x7
+ 442 0085 01       		.byte	0x1
+ 443 0086 25000000 		.4byte	0x25
+ 444 008a 03       		.byte	0x3
+ 445 008b 0E       		.byte	0xe
+ 446 008c C1000000 		.4byte	0xc1
+ 447 0090 07       		.uleb128 0x7
+ 448 0091 0E000000 		.4byte	.LASF10
+ 449 0095 00       		.byte	0
+ 450 0096 07       		.uleb128 0x7
+ 451 0097 13000000 		.4byte	.LASF11
+ 452 009b 01       		.byte	0x1
+ 453 009c 07       		.uleb128 0x7
+ 454 009d 18000000 		.4byte	.LASF12
+ 455 00a1 02       		.byte	0x2
+ 456 00a2 07       		.uleb128 0x7
+ 457 00a3 1D000000 		.4byte	.LASF13
+ 458 00a7 03       		.byte	0x3
+ 459 00a8 07       		.uleb128 0x7
+ 460 00a9 22000000 		.4byte	.LASF14
+ 461 00ad 04       		.byte	0x4
+ 462 00ae 07       		.uleb128 0x7
+ 463 00af 27000000 		.4byte	.LASF15
+ 464 00b3 05       		.byte	0x5
+ 465 00b4 07       		.uleb128 0x7
+ 466 00b5 2C000000 		.4byte	.LASF16
+ 467 00b9 06       		.byte	0x6
+ 468 00ba 07       		.uleb128 0x7
+ 469 00bb CC010000 		.4byte	.LASF17
+ 470 00bf 07       		.byte	0x7
+ 471 00c0 00       		.byte	0
+ 472 00c1 06       		.uleb128 0x6
+ 473 00c2 07       		.byte	0x7
+ 474 00c3 01       		.byte	0x1
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 12
+
+
+ 475 00c4 25000000 		.4byte	0x25
+ 476 00c8 04       		.byte	0x4
+ 477 00c9 0F       		.byte	0xf
+ 478 00ca F2000000 		.4byte	0xf2
+ 479 00ce 08       		.uleb128 0x8
+ 480 00cf 555000   		.ascii	"UP\000"
+ 481 00d2 00       		.byte	0
+ 482 00d3 07       		.uleb128 0x7
+ 483 00d4 BD010000 		.4byte	.LASF18
+ 484 00d8 01       		.byte	0x1
+ 485 00d9 07       		.uleb128 0x7
+ 486 00da 7F010000 		.4byte	.LASF19
+ 487 00de 02       		.byte	0x2
+ 488 00df 07       		.uleb128 0x7
+ 489 00e0 CA000000 		.4byte	.LASF20
+ 490 00e4 03       		.byte	0x3
+ 491 00e5 07       		.uleb128 0x7
+ 492 00e6 60010000 		.4byte	.LASF21
+ 493 00ea 04       		.byte	0x4
+ 494 00eb 07       		.uleb128 0x7
+ 495 00ec DD010000 		.4byte	.LASF22
+ 496 00f0 05       		.byte	0x5
+ 497 00f1 00       		.byte	0
+ 498 00f2 03       		.uleb128 0x3
+ 499 00f3 A7010000 		.4byte	.LASF23
+ 500 00f7 04       		.byte	0x4
+ 501 00f8 0F       		.byte	0xf
+ 502 00f9 C1000000 		.4byte	0xc1
+ 503 00fd 09       		.uleb128 0x9
+ 504 00fe 01       		.byte	0x1
+ 505 00ff DD000000 		.4byte	.LASF24
+ 506 0103 01       		.byte	0x1
+ 507 0104 85       		.byte	0x85
+ 508 0105 01       		.byte	0x1
+ 509 0106 7C010000 		.4byte	.LFB2
+ 510 010a E4010000 		.4byte	.LFE2
+ 511 010e 00000000 		.4byte	.LLST2
+ 512 0112 01       		.byte	0x1
+ 513 0113 26010000 		.4byte	0x126
+ 514 0117 0A       		.uleb128 0xa
+ 515 0118 EB000000 		.4byte	.LASF33
+ 516 011c 01       		.byte	0x1
+ 517 011d 85       		.byte	0x85
+ 518 011e 2C000000 		.4byte	0x2c
+ 519 0122 02       		.byte	0x2
+ 520 0123 91       		.byte	0x91
+ 521 0124 76       		.sleb128 -10
+ 522 0125 00       		.byte	0
+ 523 0126 0B       		.uleb128 0xb
+ 524 0127 01       		.byte	0x1
+ 525 0128 66010000 		.4byte	.LASF34
+ 526 012c 01       		.byte	0x1
+ 527 012d 65       		.byte	0x65
+ 528 012e 01       		.byte	0x1
+ 529 012f FC000000 		.4byte	.LFB1
+ 530 0133 7C010000 		.4byte	.LFE1
+ 531 0137 38000000 		.4byte	.LLST1
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 13
+
+
+ 532 013b 01       		.byte	0x1
+ 533 013c 0C       		.uleb128 0xc
+ 534 013d 01       		.byte	0x1
+ 535 013e B1000000 		.4byte	.LASF25
+ 536 0142 01       		.byte	0x1
+ 537 0143 1F       		.byte	0x1f
+ 538 0144 01       		.byte	0x1
+ 539 0145 F2000000 		.4byte	0xf2
+ 540 0149 00000000 		.4byte	.LFB0
+ 541 014d FC000000 		.4byte	.LFE0
+ 542 0151 64000000 		.4byte	.LLST0
+ 543 0155 01       		.byte	0x1
+ 544 0156 0D       		.uleb128 0xd
+ 545 0157 85010000 		.4byte	.LASF26
+ 546 015b 01       		.byte	0x1
+ 547 015c 21       		.byte	0x21
+ 548 015d F2000000 		.4byte	0xf2
+ 549 0161 02       		.byte	0x2
+ 550 0162 91       		.byte	0x91
+ 551 0163 6F       		.sleb128 -17
+ 552 0164 0D       		.uleb128 0xd
+ 553 0165 09010000 		.4byte	.LASF27
+ 554 0169 01       		.byte	0x1
+ 555 016a 23       		.byte	0x23
+ 556 016b 2C000000 		.4byte	0x2c
+ 557 016f 02       		.byte	0x2
+ 558 0170 91       		.byte	0x91
+ 559 0171 6C       		.sleb128 -20
+ 560 0172 0D       		.uleb128 0xd
+ 561 0173 10010000 		.4byte	.LASF28
+ 562 0177 01       		.byte	0x1
+ 563 0178 24       		.byte	0x24
+ 564 0179 2C000000 		.4byte	0x2c
+ 565 017d 02       		.byte	0x2
+ 566 017e 91       		.byte	0x91
+ 567 017f 6A       		.sleb128 -22
+ 568 0180 0D       		.uleb128 0xd
+ 569 0181 17010000 		.4byte	.LASF29
+ 570 0185 01       		.byte	0x1
+ 571 0186 25       		.byte	0x25
+ 572 0187 2C000000 		.4byte	0x2c
+ 573 018b 02       		.byte	0x2
+ 574 018c 91       		.byte	0x91
+ 575 018d 68       		.sleb128 -24
+ 576 018e 0E       		.uleb128 0xe
+ 577 018f 504300   		.ascii	"PC\000"
+ 578 0192 01       		.byte	0x1
+ 579 0193 28       		.byte	0x28
+ 580 0194 37000000 		.4byte	0x37
+ 581 0198 02       		.byte	0x2
+ 582 0199 91       		.byte	0x91
+ 583 019a 66       		.sleb128 -26
+ 584 019b 0E       		.uleb128 0xe
+ 585 019c 50435800 		.ascii	"PCX\000"
+ 586 01a0 01       		.byte	0x1
+ 587 01a1 2A       		.byte	0x2a
+ 588 01a2 37000000 		.4byte	0x37
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 14
+
+
+ 589 01a6 02       		.byte	0x2
+ 590 01a7 91       		.byte	0x91
+ 591 01a8 64       		.sleb128 -28
+ 592 01a9 0E       		.uleb128 0xe
+ 593 01aa 4E4300   		.ascii	"NC\000"
+ 594 01ad 01       		.byte	0x1
+ 595 01ae 2C       		.byte	0x2c
+ 596 01af 37000000 		.4byte	0x37
+ 597 01b3 02       		.byte	0x2
+ 598 01b4 91       		.byte	0x91
+ 599 01b5 62       		.sleb128 -30
+ 600 01b6 0E       		.uleb128 0xe
+ 601 01b7 4E435800 		.ascii	"NCX\000"
+ 602 01bb 01       		.byte	0x1
+ 603 01bc 2E       		.byte	0x2e
+ 604 01bd 37000000 		.4byte	0x37
+ 605 01c1 02       		.byte	0x2
+ 606 01c2 91       		.byte	0x91
+ 607 01c3 60       		.sleb128 -32
+ 608 01c4 00       		.byte	0
+ 609 01c5 00       		.byte	0
+ 610              		.section	.debug_abbrev,"",%progbits
+ 611              	.Ldebug_abbrev0:
+ 612 0000 01       		.uleb128 0x1
+ 613 0001 11       		.uleb128 0x11
+ 614 0002 01       		.byte	0x1
+ 615 0003 25       		.uleb128 0x25
+ 616 0004 0E       		.uleb128 0xe
+ 617 0005 13       		.uleb128 0x13
+ 618 0006 0B       		.uleb128 0xb
+ 619 0007 03       		.uleb128 0x3
+ 620 0008 0E       		.uleb128 0xe
+ 621 0009 1B       		.uleb128 0x1b
+ 622 000a 0E       		.uleb128 0xe
+ 623 000b 11       		.uleb128 0x11
+ 624 000c 01       		.uleb128 0x1
+ 625 000d 12       		.uleb128 0x12
+ 626 000e 01       		.uleb128 0x1
+ 627 000f 10       		.uleb128 0x10
+ 628 0010 06       		.uleb128 0x6
+ 629 0011 00       		.byte	0
+ 630 0012 00       		.byte	0
+ 631 0013 02       		.uleb128 0x2
+ 632 0014 24       		.uleb128 0x24
+ 633 0015 00       		.byte	0
+ 634 0016 0B       		.uleb128 0xb
+ 635 0017 0B       		.uleb128 0xb
+ 636 0018 3E       		.uleb128 0x3e
+ 637 0019 0B       		.uleb128 0xb
+ 638 001a 03       		.uleb128 0x3
+ 639 001b 0E       		.uleb128 0xe
+ 640 001c 00       		.byte	0
+ 641 001d 00       		.byte	0
+ 642 001e 03       		.uleb128 0x3
+ 643 001f 16       		.uleb128 0x16
+ 644 0020 00       		.byte	0
+ 645 0021 03       		.uleb128 0x3
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 15
+
+
+ 646 0022 0E       		.uleb128 0xe
+ 647 0023 3A       		.uleb128 0x3a
+ 648 0024 0B       		.uleb128 0xb
+ 649 0025 3B       		.uleb128 0x3b
+ 650 0026 0B       		.uleb128 0xb
+ 651 0027 49       		.uleb128 0x49
+ 652 0028 13       		.uleb128 0x13
+ 653 0029 00       		.byte	0
+ 654 002a 00       		.byte	0
+ 655 002b 04       		.uleb128 0x4
+ 656 002c 26       		.uleb128 0x26
+ 657 002d 00       		.byte	0
+ 658 002e 49       		.uleb128 0x49
+ 659 002f 13       		.uleb128 0x13
+ 660 0030 00       		.byte	0
+ 661 0031 00       		.byte	0
+ 662 0032 05       		.uleb128 0x5
+ 663 0033 24       		.uleb128 0x24
+ 664 0034 00       		.byte	0
+ 665 0035 0B       		.uleb128 0xb
+ 666 0036 0B       		.uleb128 0xb
+ 667 0037 3E       		.uleb128 0x3e
+ 668 0038 0B       		.uleb128 0xb
+ 669 0039 03       		.uleb128 0x3
+ 670 003a 08       		.uleb128 0x8
+ 671 003b 00       		.byte	0
+ 672 003c 00       		.byte	0
+ 673 003d 06       		.uleb128 0x6
+ 674 003e 04       		.uleb128 0x4
+ 675 003f 01       		.byte	0x1
+ 676 0040 3E       		.uleb128 0x3e
+ 677 0041 0B       		.uleb128 0xb
+ 678 0042 0B       		.uleb128 0xb
+ 679 0043 0B       		.uleb128 0xb
+ 680 0044 49       		.uleb128 0x49
+ 681 0045 13       		.uleb128 0x13
+ 682 0046 3A       		.uleb128 0x3a
+ 683 0047 0B       		.uleb128 0xb
+ 684 0048 3B       		.uleb128 0x3b
+ 685 0049 0B       		.uleb128 0xb
+ 686 004a 01       		.uleb128 0x1
+ 687 004b 13       		.uleb128 0x13
+ 688 004c 00       		.byte	0
+ 689 004d 00       		.byte	0
+ 690 004e 07       		.uleb128 0x7
+ 691 004f 28       		.uleb128 0x28
+ 692 0050 00       		.byte	0
+ 693 0051 03       		.uleb128 0x3
+ 694 0052 0E       		.uleb128 0xe
+ 695 0053 1C       		.uleb128 0x1c
+ 696 0054 0B       		.uleb128 0xb
+ 697 0055 00       		.byte	0
+ 698 0056 00       		.byte	0
+ 699 0057 08       		.uleb128 0x8
+ 700 0058 28       		.uleb128 0x28
+ 701 0059 00       		.byte	0
+ 702 005a 03       		.uleb128 0x3
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 16
+
+
+ 703 005b 08       		.uleb128 0x8
+ 704 005c 1C       		.uleb128 0x1c
+ 705 005d 0B       		.uleb128 0xb
+ 706 005e 00       		.byte	0
+ 707 005f 00       		.byte	0
+ 708 0060 09       		.uleb128 0x9
+ 709 0061 2E       		.uleb128 0x2e
+ 710 0062 01       		.byte	0x1
+ 711 0063 3F       		.uleb128 0x3f
+ 712 0064 0C       		.uleb128 0xc
+ 713 0065 03       		.uleb128 0x3
+ 714 0066 0E       		.uleb128 0xe
+ 715 0067 3A       		.uleb128 0x3a
+ 716 0068 0B       		.uleb128 0xb
+ 717 0069 3B       		.uleb128 0x3b
+ 718 006a 0B       		.uleb128 0xb
+ 719 006b 27       		.uleb128 0x27
+ 720 006c 0C       		.uleb128 0xc
+ 721 006d 11       		.uleb128 0x11
+ 722 006e 01       		.uleb128 0x1
+ 723 006f 12       		.uleb128 0x12
+ 724 0070 01       		.uleb128 0x1
+ 725 0071 40       		.uleb128 0x40
+ 726 0072 06       		.uleb128 0x6
+ 727 0073 9742     		.uleb128 0x2117
+ 728 0075 0C       		.uleb128 0xc
+ 729 0076 01       		.uleb128 0x1
+ 730 0077 13       		.uleb128 0x13
+ 731 0078 00       		.byte	0
+ 732 0079 00       		.byte	0
+ 733 007a 0A       		.uleb128 0xa
+ 734 007b 05       		.uleb128 0x5
+ 735 007c 00       		.byte	0
+ 736 007d 03       		.uleb128 0x3
+ 737 007e 0E       		.uleb128 0xe
+ 738 007f 3A       		.uleb128 0x3a
+ 739 0080 0B       		.uleb128 0xb
+ 740 0081 3B       		.uleb128 0x3b
+ 741 0082 0B       		.uleb128 0xb
+ 742 0083 49       		.uleb128 0x49
+ 743 0084 13       		.uleb128 0x13
+ 744 0085 02       		.uleb128 0x2
+ 745 0086 0A       		.uleb128 0xa
+ 746 0087 00       		.byte	0
+ 747 0088 00       		.byte	0
+ 748 0089 0B       		.uleb128 0xb
+ 749 008a 2E       		.uleb128 0x2e
+ 750 008b 00       		.byte	0
+ 751 008c 3F       		.uleb128 0x3f
+ 752 008d 0C       		.uleb128 0xc
+ 753 008e 03       		.uleb128 0x3
+ 754 008f 0E       		.uleb128 0xe
+ 755 0090 3A       		.uleb128 0x3a
+ 756 0091 0B       		.uleb128 0xb
+ 757 0092 3B       		.uleb128 0x3b
+ 758 0093 0B       		.uleb128 0xb
+ 759 0094 27       		.uleb128 0x27
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 17
+
+
+ 760 0095 0C       		.uleb128 0xc
+ 761 0096 11       		.uleb128 0x11
+ 762 0097 01       		.uleb128 0x1
+ 763 0098 12       		.uleb128 0x12
+ 764 0099 01       		.uleb128 0x1
+ 765 009a 40       		.uleb128 0x40
+ 766 009b 06       		.uleb128 0x6
+ 767 009c 9642     		.uleb128 0x2116
+ 768 009e 0C       		.uleb128 0xc
+ 769 009f 00       		.byte	0
+ 770 00a0 00       		.byte	0
+ 771 00a1 0C       		.uleb128 0xc
+ 772 00a2 2E       		.uleb128 0x2e
+ 773 00a3 01       		.byte	0x1
+ 774 00a4 3F       		.uleb128 0x3f
+ 775 00a5 0C       		.uleb128 0xc
+ 776 00a6 03       		.uleb128 0x3
+ 777 00a7 0E       		.uleb128 0xe
+ 778 00a8 3A       		.uleb128 0x3a
+ 779 00a9 0B       		.uleb128 0xb
+ 780 00aa 3B       		.uleb128 0x3b
+ 781 00ab 0B       		.uleb128 0xb
+ 782 00ac 27       		.uleb128 0x27
+ 783 00ad 0C       		.uleb128 0xc
+ 784 00ae 49       		.uleb128 0x49
+ 785 00af 13       		.uleb128 0x13
+ 786 00b0 11       		.uleb128 0x11
+ 787 00b1 01       		.uleb128 0x1
+ 788 00b2 12       		.uleb128 0x12
+ 789 00b3 01       		.uleb128 0x1
+ 790 00b4 40       		.uleb128 0x40
+ 791 00b5 06       		.uleb128 0x6
+ 792 00b6 9642     		.uleb128 0x2116
+ 793 00b8 0C       		.uleb128 0xc
+ 794 00b9 00       		.byte	0
+ 795 00ba 00       		.byte	0
+ 796 00bb 0D       		.uleb128 0xd
+ 797 00bc 34       		.uleb128 0x34
+ 798 00bd 00       		.byte	0
+ 799 00be 03       		.uleb128 0x3
+ 800 00bf 0E       		.uleb128 0xe
+ 801 00c0 3A       		.uleb128 0x3a
+ 802 00c1 0B       		.uleb128 0xb
+ 803 00c2 3B       		.uleb128 0x3b
+ 804 00c3 0B       		.uleb128 0xb
+ 805 00c4 49       		.uleb128 0x49
+ 806 00c5 13       		.uleb128 0x13
+ 807 00c6 02       		.uleb128 0x2
+ 808 00c7 0A       		.uleb128 0xa
+ 809 00c8 00       		.byte	0
+ 810 00c9 00       		.byte	0
+ 811 00ca 0E       		.uleb128 0xe
+ 812 00cb 34       		.uleb128 0x34
+ 813 00cc 00       		.byte	0
+ 814 00cd 03       		.uleb128 0x3
+ 815 00ce 08       		.uleb128 0x8
+ 816 00cf 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 18
+
+
+ 817 00d0 0B       		.uleb128 0xb
+ 818 00d1 3B       		.uleb128 0x3b
+ 819 00d2 0B       		.uleb128 0xb
+ 820 00d3 49       		.uleb128 0x49
+ 821 00d4 13       		.uleb128 0x13
+ 822 00d5 02       		.uleb128 0x2
+ 823 00d6 0A       		.uleb128 0xa
+ 824 00d7 00       		.byte	0
+ 825 00d8 00       		.byte	0
+ 826 00d9 00       		.byte	0
+ 827              		.section	.debug_loc,"",%progbits
+ 828              	.Ldebug_loc0:
+ 829              	.LLST2:
+ 830 0000 7C010000 		.4byte	.LFB2-.Ltext0
+ 831 0004 7E010000 		.4byte	.LCFI5-.Ltext0
+ 832 0008 0200     		.2byte	0x2
+ 833 000a 7D       		.byte	0x7d
+ 834 000b 00       		.sleb128 0
+ 835 000c 7E010000 		.4byte	.LCFI5-.Ltext0
+ 836 0010 80010000 		.4byte	.LCFI6-.Ltext0
+ 837 0014 0200     		.2byte	0x2
+ 838 0016 7D       		.byte	0x7d
+ 839 0017 08       		.sleb128 8
+ 840 0018 80010000 		.4byte	.LCFI6-.Ltext0
+ 841 001c 82010000 		.4byte	.LCFI7-.Ltext0
+ 842 0020 0200     		.2byte	0x2
+ 843 0022 7D       		.byte	0x7d
+ 844 0023 10       		.sleb128 16
+ 845 0024 82010000 		.4byte	.LCFI7-.Ltext0
+ 846 0028 E4010000 		.4byte	.LFE2-.Ltext0
+ 847 002c 0200     		.2byte	0x2
+ 848 002e 77       		.byte	0x77
+ 849 002f 10       		.sleb128 16
+ 850 0030 00000000 		.4byte	0
+ 851 0034 00000000 		.4byte	0
+ 852              	.LLST1:
+ 853 0038 FC000000 		.4byte	.LFB1-.Ltext0
+ 854 003c FE000000 		.4byte	.LCFI3-.Ltext0
+ 855 0040 0200     		.2byte	0x2
+ 856 0042 7D       		.byte	0x7d
+ 857 0043 00       		.sleb128 0
+ 858 0044 FE000000 		.4byte	.LCFI3-.Ltext0
+ 859 0048 00010000 		.4byte	.LCFI4-.Ltext0
+ 860 004c 0200     		.2byte	0x2
+ 861 004e 7D       		.byte	0x7d
+ 862 004f 08       		.sleb128 8
+ 863 0050 00010000 		.4byte	.LCFI4-.Ltext0
+ 864 0054 7C010000 		.4byte	.LFE1-.Ltext0
+ 865 0058 0200     		.2byte	0x2
+ 866 005a 77       		.byte	0x77
+ 867 005b 08       		.sleb128 8
+ 868 005c 00000000 		.4byte	0
+ 869 0060 00000000 		.4byte	0
+ 870              	.LLST0:
+ 871 0064 00000000 		.4byte	.LFB0-.Ltext0
+ 872 0068 02000000 		.4byte	.LCFI0-.Ltext0
+ 873 006c 0200     		.2byte	0x2
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 19
+
+
+ 874 006e 7D       		.byte	0x7d
+ 875 006f 00       		.sleb128 0
+ 876 0070 02000000 		.4byte	.LCFI0-.Ltext0
+ 877 0074 04000000 		.4byte	.LCFI1-.Ltext0
+ 878 0078 0200     		.2byte	0x2
+ 879 007a 7D       		.byte	0x7d
+ 880 007b 10       		.sleb128 16
+ 881 007c 04000000 		.4byte	.LCFI1-.Ltext0
+ 882 0080 06000000 		.4byte	.LCFI2-.Ltext0
+ 883 0084 0200     		.2byte	0x2
+ 884 0086 7D       		.byte	0x7d
+ 885 0087 20       		.sleb128 32
+ 886 0088 06000000 		.4byte	.LCFI2-.Ltext0
+ 887 008c FC000000 		.4byte	.LFE0-.Ltext0
+ 888 0090 0200     		.2byte	0x2
+ 889 0092 77       		.byte	0x77
+ 890 0093 20       		.sleb128 32
+ 891 0094 00000000 		.4byte	0
+ 892 0098 00000000 		.4byte	0
+ 893              		.section	.debug_aranges,"",%progbits
+ 894 0000 1C000000 		.4byte	0x1c
+ 895 0004 0200     		.2byte	0x2
+ 896 0006 00000000 		.4byte	.Ldebug_info0
+ 897 000a 04       		.byte	0x4
+ 898 000b 00       		.byte	0
+ 899 000c 0000     		.2byte	0
+ 900 000e 0000     		.2byte	0
+ 901 0010 00000000 		.4byte	.Ltext0
+ 902 0014 E4010000 		.4byte	.Letext0-.Ltext0
+ 903 0018 00000000 		.4byte	0
+ 904 001c 00000000 		.4byte	0
+ 905              		.section	.debug_line,"",%progbits
+ 906              	.Ldebug_line0:
+ 907 0000 98000000 		.section	.debug_str,"MS",%progbits,1
+ 907      02004B00 
+ 907      00000201 
+ 907      FB0E0D00 
+ 907      01010101 
+ 908              	.LASF31:
+ 909 0000 66756E63 		.ascii	"functionals.c\000"
+ 909      74696F6E 
+ 909      616C732E 
+ 909      6300
+ 910              	.LASF10:
+ 911 000e 41494E30 		.ascii	"AIN0\000"
+ 911      00
+ 912              	.LASF11:
+ 913 0013 41494E31 		.ascii	"AIN1\000"
+ 913      00
+ 914              	.LASF12:
+ 915 0018 41494E32 		.ascii	"AIN2\000"
+ 915      00
+ 916              	.LASF13:
+ 917 001d 41494E33 		.ascii	"AIN3\000"
+ 917      00
+ 918              	.LASF14:
+ 919 0022 41494E34 		.ascii	"AIN4\000"
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 20
+
+
+ 919      00
+ 920              	.LASF15:
+ 921 0027 41494E35 		.ascii	"AIN5\000"
+ 921      00
+ 922              	.LASF16:
+ 923 002c 41494E36 		.ascii	"AIN6\000"
+ 923      00
+ 924              	.LASF30:
+ 925 0031 474E5520 		.ascii	"GNU C11 7.3.1 20180622 (release) [ARM/embedded-7-br"
+ 925      43313120 
+ 925      372E332E 
+ 925      31203230 
+ 925      31383036 
+ 926 0064 616E6368 		.ascii	"anch revision 261907] -mcpu=arm7tdmi -mthumb -mthum"
+ 926      20726576 
+ 926      6973696F 
+ 926      6E203236 
+ 926      31393037 
+ 927 0097 622D696E 		.ascii	"b-interwork -gdwarf-2 -O0\000"
+ 927      74657277 
+ 927      6F726B20 
+ 927      2D676477 
+ 927      6172662D 
+ 928              	.LASF25:
+ 929 00b1 67657441 		.ascii	"getAccelerationDirection\000"
+ 929      6363656C 
+ 929      65726174 
+ 929      696F6E44 
+ 929      69726563 
+ 930              	.LASF20:
+ 931 00ca 4C454654 		.ascii	"LEFT\000"
+ 931      00
+ 932              	.LASF0:
+ 933 00cf 756E7369 		.ascii	"unsigned char\000"
+ 933      676E6564 
+ 933      20636861 
+ 933      7200
+ 934              	.LASF24:
+ 935 00dd 64656C61 		.ascii	"delay_ms\000"
+ 935      795F6D73 
+ 935      00
+ 936              	.LASF5:
+ 937 00e6 74553634 		.ascii	"tU64\000"
+ 937      00
+ 938              	.LASF33:
+ 939 00eb 64656C61 		.ascii	"delayIn_ms\000"
+ 939      79496E5F 
+ 939      6D7300
+ 940              	.LASF1:
+ 941 00f6 73686F72 		.ascii	"short unsigned int\000"
+ 941      7420756E 
+ 941      7369676E 
+ 941      65642069 
+ 941      6E7400
+ 942              	.LASF27:
+ 943 0109 61636365 		.ascii	"accelX\000"
+ 943      6C5800
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 21
+
+
+ 944              	.LASF28:
+ 945 0110 61636365 		.ascii	"accelY\000"
+ 945      6C5900
+ 946              	.LASF29:
+ 947 0117 61636365 		.ascii	"accelZ\000"
+ 947      6C5A00
+ 948              	.LASF32:
+ 949 011e 433A5C45 		.ascii	"C:\\Embedded\\2138MiniDemo\\2138\000"
+ 949      6D626564 
+ 949      6465645C 
+ 949      32313338 
+ 949      4D696E69 
+ 950              	.LASF4:
+ 951 013c 756E7369 		.ascii	"unsigned int\000"
+ 951      676E6564 
+ 951      20696E74 
+ 951      00
+ 952              	.LASF6:
+ 953 0149 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 953      206C6F6E 
+ 953      6720756E 
+ 953      7369676E 
+ 953      65642069 
+ 954              	.LASF21:
+ 955 0160 46524F4E 		.ascii	"FRONT\000"
+ 955      5400
+ 956              	.LASF34:
+ 957 0166 706C6179 		.ascii	"playBackgroundSoundtrack\000"
+ 957      4261636B 
+ 957      67726F75 
+ 957      6E64536F 
+ 957      756E6474 
+ 958              	.LASF19:
+ 959 017f 52494748 		.ascii	"RIGHT\000"
+ 959      5400
+ 960              	.LASF26:
+ 961 0185 64697265 		.ascii	"direction\000"
+ 961      6374696F 
+ 961      6E00
+ 962              	.LASF2:
+ 963 018f 74553136 		.ascii	"tU16\000"
+ 963      00
+ 964              	.LASF9:
+ 965 0194 6C6F6E67 		.ascii	"long long int\000"
+ 965      206C6F6E 
+ 965      6720696E 
+ 965      7400
+ 966              	.LASF3:
+ 967 01a2 74553332 		.ascii	"tU32\000"
+ 967      00
+ 968              	.LASF23:
+ 969 01a7 41636365 		.ascii	"AccelerationDirection\000"
+ 969      6C657261 
+ 969      74696F6E 
+ 969      44697265 
+ 969      6374696F 
+ 970              	.LASF18:
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 22
+
+
+ 971 01bd 444F574E 		.ascii	"DOWN\000"
+ 971      00
+ 972              	.LASF8:
+ 973 01c2 73686F72 		.ascii	"short int\000"
+ 973      7420696E 
+ 973      7400
+ 974              	.LASF17:
+ 975 01cc 41494E37 		.ascii	"AIN7\000"
+ 975      00
+ 976              	.LASF7:
+ 977 01d1 7369676E 		.ascii	"signed char\000"
+ 977      65642063 
+ 977      68617200 
+ 978              	.LASF22:
+ 979 01dd 4241434B 		.ascii	"BACK\000"
+ 979      00
+ 980              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 7.3.1 20180622 (release) [AR
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s 			page 23
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 functionals.c
+C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s:22     .text:00000000 getAccelerationDirection
+C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s:30     .text:00000000 $t
+C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s:192    .text:000000f4 $d
+C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s:197    .text:000000fc $t
+C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s:204    .text:000000fc playBackgroundSoundtrack
+C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s:274    .text:00000150 $d
+C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s:288    .text:0000017c $t
+C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s:295    .text:0000017c delay_ms
+C:\Users\embedded\AppData\Local\Temp\cci2H1Z4.s:364    .text:000001cc $d
+
+UNDEFINED SYMBOLS
+getAnalogueInputAdc1
+getAnalogueInputAdc0
+initDac
+IRQ_PutNextSample

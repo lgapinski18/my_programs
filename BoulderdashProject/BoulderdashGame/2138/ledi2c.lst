@@ -1,0 +1,1011 @@
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 1
+
+
+   1              		.cpu arm7tdmi
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 0
+  10              		.eabi_attribute 18, 4
+  11              		.file	"ledi2c.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.align	1
+  16              		.global	winLEDMovement
+  17              		.syntax unified
+  18              		.code	16
+  19              		.thumb_func
+  20              		.fpu softvfp
+  21              		.type	winLEDMovement, %function
+  22              	winLEDMovement:
+  23              	.LFB0:
+  24              		.file 1 "ledi2c.c"
+   1:ledi2c.c      **** /*
+   2:ledi2c.c      ****  * ledi2c.c
+   3:ledi2c.c      ****  *
+   4:ledi2c.c      ****  *  Created on: 2023-03-29
+   5:ledi2c.c      ****  *      Author: embedded
+   6:ledi2c.c      ****  */
+   7:ledi2c.c      **** 
+   8:ledi2c.c      **** /* Includes */
+   9:ledi2c.c      **** //#include "functionals.h"
+  10:ledi2c.c      **** #include "i2c.h"
+  11:ledi2c.c      **** #include "ledi2c.h"
+  12:ledi2c.c      **** #include "functionals.h"
+  13:ledi2c.c      **** 
+  14:ledi2c.c      **** /*
+  15:ledi2c.c      ****  *  @brief			Funkcja odpowiadajaca za odpowienia aktywacje diod LED, aby uzyskac efekt wizualny na 
+  16:ledi2c.c      ****  *
+  17:ledi2c.c      ****  *  @Description	Funkcja odpowiadajaca za odpowienia aktywacje diod LED, aby uzyskac efekt wizualny
+  18:ledi2c.c      ****  *
+  19:ledi2c.c      ****  *  @param 			brak
+  20:ledi2c.c      ****  *
+  21:ledi2c.c      ****  *  @returns  		nic
+  22:ledi2c.c      ****  *
+  23:ledi2c.c      ****  *  @side effects	Modyfikacja rejestr�w LS0, LS1, LS2, LS3
+  24:ledi2c.c      ****  */
+  25:ledi2c.c      **** void winLEDMovement(void)
+  26:ledi2c.c      **** {
+  25              		.loc 1 26 0
+  26              		.cfi_startproc
+  27              		@ Function supports interworking.
+  28              		@ args = 0, pretend = 0, frame = 40
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  31              	.LCFI0:
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 2
+
+
+  32              		.cfi_def_cfa_offset 20
+  33              		.cfi_offset 4, -20
+  34              		.cfi_offset 5, -16
+  35              		.cfi_offset 6, -12
+  36              		.cfi_offset 7, -8
+  37              		.cfi_offset 14, -4
+  38 0002 8BB0     		sub	sp, sp, #44
+  39              	.LCFI1:
+  40              		.cfi_def_cfa_offset 64
+  41 0004 00AF     		add	r7, sp, #0
+  42              	.LCFI2:
+  43              		.cfi_def_cfa_register 7
+  44              		.loc 1 26 0
+  45 0006 6846     		mov	r0, sp
+  46 0008 7860     		str	r0, [r7, #4]
+  27:ledi2c.c      **** 	//Zmienna sluzaca do iteracji w petli wysylajacej dane
+  28:ledi2c.c      **** 	tU8 i = 0u;
+  47              		.loc 1 28 0
+  48 000a 0E20     		movs	r0, #14
+  49 000c 1822     		movs	r2, #24
+  50 000e 9446     		mov	ip, r2
+  51 0010 BC44     		add	ip, ip, r7
+  52 0012 6044     		add	r0, r0, ip
+  53 0014 0022     		movs	r2, #0
+  54 0016 9446     		mov	ip, r2
+  55 0018 6246     		mov	r2, ip
+  56 001a 0270     		strb	r2, [r0]
+  29:ledi2c.c      **** 
+  30:ledi2c.c      **** 	//Stala przechowujaca rozmiar tablicy przechowujacej pakiet danych do wys�ania
+  31:ledi2c.c      **** 	const tU8 dataLen = 5;
+  57              		.loc 1 31 0
+  58 001c 0B20     		movs	r0, #11
+  59 001e 0100     		movs	r1, r0
+  60 0020 1822     		movs	r2, #24
+  61 0022 9446     		mov	ip, r2
+  62 0024 BC44     		add	ip, ip, r7
+  63 0026 6044     		add	r0, r0, ip
+  64 0028 0522     		movs	r2, #5
+  65 002a 9446     		mov	ip, r2
+  66 002c 6246     		mov	r2, ip
+  67 002e 0270     		strb	r2, [r0]
+  32:ledi2c.c      **** 	//Zmienna przechowujaca pakiet danych do wyslania magistrale I2C
+  33:ledi2c.c      **** 	tU8 dataToSend[dataLen]; // = {0, 0, 0, 0, 0};
+  68              		.loc 1 33 0
+  69 0030 0800     		movs	r0, r1
+  70 0032 0100     		movs	r1, r0
+  71 0034 1822     		movs	r2, #24
+  72 0036 9446     		mov	ip, r2
+  73 0038 BC44     		add	ip, ip, r7
+  74 003a 6044     		add	r0, r0, ip
+  75 003c 0078     		ldrb	r0, [r0]
+  76 003e 0138     		subs	r0, r0, #1
+  77 0040 F861     		str	r0, [r7, #28]
+  78 0042 0800     		movs	r0, r1
+  79 0044 0100     		movs	r1, r0
+  80 0046 1822     		movs	r2, #24
+  81 0048 9446     		mov	ip, r2
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 3
+
+
+  82 004a BC44     		add	ip, ip, r7
+  83 004c 6044     		add	r0, r0, ip
+  84 004e 0078     		ldrb	r0, [r0]
+  85 0050 0006     		lsls	r0, r0, #24
+  86 0052 000E     		lsrs	r0, r0, #24
+  87 0054 3861     		str	r0, [r7, #16]
+  88 0056 0020     		movs	r0, #0
+  89 0058 7861     		str	r0, [r7, #20]
+  90 005a 3A69     		ldr	r2, [r7, #16]
+  91 005c 500F     		lsrs	r0, r2, #29
+  92 005e 7A69     		ldr	r2, [r7, #20]
+  93 0060 D200     		lsls	r2, r2, #3
+  94 0062 FA60     		str	r2, [r7, #12]
+  95 0064 FA68     		ldr	r2, [r7, #12]
+  96 0066 0243     		orrs	r2, r0
+  97 0068 FA60     		str	r2, [r7, #12]
+  98 006a 3A69     		ldr	r2, [r7, #16]
+  99 006c D200     		lsls	r2, r2, #3
+ 100 006e BA60     		str	r2, [r7, #8]
+ 101 0070 0800     		movs	r0, r1
+ 102 0072 0100     		movs	r1, r0
+ 103 0074 1822     		movs	r2, #24
+ 104 0076 BA18     		adds	r2, r7, r2
+ 105 0078 1218     		adds	r2, r2, r0
+ 106 007a 1278     		ldrb	r2, [r2]
+ 107 007c 1206     		lsls	r2, r2, #24
+ 108 007e 120E     		lsrs	r2, r2, #24
+ 109 0080 1500     		movs	r5, r2
+ 110 0082 0022     		movs	r2, #0
+ 111 0084 1600     		movs	r6, r2
+ 112 0086 6A0F     		lsrs	r2, r5, #29
+ 113 0088 F400     		lsls	r4, r6, #3
+ 114 008a 1443     		orrs	r4, r2
+ 115 008c EB00     		lsls	r3, r5, #3
+ 116 008e 1823     		movs	r3, #24
+ 117 0090 FB18     		adds	r3, r7, r3
+ 118 0092 5B18     		adds	r3, r3, r1
+ 119 0094 1B78     		ldrb	r3, [r3]
+ 120 0096 0733     		adds	r3, r3, #7
+ 121 0098 DB08     		lsrs	r3, r3, #3
+ 122 009a DB00     		lsls	r3, r3, #3
+ 123 009c 6A46     		mov	r2, sp
+ 124 009e D31A     		subs	r3, r2, r3
+ 125 00a0 9D46     		mov	sp, r3
+ 126 00a2 6B46     		mov	r3, sp
+ 127 00a4 0033     		adds	r3, r3, #0
+ 128 00a6 BB61     		str	r3, [r7, #24]
+  34:ledi2c.c      **** 
+  35:ledi2c.c      **** 	tU8 status = I2C_CODE_OK;
+ 129              		.loc 1 35 0
+ 130 00a8 0F23     		movs	r3, #15
+ 131 00aa 1822     		movs	r2, #24
+ 132 00ac 9446     		mov	ip, r2
+ 133 00ae BC44     		add	ip, ip, r7
+ 134 00b0 6344     		add	r3, r3, ip
+ 135 00b2 0122     		movs	r2, #1
+ 136 00b4 1A70     		strb	r2, [r3]
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 4
+
+
+  36:ledi2c.c      **** 	tU16 iter = 1u;
+ 137              		.loc 1 36 0
+ 138 00b6 0C23     		movs	r3, #12
+ 139 00b8 1822     		movs	r2, #24
+ 140 00ba 9446     		mov	ip, r2
+ 141 00bc BC44     		add	ip, ip, r7
+ 142 00be 6344     		add	r3, r3, ip
+ 143 00c0 0122     		movs	r2, #1
+ 144 00c2 1A80     		strh	r2, [r3]
+  37:ledi2c.c      **** 	for (; (iter != 0u) && (status == I2C_CODE_OK); iter <<= 2u)
+ 145              		.loc 1 37 0
+ 146 00c4 89E0     		b	.L2
+ 147              	.L7:
+  38:ledi2c.c      **** 	{
+  39:ledi2c.c      **** 		//Rozpoczecie transmisji z wykozystaniem I2C
+  40:ledi2c.c      **** 		(void) i2cStart();
+ 148              		.loc 1 40 0
+ 149 00c6 FFF7FEFF 		bl	i2cStart
+  41:ledi2c.c      **** 		//Opoznienie konieczne aby transmisja zadziała
+  42:ledi2c.c      **** 		delay_ms(10);
+ 150              		.loc 1 42 0
+ 151 00ca 0A20     		movs	r0, #10
+ 152 00cc FFF7FEFF 		bl	delay_ms
+  43:ledi2c.c      **** 		//Wysyalanie adresu docelowego slave'a w raz z kierunkiem operacji czyli zapisem
+  44:ledi2c.c      **** 		status = i2cPutChar(0xC0);
+ 153              		.loc 1 44 0
+ 154 00d0 C020     		movs	r0, #192
+ 155 00d2 FFF7FEFF 		bl	i2cPutChar
+ 156 00d6 0300     		movs	r3, r0
+ 157 00d8 1A00     		movs	r2, r3
+ 158 00da 0F23     		movs	r3, #15
+ 159 00dc 1821     		movs	r1, #24
+ 160 00de 8C46     		mov	ip, r1
+ 161 00e0 BC44     		add	ip, ip, r7
+ 162 00e2 6344     		add	r3, r3, ip
+ 163 00e4 1A70     		strb	r2, [r3]
+  45:ledi2c.c      **** 
+  46:ledi2c.c      **** 		//Opoznienie konieczne aby transmisja zadziała
+  47:ledi2c.c      **** 		delay_ms(10);
+ 164              		.loc 1 47 0
+ 165 00e6 0A20     		movs	r0, #10
+ 166 00e8 FFF7FEFF 		bl	delay_ms
+  48:ledi2c.c      **** 
+  49:ledi2c.c      **** 		//Rozpoczecie wpisywania informacji od rejestru LED 0 - 3 Selector
+  50:ledi2c.c      **** 		dataToSend[0] = (LEDI2C_AI | LEDI2C_LS0);
+ 167              		.loc 1 50 0
+ 168 00ec BB69     		ldr	r3, [r7, #24]
+ 169 00ee 1622     		movs	r2, #22
+ 170 00f0 1A70     		strb	r2, [r3]
+  51:ledi2c.c      **** 
+  52:ledi2c.c      **** 		//Stan diod LED dla rejestru LS0
+  53:ledi2c.c      **** 		dataToSend[1] = 0x00FFu & iter;
+ 171              		.loc 1 53 0
+ 172 00f2 0C21     		movs	r1, #12
+ 173 00f4 1823     		movs	r3, #24
+ 174 00f6 FB18     		adds	r3, r7, r3
+ 175 00f8 5B18     		adds	r3, r3, r1
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 5
+
+
+ 176 00fa 1B88     		ldrh	r3, [r3]
+ 177 00fc 1B06     		lsls	r3, r3, #24
+ 178 00fe 1A0E     		lsrs	r2, r3, #24
+ 179 0100 BB69     		ldr	r3, [r7, #24]
+ 180 0102 5A70     		strb	r2, [r3, #1]
+  54:ledi2c.c      **** 		//Stan diod LED dla rejestru LS1
+  55:ledi2c.c      **** 		dataToSend[2] = (0xFF00u & iter) >> 8;
+ 181              		.loc 1 55 0
+ 182 0104 1823     		movs	r3, #24
+ 183 0106 FB18     		adds	r3, r7, r3
+ 184 0108 5B18     		adds	r3, r3, r1
+ 185 010a 1B88     		ldrh	r3, [r3]
+ 186 010c 1B0A     		lsrs	r3, r3, #8
+ 187 010e 1B04     		lsls	r3, r3, #16
+ 188 0110 1B0C     		lsrs	r3, r3, #16
+ 189 0112 1B06     		lsls	r3, r3, #24
+ 190 0114 1A0E     		lsrs	r2, r3, #24
+ 191 0116 BB69     		ldr	r3, [r7, #24]
+ 192 0118 9A70     		strb	r2, [r3, #2]
+  56:ledi2c.c      **** 		//Stan diod LED dla rejestru LS2
+  57:ledi2c.c      **** 		dataToSend[3] = 0x00FFu & iter;
+ 193              		.loc 1 57 0
+ 194 011a 1823     		movs	r3, #24
+ 195 011c FB18     		adds	r3, r7, r3
+ 196 011e 5B18     		adds	r3, r3, r1
+ 197 0120 1B88     		ldrh	r3, [r3]
+ 198 0122 1B06     		lsls	r3, r3, #24
+ 199 0124 1A0E     		lsrs	r2, r3, #24
+ 200 0126 BB69     		ldr	r3, [r7, #24]
+ 201 0128 DA70     		strb	r2, [r3, #3]
+  58:ledi2c.c      **** 		//Stan diod LED dla rejestru LS3
+  59:ledi2c.c      **** 		dataToSend[4] = (0xFF00u & iter) >> 8;
+ 202              		.loc 1 59 0
+ 203 012a 1823     		movs	r3, #24
+ 204 012c FB18     		adds	r3, r7, r3
+ 205 012e 5B18     		adds	r3, r3, r1
+ 206 0130 1B88     		ldrh	r3, [r3]
+ 207 0132 1B0A     		lsrs	r3, r3, #8
+ 208 0134 1B04     		lsls	r3, r3, #16
+ 209 0136 1B0C     		lsrs	r3, r3, #16
+ 210 0138 1B06     		lsls	r3, r3, #24
+ 211 013a 1A0E     		lsrs	r2, r3, #24
+ 212 013c BB69     		ldr	r3, [r7, #24]
+ 213 013e 1A71     		strb	r2, [r3, #4]
+  60:ledi2c.c      **** 
+  61:ledi2c.c      **** 
+  62:ledi2c.c      **** 
+  63:ledi2c.c      **** 		//Petla wysylajaca dane
+  64:ledi2c.c      **** 		//Warunek stopu: dotarcie do konca tablicy, badz wystapienie bledu
+  65:ledi2c.c      **** 		//bedacego kodem roznym od I2C_CODE_OK
+  66:ledi2c.c      **** 		for(i = 0; (i < dataLen) && (status == I2C_CODE_OK); i++)
+ 214              		.loc 1 66 0
+ 215 0140 0E23     		movs	r3, #14
+ 216 0142 1822     		movs	r2, #24
+ 217 0144 9446     		mov	ip, r2
+ 218 0146 BC44     		add	ip, ip, r7
+ 219 0148 6344     		add	r3, r3, ip
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 6
+
+
+ 220 014a 0022     		movs	r2, #0
+ 221 014c 1A70     		strb	r2, [r3]
+ 222 014e 1DE0     		b	.L3
+ 223              	.L5:
+  67:ledi2c.c      **** 		{
+  68:ledi2c.c      **** 			status = i2cPutChar(dataToSend[i]);
+ 224              		.loc 1 68 0 discriminator 4
+ 225 0150 0E24     		movs	r4, #14
+ 226 0152 1823     		movs	r3, #24
+ 227 0154 FB18     		adds	r3, r7, r3
+ 228 0156 1B19     		adds	r3, r3, r4
+ 229 0158 1B78     		ldrb	r3, [r3]
+ 230 015a BA69     		ldr	r2, [r7, #24]
+ 231 015c D35C     		ldrb	r3, [r2, r3]
+ 232 015e 1800     		movs	r0, r3
+ 233 0160 FFF7FEFF 		bl	i2cPutChar
+ 234 0164 0300     		movs	r3, r0
+ 235 0166 1A00     		movs	r2, r3
+ 236 0168 0F23     		movs	r3, #15
+ 237 016a 1821     		movs	r1, #24
+ 238 016c 8C46     		mov	ip, r1
+ 239 016e BC44     		add	ip, ip, r7
+ 240 0170 6344     		add	r3, r3, ip
+ 241 0172 1A70     		strb	r2, [r3]
+  69:ledi2c.c      **** 			//Opoznienie konieczne aby transmisja zadziała
+  70:ledi2c.c      **** 			delay_ms(10);
+ 242              		.loc 1 70 0 discriminator 4
+ 243 0174 0A20     		movs	r0, #10
+ 244 0176 FFF7FEFF 		bl	delay_ms
+  66:ledi2c.c      **** 		{
+ 245              		.loc 1 66 0 discriminator 4
+ 246 017a 1823     		movs	r3, #24
+ 247 017c FB18     		adds	r3, r7, r3
+ 248 017e 1B19     		adds	r3, r3, r4
+ 249 0180 1A78     		ldrb	r2, [r3]
+ 250 0182 1823     		movs	r3, #24
+ 251 0184 FB18     		adds	r3, r7, r3
+ 252 0186 1B19     		adds	r3, r3, r4
+ 253 0188 0132     		adds	r2, r2, #1
+ 254 018a 1A70     		strb	r2, [r3]
+ 255              	.L3:
+  66:ledi2c.c      **** 		{
+ 256              		.loc 1 66 0 is_stmt 0 discriminator 1
+ 257 018c 0E23     		movs	r3, #14
+ 258 018e 1822     		movs	r2, #24
+ 259 0190 BA18     		adds	r2, r7, r2
+ 260 0192 D218     		adds	r2, r2, r3
+ 261 0194 0B23     		movs	r3, #11
+ 262 0196 1821     		movs	r1, #24
+ 263 0198 8C46     		mov	ip, r1
+ 264 019a BC44     		add	ip, ip, r7
+ 265 019c 6344     		add	r3, r3, ip
+ 266 019e 1278     		ldrb	r2, [r2]
+ 267 01a0 1B78     		ldrb	r3, [r3]
+ 268 01a2 9A42     		cmp	r2, r3
+ 269 01a4 07D2     		bcs	.L4
+  66:ledi2c.c      **** 		{
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 7
+
+
+ 270              		.loc 1 66 0 discriminator 3
+ 271 01a6 0F23     		movs	r3, #15
+ 272 01a8 1822     		movs	r2, #24
+ 273 01aa 9446     		mov	ip, r2
+ 274 01ac BC44     		add	ip, ip, r7
+ 275 01ae 6344     		add	r3, r3, ip
+ 276 01b0 1B78     		ldrb	r3, [r3]
+ 277 01b2 012B     		cmp	r3, #1
+ 278 01b4 CCD0     		beq	.L5
+ 279              	.L4:
+  71:ledi2c.c      **** 		}
+  72:ledi2c.c      **** 
+  73:ledi2c.c      **** 		//Zakonczenie transmisji z wykorzystaniem magistrali I2C
+  74:ledi2c.c      **** 		(void) i2cStop();
+ 280              		.loc 1 74 0 is_stmt 1
+ 281 01b6 FFF7FEFF 		bl	i2cStop
+  75:ledi2c.c      **** 
+  76:ledi2c.c      **** 		//Opoznienie aby bylo widac efekt na diodach
+  77:ledi2c.c      **** 		delay_ms(500);
+ 282              		.loc 1 77 0
+ 283 01ba FA23     		movs	r3, #250
+ 284 01bc 5B00     		lsls	r3, r3, #1
+ 285 01be 1800     		movs	r0, r3
+ 286 01c0 FFF7FEFF 		bl	delay_ms
+  37:ledi2c.c      **** 	{
+ 287              		.loc 1 37 0
+ 288 01c4 0C22     		movs	r2, #12
+ 289 01c6 1823     		movs	r3, #24
+ 290 01c8 FB18     		adds	r3, r7, r3
+ 291 01ca 9B18     		adds	r3, r3, r2
+ 292 01cc 1821     		movs	r1, #24
+ 293 01ce 8C46     		mov	ip, r1
+ 294 01d0 BC44     		add	ip, ip, r7
+ 295 01d2 6244     		add	r2, r2, ip
+ 296 01d4 1288     		ldrh	r2, [r2]
+ 297 01d6 9200     		lsls	r2, r2, #2
+ 298 01d8 1A80     		strh	r2, [r3]
+ 299              	.L2:
+  37:ledi2c.c      **** 	{
+ 300              		.loc 1 37 0 is_stmt 0 discriminator 1
+ 301 01da 0C23     		movs	r3, #12
+ 302 01dc 1822     		movs	r2, #24
+ 303 01de 9446     		mov	ip, r2
+ 304 01e0 BC44     		add	ip, ip, r7
+ 305 01e2 6344     		add	r3, r3, ip
+ 306 01e4 1B88     		ldrh	r3, [r3]
+ 307 01e6 002B     		cmp	r3, #0
+ 308 01e8 08D0     		beq	.L6
+  37:ledi2c.c      **** 	{
+ 309              		.loc 1 37 0 discriminator 2
+ 310 01ea 0F23     		movs	r3, #15
+ 311 01ec 1822     		movs	r2, #24
+ 312 01ee 9446     		mov	ip, r2
+ 313 01f0 BC44     		add	ip, ip, r7
+ 314 01f2 6344     		add	r3, r3, ip
+ 315 01f4 1B78     		ldrb	r3, [r3]
+ 316 01f6 012B     		cmp	r3, #1
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 8
+
+
+ 317 01f8 00D1     		bne	.LCB286
+ 318 01fa 64E7     		b	.L7	@long jump
+ 319              	.LCB286:
+ 320              	.L6:
+  78:ledi2c.c      **** 	}
+  79:ledi2c.c      **** 
+  80:ledi2c.c      **** 
+  81:ledi2c.c      **** 	//Rozpoczecie transmisji z wykozystaniem I2C
+  82:ledi2c.c      **** 	(void) i2cStart();
+ 321              		.loc 1 82 0 is_stmt 1
+ 322 01fc FFF7FEFF 		bl	i2cStart
+  83:ledi2c.c      **** 	//Opoznienie konieczne aby transmisja zadziała
+  84:ledi2c.c      **** 	delay_ms(10);
+ 323              		.loc 1 84 0
+ 324 0200 0A20     		movs	r0, #10
+ 325 0202 FFF7FEFF 		bl	delay_ms
+  85:ledi2c.c      **** 	//Wysyalanie adresu docelowego slave'a w raz z kierunkiem operacji czyli zapisem
+  86:ledi2c.c      **** 	status = i2cPutChar(0xC0);
+ 326              		.loc 1 86 0
+ 327 0206 C020     		movs	r0, #192
+ 328 0208 FFF7FEFF 		bl	i2cPutChar
+ 329 020c 0300     		movs	r3, r0
+ 330 020e 1A00     		movs	r2, r3
+ 331 0210 0F24     		movs	r4, #15
+ 332 0212 1823     		movs	r3, #24
+ 333 0214 FB18     		adds	r3, r7, r3
+ 334 0216 1B19     		adds	r3, r3, r4
+ 335 0218 1A70     		strb	r2, [r3]
+  87:ledi2c.c      **** 
+  88:ledi2c.c      **** 	//Opoznienie konieczne aby transmisja zadziała
+  89:ledi2c.c      **** 	delay_ms(10);
+ 336              		.loc 1 89 0
+ 337 021a 0A20     		movs	r0, #10
+ 338 021c FFF7FEFF 		bl	delay_ms
+  90:ledi2c.c      **** 
+  91:ledi2c.c      **** 	//Rozpoczecie wpisywania informacji od rejestru LED 0 - 3 Selector
+  92:ledi2c.c      **** 	status = i2cPutChar(LEDI2C_AI | LEDI2C_LS0);
+ 339              		.loc 1 92 0
+ 340 0220 1620     		movs	r0, #22
+ 341 0222 FFF7FEFF 		bl	i2cPutChar
+ 342 0226 0300     		movs	r3, r0
+ 343 0228 1A00     		movs	r2, r3
+ 344 022a 1823     		movs	r3, #24
+ 345 022c FB18     		adds	r3, r7, r3
+ 346 022e 1B19     		adds	r3, r3, r4
+ 347 0230 1A70     		strb	r2, [r3]
+  93:ledi2c.c      **** 
+  94:ledi2c.c      **** 	//Opoznienie konieczne aby transmisja zadziała
+  95:ledi2c.c      **** 	delay_ms(10);
+ 348              		.loc 1 95 0
+ 349 0232 0A20     		movs	r0, #10
+ 350 0234 FFF7FEFF 		bl	delay_ms
+  96:ledi2c.c      **** 
+  97:ledi2c.c      **** 	status = I2C_CODE_OK;
+ 351              		.loc 1 97 0
+ 352 0238 1823     		movs	r3, #24
+ 353 023a FB18     		adds	r3, r7, r3
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 9
+
+
+ 354 023c 1B19     		adds	r3, r3, r4
+ 355 023e 0122     		movs	r2, #1
+ 356 0240 1A70     		strb	r2, [r3]
+  98:ledi2c.c      **** 	//Petla gaszaca wszystkie diody LED
+  99:ledi2c.c      **** 	for(i = 1; (i < dataLen) && (status == I2C_CODE_OK); i++)
+ 357              		.loc 1 99 0
+ 358 0242 0E23     		movs	r3, #14
+ 359 0244 1822     		movs	r2, #24
+ 360 0246 9446     		mov	ip, r2
+ 361 0248 BC44     		add	ip, ip, r7
+ 362 024a 6344     		add	r3, r3, ip
+ 363 024c 0122     		movs	r2, #1
+ 364 024e 1A70     		strb	r2, [r3]
+ 365 0250 17E0     		b	.L8
+ 366              	.L10:
+ 100:ledi2c.c      **** 	{
+ 101:ledi2c.c      **** 		status = i2cPutChar(0x00);
+ 367              		.loc 1 101 0 discriminator 4
+ 368 0252 0020     		movs	r0, #0
+ 369 0254 FFF7FEFF 		bl	i2cPutChar
+ 370 0258 0300     		movs	r3, r0
+ 371 025a 1A00     		movs	r2, r3
+ 372 025c 0F23     		movs	r3, #15
+ 373 025e 1821     		movs	r1, #24
+ 374 0260 8C46     		mov	ip, r1
+ 375 0262 BC44     		add	ip, ip, r7
+ 376 0264 6344     		add	r3, r3, ip
+ 377 0266 1A70     		strb	r2, [r3]
+ 102:ledi2c.c      **** 		//Opoznienie konieczne aby transmisja zadziała
+ 103:ledi2c.c      **** 		delay_ms(10);
+ 378              		.loc 1 103 0 discriminator 4
+ 379 0268 0A20     		movs	r0, #10
+ 380 026a FFF7FEFF 		bl	delay_ms
+  99:ledi2c.c      **** 	{
+ 381              		.loc 1 99 0 discriminator 4
+ 382 026e 0E21     		movs	r1, #14
+ 383 0270 1823     		movs	r3, #24
+ 384 0272 FB18     		adds	r3, r7, r3
+ 385 0274 5B18     		adds	r3, r3, r1
+ 386 0276 1A78     		ldrb	r2, [r3]
+ 387 0278 1823     		movs	r3, #24
+ 388 027a FB18     		adds	r3, r7, r3
+ 389 027c 5B18     		adds	r3, r3, r1
+ 390 027e 0132     		adds	r2, r2, #1
+ 391 0280 1A70     		strb	r2, [r3]
+ 392              	.L8:
+  99:ledi2c.c      **** 	{
+ 393              		.loc 1 99 0 is_stmt 0 discriminator 1
+ 394 0282 0E23     		movs	r3, #14
+ 395 0284 1822     		movs	r2, #24
+ 396 0286 BA18     		adds	r2, r7, r2
+ 397 0288 D218     		adds	r2, r2, r3
+ 398 028a 0B23     		movs	r3, #11
+ 399 028c 1821     		movs	r1, #24
+ 400 028e 8C46     		mov	ip, r1
+ 401 0290 BC44     		add	ip, ip, r7
+ 402 0292 6344     		add	r3, r3, ip
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 10
+
+
+ 403 0294 1278     		ldrb	r2, [r2]
+ 404 0296 1B78     		ldrb	r3, [r3]
+ 405 0298 9A42     		cmp	r2, r3
+ 406 029a 07D2     		bcs	.L9
+  99:ledi2c.c      **** 	{
+ 407              		.loc 1 99 0 discriminator 3
+ 408 029c 0F23     		movs	r3, #15
+ 409 029e 1822     		movs	r2, #24
+ 410 02a0 9446     		mov	ip, r2
+ 411 02a2 BC44     		add	ip, ip, r7
+ 412 02a4 6344     		add	r3, r3, ip
+ 413 02a6 1B78     		ldrb	r3, [r3]
+ 414 02a8 012B     		cmp	r3, #1
+ 415 02aa D2D0     		beq	.L10
+ 416              	.L9:
+ 104:ledi2c.c      **** 	}
+ 105:ledi2c.c      **** 
+ 106:ledi2c.c      **** 	//Zakonczenie transmisji z wykorzystaniem magistrali I2C
+ 107:ledi2c.c      **** 	(void) i2cStop();
+ 417              		.loc 1 107 0 is_stmt 1
+ 418 02ac FFF7FEFF 		bl	i2cStop
+ 419 02b0 7B68     		ldr	r3, [r7, #4]
+ 420 02b2 9D46     		mov	sp, r3
+ 108:ledi2c.c      **** 
+ 109:ledi2c.c      **** }
+ 421              		.loc 1 109 0
+ 422 02b4 C046     		nop
+ 423 02b6 BD46     		mov	sp, r7
+ 424 02b8 0BB0     		add	sp, sp, #44
+ 425              		@ sp needed
+ 426 02ba F0BC     		pop	{r4, r5, r6, r7}
+ 427 02bc 01BC     		pop	{r0}
+ 428 02be 0047     		bx	r0
+ 429              		.cfi_endproc
+ 430              	.LFE0:
+ 431              		.size	winLEDMovement, .-winLEDMovement
+ 432              	.Letext0:
+ 433              		.file 2 "general.h"
+ 434              		.section	.debug_info,"",%progbits
+ 435              	.Ldebug_info0:
+ 436 0000 E4000000 		.4byte	0xe4
+ 437 0004 0200     		.2byte	0x2
+ 438 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 439 000a 04       		.byte	0x4
+ 440 000b 01       		.uleb128 0x1
+ 441 000c 6C000000 		.4byte	.LASF12
+ 442 0010 0C       		.byte	0xc
+ 443 0011 46000000 		.4byte	.LASF13
+ 444 0015 F7000000 		.4byte	.LASF14
+ 445 0019 00000000 		.4byte	.Ltext0
+ 446 001d C0020000 		.4byte	.Letext0
+ 447 0021 00000000 		.4byte	.Ldebug_line0
+ 448 0025 02       		.uleb128 0x2
+ 449 0026 74553800 		.ascii	"tU8\000"
+ 450 002a 02       		.byte	0x2
+ 451 002b 07       		.byte	0x7
+ 452 002c 35000000 		.4byte	0x35
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 11
+
+
+ 453 0030 03       		.uleb128 0x3
+ 454 0031 25000000 		.4byte	0x25
+ 455 0035 04       		.uleb128 0x4
+ 456 0036 01       		.byte	0x1
+ 457 0037 08       		.byte	0x8
+ 458 0038 5E000000 		.4byte	.LASF1
+ 459 003c 05       		.uleb128 0x5
+ 460 003d 34010000 		.4byte	.LASF0
+ 461 0041 02       		.byte	0x2
+ 462 0042 08       		.byte	0x8
+ 463 0043 47000000 		.4byte	0x47
+ 464 0047 04       		.uleb128 0x4
+ 465 0048 02       		.byte	0x2
+ 466 0049 07       		.byte	0x7
+ 467 004a 15010000 		.4byte	.LASF2
+ 468 004e 04       		.uleb128 0x4
+ 469 004f 04       		.byte	0x4
+ 470 0050 07       		.byte	0x7
+ 471 0051 16000000 		.4byte	.LASF3
+ 472 0055 04       		.uleb128 0x4
+ 473 0056 08       		.byte	0x8
+ 474 0057 07       		.byte	0x7
+ 475 0058 2F000000 		.4byte	.LASF4
+ 476 005c 04       		.uleb128 0x4
+ 477 005d 01       		.byte	0x1
+ 478 005e 06       		.byte	0x6
+ 479 005f 28010000 		.4byte	.LASF5
+ 480 0063 04       		.uleb128 0x4
+ 481 0064 02       		.byte	0x2
+ 482 0065 05       		.byte	0x5
+ 483 0066 39010000 		.4byte	.LASF6
+ 484 006a 06       		.uleb128 0x6
+ 485 006b 04       		.byte	0x4
+ 486 006c 05       		.byte	0x5
+ 487 006d 696E7400 		.ascii	"int\000"
+ 488 0071 04       		.uleb128 0x4
+ 489 0072 08       		.byte	0x8
+ 490 0073 05       		.byte	0x5
+ 491 0074 00000000 		.4byte	.LASF7
+ 492 0078 07       		.uleb128 0x7
+ 493 0079 01       		.byte	0x1
+ 494 007a 4F000000 		.4byte	.LASF15
+ 495 007e 01       		.byte	0x1
+ 496 007f 19       		.byte	0x19
+ 497 0080 01       		.byte	0x1
+ 498 0081 00000000 		.4byte	.LFB0
+ 499 0085 C0020000 		.4byte	.LFE0
+ 500 0089 00000000 		.4byte	.LLST0
+ 501 008d 01       		.byte	0x1
+ 502 008e D8000000 		.4byte	0xd8
+ 503 0092 08       		.uleb128 0x8
+ 504 0093 6900     		.ascii	"i\000"
+ 505 0095 01       		.byte	0x1
+ 506 0096 1C       		.byte	0x1c
+ 507 0097 25000000 		.4byte	0x25
+ 508 009b 02       		.byte	0x2
+ 509 009c 91       		.byte	0x91
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 12
+
+
+ 510 009d 66       		.sleb128 -26
+ 511 009e 09       		.uleb128 0x9
+ 512 009f 0E000000 		.4byte	.LASF8
+ 513 00a3 01       		.byte	0x1
+ 514 00a4 1F       		.byte	0x1f
+ 515 00a5 30000000 		.4byte	0x30
+ 516 00a9 02       		.byte	0x2
+ 517 00aa 91       		.byte	0x91
+ 518 00ab 63       		.sleb128 -29
+ 519 00ac 09       		.uleb128 0x9
+ 520 00ad EC000000 		.4byte	.LASF9
+ 521 00b1 01       		.byte	0x1
+ 522 00b2 21       		.byte	0x21
+ 523 00b3 D8000000 		.4byte	0xd8
+ 524 00b7 03       		.byte	0x3
+ 525 00b8 91       		.byte	0x91
+ 526 00b9 58       		.sleb128 -40
+ 527 00ba 06       		.byte	0x6
+ 528 00bb 09       		.uleb128 0x9
+ 529 00bc 28000000 		.4byte	.LASF10
+ 530 00c0 01       		.byte	0x1
+ 531 00c1 23       		.byte	0x23
+ 532 00c2 25000000 		.4byte	0x25
+ 533 00c6 02       		.byte	0x2
+ 534 00c7 91       		.byte	0x91
+ 535 00c8 67       		.sleb128 -25
+ 536 00c9 09       		.uleb128 0x9
+ 537 00ca 23000000 		.4byte	.LASF11
+ 538 00ce 01       		.byte	0x1
+ 539 00cf 24       		.byte	0x24
+ 540 00d0 3C000000 		.4byte	0x3c
+ 541 00d4 02       		.byte	0x2
+ 542 00d5 91       		.byte	0x91
+ 543 00d6 64       		.sleb128 -28
+ 544 00d7 00       		.byte	0
+ 545 00d8 0A       		.uleb128 0xa
+ 546 00d9 25000000 		.4byte	0x25
+ 547 00dd 0B       		.uleb128 0xb
+ 548 00de 4E000000 		.4byte	0x4e
+ 549 00e2 03       		.byte	0x3
+ 550 00e3 91       		.byte	0x91
+ 551 00e4 5C       		.sleb128 -36
+ 552 00e5 06       		.byte	0x6
+ 553 00e6 00       		.byte	0
+ 554 00e7 00       		.byte	0
+ 555              		.section	.debug_abbrev,"",%progbits
+ 556              	.Ldebug_abbrev0:
+ 557 0000 01       		.uleb128 0x1
+ 558 0001 11       		.uleb128 0x11
+ 559 0002 01       		.byte	0x1
+ 560 0003 25       		.uleb128 0x25
+ 561 0004 0E       		.uleb128 0xe
+ 562 0005 13       		.uleb128 0x13
+ 563 0006 0B       		.uleb128 0xb
+ 564 0007 03       		.uleb128 0x3
+ 565 0008 0E       		.uleb128 0xe
+ 566 0009 1B       		.uleb128 0x1b
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 13
+
+
+ 567 000a 0E       		.uleb128 0xe
+ 568 000b 11       		.uleb128 0x11
+ 569 000c 01       		.uleb128 0x1
+ 570 000d 12       		.uleb128 0x12
+ 571 000e 01       		.uleb128 0x1
+ 572 000f 10       		.uleb128 0x10
+ 573 0010 06       		.uleb128 0x6
+ 574 0011 00       		.byte	0
+ 575 0012 00       		.byte	0
+ 576 0013 02       		.uleb128 0x2
+ 577 0014 16       		.uleb128 0x16
+ 578 0015 00       		.byte	0
+ 579 0016 03       		.uleb128 0x3
+ 580 0017 08       		.uleb128 0x8
+ 581 0018 3A       		.uleb128 0x3a
+ 582 0019 0B       		.uleb128 0xb
+ 583 001a 3B       		.uleb128 0x3b
+ 584 001b 0B       		.uleb128 0xb
+ 585 001c 49       		.uleb128 0x49
+ 586 001d 13       		.uleb128 0x13
+ 587 001e 00       		.byte	0
+ 588 001f 00       		.byte	0
+ 589 0020 03       		.uleb128 0x3
+ 590 0021 26       		.uleb128 0x26
+ 591 0022 00       		.byte	0
+ 592 0023 49       		.uleb128 0x49
+ 593 0024 13       		.uleb128 0x13
+ 594 0025 00       		.byte	0
+ 595 0026 00       		.byte	0
+ 596 0027 04       		.uleb128 0x4
+ 597 0028 24       		.uleb128 0x24
+ 598 0029 00       		.byte	0
+ 599 002a 0B       		.uleb128 0xb
+ 600 002b 0B       		.uleb128 0xb
+ 601 002c 3E       		.uleb128 0x3e
+ 602 002d 0B       		.uleb128 0xb
+ 603 002e 03       		.uleb128 0x3
+ 604 002f 0E       		.uleb128 0xe
+ 605 0030 00       		.byte	0
+ 606 0031 00       		.byte	0
+ 607 0032 05       		.uleb128 0x5
+ 608 0033 16       		.uleb128 0x16
+ 609 0034 00       		.byte	0
+ 610 0035 03       		.uleb128 0x3
+ 611 0036 0E       		.uleb128 0xe
+ 612 0037 3A       		.uleb128 0x3a
+ 613 0038 0B       		.uleb128 0xb
+ 614 0039 3B       		.uleb128 0x3b
+ 615 003a 0B       		.uleb128 0xb
+ 616 003b 49       		.uleb128 0x49
+ 617 003c 13       		.uleb128 0x13
+ 618 003d 00       		.byte	0
+ 619 003e 00       		.byte	0
+ 620 003f 06       		.uleb128 0x6
+ 621 0040 24       		.uleb128 0x24
+ 622 0041 00       		.byte	0
+ 623 0042 0B       		.uleb128 0xb
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 14
+
+
+ 624 0043 0B       		.uleb128 0xb
+ 625 0044 3E       		.uleb128 0x3e
+ 626 0045 0B       		.uleb128 0xb
+ 627 0046 03       		.uleb128 0x3
+ 628 0047 08       		.uleb128 0x8
+ 629 0048 00       		.byte	0
+ 630 0049 00       		.byte	0
+ 631 004a 07       		.uleb128 0x7
+ 632 004b 2E       		.uleb128 0x2e
+ 633 004c 01       		.byte	0x1
+ 634 004d 3F       		.uleb128 0x3f
+ 635 004e 0C       		.uleb128 0xc
+ 636 004f 03       		.uleb128 0x3
+ 637 0050 0E       		.uleb128 0xe
+ 638 0051 3A       		.uleb128 0x3a
+ 639 0052 0B       		.uleb128 0xb
+ 640 0053 3B       		.uleb128 0x3b
+ 641 0054 0B       		.uleb128 0xb
+ 642 0055 27       		.uleb128 0x27
+ 643 0056 0C       		.uleb128 0xc
+ 644 0057 11       		.uleb128 0x11
+ 645 0058 01       		.uleb128 0x1
+ 646 0059 12       		.uleb128 0x12
+ 647 005a 01       		.uleb128 0x1
+ 648 005b 40       		.uleb128 0x40
+ 649 005c 06       		.uleb128 0x6
+ 650 005d 9642     		.uleb128 0x2116
+ 651 005f 0C       		.uleb128 0xc
+ 652 0060 01       		.uleb128 0x1
+ 653 0061 13       		.uleb128 0x13
+ 654 0062 00       		.byte	0
+ 655 0063 00       		.byte	0
+ 656 0064 08       		.uleb128 0x8
+ 657 0065 34       		.uleb128 0x34
+ 658 0066 00       		.byte	0
+ 659 0067 03       		.uleb128 0x3
+ 660 0068 08       		.uleb128 0x8
+ 661 0069 3A       		.uleb128 0x3a
+ 662 006a 0B       		.uleb128 0xb
+ 663 006b 3B       		.uleb128 0x3b
+ 664 006c 0B       		.uleb128 0xb
+ 665 006d 49       		.uleb128 0x49
+ 666 006e 13       		.uleb128 0x13
+ 667 006f 02       		.uleb128 0x2
+ 668 0070 0A       		.uleb128 0xa
+ 669 0071 00       		.byte	0
+ 670 0072 00       		.byte	0
+ 671 0073 09       		.uleb128 0x9
+ 672 0074 34       		.uleb128 0x34
+ 673 0075 00       		.byte	0
+ 674 0076 03       		.uleb128 0x3
+ 675 0077 0E       		.uleb128 0xe
+ 676 0078 3A       		.uleb128 0x3a
+ 677 0079 0B       		.uleb128 0xb
+ 678 007a 3B       		.uleb128 0x3b
+ 679 007b 0B       		.uleb128 0xb
+ 680 007c 49       		.uleb128 0x49
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 15
+
+
+ 681 007d 13       		.uleb128 0x13
+ 682 007e 02       		.uleb128 0x2
+ 683 007f 0A       		.uleb128 0xa
+ 684 0080 00       		.byte	0
+ 685 0081 00       		.byte	0
+ 686 0082 0A       		.uleb128 0xa
+ 687 0083 01       		.uleb128 0x1
+ 688 0084 01       		.byte	0x1
+ 689 0085 49       		.uleb128 0x49
+ 690 0086 13       		.uleb128 0x13
+ 691 0087 00       		.byte	0
+ 692 0088 00       		.byte	0
+ 693 0089 0B       		.uleb128 0xb
+ 694 008a 21       		.uleb128 0x21
+ 695 008b 00       		.byte	0
+ 696 008c 49       		.uleb128 0x49
+ 697 008d 13       		.uleb128 0x13
+ 698 008e 2F       		.uleb128 0x2f
+ 699 008f 0A       		.uleb128 0xa
+ 700 0090 00       		.byte	0
+ 701 0091 00       		.byte	0
+ 702 0092 00       		.byte	0
+ 703              		.section	.debug_loc,"",%progbits
+ 704              	.Ldebug_loc0:
+ 705              	.LLST0:
+ 706 0000 00000000 		.4byte	.LFB0-.Ltext0
+ 707 0004 02000000 		.4byte	.LCFI0-.Ltext0
+ 708 0008 0200     		.2byte	0x2
+ 709 000a 7D       		.byte	0x7d
+ 710 000b 00       		.sleb128 0
+ 711 000c 02000000 		.4byte	.LCFI0-.Ltext0
+ 712 0010 04000000 		.4byte	.LCFI1-.Ltext0
+ 713 0014 0200     		.2byte	0x2
+ 714 0016 7D       		.byte	0x7d
+ 715 0017 14       		.sleb128 20
+ 716 0018 04000000 		.4byte	.LCFI1-.Ltext0
+ 717 001c 06000000 		.4byte	.LCFI2-.Ltext0
+ 718 0020 0300     		.2byte	0x3
+ 719 0022 7D       		.byte	0x7d
+ 720 0023 C000     		.sleb128 64
+ 721 0025 06000000 		.4byte	.LCFI2-.Ltext0
+ 722 0029 C0020000 		.4byte	.LFE0-.Ltext0
+ 723 002d 0300     		.2byte	0x3
+ 724 002f 77       		.byte	0x77
+ 725 0030 C000     		.sleb128 64
+ 726 0032 00000000 		.4byte	0
+ 727 0036 00000000 		.4byte	0
+ 728              		.section	.debug_aranges,"",%progbits
+ 729 0000 1C000000 		.4byte	0x1c
+ 730 0004 0200     		.2byte	0x2
+ 731 0006 00000000 		.4byte	.Ldebug_info0
+ 732 000a 04       		.byte	0x4
+ 733 000b 00       		.byte	0
+ 734 000c 0000     		.2byte	0
+ 735 000e 0000     		.2byte	0
+ 736 0010 00000000 		.4byte	.Ltext0
+ 737 0014 C0020000 		.4byte	.Letext0-.Ltext0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 16
+
+
+ 738 0018 00000000 		.4byte	0
+ 739 001c 00000000 		.4byte	0
+ 740              		.section	.debug_line,"",%progbits
+ 741              	.Ldebug_line0:
+ 742 0000 A8000000 		.section	.debug_str,"MS",%progbits,1
+ 742      02002C00 
+ 742      00000201 
+ 742      FB0E0D00 
+ 742      01010101 
+ 743              	.LASF7:
+ 744 0000 6C6F6E67 		.ascii	"long long int\000"
+ 744      206C6F6E 
+ 744      6720696E 
+ 744      7400
+ 745              	.LASF8:
+ 746 000e 64617461 		.ascii	"dataLen\000"
+ 746      4C656E00 
+ 747              	.LASF3:
+ 748 0016 756E7369 		.ascii	"unsigned int\000"
+ 748      676E6564 
+ 748      20696E74 
+ 748      00
+ 749              	.LASF11:
+ 750 0023 69746572 		.ascii	"iter\000"
+ 750      00
+ 751              	.LASF10:
+ 752 0028 73746174 		.ascii	"status\000"
+ 752      757300
+ 753              	.LASF4:
+ 754 002f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 754      206C6F6E 
+ 754      6720756E 
+ 754      7369676E 
+ 754      65642069 
+ 755              	.LASF13:
+ 756 0046 6C656469 		.ascii	"ledi2c.c\000"
+ 756      32632E63 
+ 756      00
+ 757              	.LASF15:
+ 758 004f 77696E4C 		.ascii	"winLEDMovement\000"
+ 758      45444D6F 
+ 758      76656D65 
+ 758      6E7400
+ 759              	.LASF1:
+ 760 005e 756E7369 		.ascii	"unsigned char\000"
+ 760      676E6564 
+ 760      20636861 
+ 760      7200
+ 761              	.LASF12:
+ 762 006c 474E5520 		.ascii	"GNU C11 7.3.1 20180622 (release) [ARM/embedded-7-br"
+ 762      43313120 
+ 762      372E332E 
+ 762      31203230 
+ 762      31383036 
+ 763 009f 616E6368 		.ascii	"anch revision 261907] -mcpu=arm7tdmi -mthumb -mthum"
+ 763      20726576 
+ 763      6973696F 
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 17
+
+
+ 763      6E203236 
+ 763      31393037 
+ 764 00d2 622D696E 		.ascii	"b-interwork -gdwarf-2 -O0\000"
+ 764      74657277 
+ 764      6F726B20 
+ 764      2D676477 
+ 764      6172662D 
+ 765              	.LASF9:
+ 766 00ec 64617461 		.ascii	"dataToSend\000"
+ 766      546F5365 
+ 766      6E6400
+ 767              	.LASF14:
+ 768 00f7 433A5C45 		.ascii	"C:\\Embedded\\2138MiniDemo\\2138\000"
+ 768      6D626564 
+ 768      6465645C 
+ 768      32313338 
+ 768      4D696E69 
+ 769              	.LASF2:
+ 770 0115 73686F72 		.ascii	"short unsigned int\000"
+ 770      7420756E 
+ 770      7369676E 
+ 770      65642069 
+ 770      6E7400
+ 771              	.LASF5:
+ 772 0128 7369676E 		.ascii	"signed char\000"
+ 772      65642063 
+ 772      68617200 
+ 773              	.LASF0:
+ 774 0134 74553136 		.ascii	"tU16\000"
+ 774      00
+ 775              	.LASF6:
+ 776 0139 73686F72 		.ascii	"short int\000"
+ 776      7420696E 
+ 776      7400
+ 777              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 7.3.1 20180622 (release) [AR
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s 			page 18
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 ledi2c.c
+C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s:22     .text:00000000 winLEDMovement
+C:\Users\embedded\AppData\Local\Temp\ccpcCPBh.s:30     .text:00000000 $t
+
+UNDEFINED SYMBOLS
+i2cStart
+delay_ms
+i2cPutChar
+i2cStop

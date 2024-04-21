@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<dumps language="c">
+  <platform name="win64" char_bit="8" short_bit="16" int_bit="32" long_bit="32" long_long_bit="64" pointer_bit="64"/>
+  <rawtokens>
+    <file index="0" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c"/>
+    <file index="1" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h"/>
+    <file index="2" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h"/>
+    <file index="3" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h"/>
+    <file index="4" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h"/>
+    <tok fileIndex="0" linenr="1" column="1" str="/*x *x@Description:xDefinicje procedur obslugi przerwanx */"/>
+    <tok fileIndex="0" linenr="5" column="1" str="#"/>
+    <tok fileIndex="0" linenr="5" column="2" str="include"/>
+    <tok fileIndex="0" linenr="5" column="10" str="&quot;../general.h&quot;"/>
+    <tok fileIndex="0" linenr="6" column="1" str="#"/>
+    <tok fileIndex="0" linenr="6" column="2" str="include"/>
+    <tok fileIndex="0" linenr="6" column="10" str="&lt;lpc2xxx.h&gt;"/>
+    <tok fileIndex="0" linenr="7" column="1" str="#"/>
+    <tok fileIndex="0" linenr="7" column="2" str="include"/>
+    <tok fileIndex="0" linenr="7" column="10" str="&quot;irq_handler.h&quot;"/>
+    <tok fileIndex="0" linenr="8" column="1" str="#"/>
+    <tok fileIndex="0" linenr="8" column="2" str="include"/>
+    <tok fileIndex="0" linenr="8" column="10" str="&quot;../timer.h&quot;"/>
+    <tok fileIndex="0" linenr="9" column="1" str="#"/>
+    <tok fileIndex="0" linenr="9" column="2" str="include"/>
+    <tok fileIndex="0" linenr="9" column="10" str="&lt;printf_P.h&gt;"/>
+    <tok fileIndex="0" linenr="11" column="1" str="#"/>
+    <tok fileIndex="0" linenr="11" column="2" str="include"/>
+    <tok fileIndex="0" linenr="11" column="10" str="&quot;../dac.h&quot;"/>
+    <tok fileIndex="0" linenr="14" column="1" str="/* *  @briefxxxProcedura obslugi przerwania zglaszanego przez Timer #1 * *  @DescriptionxFunkcja ta stanowi procedure obslugi przerwania zglaszanego przez Timer #1, * xxxxxpolega na wywolaniu funkcji putNextSample. * *  @param xxxbrak * *  @returns  xxnic * *  @side effectsxModyfikacja rejestru T1IR Timer&apos;a #1 * xxxxxZerowanie rejestru VICVectAddr */"/>
+    <tok fileIndex="0" linenr="27" column="1" str="void"/>
+    <tok fileIndex="0" linenr="27" column="6" str="IRQ_PutNextSample"/>
+    <tok fileIndex="0" linenr="27" column="23" str="("/>
+    <tok fileIndex="0" linenr="27" column="24" str="void"/>
+    <tok fileIndex="0" linenr="27" column="28" str=")"/>
+    <tok fileIndex="0" linenr="28" column="1" str="{"/>
+    <tok fileIndex="0" linenr="29" column="2" str="/* Sprawdzenie, czy wystapilo odpowiednie przerwanie */"/>
+    <tok fileIndex="0" linenr="30" column="2" str="if"/>
+    <tok fileIndex="0" linenr="30" column="5" str="("/>
+    <tok fileIndex="0" linenr="30" column="6" str="("/>
+    <tok fileIndex="0" linenr="30" column="7" str="TIMER_MR0_INT"/>
+    <tok fileIndex="0" linenr="30" column="21" str="&amp;"/>
+    <tok fileIndex="0" linenr="30" column="23" str="T1IR"/>
+    <tok fileIndex="0" linenr="30" column="27" str=")"/>
+    <tok fileIndex="0" linenr="30" column="29" str="!="/>
+    <tok fileIndex="0" linenr="30" column="32" str="0u"/>
+    <tok fileIndex="0" linenr="30" column="34" str=")"/>
+    <tok fileIndex="0" linenr="31" column="2" str="{"/>
+    <tok fileIndex="0" linenr="32" column="3" str="putNextSample"/>
+    <tok fileIndex="0" linenr="32" column="16" str="("/>
+    <tok fileIndex="0" linenr="32" column="17" str=")"/>
+    <tok fileIndex="0" linenr="32" column="18" str=";"/>
+    <tok fileIndex="0" linenr="34" column="3" str="T1IR"/>
+    <tok fileIndex="0" linenr="34" column="8" str="="/>
+    <tok fileIndex="0" linenr="34" column="10" str="("/>
+    <tok fileIndex="0" linenr="34" column="11" str="tU32"/>
+    <tok fileIndex="0" linenr="34" column="15" str=")"/>
+    <tok fileIndex="0" linenr="34" column="16" str="TIMER_MR0_INT"/>
+    <tok fileIndex="0" linenr="34" column="29" str=";"/>
+    <tok fileIndex="0" linenr="34" column="31" str="/* Poinformowanie Timera #1, iz jego przerwanie zostalo obsluzone */"/>
+    <tok fileIndex="0" linenr="35" column="2" str="}"/>
+    <tok fileIndex="0" linenr="37" column="2" str="VICVectAddr"/>
+    <tok fileIndex="0" linenr="37" column="14" str="="/>
+    <tok fileIndex="0" linenr="37" column="16" str="0"/>
+    <tok fileIndex="0" linenr="37" column="17" str=";"/>
+    <tok fileIndex="0" linenr="37" column="19" str="/* Informacja dla kontrolera o zakonczeniu obslugi przerwania */"/>
+    <tok fileIndex="0" linenr="38" column="1" str="}"/>
+  </rawtokens>
+  <suppressions>
+    <suppression errorId="misra-c2012-2.3" />
+    <suppression errorId="misra-c2012-2.5" />
+    <suppression errorId="misra-c2012-11.4" />
+  </suppressions>
+<dump cfg="">
+  <standards>
+    <c version="c11"/>
+    <cpp version="c++23"/>
+  </standards>
+  <directivelist>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="5" str="#include &quot;../general.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="6" str="#include &lt;lpc2xxx.h&gt;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="7" str="#include &quot;irq_handler.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="8" str="#include &quot;../timer.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="9" str="#include &lt;printf_P.h&gt;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="11" str="#include &quot;../dac.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="6" str="#ifndef DAC_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="7" str="#define DAC_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="9" str="#include &quot;general.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="12" str="#define TimeToNextSample 700"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="48" str="#endif"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="4" str="#ifndef GENERAL_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="5" str="#define GENERAL_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="18" str="#define BIT(n) (1u &lt;&lt; (n))"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="21" str="#endif"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h" linenr="5" str="#ifndef IRQ_HANDLERD"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h" linenr="6" str="#define IRQ_HANDLERD"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h" linenr="21" str="#ifdef __cplusplus"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h" linenr="23" str="#endif"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h" linenr="25" str="#ifdef __cplusplus"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h" linenr="27" str="#endif"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h" linenr="30" str="#endif"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="4" str="#ifndef TIMER_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="5" str="#define TIMER_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="7" str="#include &quot;general.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="10" str="#define TIMER_RESET BIT(1)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="11" str="#define TIMER_RUN BIT(0)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="12" str="#define MR0_I BIT(0)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="13" str="#define MR0_R BIT(1)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="14" str="#define MR0_S BIT(2)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="15" str="#define MR1_I BIT(3)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="16" str="#define MR1_R BIT(4)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="17" str="#define MR1_S BIT(5)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="18" str="#define MR2_I BIT(6)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="19" str="#define MR2_R BIT(7)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="20" str="#define MR2_S BIT(8)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="21" str="#define MR3_I BIT(9)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="22" str="#define MR3_R BIT(10)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="23" str="#define MR3_S BIT(11)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="25" str="#define TIMER_MR0_INT BIT(0)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="26" str="#define TIMER_MR1_INT BIT(1)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="27" str="#define TIMER_MR2_INT BIT(2)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="28" str="#define TIMER_MR3_INT BIT(3)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="29" str="#define TIMER_CR0_INT BIT(4)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="30" str="#define TIMER_CR1_INT BIT(5)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="31" str="#define TIMER_CR2_INT BIT(6)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="32" str="#define TIMER_CR3_INT BIT(7)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="33" str="#define TIMER_ALL_INT (TIMER_MR0_INT | TIMER_MR1_INT | TIMER_MR2_INT | TIMER_MR3_INT | TIMER_CR0_INT | TIMER_CR1_INT | TIMER_CR2_INT | TIMER_CR3_INT)"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" linenr="35" str="#endif"/>
+  </directivelist>
+  <macro-usage>
+    <macro name="GENERAL_H" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="5" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" useline="4" usecolumn="9" is-known-value="true"/>
+    <macro name="GENERAL_H" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="5" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" useline="4" usecolumn="9" is-known-value="true"/>
+    <macro name="GENERAL_H" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="5" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" useline="4" usecolumn="9" is-known-value="true"/>
+    <macro name="BIT" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="18" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" useline="30" usecolumn="7" is-known-value="true"/>
+    <macro name="BIT" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="18" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" useline="34" usecolumn="16" is-known-value="true"/>
+    <macro name="IRQ_HANDLERD" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h" line="6" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h" useline="5" usecolumn="9" is-known-value="true"/>
+    <macro name="TIMER_H" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" line="5" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" useline="4" usecolumn="9" is-known-value="true"/>
+    <macro name="TIMER_MR0_INT" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" line="25" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" useline="30" usecolumn="7" is-known-value="true"/>
+    <macro name="TIMER_MR0_INT" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/timer.h" line="25" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" useline="34" usecolumn="16" is-known-value="true"/>
+    <macro name="DAC_H" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" line="7" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" useline="6" usecolumn="9" is-known-value="true"/>
+  </macro-usage>
+  <tokenlist>
+    <token id="0000014122FD4B40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="9" str="enum" scope="000001412300C380" type="name"/>
+    <token id="0000014122FD5E60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="0" str="tBool" scope="000001412300C380" type="name" type-scope="000001412300CC40"/>
+    <token id="0000014122FD6B80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="13" str="{" scope="000001412300CC40" link="0000014122FD6760" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300CC40"/>
+    <token id="0000014122FD6040" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="14" str="FALSE" scope="000001412300CC40" type="name" values="00000141234087C0" astParent="0000014122FD5E00" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300CC40"/>
+    <token id="0000014122FD5E00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="20" str="=" scope="000001412300CC40" type="op" isAssignmentOp="true" values="0000014123408340" astParent="0000014122FD6E20" astOperand1="0000014122FD6040" astOperand2="0000014122FD61C0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300CC40"/>
+    <token id="0000014122FD61C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="22" str="0" scope="000001412300CC40" type="number" isInt="true" values="00000141234083E0" astParent="0000014122FD5E00" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD6E20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="23" str="," scope="000001412300CC40" values="00000141234087E0" astOperand1="0000014122FD5E00" astOperand2="0000014122FD59E0"/>
+    <token id="0000014122FD6220" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="14" str="TRUE" scope="000001412300CC40" type="name" values="0000014123408400" astParent="0000014122FD59E0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300CC40"/>
+    <token id="0000014122FD59E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="20" str="=" scope="000001412300CC40" type="op" isAssignmentOp="true" values="0000014123408580" astParent="0000014122FD6E20" astOperand1="0000014122FD6220" astOperand2="0000014122FD6CA0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300CC40"/>
+    <token id="0000014122FD6CA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="22" str="!" scope="000001412300CC40" type="op" isLogicalOp="true" values="0000014123408900" astParent="0000014122FD59E0" astOperand1="0000014122FD7000" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014122FD7000" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="23" str="FALSE" scope="000001412300CC40" type="name" values="0000014123408600" astParent="0000014122FD6CA0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300CC40"/>
+    <token id="0000014122FD6760" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="28" str="}" scope="000001412300CC40" link="0000014122FD6B80"/>
+    <token id="0000014122FD6100" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="0" str=";" scope="000001412300C380"/>
+    <token id="0000014122FD67C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h" linenr="24" column="1" str="void" scope="000001412300C380" type="name"/>
+    <token id="0000014122FD6700" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h" linenr="24" column="6" str="IRQ_PutNextSample" scope="000001412300C380" type="name" function="0000014121469E20"/>
+    <token id="0000014122FD63A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h" linenr="24" column="23" str="(" scope="000001412300C380" isRemovedVoidParameter="true" link="0000014122FD6EE0" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014122FD6EE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h" linenr="24" column="28" str=")" scope="000001412300C380" link="0000014122FD63A0"/>
+    <token id="0000014122FD5920" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.h" linenr="24" column="65" str=";" scope="000001412300C380"/>
+    <token id="0000014122FD60A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="30" column="1" str="void" scope="000001412300C380" type="name"/>
+    <token id="0000014122FD69A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="30" column="6" str="initDac" scope="000001412300C380" type="name" function="0000014121469EC0"/>
+    <token id="0000014122FD6820" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="30" column="13" str="(" scope="000001412300C380" isRemovedVoidParameter="true" link="0000014122FD6880" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014122FD6880" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="30" column="18" str=")" scope="000001412300C380" link="0000014122FD6820"/>
+    <token id="0000014122FD6460" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="30" column="19" str=";" scope="000001412300C380"/>
+    <token id="0000014122FD6E80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="46" column="1" str="void" scope="000001412300C380" type="name"/>
+    <token id="0000014122FD65E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="46" column="6" str="putNextSample" scope="000001412300C380" type="name" function="0000014121469920"/>
+    <token id="0000014122FD5EC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="46" column="19" str="(" scope="000001412300C380" isRemovedVoidParameter="true" link="0000014122FD68E0" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014122FD68E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="46" column="24" str=")" scope="000001412300C380" link="0000014122FD5EC0"/>
+    <token id="0000014122FD6520" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/dac.h" linenr="46" column="25" str=";" scope="000001412300C380"/>
+    <token id="0000014122FD6A00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="27" column="1" str="void" scope="000001412300C380" type="name"/>
+    <token id="0000014122FD5A40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="27" column="6" str="IRQ_PutNextSample" scope="000001412300C380" type="name" function="0000014121469E20"/>
+    <token id="0000014122FD6640" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="27" column="23" str="(" scope="000001412300C380" isRemovedVoidParameter="true" link="0000014122FD5B00" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014122FD5B00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="27" column="28" str=")" scope="000001412300C380" link="0000014122FD6640"/>
+    <token id="0000014122FD6A60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="28" column="1" str="{" scope="000001412300C880" link="0000014122FD80E0"/>
+    <token id="0000014122FD5B60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="30" column="2" str="if" scope="000001412300C880" type="name" astParent="0000014122FD5BC0"/>
+    <token id="0000014122FD5BC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="30" column="5" str="(" scope="000001412300C880" link="0000014122FD7120" exprId="3" astOperand1="0000014122FD5B60" astOperand2="0000014122FD7E40"/>
+    <token id="0000014122FD5C20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="30" column="6" str="(" scope="000001412300C880" link="0000014122FD7420" exprId="4"/>
+    <token id="0000014122FD5CE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="30" column="7" str="(" scope="000001412300C880" isExpandedMacro="true" link="0000014122FD7780" exprId="5"/>
+    <token id="0000014122FD5D40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="30" column="7" str="1u" scope="000001412300C880" type="number" isInt="true" isExpandedMacro="true" values="00000141234084C0" astParent="0000014122FD5DA0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014122FD5DA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="30" column="7" str="&lt;&lt;" scope="000001412300C880" type="op" isArithmeticalOp="true" isExpandedMacro="true" exprId="6" values="0000014123408920" astParent="0000014122FD7900" astOperand1="0000014122FD5D40" astOperand2="0000014122FD5F20" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014122FD5F20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="30" column="7" str="0" scope="000001412300C880" type="number" isInt="true" isExpandedMacro="true" values="0000014123408360" astParent="0000014122FD5DA0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD7780" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="30" column="7" str=")" scope="000001412300C880" isExpandedMacro="true" link="0000014122FD5CE0"/>
+    <token id="0000014122FD7900" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="30" column="21" str="&amp;" scope="000001412300C880" type="op" exprId="7" astParent="0000014122FD7E40" astOperand1="0000014122FD5DA0" astOperand2="0000014122FD7300"/>
+    <token id="0000014122FD7300" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="30" column="23" str="T1IR" scope="000001412300C880" type="name" exprId="1" astParent="0000014122FD7900"/>
+    <token id="0000014122FD7420" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="30" column="27" str=")" scope="000001412300C880" link="0000014122FD5C20"/>
+    <token id="0000014122FD7E40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="30" column="29" str="!=" scope="000001412300C880" type="op" isComparisonOp="true" exprId="8" values="0000014123408380" astParent="0000014122FD5BC0" astOperand1="0000014122FD7900" astOperand2="0000014122FD8140" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014122FD8140" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="30" column="32" str="0u" scope="000001412300C880" type="number" isInt="true" values="00000141234081A0" astParent="0000014122FD7E40" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014122FD7120" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="30" column="34" str=")" scope="000001412300C880" link="0000014122FD5BC0"/>
+    <token id="0000014122FD7A80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="31" column="2" str="{" scope="000001412300C740" link="0000014122FD7960"/>
+    <token id="0000014122FD7F00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="32" column="3" str="putNextSample" scope="000001412300C740" type="name" function="0000014121469920" astParent="0000014122FD7C00"/>
+    <token id="0000014122FD7C00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="32" column="16" str="(" scope="000001412300C740" link="0000014122FD7FC0" exprId="9" astOperand1="0000014122FD7F00" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014122FD7FC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="32" column="17" str=")" scope="000001412300C740" link="0000014122FD7C00"/>
+    <token id="0000014122FD8500" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="32" column="18" str=";" scope="000001412300C740"/>
+    <token id="0000014122FD74E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="34" column="3" str="T1IR" scope="000001412300C740" type="name" exprId="1" astParent="0000014122FD82C0"/>
+    <token id="0000014122FD82C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="34" column="8" str="=" scope="000001412300C740" type="op" isAssignmentOp="true" exprId="10" values="00000141234084E0" astOperand1="0000014122FD74E0" astOperand2="0000014122FD81A0"/>
+    <token id="0000014122FD81A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="34" column="10" str="(" scope="000001412300C740" isCast="true" link="0000014122FD8740" exprId="11" values="0000014123408820" astParent="0000014122FD82C0" astOperand1="0000014122FD7C60" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014122FD7840" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="34" column="0" str="int" scope="000001412300C740" type="name" isUnsigned="true"/>
+    <token id="0000014122FD8740" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="34" column="15" str=")" scope="000001412300C740" link="0000014122FD81A0"/>
+    <token id="0000014122FD7540" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="34" column="16" str="(" scope="000001412300C740" isExpandedMacro="true" link="0000014122FD7BA0" exprId="12"/>
+    <token id="0000014122FD78A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="34" column="16" str="1u" scope="000001412300C740" type="number" isInt="true" isExpandedMacro="true" values="0000014123408860" astParent="0000014122FD7C60" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014122FD7C60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="34" column="16" str="&lt;&lt;" scope="000001412300C740" type="op" isArithmeticalOp="true" isExpandedMacro="true" exprId="13" values="0000014123408140" astParent="0000014122FD81A0" astOperand1="0000014122FD78A0" astOperand2="0000014122FD8560" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014122FD8560" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="34" column="16" str="0" scope="000001412300C740" type="number" isInt="true" isExpandedMacro="true" values="0000014123408840" astParent="0000014122FD7C60" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD7BA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="34" column="16" str=")" scope="000001412300C740" isExpandedMacro="true" link="0000014122FD7540"/>
+    <token id="0000014122FD8200" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="34" column="29" str=";" scope="000001412300C740"/>
+    <token id="0000014122FD7960" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="35" column="2" str="}" scope="000001412300C740" link="0000014122FD7A80"/>
+    <token id="0000014122FD8620" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="37" column="2" str="VICVectAddr" scope="000001412300C880" type="name" exprId="2" astParent="0000014122FD85C0"/>
+    <token id="0000014122FD85C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="37" column="14" str="=" scope="000001412300C880" type="op" isAssignmentOp="true" exprId="14" values="00000141234081E0" astOperand1="0000014122FD8620" astOperand2="0000014122FD7F60"/>
+    <token id="0000014122FD7F60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="37" column="16" str="0" scope="000001412300C880" type="number" isInt="true" values="00000141234081C0" astParent="0000014122FD85C0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD7720" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="37" column="17" str=";" scope="000001412300C880"/>
+    <token id="0000014122FD80E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/irq/irq_handler.c" linenr="38" column="1" str="}" scope="000001412300C880" link="0000014122FD6A60"/>
+  </tokenlist>
+  <scopes>
+    <scope id="000001412300C380" type="Global">
+      <functionList>
+        <function id="0000014121469E20" token="0000014122FD5A40" tokenDef="0000014122FD6700" name="IRQ_PutNextSample" type="Function" access="Public"/>
+        <function id="0000014121469EC0" token="0000000000000000" tokenDef="0000014122FD69A0" name="initDac" type="Function" access="Public"/>
+        <function id="0000014121469920" token="0000000000000000" tokenDef="0000014122FD65E0" name="putNextSample" type="Function" access="Public"/>
+      </functionList>
+    </scope>
+    <scope id="000001412300CC40" type="Enum" className="tBool" bodyStart="0000014122FD6B80" bodyEnd="0000014122FD6760" nestedIn="000001412300C380" definedType="000001412336EC90"/>
+    <scope id="000001412300C880" type="Function" className="IRQ_PutNextSample" bodyStart="0000014122FD6A60" bodyEnd="0000014122FD80E0" nestedIn="000001412300C380" function="0000014121469E20"/>
+    <scope id="000001412300C740" type="If" bodyStart="0000014122FD7A80" bodyEnd="0000014122FD7960" nestedIn="000001412300C880"/>
+  </scopes>
+  <types>
+    <type id="000001412336EC90" classScope="000001412300CC40"/>
+  </types>
+  <variables>
+  </variables>
+  <valueflow>
+    <values id="00000141234087C0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408340">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234083E0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234087E0">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408400">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408580">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408900">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408600">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234084C0">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408920">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408360">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408380">
+      <value intvalue="-1" bound="Upper" impossible="true" path="0"/>
+      <value intvalue="2" bound="Lower" impossible="true" path="0"/>
+    </values>
+    <values id="00000141234081A0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234084E0">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408820">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408860">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408140">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408840">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234081E0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234081C0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+  </valueflow>
+  <typedef-info>
+    <info name="tU8" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="7" column="35" used="0"/>
+    <info name="tU16" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="8" column="35" used="0"/>
+    <info name="tU32" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="9" column="35" used="1"/>
+    <info name="tU64" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="10" column="35" used="0"/>
+    <info name="tS8" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="11" column="35" used="0"/>
+    <info name="tS16" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="12" column="35" used="0"/>
+    <info name="tS32" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="13" column="35" used="0"/>
+    <info name="tS64" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="14" column="35" used="0"/>
+  </typedef-info>
+</dump>
+</dumps>

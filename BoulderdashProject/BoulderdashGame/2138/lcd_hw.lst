@@ -1,0 +1,1026 @@
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 1
+
+
+   1              		.cpu arm7tdmi
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 0
+  10              		.eabi_attribute 18, 4
+  11              		.file	"lcd_hw.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.align	1
+  16              		.global	sendToLCD
+  17              		.syntax unified
+  18              		.code	16
+  19              		.thumb_func
+  20              		.fpu softvfp
+  21              		.type	sendToLCD, %function
+  22              	sendToLCD:
+  23              	.LFB0:
+  24              		.file 1 "lcd_hw.c"
+   1:lcd_hw.c      **** /******************************************************************************
+   2:lcd_hw.c      ****  *
+   3:lcd_hw.c      ****  * Copyright:
+   4:lcd_hw.c      ****  *    (C) 2006 Embedded Artists AB
+   5:lcd_hw.c      ****  *
+   6:lcd_hw.c      ****  * File:
+   7:lcd_hw.c      ****  *    pca9532.c
+   8:lcd_hw.c      ****  *
+   9:lcd_hw.c      ****  * Description:
+  10:lcd_hw.c      ****  *    Implements hardware specific routines
+  11:lcd_hw.c      ****  *
+  12:lcd_hw.c      ****  *****************************************************************************/
+  13:lcd_hw.c      **** 
+  14:lcd_hw.c      ****  /* Includes */
+  15:lcd_hw.c      **** //#include "../pre_emptive_os/api/osapi.h"
+  16:lcd_hw.c      **** //#include "../pre_emptive_os/api/general.h"
+  17:lcd_hw.c      **** #include <lpc2xxx.h>
+  18:lcd_hw.c      **** #include "lcd_hw.h"
+  19:lcd_hw.c      **** #include "general.h"
+  20:lcd_hw.c      **** 
+  21:lcd_hw.c      **** /*
+  22:lcd_hw.c      ****  *  @brief			Funckja sluzaca do transmisji danych do LCD.
+  23:lcd_hw.c      ****  *
+  24:lcd_hw.c      ****  *  @Description	Funkcja transmituj�ca dane do LCD, z oczekiwaniem na zako�czenie poprzedniej t
+  25:lcd_hw.c      ****  *
+  26:lcd_hw.c      ****  *  @param 			[in]    data
+  27:lcd_hw.c      ****  *                      Pakiet danych do wyslania do LCD.
+  28:lcd_hw.c      ****  *
+  29:lcd_hw.c      ****  *  @returns  		nic
+  30:lcd_hw.c      ****  *
+  31:lcd_hw.c      ****  *  @side effects	 Modyfikacja ustawie� rejestrow PINSEL0, SPI_SPCCR, SPI_SPCR, IODIR
+  32:lcd_hw.c      ****  */
+  33:lcd_hw.c      **** void sendToLCD(tU8 firstBit, tU8 data)
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 2
+
+
+  34:lcd_hw.c      **** {
+  25              		.loc 1 34 0
+  26              		.cfi_startproc
+  27              		@ Function supports interworking.
+  28              		@ args = 0, pretend = 0, frame = 16
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30 0000 80B5     		push	{r7, lr}
+  31              	.LCFI0:
+  32              		.cfi_def_cfa_offset 8
+  33              		.cfi_offset 7, -8
+  34              		.cfi_offset 14, -4
+  35 0002 84B0     		sub	sp, sp, #16
+  36              	.LCFI1:
+  37              		.cfi_def_cfa_offset 24
+  38 0004 00AF     		add	r7, sp, #0
+  39              	.LCFI2:
+  40              		.cfi_def_cfa_register 7
+  41 0006 0200     		movs	r2, r0
+  42 0008 FB1D     		adds	r3, r7, #7
+  43 000a 1A70     		strb	r2, [r3]
+  44 000c BB1D     		adds	r3, r7, #6
+  45 000e 0A1C     		adds	r2, r1, #0
+  46 0010 1A70     		strb	r2, [r3]
+  35:lcd_hw.c      ****     //Wylaczenie SPI
+  36:lcd_hw.c      ****     IOCLR = LCD_CLK;
+  47              		.loc 1 36 0
+  48 0012 294B     		ldr	r3, .L7
+  49 0014 1022     		movs	r2, #16
+  50 0016 1A60     		str	r2, [r3]
+  37:lcd_hw.c      ****     PINSEL0 &= 0xffffc0ffU;
+  51              		.loc 1 37 0
+  52 0018 284B     		ldr	r3, .L7+4
+  53 001a 1A68     		ldr	r2, [r3]
+  54 001c 274B     		ldr	r3, .L7+4
+  55 001e 2849     		ldr	r1, .L7+8
+  56 0020 0A40     		ands	r2, r1
+  57 0022 1A60     		str	r2, [r3]
+  38:lcd_hw.c      ****     
+  39:lcd_hw.c      ****     if (firstBit == (tU8) 1)
+  58              		.loc 1 39 0
+  59 0024 FB1D     		adds	r3, r7, #7
+  60 0026 1B78     		ldrb	r3, [r3]
+  61 0028 012B     		cmp	r3, #1
+  62 002a 03D1     		bne	.L2
+  40:lcd_hw.c      ****     {
+  41:lcd_hw.c      ****         IOSET = LCD_MOSI;   //set MOSI
+  63              		.loc 1 41 0
+  64 002c 254B     		ldr	r3, .L7+12
+  65 002e 4022     		movs	r2, #64
+  66 0030 1A60     		str	r2, [r3]
+  67 0032 02E0     		b	.L3
+  68              	.L2:
+  42:lcd_hw.c      ****     }
+  43:lcd_hw.c      ****     else
+  44:lcd_hw.c      ****     {
+  45:lcd_hw.c      ****         IOCLR = LCD_MOSI;   //reset MOSI
+  69              		.loc 1 45 0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 3
+
+
+  70 0034 204B     		ldr	r3, .L7
+  71 0036 4022     		movs	r2, #64
+  72 0038 1A60     		str	r2, [r3]
+  73              	.L3:
+  46:lcd_hw.c      ****     }
+  47:lcd_hw.c      ****     
+  48:lcd_hw.c      ****     tU16 dataToSend = 0;
+  74              		.loc 1 48 0
+  75 003a 0E23     		movs	r3, #14
+  76 003c FB18     		adds	r3, r7, r3
+  77 003e 0022     		movs	r2, #0
+  78 0040 1A80     		strh	r2, [r3]
+  49:lcd_hw.c      ****     if (firstBit == (tU8) 1)
+  79              		.loc 1 49 0
+  80 0042 FB1D     		adds	r3, r7, #7
+  81 0044 1B78     		ldrb	r3, [r3]
+  82 0046 012B     		cmp	r3, #1
+  83 0048 05D1     		bne	.L4
+  50:lcd_hw.c      ****     {
+  51:lcd_hw.c      ****         dataToSend = ((tU16) data) & ((tU16) ~0x0100u);
+  84              		.loc 1 51 0
+  85 004a 0E23     		movs	r3, #14
+  86 004c FB18     		adds	r3, r7, r3
+  87 004e BA1D     		adds	r2, r7, #6
+  88 0050 1278     		ldrb	r2, [r2]
+  89 0052 1A80     		strh	r2, [r3]
+  90 0054 0BE0     		b	.L5
+  91              	.L4:
+  52:lcd_hw.c      ****     }
+  53:lcd_hw.c      ****     else
+  54:lcd_hw.c      ****     {
+  55:lcd_hw.c      ****         dataToSend = ((tU16) data) | ((tU16) 0x0100);
+  92              		.loc 1 55 0
+  93 0056 BB1D     		adds	r3, r7, #6
+  94 0058 1B78     		ldrb	r3, [r3]
+  95 005a 1B04     		lsls	r3, r3, #16
+  96 005c 1B14     		asrs	r3, r3, #16
+  97 005e 8022     		movs	r2, #128
+  98 0060 5200     		lsls	r2, r2, #1
+  99 0062 1343     		orrs	r3, r2
+ 100 0064 1B04     		lsls	r3, r3, #16
+ 101 0066 1B14     		asrs	r3, r3, #16
+ 102 0068 0E22     		movs	r2, #14
+ 103 006a BA18     		adds	r2, r7, r2
+ 104 006c 1380     		strh	r3, [r2]
+ 105              	.L5:
+  56:lcd_hw.c      ****     }
+  57:lcd_hw.c      ****     
+  58:lcd_hw.c      ****     //Set clock high
+  59:lcd_hw.c      ****     IOSET = LCD_CLK;
+ 106              		.loc 1 59 0
+ 107 006e 154B     		ldr	r3, .L7+12
+ 108 0070 1022     		movs	r2, #16
+ 109 0072 1A60     		str	r2, [r3]
+  60:lcd_hw.c      ****     
+  61:lcd_hw.c      ****     //Set clock low
+  62:lcd_hw.c      ****     IOCLR = LCD_CLK;
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 4
+
+
+ 110              		.loc 1 62 0
+ 111 0074 104B     		ldr	r3, .L7
+ 112 0076 1022     		movs	r2, #16
+ 113 0078 1A60     		str	r2, [r3]
+  63:lcd_hw.c      ****     
+  64:lcd_hw.c      ****     //Ponowna inicjalizacja rejetr�w
+  65:lcd_hw.c      ****     SPI_SPCCR = 0x08;    
+ 114              		.loc 1 65 0
+ 115 007a 134B     		ldr	r3, .L7+16
+ 116 007c 0822     		movs	r2, #8
+ 117 007e 1A60     		str	r2, [r3]
+  66:lcd_hw.c      ****     SPI_SPCR  = 0x20;
+ 118              		.loc 1 66 0
+ 119 0080 124B     		ldr	r3, .L7+20
+ 120 0082 2022     		movs	r2, #32
+ 121 0084 1A60     		str	r2, [r3]
+  67:lcd_hw.c      ****     
+  68:lcd_hw.c      ****     //Ponowna konfiguracja PINSELu
+  69:lcd_hw.c      ****     PINSEL0 |= 0x00001500;
+ 122              		.loc 1 69 0
+ 123 0086 0D4B     		ldr	r3, .L7+4
+ 124 0088 1A68     		ldr	r2, [r3]
+ 125 008a 0C4B     		ldr	r3, .L7+4
+ 126 008c A821     		movs	r1, #168
+ 127 008e 4901     		lsls	r1, r1, #5
+ 128 0090 0A43     		orrs	r2, r1
+ 129 0092 1A60     		str	r2, [r3]
+  70:lcd_hw.c      ****     
+  71:lcd_hw.c      ****     //Przeslanie bajtu informacji
+  72:lcd_hw.c      ****     SPI_SPDR = dataToSend;
+ 130              		.loc 1 72 0
+ 131 0094 0E4B     		ldr	r3, .L7+24
+ 132 0096 0E22     		movs	r2, #14
+ 133 0098 BA18     		adds	r2, r7, r2
+ 134 009a 1288     		ldrh	r2, [r2]
+ 135 009c 1A60     		str	r2, [r3]
+  73:lcd_hw.c      ****     
+  74:lcd_hw.c      ****     //P�tla oczekuj�ca na zako�czenie transmisji
+  75:lcd_hw.c      ****     while((SPI_SPSR & 0x80) == 0)
+ 136              		.loc 1 75 0
+ 137 009e C046     		nop
+ 138              	.L6:
+ 139              		.loc 1 75 0 is_stmt 0 discriminator 1
+ 140 00a0 0C4B     		ldr	r3, .L7+28
+ 141 00a2 1B68     		ldr	r3, [r3]
+ 142 00a4 8022     		movs	r2, #128
+ 143 00a6 1340     		ands	r3, r2
+ 144 00a8 FAD0     		beq	.L6
+  76:lcd_hw.c      ****     {
+  77:lcd_hw.c      ****       ;
+  78:lcd_hw.c      ****     }
+  79:lcd_hw.c      **** }
+ 145              		.loc 1 79 0 is_stmt 1
+ 146 00aa C046     		nop
+ 147 00ac BD46     		mov	sp, r7
+ 148 00ae 04B0     		add	sp, sp, #16
+ 149              		@ sp needed
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 5
+
+
+ 150 00b0 80BC     		pop	{r7}
+ 151 00b2 01BC     		pop	{r0}
+ 152 00b4 0047     		bx	r0
+ 153              	.L8:
+ 154 00b6 C046     		.align	2
+ 155              	.L7:
+ 156 00b8 0C8002E0 		.word	-536707060
+ 157 00bc 00C002E0 		.word	-536690688
+ 158 00c0 FFC0FFFF 		.word	-16129
+ 159 00c4 048002E0 		.word	-536707068
+ 160 00c8 0C0002E0 		.word	-536739828
+ 161 00cc 000002E0 		.word	-536739840
+ 162 00d0 080002E0 		.word	-536739832
+ 163 00d4 040002E0 		.word	-536739836
+ 164              		.cfi_endproc
+ 165              	.LFE0:
+ 166              		.size	sendToLCD, .-sendToLCD
+ 167              		.align	1
+ 168              		.global	initSpiForLcd
+ 169              		.syntax unified
+ 170              		.code	16
+ 171              		.thumb_func
+ 172              		.fpu softvfp
+ 173              		.type	initSpiForLcd, %function
+ 174              	initSpiForLcd:
+ 175              	.LFB1:
+  80:lcd_hw.c      **** 
+  81:lcd_hw.c      **** /*
+  82:lcd_hw.c      ****  *  @brief			Funckja inicjalizujaca interfejs SPI w celu umo�liwienia korzystania z LCD.
+  83:lcd_hw.c      ****  *
+  84:lcd_hw.c      ****  *  @Description	Funkcja ustawiajaca odpowiednie wartosci na rejestrach PINSEL0 oraz rejestrach mag
+  85:lcd_hw.c      ****  *                  w celu poprawnego dzialania wyswietlacza LCD
+  86:lcd_hw.c      ****  *
+  87:lcd_hw.c      ****  *  @param 			brak
+  88:lcd_hw.c      ****  *
+  89:lcd_hw.c      ****  *  @returns  		nic
+  90:lcd_hw.c      ****  *
+  91:lcd_hw.c      ****  *  @side effects	 Modyfikacja ustawie� rejestrow PINSEL0, SPI_SPCCR, SPI_SPCR, IODIR
+  92:lcd_hw.c      ****  */
+  93:lcd_hw.c      **** void initSpiForLcd(void)
+  94:lcd_hw.c      **** {
+ 176              		.loc 1 94 0
+ 177              		.cfi_startproc
+ 178              		@ Function supports interworking.
+ 179              		@ args = 0, pretend = 0, frame = 0
+ 180              		@ frame_needed = 1, uses_anonymous_args = 0
+ 181 00d8 80B5     		push	{r7, lr}
+ 182              	.LCFI3:
+ 183              		.cfi_def_cfa_offset 8
+ 184              		.cfi_offset 7, -8
+ 185              		.cfi_offset 14, -4
+ 186 00da 00AF     		add	r7, sp, #0
+ 187              	.LCFI4:
+ 188              		.cfi_def_cfa_register 7
+  95:lcd_hw.c      ****       //make SPI slave chip select an output and set signal high
+  96:lcd_hw.c      ****       IODIR |= (LCD_CS | LCD_CLK | LCD_MOSI);
+ 189              		.loc 1 96 0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 6
+
+
+ 190 00dc 0D4B     		ldr	r3, .L10
+ 191 00de 1A68     		ldr	r2, [r3]
+ 192 00e0 0C4B     		ldr	r3, .L10
+ 193 00e2 D021     		movs	r1, #208
+ 194 00e4 0A43     		orrs	r2, r1
+ 195 00e6 1A60     		str	r2, [r3]
+  97:lcd_hw.c      ****       
+  98:lcd_hw.c      ****       //Wyłącza slave'a
+  99:lcd_hw.c      ****       selectLCD(FALSE);
+ 196              		.loc 1 99 0
+ 197 00e8 0020     		movs	r0, #0
+ 198 00ea FFF7FEFF 		bl	selectLCD
+ 100:lcd_hw.c      ****     
+ 101:lcd_hw.c      ****       //Ustawienie PINSELU to jest:
+ 102:lcd_hw.c      ****       //Ustawienie pinu P0.4 na funkcje SCK0
+ 103:lcd_hw.c      ****       //Ustawienie pinu P0.5 na funckje MISO0
+ 104:lcd_hw.c      ****       //Ustawienie pinu P0.6 na funckje MOSI0
+ 105:lcd_hw.c      ****       PINSEL0 |= 0x00001500;
+ 199              		.loc 1 105 0
+ 200 00ee 0A4B     		ldr	r3, .L10+4
+ 201 00f0 1A68     		ldr	r2, [r3]
+ 202 00f2 094B     		ldr	r3, .L10+4
+ 203 00f4 A821     		movs	r1, #168
+ 204 00f6 4901     		lsls	r1, r1, #5
+ 205 00f8 0A43     		orrs	r2, r1
+ 206 00fa 1A60     		str	r2, [r3]
+ 106:lcd_hw.c      ****       
+ 107:lcd_hw.c      ****       //Ustawienie odpowiednich wartosci rejestrow
+ 108:lcd_hw.c      ****       
+ 109:lcd_hw.c      ****       //Ustawienie wartosci rejestru Clock Counter
+ 110:lcd_hw.c      ****       SPI_SPCCR = 0x08;    
+ 207              		.loc 1 110 0
+ 208 00fc 074B     		ldr	r3, .L10+8
+ 209 00fe 0822     		movs	r2, #8
+ 210 0100 1A60     		str	r2, [r3]
+ 111:lcd_hw.c      ****       //W��czenie z wykorzystaniem rejestru kontroli trynu master
+ 112:lcd_hw.c      ****       SPI_SPCR  = 0x20;
+ 211              		.loc 1 112 0
+ 212 0102 074B     		ldr	r3, .L10+12
+ 213 0104 2022     		movs	r2, #32
+ 214 0106 1A60     		str	r2, [r3]
+ 113:lcd_hw.c      **** }
+ 215              		.loc 1 113 0
+ 216 0108 C046     		nop
+ 217 010a BD46     		mov	sp, r7
+ 218              		@ sp needed
+ 219 010c 80BC     		pop	{r7}
+ 220 010e 01BC     		pop	{r0}
+ 221 0110 0047     		bx	r0
+ 222              	.L11:
+ 223 0112 C046     		.align	2
+ 224              	.L10:
+ 225 0114 088002E0 		.word	-536707064
+ 226 0118 00C002E0 		.word	-536690688
+ 227 011c 0C0002E0 		.word	-536739828
+ 228 0120 000002E0 		.word	-536739840
+ 229              		.cfi_endproc
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 7
+
+
+ 230              	.LFE1:
+ 231              		.size	initSpiForLcd, .-initSpiForLcd
+ 232              		.align	1
+ 233              		.global	selectLCD
+ 234              		.syntax unified
+ 235              		.code	16
+ 236              		.thumb_func
+ 237              		.fpu softvfp
+ 238              		.type	selectLCD, %function
+ 239              	selectLCD:
+ 240              	.LFB2:
+ 114:lcd_hw.c      **** 
+ 115:lcd_hw.c      **** /*
+ 116:lcd_hw.c      ****  *  @brief			Funkcja wlaczajaca i wylaczajaca wyswietlacz LCD jako slave w transmisji przez magista
+ 117:lcd_hw.c      ****  *
+ 118:lcd_hw.c      ****  *  @Description	Funkcja wlaczajaca i wylaczajaca wyswietlacz LCD jako slave w transmisji przez mag
+ 119:lcd_hw.c      ****  *                  po przez ustawienie stanu LOW na pinie P0.7 SSEL w celu wybrania LCD jako cel t
+ 120:lcd_hw.c      ****  *                  w przeciwnym wypadku wylacza go z transmisji.
+ 121:lcd_hw.c      ****  *
+ 122:lcd_hw.c      ****  *  @param 			[in]    select
+ 123:lcd_hw.c      ****  *                      TRUE okresla, ze LCD ma byc celem transmisji przez SPI, FALSE okresla, ze n
+ 124:lcd_hw.c      ****  *
+ 125:lcd_hw.c      ****  *  @returns  		nic
+ 126:lcd_hw.c      ****  *
+ 127:lcd_hw.c      ****  *  @side effects	Ustawienie pinu P0.7 SSEL na stan wysoki badz niski
+ 128:lcd_hw.c      ****  */
+ 129:lcd_hw.c      **** void
+ 130:lcd_hw.c      **** selectLCD(tBool select)
+ 131:lcd_hw.c      **** {
+ 241              		.loc 1 131 0
+ 242              		.cfi_startproc
+ 243              		@ Function supports interworking.
+ 244              		@ args = 0, pretend = 0, frame = 8
+ 245              		@ frame_needed = 1, uses_anonymous_args = 0
+ 246 0124 80B5     		push	{r7, lr}
+ 247              	.LCFI5:
+ 248              		.cfi_def_cfa_offset 8
+ 249              		.cfi_offset 7, -8
+ 250              		.cfi_offset 14, -4
+ 251 0126 82B0     		sub	sp, sp, #8
+ 252              	.LCFI6:
+ 253              		.cfi_def_cfa_offset 16
+ 254 0128 00AF     		add	r7, sp, #0
+ 255              	.LCFI7:
+ 256              		.cfi_def_cfa_register 7
+ 257 012a 0200     		movs	r2, r0
+ 258 012c FB1D     		adds	r3, r7, #7
+ 259 012e 1A70     		strb	r2, [r3]
+ 132:lcd_hw.c      ****     if (TRUE == select)
+ 260              		.loc 1 132 0
+ 261 0130 FB1D     		adds	r3, r7, #7
+ 262 0132 1B78     		ldrb	r3, [r3]
+ 263 0134 012B     		cmp	r3, #1
+ 264 0136 03D1     		bne	.L13
+ 133:lcd_hw.c      ****     {
+ 134:lcd_hw.c      ****         IOCLR = LCD_CS;
+ 265              		.loc 1 134 0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 8
+
+
+ 266 0138 064B     		ldr	r3, .L16
+ 267 013a 8022     		movs	r2, #128
+ 268 013c 1A60     		str	r2, [r3]
+ 135:lcd_hw.c      ****     }
+ 136:lcd_hw.c      ****     else
+ 137:lcd_hw.c      ****     {
+ 138:lcd_hw.c      ****         IOSET = LCD_CS;
+ 139:lcd_hw.c      ****     }
+ 140:lcd_hw.c      **** }
+ 269              		.loc 1 140 0
+ 270 013e 02E0     		b	.L15
+ 271              	.L13:
+ 138:lcd_hw.c      ****     }
+ 272              		.loc 1 138 0
+ 273 0140 054B     		ldr	r3, .L16+4
+ 274 0142 8022     		movs	r2, #128
+ 275 0144 1A60     		str	r2, [r3]
+ 276              	.L15:
+ 277              		.loc 1 140 0
+ 278 0146 C046     		nop
+ 279 0148 BD46     		mov	sp, r7
+ 280 014a 02B0     		add	sp, sp, #8
+ 281              		@ sp needed
+ 282 014c 80BC     		pop	{r7}
+ 283 014e 01BC     		pop	{r0}
+ 284 0150 0047     		bx	r0
+ 285              	.L17:
+ 286 0152 C046     		.align	2
+ 287              	.L16:
+ 288 0154 0C8002E0 		.word	-536707060
+ 289 0158 048002E0 		.word	-536707068
+ 290              		.cfi_endproc
+ 291              	.LFE2:
+ 292              		.size	selectLCD, .-selectLCD
+ 293              	.Letext0:
+ 294              		.file 2 "general.h"
+ 295              		.section	.debug_info,"",%progbits
+ 296              	.Ldebug_info0:
+ 297 0000 15010000 		.4byte	0x115
+ 298 0004 0200     		.2byte	0x2
+ 299 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 300 000a 04       		.byte	0x4
+ 301 000b 01       		.uleb128 0x1
+ 302 000c 6D000000 		.4byte	.LASF14
+ 303 0010 0C       		.byte	0xc
+ 304 0011 4C000000 		.4byte	.LASF15
+ 305 0015 F8000000 		.4byte	.LASF16
+ 306 0019 00000000 		.4byte	.Ltext0
+ 307 001d 5C010000 		.4byte	.Letext0
+ 308 0021 00000000 		.4byte	.Ldebug_line0
+ 309 0025 02       		.uleb128 0x2
+ 310 0026 74553800 		.ascii	"tU8\000"
+ 311 002a 02       		.byte	0x2
+ 312 002b 07       		.byte	0x7
+ 313 002c 30000000 		.4byte	0x30
+ 314 0030 03       		.uleb128 0x3
+ 315 0031 01       		.byte	0x1
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 9
+
+
+ 316 0032 08       		.byte	0x8
+ 317 0033 55000000 		.4byte	.LASF1
+ 318 0037 04       		.uleb128 0x4
+ 319 0038 3F010000 		.4byte	.LASF0
+ 320 003c 02       		.byte	0x2
+ 321 003d 08       		.byte	0x8
+ 322 003e 42000000 		.4byte	0x42
+ 323 0042 03       		.uleb128 0x3
+ 324 0043 02       		.byte	0x2
+ 325 0044 07       		.byte	0x7
+ 326 0045 16010000 		.4byte	.LASF2
+ 327 0049 03       		.uleb128 0x3
+ 328 004a 04       		.byte	0x4
+ 329 004b 07       		.byte	0x7
+ 330 004c 0E000000 		.4byte	.LASF3
+ 331 0050 03       		.uleb128 0x3
+ 332 0051 08       		.byte	0x8
+ 333 0052 07       		.byte	0x7
+ 334 0053 2E000000 		.4byte	.LASF4
+ 335 0057 03       		.uleb128 0x3
+ 336 0058 01       		.byte	0x1
+ 337 0059 06       		.byte	0x6
+ 338 005a 29010000 		.4byte	.LASF5
+ 339 005e 03       		.uleb128 0x3
+ 340 005f 02       		.byte	0x2
+ 341 0060 05       		.byte	0x5
+ 342 0061 4A010000 		.4byte	.LASF6
+ 343 0065 05       		.uleb128 0x5
+ 344 0066 04       		.byte	0x4
+ 345 0067 05       		.byte	0x5
+ 346 0068 696E7400 		.ascii	"int\000"
+ 347 006c 03       		.uleb128 0x3
+ 348 006d 08       		.byte	0x8
+ 349 006e 05       		.byte	0x5
+ 350 006f 00000000 		.4byte	.LASF7
+ 351 0073 06       		.uleb128 0x6
+ 352 0074 07       		.byte	0x7
+ 353 0075 01       		.byte	0x1
+ 354 0076 30000000 		.4byte	0x30
+ 355 007a 02       		.byte	0x2
+ 356 007b 0F       		.byte	0xf
+ 357 007c 8D000000 		.4byte	0x8d
+ 358 0080 07       		.uleb128 0x7
+ 359 0081 54010000 		.4byte	.LASF8
+ 360 0085 00       		.byte	0
+ 361 0086 07       		.uleb128 0x7
+ 362 0087 63000000 		.4byte	.LASF9
+ 363 008b 01       		.byte	0x1
+ 364 008c 00       		.byte	0
+ 365 008d 04       		.uleb128 0x4
+ 366 008e 44010000 		.4byte	.LASF10
+ 367 0092 02       		.byte	0x2
+ 368 0093 10       		.byte	0x10
+ 369 0094 73000000 		.4byte	0x73
+ 370 0098 08       		.uleb128 0x8
+ 371 0099 01       		.byte	0x1
+ 372 009a 35010000 		.4byte	.LASF17
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 10
+
+
+ 373 009e 01       		.byte	0x1
+ 374 009f 82       		.byte	0x82
+ 375 00a0 01       		.byte	0x1
+ 376 00a1 24010000 		.4byte	.LFB2
+ 377 00a5 5C010000 		.4byte	.LFE2
+ 378 00a9 00000000 		.4byte	.LLST2
+ 379 00ad 01       		.byte	0x1
+ 380 00ae C1000000 		.4byte	0xc1
+ 381 00b2 09       		.uleb128 0x9
+ 382 00b3 45000000 		.4byte	.LASF11
+ 383 00b7 01       		.byte	0x1
+ 384 00b8 82       		.byte	0x82
+ 385 00b9 8D000000 		.4byte	0x8d
+ 386 00bd 02       		.byte	0x2
+ 387 00be 91       		.byte	0x91
+ 388 00bf 77       		.sleb128 -9
+ 389 00c0 00       		.byte	0
+ 390 00c1 0A       		.uleb128 0xa
+ 391 00c2 01       		.byte	0x1
+ 392 00c3 5A010000 		.4byte	.LASF18
+ 393 00c7 01       		.byte	0x1
+ 394 00c8 5D       		.byte	0x5d
+ 395 00c9 01       		.byte	0x1
+ 396 00ca D8000000 		.4byte	.LFB1
+ 397 00ce 24010000 		.4byte	.LFE1
+ 398 00d2 38000000 		.4byte	.LLST1
+ 399 00d6 01       		.byte	0x1
+ 400 00d7 0B       		.uleb128 0xb
+ 401 00d8 01       		.byte	0x1
+ 402 00d9 24000000 		.4byte	.LASF19
+ 403 00dd 01       		.byte	0x1
+ 404 00de 21       		.byte	0x21
+ 405 00df 01       		.byte	0x1
+ 406 00e0 00000000 		.4byte	.LFB0
+ 407 00e4 D8000000 		.4byte	.LFE0
+ 408 00e8 64000000 		.4byte	.LLST0
+ 409 00ec 01       		.byte	0x1
+ 410 00ed 09       		.uleb128 0x9
+ 411 00ee 1B000000 		.4byte	.LASF12
+ 412 00f2 01       		.byte	0x1
+ 413 00f3 21       		.byte	0x21
+ 414 00f4 25000000 		.4byte	0x25
+ 415 00f8 02       		.byte	0x2
+ 416 00f9 91       		.byte	0x91
+ 417 00fa 6F       		.sleb128 -17
+ 418 00fb 09       		.uleb128 0x9
+ 419 00fc 68000000 		.4byte	.LASF13
+ 420 0100 01       		.byte	0x1
+ 421 0101 21       		.byte	0x21
+ 422 0102 25000000 		.4byte	0x25
+ 423 0106 02       		.byte	0x2
+ 424 0107 91       		.byte	0x91
+ 425 0108 6E       		.sleb128 -18
+ 426 0109 0C       		.uleb128 0xc
+ 427 010a ED000000 		.4byte	.LASF20
+ 428 010e 01       		.byte	0x1
+ 429 010f 30       		.byte	0x30
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 11
+
+
+ 430 0110 37000000 		.4byte	0x37
+ 431 0114 02       		.byte	0x2
+ 432 0115 91       		.byte	0x91
+ 433 0116 76       		.sleb128 -10
+ 434 0117 00       		.byte	0
+ 435 0118 00       		.byte	0
+ 436              		.section	.debug_abbrev,"",%progbits
+ 437              	.Ldebug_abbrev0:
+ 438 0000 01       		.uleb128 0x1
+ 439 0001 11       		.uleb128 0x11
+ 440 0002 01       		.byte	0x1
+ 441 0003 25       		.uleb128 0x25
+ 442 0004 0E       		.uleb128 0xe
+ 443 0005 13       		.uleb128 0x13
+ 444 0006 0B       		.uleb128 0xb
+ 445 0007 03       		.uleb128 0x3
+ 446 0008 0E       		.uleb128 0xe
+ 447 0009 1B       		.uleb128 0x1b
+ 448 000a 0E       		.uleb128 0xe
+ 449 000b 11       		.uleb128 0x11
+ 450 000c 01       		.uleb128 0x1
+ 451 000d 12       		.uleb128 0x12
+ 452 000e 01       		.uleb128 0x1
+ 453 000f 10       		.uleb128 0x10
+ 454 0010 06       		.uleb128 0x6
+ 455 0011 00       		.byte	0
+ 456 0012 00       		.byte	0
+ 457 0013 02       		.uleb128 0x2
+ 458 0014 16       		.uleb128 0x16
+ 459 0015 00       		.byte	0
+ 460 0016 03       		.uleb128 0x3
+ 461 0017 08       		.uleb128 0x8
+ 462 0018 3A       		.uleb128 0x3a
+ 463 0019 0B       		.uleb128 0xb
+ 464 001a 3B       		.uleb128 0x3b
+ 465 001b 0B       		.uleb128 0xb
+ 466 001c 49       		.uleb128 0x49
+ 467 001d 13       		.uleb128 0x13
+ 468 001e 00       		.byte	0
+ 469 001f 00       		.byte	0
+ 470 0020 03       		.uleb128 0x3
+ 471 0021 24       		.uleb128 0x24
+ 472 0022 00       		.byte	0
+ 473 0023 0B       		.uleb128 0xb
+ 474 0024 0B       		.uleb128 0xb
+ 475 0025 3E       		.uleb128 0x3e
+ 476 0026 0B       		.uleb128 0xb
+ 477 0027 03       		.uleb128 0x3
+ 478 0028 0E       		.uleb128 0xe
+ 479 0029 00       		.byte	0
+ 480 002a 00       		.byte	0
+ 481 002b 04       		.uleb128 0x4
+ 482 002c 16       		.uleb128 0x16
+ 483 002d 00       		.byte	0
+ 484 002e 03       		.uleb128 0x3
+ 485 002f 0E       		.uleb128 0xe
+ 486 0030 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 12
+
+
+ 487 0031 0B       		.uleb128 0xb
+ 488 0032 3B       		.uleb128 0x3b
+ 489 0033 0B       		.uleb128 0xb
+ 490 0034 49       		.uleb128 0x49
+ 491 0035 13       		.uleb128 0x13
+ 492 0036 00       		.byte	0
+ 493 0037 00       		.byte	0
+ 494 0038 05       		.uleb128 0x5
+ 495 0039 24       		.uleb128 0x24
+ 496 003a 00       		.byte	0
+ 497 003b 0B       		.uleb128 0xb
+ 498 003c 0B       		.uleb128 0xb
+ 499 003d 3E       		.uleb128 0x3e
+ 500 003e 0B       		.uleb128 0xb
+ 501 003f 03       		.uleb128 0x3
+ 502 0040 08       		.uleb128 0x8
+ 503 0041 00       		.byte	0
+ 504 0042 00       		.byte	0
+ 505 0043 06       		.uleb128 0x6
+ 506 0044 04       		.uleb128 0x4
+ 507 0045 01       		.byte	0x1
+ 508 0046 3E       		.uleb128 0x3e
+ 509 0047 0B       		.uleb128 0xb
+ 510 0048 0B       		.uleb128 0xb
+ 511 0049 0B       		.uleb128 0xb
+ 512 004a 49       		.uleb128 0x49
+ 513 004b 13       		.uleb128 0x13
+ 514 004c 3A       		.uleb128 0x3a
+ 515 004d 0B       		.uleb128 0xb
+ 516 004e 3B       		.uleb128 0x3b
+ 517 004f 0B       		.uleb128 0xb
+ 518 0050 01       		.uleb128 0x1
+ 519 0051 13       		.uleb128 0x13
+ 520 0052 00       		.byte	0
+ 521 0053 00       		.byte	0
+ 522 0054 07       		.uleb128 0x7
+ 523 0055 28       		.uleb128 0x28
+ 524 0056 00       		.byte	0
+ 525 0057 03       		.uleb128 0x3
+ 526 0058 0E       		.uleb128 0xe
+ 527 0059 1C       		.uleb128 0x1c
+ 528 005a 0B       		.uleb128 0xb
+ 529 005b 00       		.byte	0
+ 530 005c 00       		.byte	0
+ 531 005d 08       		.uleb128 0x8
+ 532 005e 2E       		.uleb128 0x2e
+ 533 005f 01       		.byte	0x1
+ 534 0060 3F       		.uleb128 0x3f
+ 535 0061 0C       		.uleb128 0xc
+ 536 0062 03       		.uleb128 0x3
+ 537 0063 0E       		.uleb128 0xe
+ 538 0064 3A       		.uleb128 0x3a
+ 539 0065 0B       		.uleb128 0xb
+ 540 0066 3B       		.uleb128 0x3b
+ 541 0067 0B       		.uleb128 0xb
+ 542 0068 27       		.uleb128 0x27
+ 543 0069 0C       		.uleb128 0xc
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 13
+
+
+ 544 006a 11       		.uleb128 0x11
+ 545 006b 01       		.uleb128 0x1
+ 546 006c 12       		.uleb128 0x12
+ 547 006d 01       		.uleb128 0x1
+ 548 006e 40       		.uleb128 0x40
+ 549 006f 06       		.uleb128 0x6
+ 550 0070 9742     		.uleb128 0x2117
+ 551 0072 0C       		.uleb128 0xc
+ 552 0073 01       		.uleb128 0x1
+ 553 0074 13       		.uleb128 0x13
+ 554 0075 00       		.byte	0
+ 555 0076 00       		.byte	0
+ 556 0077 09       		.uleb128 0x9
+ 557 0078 05       		.uleb128 0x5
+ 558 0079 00       		.byte	0
+ 559 007a 03       		.uleb128 0x3
+ 560 007b 0E       		.uleb128 0xe
+ 561 007c 3A       		.uleb128 0x3a
+ 562 007d 0B       		.uleb128 0xb
+ 563 007e 3B       		.uleb128 0x3b
+ 564 007f 0B       		.uleb128 0xb
+ 565 0080 49       		.uleb128 0x49
+ 566 0081 13       		.uleb128 0x13
+ 567 0082 02       		.uleb128 0x2
+ 568 0083 0A       		.uleb128 0xa
+ 569 0084 00       		.byte	0
+ 570 0085 00       		.byte	0
+ 571 0086 0A       		.uleb128 0xa
+ 572 0087 2E       		.uleb128 0x2e
+ 573 0088 00       		.byte	0
+ 574 0089 3F       		.uleb128 0x3f
+ 575 008a 0C       		.uleb128 0xc
+ 576 008b 03       		.uleb128 0x3
+ 577 008c 0E       		.uleb128 0xe
+ 578 008d 3A       		.uleb128 0x3a
+ 579 008e 0B       		.uleb128 0xb
+ 580 008f 3B       		.uleb128 0x3b
+ 581 0090 0B       		.uleb128 0xb
+ 582 0091 27       		.uleb128 0x27
+ 583 0092 0C       		.uleb128 0xc
+ 584 0093 11       		.uleb128 0x11
+ 585 0094 01       		.uleb128 0x1
+ 586 0095 12       		.uleb128 0x12
+ 587 0096 01       		.uleb128 0x1
+ 588 0097 40       		.uleb128 0x40
+ 589 0098 06       		.uleb128 0x6
+ 590 0099 9642     		.uleb128 0x2116
+ 591 009b 0C       		.uleb128 0xc
+ 592 009c 00       		.byte	0
+ 593 009d 00       		.byte	0
+ 594 009e 0B       		.uleb128 0xb
+ 595 009f 2E       		.uleb128 0x2e
+ 596 00a0 01       		.byte	0x1
+ 597 00a1 3F       		.uleb128 0x3f
+ 598 00a2 0C       		.uleb128 0xc
+ 599 00a3 03       		.uleb128 0x3
+ 600 00a4 0E       		.uleb128 0xe
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 14
+
+
+ 601 00a5 3A       		.uleb128 0x3a
+ 602 00a6 0B       		.uleb128 0xb
+ 603 00a7 3B       		.uleb128 0x3b
+ 604 00a8 0B       		.uleb128 0xb
+ 605 00a9 27       		.uleb128 0x27
+ 606 00aa 0C       		.uleb128 0xc
+ 607 00ab 11       		.uleb128 0x11
+ 608 00ac 01       		.uleb128 0x1
+ 609 00ad 12       		.uleb128 0x12
+ 610 00ae 01       		.uleb128 0x1
+ 611 00af 40       		.uleb128 0x40
+ 612 00b0 06       		.uleb128 0x6
+ 613 00b1 9742     		.uleb128 0x2117
+ 614 00b3 0C       		.uleb128 0xc
+ 615 00b4 00       		.byte	0
+ 616 00b5 00       		.byte	0
+ 617 00b6 0C       		.uleb128 0xc
+ 618 00b7 34       		.uleb128 0x34
+ 619 00b8 00       		.byte	0
+ 620 00b9 03       		.uleb128 0x3
+ 621 00ba 0E       		.uleb128 0xe
+ 622 00bb 3A       		.uleb128 0x3a
+ 623 00bc 0B       		.uleb128 0xb
+ 624 00bd 3B       		.uleb128 0x3b
+ 625 00be 0B       		.uleb128 0xb
+ 626 00bf 49       		.uleb128 0x49
+ 627 00c0 13       		.uleb128 0x13
+ 628 00c1 02       		.uleb128 0x2
+ 629 00c2 0A       		.uleb128 0xa
+ 630 00c3 00       		.byte	0
+ 631 00c4 00       		.byte	0
+ 632 00c5 00       		.byte	0
+ 633              		.section	.debug_loc,"",%progbits
+ 634              	.Ldebug_loc0:
+ 635              	.LLST2:
+ 636 0000 24010000 		.4byte	.LFB2-.Ltext0
+ 637 0004 26010000 		.4byte	.LCFI5-.Ltext0
+ 638 0008 0200     		.2byte	0x2
+ 639 000a 7D       		.byte	0x7d
+ 640 000b 00       		.sleb128 0
+ 641 000c 26010000 		.4byte	.LCFI5-.Ltext0
+ 642 0010 28010000 		.4byte	.LCFI6-.Ltext0
+ 643 0014 0200     		.2byte	0x2
+ 644 0016 7D       		.byte	0x7d
+ 645 0017 08       		.sleb128 8
+ 646 0018 28010000 		.4byte	.LCFI6-.Ltext0
+ 647 001c 2A010000 		.4byte	.LCFI7-.Ltext0
+ 648 0020 0200     		.2byte	0x2
+ 649 0022 7D       		.byte	0x7d
+ 650 0023 10       		.sleb128 16
+ 651 0024 2A010000 		.4byte	.LCFI7-.Ltext0
+ 652 0028 5C010000 		.4byte	.LFE2-.Ltext0
+ 653 002c 0200     		.2byte	0x2
+ 654 002e 77       		.byte	0x77
+ 655 002f 10       		.sleb128 16
+ 656 0030 00000000 		.4byte	0
+ 657 0034 00000000 		.4byte	0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 15
+
+
+ 658              	.LLST1:
+ 659 0038 D8000000 		.4byte	.LFB1-.Ltext0
+ 660 003c DA000000 		.4byte	.LCFI3-.Ltext0
+ 661 0040 0200     		.2byte	0x2
+ 662 0042 7D       		.byte	0x7d
+ 663 0043 00       		.sleb128 0
+ 664 0044 DA000000 		.4byte	.LCFI3-.Ltext0
+ 665 0048 DC000000 		.4byte	.LCFI4-.Ltext0
+ 666 004c 0200     		.2byte	0x2
+ 667 004e 7D       		.byte	0x7d
+ 668 004f 08       		.sleb128 8
+ 669 0050 DC000000 		.4byte	.LCFI4-.Ltext0
+ 670 0054 24010000 		.4byte	.LFE1-.Ltext0
+ 671 0058 0200     		.2byte	0x2
+ 672 005a 77       		.byte	0x77
+ 673 005b 08       		.sleb128 8
+ 674 005c 00000000 		.4byte	0
+ 675 0060 00000000 		.4byte	0
+ 676              	.LLST0:
+ 677 0064 00000000 		.4byte	.LFB0-.Ltext0
+ 678 0068 02000000 		.4byte	.LCFI0-.Ltext0
+ 679 006c 0200     		.2byte	0x2
+ 680 006e 7D       		.byte	0x7d
+ 681 006f 00       		.sleb128 0
+ 682 0070 02000000 		.4byte	.LCFI0-.Ltext0
+ 683 0074 04000000 		.4byte	.LCFI1-.Ltext0
+ 684 0078 0200     		.2byte	0x2
+ 685 007a 7D       		.byte	0x7d
+ 686 007b 08       		.sleb128 8
+ 687 007c 04000000 		.4byte	.LCFI1-.Ltext0
+ 688 0080 06000000 		.4byte	.LCFI2-.Ltext0
+ 689 0084 0200     		.2byte	0x2
+ 690 0086 7D       		.byte	0x7d
+ 691 0087 18       		.sleb128 24
+ 692 0088 06000000 		.4byte	.LCFI2-.Ltext0
+ 693 008c D8000000 		.4byte	.LFE0-.Ltext0
+ 694 0090 0200     		.2byte	0x2
+ 695 0092 77       		.byte	0x77
+ 696 0093 18       		.sleb128 24
+ 697 0094 00000000 		.4byte	0
+ 698 0098 00000000 		.4byte	0
+ 699              		.section	.debug_aranges,"",%progbits
+ 700 0000 1C000000 		.4byte	0x1c
+ 701 0004 0200     		.2byte	0x2
+ 702 0006 00000000 		.4byte	.Ldebug_info0
+ 703 000a 04       		.byte	0x4
+ 704 000b 00       		.byte	0
+ 705 000c 0000     		.2byte	0
+ 706 000e 0000     		.2byte	0
+ 707 0010 00000000 		.4byte	.Ltext0
+ 708 0014 5C010000 		.4byte	.Letext0-.Ltext0
+ 709 0018 00000000 		.4byte	0
+ 710 001c 00000000 		.4byte	0
+ 711              		.section	.debug_line,"",%progbits
+ 712              	.Ldebug_line0:
+ 713 0000 6B000000 		.section	.debug_str,"MS",%progbits,1
+ 713      02002C00 
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 16
+
+
+ 713      00000201 
+ 713      FB0E0D00 
+ 713      01010101 
+ 714              	.LASF7:
+ 715 0000 6C6F6E67 		.ascii	"long long int\000"
+ 715      206C6F6E 
+ 715      6720696E 
+ 715      7400
+ 716              	.LASF3:
+ 717 000e 756E7369 		.ascii	"unsigned int\000"
+ 717      676E6564 
+ 717      20696E74 
+ 717      00
+ 718              	.LASF12:
+ 719 001b 66697273 		.ascii	"firstBit\000"
+ 719      74426974 
+ 719      00
+ 720              	.LASF19:
+ 721 0024 73656E64 		.ascii	"sendToLCD\000"
+ 721      546F4C43 
+ 721      4400
+ 722              	.LASF4:
+ 723 002e 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 723      206C6F6E 
+ 723      6720756E 
+ 723      7369676E 
+ 723      65642069 
+ 724              	.LASF11:
+ 725 0045 73656C65 		.ascii	"select\000"
+ 725      637400
+ 726              	.LASF15:
+ 727 004c 6C63645F 		.ascii	"lcd_hw.c\000"
+ 727      68772E63 
+ 727      00
+ 728              	.LASF1:
+ 729 0055 756E7369 		.ascii	"unsigned char\000"
+ 729      676E6564 
+ 729      20636861 
+ 729      7200
+ 730              	.LASF9:
+ 731 0063 54525545 		.ascii	"TRUE\000"
+ 731      00
+ 732              	.LASF13:
+ 733 0068 64617461 		.ascii	"data\000"
+ 733      00
+ 734              	.LASF14:
+ 735 006d 474E5520 		.ascii	"GNU C11 7.3.1 20180622 (release) [ARM/embedded-7-br"
+ 735      43313120 
+ 735      372E332E 
+ 735      31203230 
+ 735      31383036 
+ 736 00a0 616E6368 		.ascii	"anch revision 261907] -mcpu=arm7tdmi -mthumb -mthum"
+ 736      20726576 
+ 736      6973696F 
+ 736      6E203236 
+ 736      31393037 
+ 737 00d3 622D696E 		.ascii	"b-interwork -gdwarf-2 -O0\000"
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 17
+
+
+ 737      74657277 
+ 737      6F726B20 
+ 737      2D676477 
+ 737      6172662D 
+ 738              	.LASF20:
+ 739 00ed 64617461 		.ascii	"dataToSend\000"
+ 739      546F5365 
+ 739      6E6400
+ 740              	.LASF16:
+ 741 00f8 433A5C45 		.ascii	"C:\\Embedded\\2138MiniDemo\\2138\000"
+ 741      6D626564 
+ 741      6465645C 
+ 741      32313338 
+ 741      4D696E69 
+ 742              	.LASF2:
+ 743 0116 73686F72 		.ascii	"short unsigned int\000"
+ 743      7420756E 
+ 743      7369676E 
+ 743      65642069 
+ 743      6E7400
+ 744              	.LASF5:
+ 745 0129 7369676E 		.ascii	"signed char\000"
+ 745      65642063 
+ 745      68617200 
+ 746              	.LASF17:
+ 747 0135 73656C65 		.ascii	"selectLCD\000"
+ 747      63744C43 
+ 747      4400
+ 748              	.LASF0:
+ 749 013f 74553136 		.ascii	"tU16\000"
+ 749      00
+ 750              	.LASF10:
+ 751 0144 74426F6F 		.ascii	"tBool\000"
+ 751      6C00
+ 752              	.LASF6:
+ 753 014a 73686F72 		.ascii	"short int\000"
+ 753      7420696E 
+ 753      7400
+ 754              	.LASF8:
+ 755 0154 46414C53 		.ascii	"FALSE\000"
+ 755      4500
+ 756              	.LASF18:
+ 757 015a 696E6974 		.ascii	"initSpiForLcd\000"
+ 757      53706946 
+ 757      6F724C63 
+ 757      6400
+ 758              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 7.3.1 20180622 (release) [AR
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s 			page 18
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 lcd_hw.c
+C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s:22     .text:00000000 sendToLCD
+C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s:30     .text:00000000 $t
+C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s:156    .text:000000b8 $d
+C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s:167    .text:000000d8 $t
+C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s:174    .text:000000d8 initSpiForLcd
+C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s:239    .text:00000124 selectLCD
+C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s:225    .text:00000114 $d
+C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s:232    .text:00000124 $t
+C:\Users\embedded\AppData\Local\Temp\cc7sOV45.s:288    .text:00000154 $d
+
+NO UNDEFINED SYMBOLS

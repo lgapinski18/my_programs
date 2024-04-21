@@ -1,0 +1,30 @@
+adc.o: adc.c general.h startup/printf_P.h startup/config.h \
+ startup/consol.h startup/lpc2xxx.h startup/config.h functionals.h adc.h
+lcd_hw.o: lcd_hw.c startup/lpc2xxx.h lcd_hw.h general.h
+lcd.o: lcd.c general.h lcd.h ascii.h lcd_hw.h startup/lpc2xxx.h \
+ functionals.h adc.h
+joystick.o: joystick.c startup/lpc2xxx.h joystick.h
+mat.o: mat.c general.h startup/printf_P.h startup/config.h \
+ startup/consol.h startup/lpc2xxx.h startup/config.h mat.h
+pwm.o: pwm.c general.h startup/lpc2xxx.h startup/config.h pwm.h \
+ functionals.h adc.h
+i2c.o: i2c.c i2c.h general.h functionals.h adc.h startup/lpc2xxx.h
+ledi2c.o: ledi2c.c i2c.h general.h ledi2c.h functionals.h adc.h
+game.o: game.c game.h general.h startup/printf_P.h startup/config.h \
+ startup/consol.h game_resources.h lcd.h ledi2c.h ethdrv_ENC28J60.h
+dac.o: dac.c general.h startup/printf_P.h startup/config.h \
+ startup/consol.h startup/lpc2xxx.h startup/config.h dac.h \
+ dac_reasources.h
+functionals.o: functionals.c general.h startup/lpc2xxx.h startup/config.h \
+ startup/printf_P.h startup/config.h startup/consol.h functionals.h adc.h \
+ dac.h timer.h VIC.h irq/irq_handler.h
+watchdog.o: watchdog.c watchdog.h startup/lpc2xxx.h general.h \
+ startup/config.h
+ethdrv_ENC28J60.o: ethdrv_ENC28J60.c ethdrv_ENC28J60.h general.h \
+ functionals.h adc.h watchdog.h startup/lpc2xxx.h startup/printf_P.h \
+ startup/config.h startup/consol.h
+main.o: main.c general.h startup/lpc2xxx.h startup/printf_P.h \
+ startup/config.h startup/consol.h startup/printf_init.h startup/consol.h \
+ startup/config.h irq/irq_handler.h timer.h VIC.h adc.h game.h \
+ functionals.h i2c.h joystick.h lcd.h ledi2c.h mat.h pwm.h watchdog.h \
+ ethdrv_ENC28J60.h

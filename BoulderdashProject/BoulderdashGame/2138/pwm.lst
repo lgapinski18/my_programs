@@ -1,0 +1,808 @@
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 1
+
+
+   1              		.cpu arm7tdmi
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 0
+  10              		.eabi_attribute 18, 4
+  11              		.file	"pwm.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.align	1
+  16              		.global	blinkGreenLed
+  17              		.syntax unified
+  18              		.code	16
+  19              		.thumb_func
+  20              		.fpu softvfp
+  21              		.type	blinkGreenLed, %function
+  22              	blinkGreenLed:
+  23              	.LFB0:
+  24              		.file 1 "pwm.c"
+   1:pwm.c         **** /*
+   2:pwm.c         ****  *	@Description:	Zawiera zbior definicji funkcji zwiazanych obsluga PWM
+   3:pwm.c         ****  */
+   4:pwm.c         **** #include "general.h"
+   5:pwm.c         **** #include <lpc2xxx.h>
+   6:pwm.c         **** #include <config.h>
+   7:pwm.c         **** #include "pwm.h"
+   8:pwm.c         **** #include "functionals.h"
+   9:pwm.c         **** 
+  10:pwm.c         **** 
+  11:pwm.c         **** /*
+  12:pwm.c         ****  *  @brief			Funkcja wykonujaca mrugniecie dioda Green LED przekazana ilosc razy.
+  13:pwm.c         ****  *
+  14:pwm.c         ****  *  @Description	Funkcja wykonuje mrugniecie dioda w liczbie zgodna z ta przekazana przez
+  15:pwm.c         ****  * 					parametr. Mrugniecia trwaja 250ms i sa w odstepach 250ms. Nalezy zauwazyc,
+  16:pwm.c         ****  * 					iz ta dioda wykorzystuje ten sam pin (P0.21) (bity 11. i 10. ustawione na 01,
+  17:pwm.c         ****  * 					aby wlaczyc funkcje sterowania dioda) co odczyt przyspieszenia wzdluz
+  18:pwm.c         ****  * 					osi X z akcelerometru. Tym samym nie wolno, uzywac tych polecen w tym samym
+  19:pwm.c         ****  * 					czasie. Sterowanie dioda Green LED odbywa sie za pomoca PWM. Funkcja na
+  20:pwm.c         ****  * 					zakonczenie pracy przywraca zawartosc rejestru PINSEL1 na te z przed wywolania.
+  21:pwm.c         ****  *
+  22:pwm.c         ****  *  @param 			[in]	numberOfBlinks
+  23:pwm.c         ****  *						liczba mrugniec jakie ma wykonac dioda Green LED
+  24:pwm.c         ****  *
+  25:pwm.c         ****  *  @returns  		nic
+  26:pwm.c         ****  *
+  27:pwm.c         ****  *  @side effects	Modyfikacja rejestru PINSEL1 (bity 11., 10.)
+  28:pwm.c         ****  */
+  29:pwm.c         **** void
+  30:pwm.c         **** blinkGreenLed(tU8 numberOfBlinks) 
+  31:pwm.c         **** {
+  25              		.loc 1 31 0
+  26              		.cfi_startproc
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 2
+
+
+  27              		@ Function supports interworking.
+  28              		@ args = 0, pretend = 0, frame = 16
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30 0000 B0B5     		push	{r4, r5, r7, lr}
+  31              	.LCFI0:
+  32              		.cfi_def_cfa_offset 16
+  33              		.cfi_offset 4, -16
+  34              		.cfi_offset 5, -12
+  35              		.cfi_offset 7, -8
+  36              		.cfi_offset 14, -4
+  37 0002 84B0     		sub	sp, sp, #16
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 32
+  40 0004 00AF     		add	r7, sp, #0
+  41              	.LCFI2:
+  42              		.cfi_def_cfa_register 7
+  43 0006 0200     		movs	r2, r0
+  44 0008 FB1D     		adds	r3, r7, #7
+  45 000a 1A70     		strb	r2, [r3]
+  32:pwm.c         **** 	/* Jedynka 32-bitowa */
+  33:pwm.c         **** 	const tU32 one32 = 1u;
+  46              		.loc 1 33 0
+  47 000c 0123     		movs	r3, #1
+  48 000e FB60     		str	r3, [r7, #12]
+  34:pwm.c         **** 
+  35:pwm.c         **** 	if (numberOfBlinks != 0u) /* Sprawdzenie, czy numberOfBlinks jest zero. Jezeli tak to zakoncz dzia
+  49              		.loc 1 35 0
+  50 0010 FB1D     		adds	r3, r7, #7
+  51 0012 1B78     		ldrb	r3, [r3]
+  52 0014 002B     		cmp	r3, #0
+  53 0016 00D1     		bne	.LCB25
+  54 0018 B0E0     		b	.L3	@long jump
+  55              	.LCB25:
+  56              	.LBB2:
+  36:pwm.c         **** 	{
+  37:pwm.c         **** 		/* Czas trwania mrugniecia (swiecenia sie diody) w milisekundach */
+  38:pwm.c         **** 		tU16 blinkDurationTime = 250;
+  57              		.loc 1 38 0
+  58 001a 0A20     		movs	r0, #10
+  59 001c 3B18     		adds	r3, r7, r0
+  60 001e FA22     		movs	r2, #250
+  61 0020 1A80     		strh	r2, [r3]
+  39:pwm.c         **** 
+  40:pwm.c         **** 		/* Czas trwania przerwy miedzy kolejnym zapaleniem sie diody w milisekundach */
+  41:pwm.c         **** 		tU16 timeToNextBlink = 250;
+  62              		.loc 1 41 0
+  63 0022 0824     		movs	r4, #8
+  64 0024 3B19     		adds	r3, r7, r4
+  65 0026 FA22     		movs	r2, #250
+  66 0028 1A80     		strh	r2, [r3]
+  42:pwm.c         **** 
+  43:pwm.c         **** 		/*	Inicjalizacja wyjscia PWM5 (P0.21) */
+  44:pwm.c         **** 		/*	Ustawienie funkcji pinu P0.21 na wyjscie PWM5.
+  45:pwm.c         **** 		*	Umozliwia sterowanie dioda Green LED.
+  46:pwm.c         **** 		*/
+  47:pwm.c         **** 		PINSEL1 &= ~((one32 << 10) | (one32 << 11));
+  67              		.loc 1 47 0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 3
+
+
+  68 002a 574B     		ldr	r3, .L4
+  69 002c 1A68     		ldr	r2, [r3]
+  70 002e FB68     		ldr	r3, [r7, #12]
+  71 0030 9902     		lsls	r1, r3, #10
+  72 0032 FB68     		ldr	r3, [r7, #12]
+  73 0034 DB02     		lsls	r3, r3, #11
+  74 0036 0B43     		orrs	r3, r1
+  75 0038 D943     		mvns	r1, r3
+  76 003a 534B     		ldr	r3, .L4
+  77 003c 0A40     		ands	r2, r1
+  78 003e 1A60     		str	r2, [r3]
+  48:pwm.c         **** 		PINSEL1 |= (one32 << 10);
+  79              		.loc 1 48 0
+  80 0040 514B     		ldr	r3, .L4
+  81 0042 1968     		ldr	r1, [r3]
+  82 0044 FB68     		ldr	r3, [r7, #12]
+  83 0046 9A02     		lsls	r2, r3, #10
+  84 0048 4F4B     		ldr	r3, .L4
+  85 004a 0A43     		orrs	r2, r1
+  86 004c 1A60     		str	r2, [r3]
+  49:pwm.c         **** 
+  50:pwm.c         **** 		/* Zatrzymanie i zresetowanie Timer Counter'a dla PWM */
+  51:pwm.c         **** 		PWMTCR = 0x02;
+  87              		.loc 1 51 0
+  88 004e 4F4B     		ldr	r3, .L4+4
+  89 0050 0222     		movs	r2, #2
+  90 0052 1A60     		str	r2, [r3]
+  52:pwm.c         **** 
+  53:pwm.c         **** 		/* Ustawienie wartosci rejestru Prescaler Counter, aby co kazde PCLK zawartosc rejestru PWMTC byl
+  54:pwm.c         **** 		PWMPC = 0;
+  91              		.loc 1 54 0
+  92 0054 4E4B     		ldr	r3, .L4+8
+  93 0056 0022     		movs	r2, #0
+  94 0058 1A60     		str	r2, [r3]
+  55:pwm.c         **** 		/* Ustawienie aby kanal 5 PWM dzialal w trybie double edge */
+  56:pwm.c         **** 		PWMPCR |= (one32 << 5);
+  95              		.loc 1 56 0
+  96 005a 4E4B     		ldr	r3, .L4+12
+  97 005c 1968     		ldr	r1, [r3]
+  98 005e FB68     		ldr	r3, [r7, #12]
+  99 0060 5A01     		lsls	r2, r3, #5
+ 100 0062 4C4B     		ldr	r3, .L4+12
+ 101 0064 0A43     		orrs	r2, r1
+ 102 0066 1A60     		str	r2, [r3]
+  57:pwm.c         **** 		PWMPCR |= (one32 << 13);
+ 103              		.loc 1 57 0
+ 104 0068 4A4B     		ldr	r3, .L4+12
+ 105 006a 1968     		ldr	r1, [r3]
+ 106 006c FB68     		ldr	r3, [r7, #12]
+ 107 006e 5A03     		lsls	r2, r3, #13
+ 108 0070 484B     		ldr	r3, .L4+12
+ 109 0072 0A43     		orrs	r2, r1
+ 110 0074 1A60     		str	r2, [r3]
+  58:pwm.c         **** 
+  59:pwm.c         **** 		/* Ustawienie funkcji Match Register 0, aby na dopasowanie zresetowany zostal PWMTC (bit 1. ustaw
+  60:pwm.c         **** 		PWMMCR &= ~(0x7); 	/* Wyzerowanie bitow w rejestrze PWMMRC zwiazanych z MR0 */
+ 111              		.loc 1 60 0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 4
+
+
+ 112 0076 484B     		ldr	r3, .L4+16
+ 113 0078 1A68     		ldr	r2, [r3]
+ 114 007a 474B     		ldr	r3, .L4+16
+ 115 007c 0721     		movs	r1, #7
+ 116 007e 8A43     		bics	r2, r1
+ 117 0080 1A60     		str	r2, [r3]
+  61:pwm.c         **** 		PWMMCR |= 0x2; 		/* Wybranie opcji resetowania PWMTC na dopasowanie */
+ 118              		.loc 1 61 0
+ 119 0082 454B     		ldr	r3, .L4+16
+ 120 0084 1A68     		ldr	r2, [r3]
+ 121 0086 444B     		ldr	r3, .L4+16
+ 122 0088 0221     		movs	r1, #2
+ 123 008a 0A43     		orrs	r2, r1
+ 124 008c 1A60     		str	r2, [r3]
+  62:pwm.c         **** 		/* Ustawienie wartosci dla Match Register 0 na wartosc reprezentujaca sume blinkDurationTime i ti
+  63:pwm.c         **** 		PWMMR0 = (blinkDurationTime + timeToNextBlink) * (CORE_FREQ / PBSD / 1000);
+ 125              		.loc 1 63 0
+ 126 008e 3B18     		adds	r3, r7, r0
+ 127 0090 1A88     		ldrh	r2, [r3]
+ 128 0092 3B19     		adds	r3, r7, r4
+ 129 0094 1B88     		ldrh	r3, [r3]
+ 130 0096 D318     		adds	r3, r2, r3
+ 131 0098 1900     		movs	r1, r3
+ 132 009a 404B     		ldr	r3, .L4+20
+ 133 009c 404A     		ldr	r2, .L4+24
+ 134 009e 1500     		movs	r5, r2
+ 135 00a0 4D43     		muls	r5, r1
+ 136 00a2 1D60     		str	r5, [r3]
+  64:pwm.c         **** 
+  65:pwm.c         **** 		/* Ustawienie funkcji Match Register 5 na zadna (zadne operacja zwiazana z rejestrami licznikow m
+  66:pwm.c         **** 		PWMMCR &= ~((one32 << 17) | (one32 << 16) | (one32 << 15));
+ 137              		.loc 1 66 0
+ 138 00a4 3C4B     		ldr	r3, .L4+16
+ 139 00a6 1A68     		ldr	r2, [r3]
+ 140 00a8 FB68     		ldr	r3, [r7, #12]
+ 141 00aa 5904     		lsls	r1, r3, #17
+ 142 00ac FB68     		ldr	r3, [r7, #12]
+ 143 00ae 1B04     		lsls	r3, r3, #16
+ 144 00b0 1943     		orrs	r1, r3
+ 145 00b2 FB68     		ldr	r3, [r7, #12]
+ 146 00b4 DB03     		lsls	r3, r3, #15
+ 147 00b6 0B43     		orrs	r3, r1
+ 148 00b8 D943     		mvns	r1, r3
+ 149 00ba 374B     		ldr	r3, .L4+16
+ 150 00bc 0A40     		ands	r2, r1
+ 151 00be 1A60     		str	r2, [r3]
+  67:pwm.c         **** 		/* Ustawienie wartosci dla Match Register 5 na wartosc 1, odrazu ma sie wykonac dopasowanie, a di
+  68:pwm.c         **** 		PWMMR5 = (one32) * (CORE_FREQ / PBSD / 1000);
+ 152              		.loc 1 68 0
+ 153 00c0 384B     		ldr	r3, .L4+28
+ 154 00c2 FA68     		ldr	r2, [r7, #12]
+ 155 00c4 3649     		ldr	r1, .L4+24
+ 156 00c6 1500     		movs	r5, r2
+ 157 00c8 4D43     		muls	r5, r1
+ 158 00ca 1D60     		str	r5, [r3]
+  69:pwm.c         **** 		//PWMMR5 = (blinkDurationTime) * (CORE_FREQ / PBSD / 1000);
+  70:pwm.c         **** 
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 5
+
+
+  71:pwm.c         **** 		/* Ustawienie funkcji Match Register 4 na zadna (zadne operacja zwiazana z rejestrami licznikow m
+  72:pwm.c         **** 		PWMMCR &= ~((one32 << 14) | (one32 << 13) | (one32 << 12));
+ 159              		.loc 1 72 0
+ 160 00cc 324B     		ldr	r3, .L4+16
+ 161 00ce 1A68     		ldr	r2, [r3]
+ 162 00d0 FB68     		ldr	r3, [r7, #12]
+ 163 00d2 9903     		lsls	r1, r3, #14
+ 164 00d4 FB68     		ldr	r3, [r7, #12]
+ 165 00d6 5B03     		lsls	r3, r3, #13
+ 166 00d8 1943     		orrs	r1, r3
+ 167 00da FB68     		ldr	r3, [r7, #12]
+ 168 00dc 1B03     		lsls	r3, r3, #12
+ 169 00de 0B43     		orrs	r3, r1
+ 170 00e0 D943     		mvns	r1, r3
+ 171 00e2 2D4B     		ldr	r3, .L4+16
+ 172 00e4 0A40     		ands	r2, r1
+ 173 00e6 1A60     		str	r2, [r3]
+  73:pwm.c         **** 		/* Ustawienie wartosci dla Match Register 4 na wartosc blinkDurationTime, dioda ma zgasnac po upl
+  74:pwm.c         **** 		PWMMR4 = (blinkDurationTime) * (CORE_FREQ / PBSD / 1000);
+ 174              		.loc 1 74 0
+ 175 00e8 3B18     		adds	r3, r7, r0
+ 176 00ea 1D88     		ldrh	r5, [r3]
+ 177 00ec 2E4B     		ldr	r3, .L4+32
+ 178 00ee 2C49     		ldr	r1, .L4+24
+ 179 00f0 2A00     		movs	r2, r5
+ 180 00f2 4A43     		muls	r2, r1
+ 181 00f4 1A60     		str	r2, [r3]
+  75:pwm.c         **** 
+  76:pwm.c         **** 		/* Rozpoczecie dzialania PWM */
+  77:pwm.c         **** 		PWMTCR = 1;
+ 182              		.loc 1 77 0
+ 183 00f6 254B     		ldr	r3, .L4+4
+ 184 00f8 0122     		movs	r2, #1
+ 185 00fa 1A60     		str	r2, [r3]
+  78:pwm.c         **** 
+  79:pwm.c         **** 		/* Wstrzymanie dzialania do momentu wykonania odpowiedniej liczby mrugniec */
+  80:pwm.c         **** 		delay_ms((((tU16)numberOfBlinks) * blinkDurationTime) + ((((tU16)numberOfBlinks) - 1u) * timeToNe
+ 186              		.loc 1 80 0
+ 187 00fc FB1D     		adds	r3, r7, #7
+ 188 00fe 1B78     		ldrb	r3, [r3]
+ 189 0100 1B04     		lsls	r3, r3, #16
+ 190 0102 190C     		lsrs	r1, r3, #16
+ 191 0104 3A18     		adds	r2, r7, r0
+ 192 0106 1288     		ldrh	r2, [r2]
+ 193 0108 0B00     		movs	r3, r1
+ 194 010a 5343     		muls	r3, r2
+ 195 010c 1B04     		lsls	r3, r3, #16
+ 196 010e 1A0C     		lsrs	r2, r3, #16
+ 197 0110 FB1D     		adds	r3, r7, #7
+ 198 0112 1B78     		ldrb	r3, [r3]
+ 199 0114 013B     		subs	r3, r3, #1
+ 200 0116 1B04     		lsls	r3, r3, #16
+ 201 0118 1D0C     		lsrs	r5, r3, #16
+ 202 011a 3919     		adds	r1, r7, r4
+ 203 011c 0988     		ldrh	r1, [r1]
+ 204 011e 2B00     		movs	r3, r5
+ 205 0120 4B43     		muls	r3, r1
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 6
+
+
+ 206 0122 1B04     		lsls	r3, r3, #16
+ 207 0124 1B0C     		lsrs	r3, r3, #16
+ 208 0126 D318     		adds	r3, r2, r3
+ 209 0128 1B04     		lsls	r3, r3, #16
+ 210 012a 1A0C     		lsrs	r2, r3, #16
+ 211 012c 3B18     		adds	r3, r7, r0
+ 212 012e 1B88     		ldrh	r3, [r3]
+ 213 0130 5B08     		lsrs	r3, r3, #1
+ 214 0132 1B04     		lsls	r3, r3, #16
+ 215 0134 1B0C     		lsrs	r3, r3, #16
+ 216 0136 D318     		adds	r3, r2, r3
+ 217 0138 1B04     		lsls	r3, r3, #16
+ 218 013a 1B0C     		lsrs	r3, r3, #16
+ 219 013c 1800     		movs	r0, r3
+ 220 013e FFF7FEFF 		bl	delay_ms
+  81:pwm.c         **** 
+  82:pwm.c         **** 		/* Zatrzymanie i zresetowanie Timer Counter'a dla PWM */
+  83:pwm.c         **** 		PWMTCR = 0x02;
+ 221              		.loc 1 83 0
+ 222 0142 124B     		ldr	r3, .L4+4
+ 223 0144 0222     		movs	r2, #2
+ 224 0146 1A60     		str	r2, [r3]
+  84:pwm.c         **** 		PWMPCR &= ~(one32 << 13);
+ 225              		.loc 1 84 0
+ 226 0148 124B     		ldr	r3, .L4+12
+ 227 014a 1A68     		ldr	r2, [r3]
+ 228 014c FB68     		ldr	r3, [r7, #12]
+ 229 014e 5B03     		lsls	r3, r3, #13
+ 230 0150 D943     		mvns	r1, r3
+ 231 0152 104B     		ldr	r3, .L4+12
+ 232 0154 0A40     		ands	r2, r1
+ 233 0156 1A60     		str	r2, [r3]
+  85:pwm.c         **** 
+  86:pwm.c         **** 		/* Przywrocenie zawartosci rejestru PINSEL1 na bitach 11. i 10. na wartosci z przed wywolania fun
+  87:pwm.c         **** 		PINSEL1 &= ~((one32 << 10) | (one32 << 11));
+ 234              		.loc 1 87 0
+ 235 0158 0B4B     		ldr	r3, .L4
+ 236 015a 1A68     		ldr	r2, [r3]
+ 237 015c FB68     		ldr	r3, [r7, #12]
+ 238 015e 9902     		lsls	r1, r3, #10
+ 239 0160 FB68     		ldr	r3, [r7, #12]
+ 240 0162 DB02     		lsls	r3, r3, #11
+ 241 0164 0B43     		orrs	r3, r1
+ 242 0166 D943     		mvns	r1, r3
+ 243 0168 074B     		ldr	r3, .L4
+ 244 016a 0A40     		ands	r2, r1
+ 245 016c 1A60     		str	r2, [r3]
+  88:pwm.c         **** 		PINSEL1 |= (one32 << 11);
+ 246              		.loc 1 88 0
+ 247 016e 064B     		ldr	r3, .L4
+ 248 0170 1968     		ldr	r1, [r3]
+ 249 0172 FB68     		ldr	r3, [r7, #12]
+ 250 0174 DA02     		lsls	r2, r3, #11
+ 251 0176 044B     		ldr	r3, .L4
+ 252 0178 0A43     		orrs	r2, r1
+ 253 017a 1A60     		str	r2, [r3]
+ 254              	.L3:
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 7
+
+
+ 255              	.LBE2:
+  89:pwm.c         **** 	}
+  90:pwm.c         **** }
+ 256              		.loc 1 90 0
+ 257 017c C046     		nop
+ 258 017e BD46     		mov	sp, r7
+ 259 0180 04B0     		add	sp, sp, #16
+ 260              		@ sp needed
+ 261 0182 B0BC     		pop	{r4, r5, r7}
+ 262 0184 01BC     		pop	{r0}
+ 263 0186 0047     		bx	r0
+ 264              	.L5:
+ 265              		.align	2
+ 266              	.L4:
+ 267 0188 04C002E0 		.word	-536690684
+ 268 018c 044001E0 		.word	-536788988
+ 269 0190 104001E0 		.word	-536788976
+ 270 0194 4C4001E0 		.word	-536788916
+ 271 0198 144001E0 		.word	-536788972
+ 272 019c 184001E0 		.word	-536788968
+ 273 01a0 66E60000 		.word	58982
+ 274 01a4 444001E0 		.word	-536788924
+ 275 01a8 404001E0 		.word	-536788928
+ 276              		.cfi_endproc
+ 277              	.LFE0:
+ 278              		.size	blinkGreenLed, .-blinkGreenLed
+ 279              	.Letext0:
+ 280              		.file 2 "general.h"
+ 281              		.section	.debug_info,"",%progbits
+ 282              	.Ldebug_info0:
+ 283 0000 D9000000 		.4byte	0xd9
+ 284 0004 0200     		.2byte	0x2
+ 285 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 286 000a 04       		.byte	0x4
+ 287 000b 01       		.uleb128 0x1
+ 288 000c 7F000000 		.4byte	.LASF12
+ 289 0010 0C       		.byte	0xc
+ 290 0011 42010000 		.4byte	.LASF13
+ 291 0015 05010000 		.4byte	.LASF14
+ 292 0019 00000000 		.4byte	.Ltext0
+ 293 001d AC010000 		.4byte	.Letext0
+ 294 0021 00000000 		.4byte	.Ldebug_line0
+ 295 0025 02       		.uleb128 0x2
+ 296 0026 74553800 		.ascii	"tU8\000"
+ 297 002a 02       		.byte	0x2
+ 298 002b 07       		.byte	0x7
+ 299 002c 30000000 		.4byte	0x30
+ 300 0030 03       		.uleb128 0x3
+ 301 0031 01       		.byte	0x1
+ 302 0032 08       		.byte	0x8
+ 303 0033 61000000 		.4byte	.LASF1
+ 304 0037 04       		.uleb128 0x4
+ 305 0038 48010000 		.4byte	.LASF0
+ 306 003c 02       		.byte	0x2
+ 307 003d 08       		.byte	0x8
+ 308 003e 42000000 		.4byte	0x42
+ 309 0042 03       		.uleb128 0x3
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 8
+
+
+ 310 0043 02       		.byte	0x2
+ 311 0044 07       		.byte	0x7
+ 312 0045 23010000 		.4byte	.LASF2
+ 313 0049 04       		.uleb128 0x4
+ 314 004a 57010000 		.4byte	.LASF3
+ 315 004e 02       		.byte	0x2
+ 316 004f 09       		.byte	0x9
+ 317 0050 59000000 		.4byte	0x59
+ 318 0054 05       		.uleb128 0x5
+ 319 0055 49000000 		.4byte	0x49
+ 320 0059 03       		.uleb128 0x3
+ 321 005a 04       		.byte	0x4
+ 322 005b 07       		.byte	0x7
+ 323 005c 1D000000 		.4byte	.LASF4
+ 324 0060 03       		.uleb128 0x3
+ 325 0061 08       		.byte	0x8
+ 326 0062 07       		.byte	0x7
+ 327 0063 38000000 		.4byte	.LASF5
+ 328 0067 03       		.uleb128 0x3
+ 329 0068 01       		.byte	0x1
+ 330 0069 06       		.byte	0x6
+ 331 006a 36010000 		.4byte	.LASF6
+ 332 006e 03       		.uleb128 0x3
+ 333 006f 02       		.byte	0x2
+ 334 0070 05       		.byte	0x5
+ 335 0071 4D010000 		.4byte	.LASF7
+ 336 0075 06       		.uleb128 0x6
+ 337 0076 04       		.byte	0x4
+ 338 0077 05       		.byte	0x5
+ 339 0078 696E7400 		.ascii	"int\000"
+ 340 007c 03       		.uleb128 0x3
+ 341 007d 08       		.byte	0x8
+ 342 007e 05       		.byte	0x5
+ 343 007f 00000000 		.4byte	.LASF8
+ 344 0083 07       		.uleb128 0x7
+ 345 0084 01       		.byte	0x1
+ 346 0085 2A000000 		.4byte	.LASF15
+ 347 0089 01       		.byte	0x1
+ 348 008a 1E       		.byte	0x1e
+ 349 008b 01       		.byte	0x1
+ 350 008c 00000000 		.4byte	.LFB0
+ 351 0090 AC010000 		.4byte	.LFE0
+ 352 0094 00000000 		.4byte	.LLST0
+ 353 0098 01       		.byte	0x1
+ 354 0099 08       		.uleb128 0x8
+ 355 009a 0E000000 		.4byte	.LASF16
+ 356 009e 01       		.byte	0x1
+ 357 009f 1E       		.byte	0x1e
+ 358 00a0 25000000 		.4byte	0x25
+ 359 00a4 02       		.byte	0x2
+ 360 00a5 91       		.byte	0x91
+ 361 00a6 67       		.sleb128 -25
+ 362 00a7 09       		.uleb128 0x9
+ 363 00a8 FF000000 		.4byte	.LASF9
+ 364 00ac 01       		.byte	0x1
+ 365 00ad 21       		.byte	0x21
+ 366 00ae 54000000 		.4byte	0x54
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 9
+
+
+ 367 00b2 02       		.byte	0x2
+ 368 00b3 91       		.byte	0x91
+ 369 00b4 6C       		.sleb128 -20
+ 370 00b5 0A       		.uleb128 0xa
+ 371 00b6 1A000000 		.4byte	.LBB2
+ 372 00ba 7C010000 		.4byte	.LBE2
+ 373 00be 09       		.uleb128 0x9
+ 374 00bf 4F000000 		.4byte	.LASF10
+ 375 00c3 01       		.byte	0x1
+ 376 00c4 26       		.byte	0x26
+ 377 00c5 37000000 		.4byte	0x37
+ 378 00c9 02       		.byte	0x2
+ 379 00ca 91       		.byte	0x91
+ 380 00cb 6A       		.sleb128 -22
+ 381 00cc 09       		.uleb128 0x9
+ 382 00cd 6F000000 		.4byte	.LASF11
+ 383 00d1 01       		.byte	0x1
+ 384 00d2 29       		.byte	0x29
+ 385 00d3 37000000 		.4byte	0x37
+ 386 00d7 02       		.byte	0x2
+ 387 00d8 91       		.byte	0x91
+ 388 00d9 68       		.sleb128 -24
+ 389 00da 00       		.byte	0
+ 390 00db 00       		.byte	0
+ 391 00dc 00       		.byte	0
+ 392              		.section	.debug_abbrev,"",%progbits
+ 393              	.Ldebug_abbrev0:
+ 394 0000 01       		.uleb128 0x1
+ 395 0001 11       		.uleb128 0x11
+ 396 0002 01       		.byte	0x1
+ 397 0003 25       		.uleb128 0x25
+ 398 0004 0E       		.uleb128 0xe
+ 399 0005 13       		.uleb128 0x13
+ 400 0006 0B       		.uleb128 0xb
+ 401 0007 03       		.uleb128 0x3
+ 402 0008 0E       		.uleb128 0xe
+ 403 0009 1B       		.uleb128 0x1b
+ 404 000a 0E       		.uleb128 0xe
+ 405 000b 11       		.uleb128 0x11
+ 406 000c 01       		.uleb128 0x1
+ 407 000d 12       		.uleb128 0x12
+ 408 000e 01       		.uleb128 0x1
+ 409 000f 10       		.uleb128 0x10
+ 410 0010 06       		.uleb128 0x6
+ 411 0011 00       		.byte	0
+ 412 0012 00       		.byte	0
+ 413 0013 02       		.uleb128 0x2
+ 414 0014 16       		.uleb128 0x16
+ 415 0015 00       		.byte	0
+ 416 0016 03       		.uleb128 0x3
+ 417 0017 08       		.uleb128 0x8
+ 418 0018 3A       		.uleb128 0x3a
+ 419 0019 0B       		.uleb128 0xb
+ 420 001a 3B       		.uleb128 0x3b
+ 421 001b 0B       		.uleb128 0xb
+ 422 001c 49       		.uleb128 0x49
+ 423 001d 13       		.uleb128 0x13
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 10
+
+
+ 424 001e 00       		.byte	0
+ 425 001f 00       		.byte	0
+ 426 0020 03       		.uleb128 0x3
+ 427 0021 24       		.uleb128 0x24
+ 428 0022 00       		.byte	0
+ 429 0023 0B       		.uleb128 0xb
+ 430 0024 0B       		.uleb128 0xb
+ 431 0025 3E       		.uleb128 0x3e
+ 432 0026 0B       		.uleb128 0xb
+ 433 0027 03       		.uleb128 0x3
+ 434 0028 0E       		.uleb128 0xe
+ 435 0029 00       		.byte	0
+ 436 002a 00       		.byte	0
+ 437 002b 04       		.uleb128 0x4
+ 438 002c 16       		.uleb128 0x16
+ 439 002d 00       		.byte	0
+ 440 002e 03       		.uleb128 0x3
+ 441 002f 0E       		.uleb128 0xe
+ 442 0030 3A       		.uleb128 0x3a
+ 443 0031 0B       		.uleb128 0xb
+ 444 0032 3B       		.uleb128 0x3b
+ 445 0033 0B       		.uleb128 0xb
+ 446 0034 49       		.uleb128 0x49
+ 447 0035 13       		.uleb128 0x13
+ 448 0036 00       		.byte	0
+ 449 0037 00       		.byte	0
+ 450 0038 05       		.uleb128 0x5
+ 451 0039 26       		.uleb128 0x26
+ 452 003a 00       		.byte	0
+ 453 003b 49       		.uleb128 0x49
+ 454 003c 13       		.uleb128 0x13
+ 455 003d 00       		.byte	0
+ 456 003e 00       		.byte	0
+ 457 003f 06       		.uleb128 0x6
+ 458 0040 24       		.uleb128 0x24
+ 459 0041 00       		.byte	0
+ 460 0042 0B       		.uleb128 0xb
+ 461 0043 0B       		.uleb128 0xb
+ 462 0044 3E       		.uleb128 0x3e
+ 463 0045 0B       		.uleb128 0xb
+ 464 0046 03       		.uleb128 0x3
+ 465 0047 08       		.uleb128 0x8
+ 466 0048 00       		.byte	0
+ 467 0049 00       		.byte	0
+ 468 004a 07       		.uleb128 0x7
+ 469 004b 2E       		.uleb128 0x2e
+ 470 004c 01       		.byte	0x1
+ 471 004d 3F       		.uleb128 0x3f
+ 472 004e 0C       		.uleb128 0xc
+ 473 004f 03       		.uleb128 0x3
+ 474 0050 0E       		.uleb128 0xe
+ 475 0051 3A       		.uleb128 0x3a
+ 476 0052 0B       		.uleb128 0xb
+ 477 0053 3B       		.uleb128 0x3b
+ 478 0054 0B       		.uleb128 0xb
+ 479 0055 27       		.uleb128 0x27
+ 480 0056 0C       		.uleb128 0xc
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 11
+
+
+ 481 0057 11       		.uleb128 0x11
+ 482 0058 01       		.uleb128 0x1
+ 483 0059 12       		.uleb128 0x12
+ 484 005a 01       		.uleb128 0x1
+ 485 005b 40       		.uleb128 0x40
+ 486 005c 06       		.uleb128 0x6
+ 487 005d 9642     		.uleb128 0x2116
+ 488 005f 0C       		.uleb128 0xc
+ 489 0060 00       		.byte	0
+ 490 0061 00       		.byte	0
+ 491 0062 08       		.uleb128 0x8
+ 492 0063 05       		.uleb128 0x5
+ 493 0064 00       		.byte	0
+ 494 0065 03       		.uleb128 0x3
+ 495 0066 0E       		.uleb128 0xe
+ 496 0067 3A       		.uleb128 0x3a
+ 497 0068 0B       		.uleb128 0xb
+ 498 0069 3B       		.uleb128 0x3b
+ 499 006a 0B       		.uleb128 0xb
+ 500 006b 49       		.uleb128 0x49
+ 501 006c 13       		.uleb128 0x13
+ 502 006d 02       		.uleb128 0x2
+ 503 006e 0A       		.uleb128 0xa
+ 504 006f 00       		.byte	0
+ 505 0070 00       		.byte	0
+ 506 0071 09       		.uleb128 0x9
+ 507 0072 34       		.uleb128 0x34
+ 508 0073 00       		.byte	0
+ 509 0074 03       		.uleb128 0x3
+ 510 0075 0E       		.uleb128 0xe
+ 511 0076 3A       		.uleb128 0x3a
+ 512 0077 0B       		.uleb128 0xb
+ 513 0078 3B       		.uleb128 0x3b
+ 514 0079 0B       		.uleb128 0xb
+ 515 007a 49       		.uleb128 0x49
+ 516 007b 13       		.uleb128 0x13
+ 517 007c 02       		.uleb128 0x2
+ 518 007d 0A       		.uleb128 0xa
+ 519 007e 00       		.byte	0
+ 520 007f 00       		.byte	0
+ 521 0080 0A       		.uleb128 0xa
+ 522 0081 0B       		.uleb128 0xb
+ 523 0082 01       		.byte	0x1
+ 524 0083 11       		.uleb128 0x11
+ 525 0084 01       		.uleb128 0x1
+ 526 0085 12       		.uleb128 0x12
+ 527 0086 01       		.uleb128 0x1
+ 528 0087 00       		.byte	0
+ 529 0088 00       		.byte	0
+ 530 0089 00       		.byte	0
+ 531              		.section	.debug_loc,"",%progbits
+ 532              	.Ldebug_loc0:
+ 533              	.LLST0:
+ 534 0000 00000000 		.4byte	.LFB0-.Ltext0
+ 535 0004 02000000 		.4byte	.LCFI0-.Ltext0
+ 536 0008 0200     		.2byte	0x2
+ 537 000a 7D       		.byte	0x7d
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 12
+
+
+ 538 000b 00       		.sleb128 0
+ 539 000c 02000000 		.4byte	.LCFI0-.Ltext0
+ 540 0010 04000000 		.4byte	.LCFI1-.Ltext0
+ 541 0014 0200     		.2byte	0x2
+ 542 0016 7D       		.byte	0x7d
+ 543 0017 10       		.sleb128 16
+ 544 0018 04000000 		.4byte	.LCFI1-.Ltext0
+ 545 001c 06000000 		.4byte	.LCFI2-.Ltext0
+ 546 0020 0200     		.2byte	0x2
+ 547 0022 7D       		.byte	0x7d
+ 548 0023 20       		.sleb128 32
+ 549 0024 06000000 		.4byte	.LCFI2-.Ltext0
+ 550 0028 AC010000 		.4byte	.LFE0-.Ltext0
+ 551 002c 0200     		.2byte	0x2
+ 552 002e 77       		.byte	0x77
+ 553 002f 20       		.sleb128 32
+ 554 0030 00000000 		.4byte	0
+ 555 0034 00000000 		.4byte	0
+ 556              		.section	.debug_aranges,"",%progbits
+ 557 0000 1C000000 		.4byte	0x1c
+ 558 0004 0200     		.2byte	0x2
+ 559 0006 00000000 		.4byte	.Ldebug_info0
+ 560 000a 04       		.byte	0x4
+ 561 000b 00       		.byte	0
+ 562 000c 0000     		.2byte	0
+ 563 000e 0000     		.2byte	0
+ 564 0010 00000000 		.4byte	.Ltext0
+ 565 0014 AC010000 		.4byte	.Letext0-.Ltext0
+ 566 0018 00000000 		.4byte	0
+ 567 001c 00000000 		.4byte	0
+ 568              		.section	.debug_line,"",%progbits
+ 569              	.Ldebug_line0:
+ 570 0000 58000000 		.section	.debug_str,"MS",%progbits,1
+ 570      02002900 
+ 570      00000201 
+ 570      FB0E0D00 
+ 570      01010101 
+ 571              	.LASF8:
+ 572 0000 6C6F6E67 		.ascii	"long long int\000"
+ 572      206C6F6E 
+ 572      6720696E 
+ 572      7400
+ 573              	.LASF16:
+ 574 000e 6E756D62 		.ascii	"numberOfBlinks\000"
+ 574      65724F66 
+ 574      426C696E 
+ 574      6B7300
+ 575              	.LASF4:
+ 576 001d 756E7369 		.ascii	"unsigned int\000"
+ 576      676E6564 
+ 576      20696E74 
+ 576      00
+ 577              	.LASF15:
+ 578 002a 626C696E 		.ascii	"blinkGreenLed\000"
+ 578      6B477265 
+ 578      656E4C65 
+ 578      6400
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 13
+
+
+ 579              	.LASF5:
+ 580 0038 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 580      206C6F6E 
+ 580      6720756E 
+ 580      7369676E 
+ 580      65642069 
+ 581              	.LASF10:
+ 582 004f 626C696E 		.ascii	"blinkDurationTime\000"
+ 582      6B447572 
+ 582      6174696F 
+ 582      6E54696D 
+ 582      6500
+ 583              	.LASF1:
+ 584 0061 756E7369 		.ascii	"unsigned char\000"
+ 584      676E6564 
+ 584      20636861 
+ 584      7200
+ 585              	.LASF11:
+ 586 006f 74696D65 		.ascii	"timeToNextBlink\000"
+ 586      546F4E65 
+ 586      7874426C 
+ 586      696E6B00 
+ 587              	.LASF12:
+ 588 007f 474E5520 		.ascii	"GNU C11 7.3.1 20180622 (release) [ARM/embedded-7-br"
+ 588      43313120 
+ 588      372E332E 
+ 588      31203230 
+ 588      31383036 
+ 589 00b2 616E6368 		.ascii	"anch revision 261907] -mcpu=arm7tdmi -mthumb -mthum"
+ 589      20726576 
+ 589      6973696F 
+ 589      6E203236 
+ 589      31393037 
+ 590 00e5 622D696E 		.ascii	"b-interwork -gdwarf-2 -O0\000"
+ 590      74657277 
+ 590      6F726B20 
+ 590      2D676477 
+ 590      6172662D 
+ 591              	.LASF9:
+ 592 00ff 6F6E6533 		.ascii	"one32\000"
+ 592      3200
+ 593              	.LASF14:
+ 594 0105 433A5C45 		.ascii	"C:\\Embedded\\2138MiniDemo\\2138\000"
+ 594      6D626564 
+ 594      6465645C 
+ 594      32313338 
+ 594      4D696E69 
+ 595              	.LASF2:
+ 596 0123 73686F72 		.ascii	"short unsigned int\000"
+ 596      7420756E 
+ 596      7369676E 
+ 596      65642069 
+ 596      6E7400
+ 597              	.LASF6:
+ 598 0136 7369676E 		.ascii	"signed char\000"
+ 598      65642063 
+ 598      68617200 
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 14
+
+
+ 599              	.LASF13:
+ 600 0142 70776D2E 		.ascii	"pwm.c\000"
+ 600      6300
+ 601              	.LASF0:
+ 602 0148 74553136 		.ascii	"tU16\000"
+ 602      00
+ 603              	.LASF7:
+ 604 014d 73686F72 		.ascii	"short int\000"
+ 604      7420696E 
+ 604      7400
+ 605              	.LASF3:
+ 606 0157 74553332 		.ascii	"tU32\000"
+ 606      00
+ 607              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 7.3.1 20180622 (release) [AR
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 pwm.c
+C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s:22     .text:00000000 blinkGreenLed
+C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s:30     .text:00000000 $t
+C:\Users\embedded\AppData\Local\Temp\ccmO3zHR.s:267    .text:00000188 $d
+
+UNDEFINED SYMBOLS
+delay_ms

@@ -1,0 +1,543 @@
+<?xml version="1.0"?>
+<dumps language="c">
+  <platform name="win64" char_bit="8" short_bit="16" int_bit="32" long_bit="32" long_long_bit="64" pointer_bit="64"/>
+  <rawtokens>
+    <file index="0" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c"/>
+    <file index="1" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h"/>
+    <file index="2" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h"/>
+    <tok fileIndex="0" linenr="1" column="1" str="/*x* @Descritpion: Zawariera zbior definicji funkcji zwiazanych z ustawianiemx*xxxxstanu diod Red LED i Blue LED za pomoca External Matchx*/"/>
+    <tok fileIndex="0" linenr="6" column="1" str="#"/>
+    <tok fileIndex="0" linenr="6" column="2" str="include"/>
+    <tok fileIndex="0" linenr="6" column="10" str="&quot;general.h&quot;"/>
+    <tok fileIndex="0" linenr="7" column="1" str="#"/>
+    <tok fileIndex="0" linenr="7" column="2" str="include"/>
+    <tok fileIndex="0" linenr="7" column="10" str="&lt;printf_P.h&gt;"/>
+    <tok fileIndex="0" linenr="8" column="1" str="#"/>
+    <tok fileIndex="0" linenr="8" column="2" str="include"/>
+    <tok fileIndex="0" linenr="8" column="10" str="&lt;lpc2xxx.h&gt;"/>
+    <tok fileIndex="0" linenr="9" column="1" str="#"/>
+    <tok fileIndex="0" linenr="9" column="2" str="include"/>
+    <tok fileIndex="0" linenr="9" column="10" str="&lt;config.h&gt;"/>
+    <tok fileIndex="0" linenr="10" column="1" str="#"/>
+    <tok fileIndex="0" linenr="10" column="2" str="include"/>
+    <tok fileIndex="0" linenr="10" column="10" str="&quot;mat.h&quot;"/>
+    <tok fileIndex="0" linenr="12" column="1" str="/* Jedynka 32-bitowa */"/>
+    <tok fileIndex="0" linenr="13" column="1" str="static"/>
+    <tok fileIndex="0" linenr="13" column="8" str="const"/>
+    <tok fileIndex="0" linenr="13" column="14" str="tU32"/>
+    <tok fileIndex="0" linenr="13" column="19" str="one32"/>
+    <tok fileIndex="0" linenr="13" column="25" str="="/>
+    <tok fileIndex="0" linenr="13" column="27" str="1u"/>
+    <tok fileIndex="0" linenr="13" column="29" str=";"/>
+    <tok fileIndex="0" linenr="15" column="1" str="/*x *  @briefxxxFunkcja incijalizujaca mozliwosc kontroli diody Red LED.x *x *  @DescriptionxFunckja ustawia odpowiednia wartoxxxsc w rejestrze PINSEL1 dla pinu P0.17,x * xxxxxaby stanowil wyjscie MAT1.2 zwiazany ze stanem bitu dla External Match 2x * xxxxxdla Timera #1.x *x *  @param xxxbrakx *x *  @returns  xxnicx *x *  @side effectsxModyfikacja rejestru PINSEL1x */"/>
+    <tok fileIndex="0" linenr="28" column="1" str="void"/>
+    <tok fileIndex="0" linenr="28" column="6" str="initRedDiod"/>
+    <tok fileIndex="0" linenr="28" column="17" str="("/>
+    <tok fileIndex="0" linenr="28" column="18" str="void"/>
+    <tok fileIndex="0" linenr="28" column="22" str=")"/>
+    <tok fileIndex="0" linenr="29" column="1" str="{"/>
+    <tok fileIndex="0" linenr="30" column="2" str="/*xUstawienie funkcji pinu P0.17 na wyjscie MAT1.2 reprezentujacego stan bitu dla EM2. */"/>
+    <tok fileIndex="0" linenr="31" column="2" str="PINSEL1"/>
+    <tok fileIndex="0" linenr="31" column="10" str="|="/>
+    <tok fileIndex="0" linenr="31" column="13" str="("/>
+    <tok fileIndex="0" linenr="31" column="14" str="one32"/>
+    <tok fileIndex="0" linenr="31" column="20" str="&lt;&lt;"/>
+    <tok fileIndex="0" linenr="31" column="23" str="3"/>
+    <tok fileIndex="0" linenr="31" column="24" str=")"/>
+    <tok fileIndex="0" linenr="31" column="26" str="|"/>
+    <tok fileIndex="0" linenr="31" column="28" str="("/>
+    <tok fileIndex="0" linenr="31" column="29" str="one32"/>
+    <tok fileIndex="0" linenr="31" column="35" str="&lt;&lt;"/>
+    <tok fileIndex="0" linenr="31" column="38" str="2"/>
+    <tok fileIndex="0" linenr="31" column="39" str=")"/>
+    <tok fileIndex="0" linenr="31" column="40" str=";"/>
+    <tok fileIndex="0" linenr="32" column="2" str="setRedDiodState"/>
+    <tok fileIndex="0" linenr="32" column="17" str="("/>
+    <tok fileIndex="0" linenr="32" column="18" str="FALSE"/>
+    <tok fileIndex="0" linenr="32" column="23" str=")"/>
+    <tok fileIndex="0" linenr="32" column="24" str=";"/>
+    <tok fileIndex="0" linenr="33" column="1" str="}"/>
+    <tok fileIndex="0" linenr="35" column="1" str="/*x *  @briefxxxFunkcja ustawiajaca stan diody Red LEDx *x *  @DescriptionxFunkcja zapala albo gasi diode Red LED na podstawie przekazanej wartosci logicznejx * xxxxxpo przez ustawienie odpowiednio bitu nr 2 w rejestrze External Match Register dlax * xxxxxTimera #1 (T1EMR).x *x *  @param xxx[in]xtoSetx *xxxxxxwartosc logiczna informujaca o tym czy dioda ma byc zapalonax *x *  @returns  xxnicx *x *  @side effectsxModyfikacja rejestru T1EMRx */"/>
+    <tok fileIndex="0" linenr="49" column="1" str="void"/>
+    <tok fileIndex="0" linenr="49" column="6" str="setRedDiodState"/>
+    <tok fileIndex="0" linenr="49" column="21" str="("/>
+    <tok fileIndex="0" linenr="49" column="22" str="tBool"/>
+    <tok fileIndex="0" linenr="49" column="28" str="toSet"/>
+    <tok fileIndex="0" linenr="49" column="33" str=")"/>
+    <tok fileIndex="0" linenr="50" column="1" str="{"/>
+    <tok fileIndex="0" linenr="51" column="2" str="if"/>
+    <tok fileIndex="0" linenr="51" column="5" str="("/>
+    <tok fileIndex="0" linenr="51" column="6" str="toSet"/>
+    <tok fileIndex="0" linenr="51" column="12" str="=="/>
+    <tok fileIndex="0" linenr="51" column="15" str="TRUE"/>
+    <tok fileIndex="0" linenr="51" column="19" str=")"/>
+    <tok fileIndex="0" linenr="51" column="21" str="{"/>
+    <tok fileIndex="0" linenr="52" column="3" str="T1EMR"/>
+    <tok fileIndex="0" linenr="52" column="9" str="&amp;="/>
+    <tok fileIndex="0" linenr="52" column="12" str="~"/>
+    <tok fileIndex="0" linenr="52" column="13" str="("/>
+    <tok fileIndex="0" linenr="52" column="14" str="one32"/>
+    <tok fileIndex="0" linenr="52" column="20" str="&lt;&lt;"/>
+    <tok fileIndex="0" linenr="52" column="23" str="2"/>
+    <tok fileIndex="0" linenr="52" column="24" str=")"/>
+    <tok fileIndex="0" linenr="52" column="25" str=";"/>
+    <tok fileIndex="0" linenr="53" column="2" str="}"/>
+    <tok fileIndex="0" linenr="54" column="2" str="else"/>
+    <tok fileIndex="0" linenr="55" column="2" str="{"/>
+    <tok fileIndex="0" linenr="56" column="3" str="T1EMR"/>
+    <tok fileIndex="0" linenr="56" column="9" str="|="/>
+    <tok fileIndex="0" linenr="56" column="12" str="one32"/>
+    <tok fileIndex="0" linenr="56" column="18" str="&lt;&lt;"/>
+    <tok fileIndex="0" linenr="56" column="21" str="2"/>
+    <tok fileIndex="0" linenr="56" column="22" str=";"/>
+    <tok fileIndex="0" linenr="57" column="2" str="}"/>
+    <tok fileIndex="0" linenr="58" column="1" str="}"/>
+    <tok fileIndex="0" linenr="60" column="1" str="/*x *  @briefxxxFunkcja incijalizujaca mozliwosc kontroli diody Blue LED.x *x *  @DescriptionxFunckja ustawia odpowiednia wartosc w rejestrze PINSEL1 dla pinu P0.18,x * xxxxxaby stanowil wyjscie MAT1.3 zwiazany ze stanem bitu dla External Match 3x * xxxxxdla Timera #1.x *x *  @param xxxbrakx *x *  @returns  xxnicx *x *  @side effectsxModyfikacja rejestru PINSEL1x */"/>
+    <tok fileIndex="0" linenr="73" column="1" str="void"/>
+    <tok fileIndex="0" linenr="73" column="6" str="initBlueDiod"/>
+    <tok fileIndex="0" linenr="73" column="18" str="("/>
+    <tok fileIndex="0" linenr="73" column="19" str="void"/>
+    <tok fileIndex="0" linenr="73" column="23" str=")"/>
+    <tok fileIndex="0" linenr="74" column="1" str="{"/>
+    <tok fileIndex="0" linenr="75" column="2" str="/*xUstawienie funkcji pinu P0.17 na wyjscie MAT1.2 reprezentujacego stan bitu dla EM2. */"/>
+    <tok fileIndex="0" linenr="76" column="2" str="PINSEL1"/>
+    <tok fileIndex="0" linenr="76" column="10" str="|="/>
+    <tok fileIndex="0" linenr="76" column="13" str="("/>
+    <tok fileIndex="0" linenr="76" column="14" str="one32"/>
+    <tok fileIndex="0" linenr="76" column="20" str="&lt;&lt;"/>
+    <tok fileIndex="0" linenr="76" column="23" str="5"/>
+    <tok fileIndex="0" linenr="76" column="24" str=")"/>
+    <tok fileIndex="0" linenr="76" column="26" str="|"/>
+    <tok fileIndex="0" linenr="76" column="28" str="("/>
+    <tok fileIndex="0" linenr="76" column="29" str="one32"/>
+    <tok fileIndex="0" linenr="76" column="35" str="&lt;&lt;"/>
+    <tok fileIndex="0" linenr="76" column="38" str="4"/>
+    <tok fileIndex="0" linenr="76" column="39" str=")"/>
+    <tok fileIndex="0" linenr="76" column="40" str=";"/>
+    <tok fileIndex="0" linenr="77" column="2" str="setBlueDiodState"/>
+    <tok fileIndex="0" linenr="77" column="18" str="("/>
+    <tok fileIndex="0" linenr="77" column="19" str="FALSE"/>
+    <tok fileIndex="0" linenr="77" column="24" str=")"/>
+    <tok fileIndex="0" linenr="77" column="25" str=";"/>
+    <tok fileIndex="0" linenr="78" column="1" str="}"/>
+    <tok fileIndex="0" linenr="80" column="1" str="/*x *  @briefxxxFunkcja ustawiajaca stan diody Blue LEDx *x *  @DescriptionxFunkcja zapala albo gasi diode Blue LED na podstawie przekazanej wartosci logicznejx * xxxxxpo przez ustawienie odpowiednio bitu nr 3 w rejestrze External Match Register dlax * xxxxxTimera #1 (T1EMR).x *x *  @param xxx[in]xtoSetx *xxxxxxwartosc logiczna informujaca o tym czy dioda ma byc zapalonax *x *  @returns  xxnicx *x *  @side effectsxModyfikacja rejestru T1EMRx */"/>
+    <tok fileIndex="0" linenr="94" column="1" str="void"/>
+    <tok fileIndex="0" linenr="94" column="6" str="setBlueDiodState"/>
+    <tok fileIndex="0" linenr="94" column="22" str="("/>
+    <tok fileIndex="0" linenr="94" column="23" str="tBool"/>
+    <tok fileIndex="0" linenr="94" column="29" str="toSet"/>
+    <tok fileIndex="0" linenr="94" column="34" str=")"/>
+    <tok fileIndex="0" linenr="95" column="1" str="{"/>
+    <tok fileIndex="0" linenr="96" column="2" str="if"/>
+    <tok fileIndex="0" linenr="96" column="5" str="("/>
+    <tok fileIndex="0" linenr="96" column="6" str="toSet"/>
+    <tok fileIndex="0" linenr="96" column="12" str="=="/>
+    <tok fileIndex="0" linenr="96" column="15" str="TRUE"/>
+    <tok fileIndex="0" linenr="96" column="19" str=")"/>
+    <tok fileIndex="0" linenr="96" column="21" str="{"/>
+    <tok fileIndex="0" linenr="97" column="3" str="T1EMR"/>
+    <tok fileIndex="0" linenr="97" column="9" str="&amp;="/>
+    <tok fileIndex="0" linenr="97" column="12" str="~"/>
+    <tok fileIndex="0" linenr="97" column="13" str="("/>
+    <tok fileIndex="0" linenr="97" column="14" str="one32"/>
+    <tok fileIndex="0" linenr="97" column="20" str="&lt;&lt;"/>
+    <tok fileIndex="0" linenr="97" column="23" str="3"/>
+    <tok fileIndex="0" linenr="97" column="24" str=")"/>
+    <tok fileIndex="0" linenr="97" column="25" str=";"/>
+    <tok fileIndex="0" linenr="98" column="2" str="}"/>
+    <tok fileIndex="0" linenr="99" column="2" str="else"/>
+    <tok fileIndex="0" linenr="100" column="2" str="{"/>
+    <tok fileIndex="0" linenr="101" column="3" str="T1EMR"/>
+    <tok fileIndex="0" linenr="101" column="9" str="|="/>
+    <tok fileIndex="0" linenr="101" column="12" str="one32"/>
+    <tok fileIndex="0" linenr="101" column="18" str="&lt;&lt;"/>
+    <tok fileIndex="0" linenr="101" column="21" str="3"/>
+    <tok fileIndex="0" linenr="101" column="22" str=";"/>
+    <tok fileIndex="0" linenr="102" column="2" str="}"/>
+    <tok fileIndex="0" linenr="103" column="1" str="}"/>
+  </rawtokens>
+  <suppressions>
+    <suppression errorId="misra-c2012-2.3" />
+    <suppression errorId="misra-c2012-2.5" />
+    <suppression errorId="misra-c2012-11.4" />
+  </suppressions>
+<dump cfg="">
+  <standards>
+    <c version="c11"/>
+    <cpp version="c++23"/>
+  </standards>
+  <directivelist>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="6" str="#include &quot;general.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="7" str="#include &lt;printf_P.h&gt;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="8" str="#include &lt;lpc2xxx.h&gt;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="9" str="#include &lt;config.h&gt;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="10" str="#include &quot;mat.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="4" str="#ifndef GENERAL_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="5" str="#define GENERAL_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="18" str="#define BIT(n) (1u &lt;&lt; (n))"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="21" str="#endif"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="6" str="#ifndef MAT_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="7" str="#define MAT_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="9" str="#include &quot;general.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="75" str="#endif"/>
+  </directivelist>
+  <macro-usage>
+    <macro name="GENERAL_H" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="5" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" useline="4" usecolumn="9" is-known-value="true"/>
+    <macro name="GENERAL_H" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="5" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" useline="4" usecolumn="9" is-known-value="true"/>
+    <macro name="MAT_H" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" line="7" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" useline="6" usecolumn="9" is-known-value="true"/>
+  </macro-usage>
+  <tokenlist>
+    <token id="0000014121482600" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="9" str="enum" scope="0000014121467FD0" type="name"/>
+    <token id="0000014121482D80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="0" str="tBool" scope="0000014121467FD0" type="name" type-scope="0000014121468110"/>
+    <token id="00000141214837A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="13" str="{" scope="0000014121468110" link="0000014121484C40" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468110"/>
+    <token id="0000014121483B00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="14" str="FALSE" scope="0000014121468110" type="name" values="00000141232CBCA0" astParent="0000014121482360" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468110"/>
+    <token id="0000014121482360" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="20" str="=" scope="0000014121468110" type="op" isAssignmentOp="true" values="00000141232CBF80" astParent="0000014121484400" astOperand1="0000014121483B00" astOperand2="0000014121484040" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468110"/>
+    <token id="0000014121484040" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="22" str="0" scope="0000014121468110" type="number" isInt="true" values="00000141232CBD60" astParent="0000014121482360" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121484400" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="23" str="," scope="0000014121468110" values="00000141232CBA00" astOperand1="0000014121482360" astOperand2="0000014121484B20"/>
+    <token id="0000014121483C20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="14" str="TRUE" scope="0000014121468110" type="name" values="00000141232CBFE0" astParent="0000014121484B20" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468110"/>
+    <token id="0000014121484B20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="20" str="=" scope="0000014121468110" type="op" isAssignmentOp="true" values="00000141232CB8E0" astParent="0000014121484400" astOperand1="0000014121483C20" astOperand2="0000014121484580" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468110"/>
+    <token id="0000014121484580" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="22" str="!" scope="0000014121468110" type="op" isLogicalOp="true" values="00000141232CBFA0" astParent="0000014121484B20" astOperand1="0000014121483FE0" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014121483FE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="23" str="FALSE" scope="0000014121468110" type="name" values="00000141232CBF20" astParent="0000014121484580" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468110"/>
+    <token id="0000014121484C40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="28" str="}" scope="0000014121468110" link="00000141214837A0"/>
+    <token id="00000141214836E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="0" str=";" scope="0000014121467FD0"/>
+    <token id="0000014121482C00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="26" column="1" str="void" scope="0000014121467FD0" type="name"/>
+    <token id="0000014121483DA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="26" column="6" str="initRedDiod" scope="0000014121467FD0" type="name" function="0000014121469BA0"/>
+    <token id="0000014121484220" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="26" column="17" str="(" scope="0000014121467FD0" isRemovedVoidParameter="true" link="00000141214848E0" valueType-type="void" valueType-reference="None"/>
+    <token id="00000141214848E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="26" column="22" str=")" scope="0000014121467FD0" link="0000014121484220"/>
+    <token id="0000014121485060" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="26" column="23" str=";" scope="0000014121467FD0"/>
+    <token id="00000141214845E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="42" column="1" str="void" scope="0000014121467FD0" type="name"/>
+    <token id="00000141214843A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="42" column="6" str="setRedDiodState" scope="0000014121467FD0" type="name" function="0000014121469E20"/>
+    <token id="0000014121484A60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="42" column="21" str="(" scope="0000014121467FD0" link="00000141214850C0" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121485000" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="42" column="22" str="tBool" scope="0000014121467FD0" type="name" type-scope="0000014121468110"/>
+    <token id="0000014121484CA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="42" column="28" str="toSet" scope="0000014121467FD0" type="name" varId="1" exprId="1"/>
+    <token id="00000141214850C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="42" column="33" str=")" scope="0000014121467FD0" link="0000014121484A60"/>
+    <token id="0000014121484E80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="42" column="34" str=";" scope="0000014121467FD0"/>
+    <token id="00000141214851E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="57" column="1" str="void" scope="0000014121467FD0" type="name"/>
+    <token id="00000141214842E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="57" column="6" str="initBlueDiod" scope="0000014121467FD0" type="name" function="0000014121469CE0"/>
+    <token id="00000141214849A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="57" column="18" str="(" scope="0000014121467FD0" isRemovedVoidParameter="true" link="0000014121485240" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121485240" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="57" column="23" str=")" scope="0000014121467FD0" link="00000141214849A0"/>
+    <token id="0000014121484F40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="57" column="24" str=";" scope="0000014121467FD0"/>
+    <token id="0000014121484340" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="73" column="1" str="void" scope="0000014121467FD0" type="name"/>
+    <token id="0000014121485120" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="73" column="6" str="setBlueDiodState" scope="0000014121467FD0" type="name" function="0000014121469D80"/>
+    <token id="00000141214847C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="73" column="22" str="(" scope="0000014121467FD0" link="0000014121485180" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121484940" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="73" column="23" str="tBool" scope="0000014121467FD0" type="name" type-scope="0000014121468110"/>
+    <token id="0000014121483BC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="73" column="29" str="toSet" scope="0000014121467FD0" type="name" varId="2" exprId="2"/>
+    <token id="0000014121485180" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="73" column="34" str=")" scope="0000014121467FD0" link="00000141214847C0"/>
+    <token id="00000141214840A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.h" linenr="73" column="35" str=";" scope="0000014121467FD0"/>
+    <token id="00000141214852A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="13" column="1" str="static" scope="0000014121467FD0" type="name"/>
+    <token id="0000014121484640" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="13" column="8" str="const" scope="0000014121467FD0" type="name"/>
+    <token id="0000014121484AC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="13" column="0" str="int" scope="0000014121467FD0" type="name" isUnsigned="true"/>
+    <token id="0000014121483EC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="13" column="19" str="one32" scope="0000014121467FD0" type="name" varId="3" exprId="3" variable="0000014121494350" values="00000141232CBA20" astParent="0000014121483E00" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121483E00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="13" column="25" str="=" scope="0000014121467FD0" type="op" isAssignmentOp="true" values="00000141232CB9C0" astOperand1="0000014121483EC0" astOperand2="0000014121484160" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121484160" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="13" column="27" str="1u" scope="0000014121467FD0" type="number" isInt="true" values="00000141232CBA60" astParent="0000014121483E00" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121484D00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="13" column="29" str=";" scope="0000014121467FD0"/>
+    <token id="0000014121484460" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="28" column="1" str="void" scope="0000014121467FD0" type="name"/>
+    <token id="00000141214844C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="28" column="6" str="initRedDiod" scope="0000014121467FD0" type="name" function="0000014121469BA0"/>
+    <token id="00000141214846A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="28" column="17" str="(" scope="0000014121467FD0" isRemovedVoidParameter="true" link="0000014121483D40" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121483D40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="28" column="22" str=")" scope="0000014121467FD0" link="00000141214846A0"/>
+    <token id="0000014121483B60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="29" column="1" str="{" scope="00000141214684D0" link="00000141214857E0"/>
+    <token id="0000014121484700" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="31" column="2" str="PINSEL1" scope="00000141214684D0" type="name" exprId="6" astParent="0000014121485300"/>
+    <token id="0000014121485300" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="31" column="10" str="|=" scope="00000141214684D0" type="op" isAssignmentOp="true" exprId="7" astOperand1="0000014121484700" astOperand2="0000014121484B80"/>
+    <token id="0000014121484D60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="31" column="13" str="(" scope="00000141214684D0" link="0000014121484DC0" exprId="8"/>
+    <token id="0000014121484760" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="31" column="14" str="one32" scope="00000141214684D0" type="name" varId="3" exprId="3" variable="0000014121494350" values="00000141232CBA80" astParent="0000014121484820" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121484820" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="31" column="20" str="&lt;&lt;" scope="00000141214684D0" type="op" isArithmeticalOp="true" exprId="9" values="00000141232CBE60" astParent="0000014121484B80" astOperand1="0000014121484760" astOperand2="0000014121483C80" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121483C80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="31" column="23" str="3" scope="00000141214684D0" type="number" isInt="true" values="00000141232CB9A0" astParent="0000014121484820" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121484DC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="31" column="24" str=")" scope="00000141214684D0" link="0000014121484D60"/>
+    <token id="0000014121484B80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="31" column="26" str="|" scope="00000141214684D0" type="op" exprId="10" values="00000141232CBDA0" astParent="0000014121485300" astOperand1="0000014121484820" astOperand2="0000014121484880" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121484A00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="31" column="28" str="(" scope="00000141214684D0" link="0000014121484E20" exprId="11"/>
+    <token id="0000014121483CE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="31" column="29" str="one32" scope="00000141214684D0" type="name" varId="3" exprId="3" variable="0000014121494350" values="00000141232CBD40" astParent="0000014121484880" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121484880" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="31" column="35" str="&lt;&lt;" scope="00000141214684D0" type="op" isArithmeticalOp="true" exprId="12" values="00000141232CBEC0" astParent="0000014121484B80" astOperand1="0000014121483CE0" astOperand2="0000014121484BE0" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121484BE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="31" column="38" str="2" scope="00000141214684D0" type="number" isInt="true" values="00000141232CBB80" astParent="0000014121484880" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121484E20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="31" column="39" str=")" scope="00000141214684D0" link="0000014121484A00"/>
+    <token id="0000014121483E60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="31" column="40" str=";" scope="00000141214684D0"/>
+    <token id="0000014121483F20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="32" column="2" str="setRedDiodState" scope="00000141214684D0" type="name" function="0000014121469E20" astParent="0000014121483F80"/>
+    <token id="0000014121483F80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="32" column="17" str="(" scope="00000141214684D0" link="00000141214868C0" exprId="13" astOperand1="0000014121483F20" astOperand2="0000014121486B00" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121486B00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="32" column="18" str="FALSE" scope="00000141214684D0" type="name" values="00000141232CB9E0" astParent="0000014121483F80" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468110"/>
+    <token id="00000141214868C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="32" column="23" str=")" scope="00000141214684D0" link="0000014121483F80"/>
+    <token id="0000014121485840" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="32" column="24" str=";" scope="00000141214684D0"/>
+    <token id="00000141214857E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="33" column="1" str="}" scope="00000141214684D0" link="0000014121483B60"/>
+    <token id="0000014121486A40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="49" column="1" str="void" scope="0000014121467FD0" type="name"/>
+    <token id="0000014121485F00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="49" column="6" str="setRedDiodState" scope="0000014121467FD0" type="name" function="0000014121469E20"/>
+    <token id="00000141214858A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="49" column="21" str="(" scope="0000014121467FD0" link="0000014121485780" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121485F60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="49" column="22" str="tBool" scope="0000014121467FD0" type="name" type-scope="0000014121468110"/>
+    <token id="00000141214869E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="49" column="28" str="toSet" scope="0000014121467FD0" type="name" varId="4" exprId="4" variable="0000014121486620" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468110"/>
+    <token id="0000014121485780" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="49" column="33" str=")" scope="0000014121467FD0" link="00000141214858A0"/>
+    <token id="0000014121485360" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="50" column="1" str="{" scope="0000014121467D50" link="0000014121486860"/>
+    <token id="0000014121485A20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="51" column="2" str="if" scope="0000014121467D50" type="name" astParent="00000141214856C0"/>
+    <token id="00000141214856C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="51" column="5" str="(" scope="0000014121467D50" link="0000014121485900" exprId="15" astOperand1="0000014121485A20" astOperand2="0000014121486380"/>
+    <token id="0000014121485720" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="51" column="6" str="toSet" scope="0000014121467D50" type="name" varId="4" exprId="4" variable="0000014121486620" values="00000141232CBC80" astParent="0000014121486380" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468110"/>
+    <token id="0000014121486380" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="51" column="12" str="==" scope="0000014121467D50" type="op" isComparisonOp="true" exprId="16" values="00000141232CC060" astParent="00000141214856C0" astOperand1="0000014121485720" astOperand2="0000014121485660" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014121485660" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="51" column="15" str="TRUE" scope="0000014121467D50" type="name" values="00000141232CBC60" astParent="0000014121486380" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468110"/>
+    <token id="0000014121485900" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="51" column="19" str=")" scope="0000014121467D50" link="00000141214856C0"/>
+    <token id="00000141214863E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="51" column="21" str="{" scope="0000014121468250" link="0000014121485C00"/>
+    <token id="0000014121486200" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="52" column="3" str="T1EMR" scope="0000014121468250" type="name" exprId="14" astParent="0000014121485480"/>
+    <token id="0000014121485480" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="52" column="9" str="&amp;=" scope="0000014121468250" type="op" isAssignmentOp="true" exprId="17" astOperand1="0000014121486200" astOperand2="0000014121485960"/>
+    <token id="0000014121485960" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="52" column="12" str="~" scope="0000014121468250" type="op" exprId="18" values="00000141232CBF00" astParent="0000014121485480" astOperand1="0000014121486AA0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121486920" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="52" column="13" str="(" scope="0000014121468250" link="0000014121485A80" exprId="19"/>
+    <token id="0000014121485420" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="52" column="14" str="one32" scope="0000014121468250" type="name" varId="3" exprId="3" variable="0000014121494350" values="00000141232CBBA0" astParent="0000014121486AA0" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121486AA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="52" column="20" str="&lt;&lt;" scope="0000014121468250" type="op" isArithmeticalOp="true" exprId="20" values="00000141232CB960" astParent="0000014121485960" astOperand1="0000014121485420" astOperand2="00000141214859C0" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="00000141214859C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="52" column="23" str="2" scope="0000014121468250" type="number" isInt="true" values="00000141232CBE40" astParent="0000014121486AA0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121485A80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="52" column="24" str=")" scope="0000014121468250" link="0000014121486920"/>
+    <token id="0000014121486980" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="52" column="25" str=";" scope="0000014121468250"/>
+    <token id="0000014121485C00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="53" column="2" str="}" scope="0000014121468250" link="00000141214863E0"/>
+    <token id="0000014121486260" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="54" column="2" str="else" scope="0000014121467D50" type="name"/>
+    <token id="00000141214862C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="55" column="2" str="{" scope="0000014121468390" link="00000141214853C0"/>
+    <token id="0000014121485AE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="56" column="3" str="T1EMR" scope="0000014121468390" type="name" exprId="14" astParent="0000014121485D20"/>
+    <token id="0000014121485D20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="56" column="9" str="|=" scope="0000014121468390" type="op" isAssignmentOp="true" exprId="21" astOperand1="0000014121485AE0" astOperand2="0000014121486440"/>
+    <token id="0000014121486320" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="56" column="12" str="one32" scope="0000014121468390" type="name" varId="3" exprId="3" variable="0000014121494350" values="00000141232CBF40" astParent="0000014121486440" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121486440" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="56" column="18" str="&lt;&lt;" scope="0000014121468390" type="op" isArithmeticalOp="true" exprId="20" values="00000141232CBAC0" astParent="0000014121485D20" astOperand1="0000014121486320" astOperand2="0000014121485B40" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121485B40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="56" column="21" str="2" scope="0000014121468390" type="number" isInt="true" values="00000141232CC000" astParent="0000014121486440" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121485BA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="56" column="22" str=";" scope="0000014121468390"/>
+    <token id="00000141214853C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="57" column="2" str="}" scope="0000014121468390" link="00000141214862C0"/>
+    <token id="0000014121486860" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="58" column="1" str="}" scope="0000014121467D50" link="0000014121485360"/>
+    <token id="0000014121486680" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="73" column="1" str="void" scope="0000014121467FD0" type="name"/>
+    <token id="0000014121485C60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="73" column="6" str="initBlueDiod" scope="0000014121467FD0" type="name" function="0000014121469CE0"/>
+    <token id="00000141214861A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="73" column="18" str="(" scope="0000014121467FD0" isRemovedVoidParameter="true" link="0000014121485540" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121485540" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="73" column="23" str=")" scope="0000014121467FD0" link="00000141214861A0"/>
+    <token id="00000141214855A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="74" column="1" str="{" scope="0000014121468610" link="00000141214876A0"/>
+    <token id="0000014121485CC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="76" column="2" str="PINSEL1" scope="0000014121468610" type="name" exprId="23" astParent="0000014121485D80"/>
+    <token id="0000014121485D80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="76" column="10" str="|=" scope="0000014121468610" type="op" isAssignmentOp="true" exprId="24" astOperand1="0000014121485CC0" astOperand2="0000014121485FC0"/>
+    <token id="0000014121485DE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="76" column="13" str="(" scope="0000014121468610" link="0000014121486800" exprId="25"/>
+    <token id="0000014121485E40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="76" column="14" str="one32" scope="0000014121468610" type="name" varId="3" exprId="3" variable="0000014121494350" values="00000141232CBAE0" astParent="0000014121485EA0" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121485EA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="76" column="20" str="&lt;&lt;" scope="0000014121468610" type="op" isArithmeticalOp="true" exprId="26" values="00000141232CB940" astParent="0000014121485FC0" astOperand1="0000014121485E40" astOperand2="0000014121486140" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121486140" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="76" column="23" str="5" scope="0000014121468610" type="number" isInt="true" values="00000141232CC020" astParent="0000014121485EA0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121486800" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="76" column="24" str=")" scope="0000014121468610" link="0000014121485DE0"/>
+    <token id="0000014121485FC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="76" column="26" str="|" scope="0000014121468610" type="op" exprId="27" values="00000141232CC040" astParent="0000014121485D80" astOperand1="0000014121485EA0" astOperand2="0000014121486500" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000141214860E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="76" column="28" str="(" scope="0000014121468610" link="00000141214865C0" exprId="28"/>
+    <token id="00000141214864A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="76" column="29" str="one32" scope="0000014121468610" type="name" varId="3" exprId="3" variable="0000014121494350" values="00000141232CBB40" astParent="0000014121486500" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121486500" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="76" column="35" str="&lt;&lt;" scope="0000014121468610" type="op" isArithmeticalOp="true" exprId="29" values="00000141232CBBC0" astParent="0000014121485FC0" astOperand1="00000141214864A0" astOperand2="0000014121486560" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121486560" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="76" column="38" str="4" scope="0000014121468610" type="number" isInt="true" values="00000141232CBCC0" astParent="0000014121486500" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000141214865C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="76" column="39" str=")" scope="0000014121468610" link="00000141214860E0"/>
+    <token id="00000141214854E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="76" column="40" str=";" scope="0000014121468610"/>
+    <token id="00000141214866E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="77" column="2" str="setBlueDiodState" scope="0000014121468610" type="name" function="0000014121469D80" astParent="0000014121486740"/>
+    <token id="0000014121486740" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="77" column="18" str="(" scope="0000014121468610" link="0000014121487B80" exprId="30" astOperand1="00000141214866E0" astOperand2="00000141214867A0" valueType-type="void" valueType-reference="None"/>
+    <token id="00000141214867A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="77" column="19" str="FALSE" scope="0000014121468610" type="name" values="00000141232CBD20" astParent="0000014121486740" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468110"/>
+    <token id="0000014121487B80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="77" column="24" str=")" scope="0000014121468610" link="0000014121486740"/>
+    <token id="0000014121487160" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="77" column="25" str=";" scope="0000014121468610"/>
+    <token id="00000141214876A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="78" column="1" str="}" scope="0000014121468610" link="00000141214855A0"/>
+    <token id="0000014121486CE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="94" column="1" str="void" scope="0000014121467FD0" type="name"/>
+    <token id="00000141214871C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="94" column="6" str="setBlueDiodState" scope="0000014121467FD0" type="name" function="0000014121469D80"/>
+    <token id="0000014121487760" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="94" column="22" str="(" scope="0000014121467FD0" link="0000014121488000" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121487F40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="94" column="23" str="tBool" scope="0000014121467FD0" type="name" type-scope="0000014121468110"/>
+    <token id="00000141214877C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="94" column="29" str="toSet" scope="0000014121467FD0" type="name" varId="5" exprId="5" variable="0000014121487C40" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468110"/>
+    <token id="0000014121488000" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="94" column="34" str=")" scope="0000014121467FD0" link="0000014121487760"/>
+    <token id="0000014121487E80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="95" column="1" str="{" scope="0000014121468750" link="0000014121487DC0"/>
+    <token id="0000014121487D60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="96" column="2" str="if" scope="0000014121468750" type="name" astParent="0000014121487340"/>
+    <token id="0000014121487340" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="96" column="5" str="(" scope="0000014121468750" link="00000141214872E0" exprId="32" astOperand1="0000014121487D60" astOperand2="0000014121488060"/>
+    <token id="0000014121488180" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="96" column="6" str="toSet" scope="0000014121468750" type="name" varId="5" exprId="5" variable="0000014121487C40" values="00000141232CC080" astParent="0000014121488060" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468110"/>
+    <token id="0000014121488060" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="96" column="12" str="==" scope="0000014121468750" type="op" isComparisonOp="true" exprId="33" values="00000141232CBC20" astParent="0000014121487340" astOperand1="0000014121488180" astOperand2="0000014121487CA0" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014121487CA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="96" column="15" str="TRUE" scope="0000014121468750" type="name" values="00000141232CBB60" astParent="0000014121488060" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468110"/>
+    <token id="00000141214872E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="96" column="19" str=")" scope="0000014121468750" link="0000014121487340"/>
+    <token id="0000014121487EE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="96" column="21" str="{" scope="00000141214689D0" link="00000141214875E0"/>
+    <token id="0000014121486E00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="97" column="3" str="T1EMR" scope="00000141214689D0" type="name" exprId="31" astParent="0000014121486E60"/>
+    <token id="0000014121486E60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="97" column="9" str="&amp;=" scope="00000141214689D0" type="op" isAssignmentOp="true" exprId="34" astOperand1="0000014121486E00" astOperand2="0000014121486BC0"/>
+    <token id="0000014121486BC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="97" column="12" str="~" scope="00000141214689D0" type="op" exprId="35" values="00000141232CBB00" astParent="0000014121486E60" astOperand1="0000014121486C20" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="0000014121487D00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="97" column="13" str="(" scope="00000141214689D0" link="0000014121487280" exprId="36"/>
+    <token id="00000141214880C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="97" column="14" str="one32" scope="00000141214689D0" type="name" varId="3" exprId="3" variable="0000014121494350" values="00000141232CBBE0" astParent="0000014121486C20" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121486C20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="97" column="20" str="&lt;&lt;" scope="00000141214689D0" type="op" isArithmeticalOp="true" exprId="37" values="00000141232CB980" astParent="0000014121486BC0" astOperand1="00000141214880C0" astOperand2="0000014121486EC0" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121486EC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="97" column="23" str="3" scope="00000141214689D0" type="number" isInt="true" values="00000141232CB920" astParent="0000014121486C20" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121487280" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="97" column="24" str=")" scope="00000141214689D0" link="0000014121487D00"/>
+    <token id="00000141214879A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="97" column="25" str=";" scope="00000141214689D0"/>
+    <token id="00000141214875E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="98" column="2" str="}" scope="00000141214689D0" link="0000014121487EE0"/>
+    <token id="0000014121487B20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="99" column="2" str="else" scope="0000014121468750" type="name"/>
+    <token id="00000141214878E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="100" column="2" str="{" scope="0000014121467C10" link="0000014121488240"/>
+    <token id="0000014121487BE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="101" column="3" str="T1EMR" scope="0000014121467C10" type="name" exprId="31" astParent="0000014121487FA0"/>
+    <token id="0000014121487FA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="101" column="9" str="|=" scope="0000014121467C10" type="op" isAssignmentOp="true" exprId="38" astOperand1="0000014121487BE0" astOperand2="0000014121486C80"/>
+    <token id="00000141214873A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="101" column="12" str="one32" scope="0000014121467C10" type="name" varId="3" exprId="3" variable="0000014121494350" values="00000141232CBB20" astParent="0000014121486C80" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121486C80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="101" column="18" str="&lt;&lt;" scope="0000014121467C10" type="op" isArithmeticalOp="true" exprId="37" values="00000141232CBC00" astParent="0000014121487FA0" astOperand1="00000141214873A0" astOperand2="0000014121488120" valueType-type="int" valueType-sign="unsigned" valueType-constness="1" valueType-reference="None"/>
+    <token id="0000014121488120" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="101" column="21" str="3" scope="0000014121467C10" type="number" isInt="true" values="00000141232CBCE0" astParent="0000014121486C80" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000141214881E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="101" column="22" str=";" scope="0000014121467C10"/>
+    <token id="0000014121488240" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="102" column="2" str="}" scope="0000014121467C10" link="00000141214878E0"/>
+    <token id="0000014121487DC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/mat.c" linenr="103" column="1" str="}" scope="0000014121468750" link="0000014121487E80"/>
+  </tokenlist>
+  <scopes>
+    <scope id="0000014121467FD0" type="Global">
+      <functionList>
+        <function id="0000014121469BA0" token="00000141214844C0" tokenDef="0000014121483DA0" name="initRedDiod" type="Function" access="Public"/>
+        <function id="0000014121469E20" token="0000014121485F00" tokenDef="00000141214843A0" name="setRedDiodState" type="Function" access="Public">
+          <arg nr="1" variable="0000014121486620"/>
+        </function>
+        <function id="0000014121469CE0" token="0000014121485C60" tokenDef="00000141214842E0" name="initBlueDiod" type="Function" access="Public"/>
+        <function id="0000014121469D80" token="00000141214871C0" tokenDef="0000014121485120" name="setBlueDiodState" type="Function" access="Public">
+          <arg nr="1" variable="0000014121487C40"/>
+        </function>
+      </functionList>
+      <varlist>
+        <var id="0000014121494350"/>
+      </varlist>
+    </scope>
+    <scope id="0000014121468110" type="Enum" className="tBool" bodyStart="00000141214837A0" bodyEnd="0000014121484C40" nestedIn="0000014121467FD0" definedType="00000141233BD5B0"/>
+    <scope id="00000141214684D0" type="Function" className="initRedDiod" bodyStart="0000014121483B60" bodyEnd="00000141214857E0" nestedIn="0000014121467FD0" function="0000014121469BA0"/>
+    <scope id="0000014121467D50" type="Function" className="setRedDiodState" bodyStart="0000014121485360" bodyEnd="0000014121486860" nestedIn="0000014121467FD0" function="0000014121469E20"/>
+    <scope id="0000014121468250" type="If" bodyStart="00000141214863E0" bodyEnd="0000014121485C00" nestedIn="0000014121467D50"/>
+    <scope id="0000014121468390" type="Else" bodyStart="00000141214862C0" bodyEnd="00000141214853C0" nestedIn="0000014121467D50"/>
+    <scope id="0000014121468610" type="Function" className="initBlueDiod" bodyStart="00000141214855A0" bodyEnd="00000141214876A0" nestedIn="0000014121467FD0" function="0000014121469CE0"/>
+    <scope id="0000014121468750" type="Function" className="setBlueDiodState" bodyStart="0000014121487E80" bodyEnd="0000014121487DC0" nestedIn="0000014121467FD0" function="0000014121469D80"/>
+    <scope id="00000141214689D0" type="If" bodyStart="0000014121487EE0" bodyEnd="00000141214875E0" nestedIn="0000014121468750"/>
+    <scope id="0000014121467C10" type="Else" bodyStart="00000141214878E0" bodyEnd="0000014121488240" nestedIn="0000014121468750"/>
+  </scopes>
+  <types>
+    <type id="00000141233BD5B0" classScope="0000014121468110"/>
+  </types>
+  <variables>
+    <var id="0000014121486620" nameToken="00000141214869E0" typeStartToken="0000014121485F60" typeEndToken="0000014121485F60" access="Argument" scope="0000014121467D50" constness="0" isArray="false" isClass="false" isConst="false" isExtern="false" isPointer="false" isReference="false" isStatic="false" isVolatile="false"/>
+    <var id="0000014121487C40" nameToken="00000141214877C0" typeStartToken="0000014121487F40" typeEndToken="0000014121487F40" access="Argument" scope="0000014121468750" constness="0" isArray="false" isClass="false" isConst="false" isExtern="false" isPointer="false" isReference="false" isStatic="false" isVolatile="false"/>
+    <var id="0000014121494350" nameToken="0000014121483EC0" typeStartToken="0000014121484AC0" typeEndToken="0000014121484AC0" access="Global" scope="0000014121467FD0" constness="1" isArray="false" isClass="false" isConst="true" isExtern="false" isPointer="false" isReference="false" isStatic="true" isVolatile="false"/>
+  </variables>
+  <valueflow>
+    <values id="00000141232CBCA0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBF80">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBD60">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBA00">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBFE0">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB8E0">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBFA0">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBF20">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBA20">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB9C0">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBA60">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBA80">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBE60">
+      <value intvalue="8" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB9A0">
+      <value intvalue="3" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBDA0">
+      <value intvalue="12" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBD40">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBEC0">
+      <value intvalue="4" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBB80">
+      <value intvalue="2" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB9E0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBC80">
+      <value intvalue="0" bound="Point" possible="true" path="2"/>
+    </values>
+    <values id="00000141232CC060">
+      <value intvalue="-1" bound="Upper" impossible="true" path="0"/>
+      <value intvalue="2" bound="Lower" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CBC60">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBF00">
+      <value intvalue="4294967291" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBBA0">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB960">
+      <value intvalue="4" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBE40">
+      <value intvalue="2" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBF40">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBAC0">
+      <value intvalue="4" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC000">
+      <value intvalue="2" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBAE0">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB940">
+      <value intvalue="32" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC020">
+      <value intvalue="5" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC040">
+      <value intvalue="48" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBB40">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBBC0">
+      <value intvalue="16" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBCC0">
+      <value intvalue="4" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBD20">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC080">
+      <value intvalue="0" bound="Point" possible="true" path="1"/>
+    </values>
+    <values id="00000141232CBC20">
+      <value intvalue="-1" bound="Upper" impossible="true" path="0"/>
+      <value intvalue="2" bound="Lower" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CBB60">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBB00">
+      <value intvalue="4294967287" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBBE0">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB980">
+      <value intvalue="8" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB920">
+      <value intvalue="3" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBB20">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBC00">
+      <value intvalue="8" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBCE0">
+      <value intvalue="3" bound="Point" known="true" path="0"/>
+    </values>
+  </valueflow>
+  <typedef-info>
+    <info name="tU8" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="7" column="35" used="0"/>
+    <info name="tU16" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="8" column="35" used="0"/>
+    <info name="tU32" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="9" column="35" used="1"/>
+    <info name="tU64" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="10" column="35" used="0"/>
+    <info name="tS8" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="11" column="35" used="0"/>
+    <info name="tS16" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="12" column="35" used="0"/>
+    <info name="tS32" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="13" column="35" used="0"/>
+    <info name="tS64" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="14" column="35" used="0"/>
+  </typedef-info>
+</dump>
+</dumps>

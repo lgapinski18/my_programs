@@ -1,0 +1,621 @@
+<?xml version="1.0"?>
+<dumps language="c">
+  <platform name="win64" char_bit="8" short_bit="16" int_bit="32" long_bit="32" long_long_bit="64" pointer_bit="64"/>
+  <rawtokens>
+    <file index="0" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c"/>
+    <file index="1" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h"/>
+    <tok fileIndex="0" linenr="1" column="1" str="/* Includes */"/>
+    <tok fileIndex="0" linenr="2" column="1" str="#"/>
+    <tok fileIndex="0" linenr="2" column="2" str="include"/>
+    <tok fileIndex="0" linenr="2" column="10" str="&lt;lpc2xxx.h&gt;"/>
+    <tok fileIndex="0" linenr="3" column="1" str="#"/>
+    <tok fileIndex="0" linenr="3" column="2" str="include"/>
+    <tok fileIndex="0" linenr="3" column="10" str="&quot;joystick.h&quot;"/>
+    <tok fileIndex="0" linenr="5" column="1" str="/* Defines */"/>
+    <tok fileIndex="0" linenr="6" column="1" str="#"/>
+    <tok fileIndex="0" linenr="6" column="2" str="define"/>
+    <tok fileIndex="0" linenr="6" column="9" str="JOYSTICK_ALL"/>
+    <tok fileIndex="0" linenr="6" column="22" str="0x00001F00"/>
+    <tok fileIndex="0" linenr="7" column="1" str="#"/>
+    <tok fileIndex="0" linenr="7" column="2" str="define"/>
+    <tok fileIndex="0" linenr="7" column="9" str="JOYSTICK_UP"/>
+    <tok fileIndex="0" linenr="7" column="22" str="0x00000400"/>
+    <tok fileIndex="0" linenr="8" column="1" str="#"/>
+    <tok fileIndex="0" linenr="8" column="2" str="define"/>
+    <tok fileIndex="0" linenr="8" column="9" str="JOYSTICK_DOWN"/>
+    <tok fileIndex="0" linenr="8" column="23" str="0x00001000"/>
+    <tok fileIndex="0" linenr="9" column="1" str="#"/>
+    <tok fileIndex="0" linenr="9" column="2" str="define"/>
+    <tok fileIndex="0" linenr="9" column="9" str="JOYSTICK_LEFT"/>
+    <tok fileIndex="0" linenr="9" column="23" str="0x00000200"/>
+    <tok fileIndex="0" linenr="10" column="1" str="#"/>
+    <tok fileIndex="0" linenr="10" column="2" str="define"/>
+    <tok fileIndex="0" linenr="10" column="9" str="JOYSTICK_RIGHT"/>
+    <tok fileIndex="0" linenr="10" column="24" str="0x00000800"/>
+    <tok fileIndex="0" linenr="11" column="1" str="#"/>
+    <tok fileIndex="0" linenr="11" column="2" str="define"/>
+    <tok fileIndex="0" linenr="11" column="9" str="JOYSTICK_CENTER"/>
+    <tok fileIndex="0" linenr="11" column="25" str="0x00000100"/>
+    <tok fileIndex="0" linenr="13" column="1" str="/* *  @briefxxxFunckja sluzaca do zainicjalizowania dzialania joysticka * *  @DescriptionxFunkcja incjalizuje joystick po przez ustawienie  pinxxxw P0.8, P0.9, P0.10, P0.11, P0.12 na piny GPIO * *  @param xxxbrak * *  @returns  xxnic * *  @side effectsxModyfikacja rejestru PINSEL0, IODIR0 */"/>
+    <tok fileIndex="0" linenr="24" column="1" str="void"/>
+    <tok fileIndex="0" linenr="24" column="6" str="joystickInit"/>
+    <tok fileIndex="0" linenr="24" column="18" str="("/>
+    <tok fileIndex="0" linenr="24" column="19" str="void"/>
+    <tok fileIndex="0" linenr="24" column="23" str=")"/>
+    <tok fileIndex="0" linenr="25" column="1" str="{"/>
+    <tok fileIndex="0" linenr="26" column="2" str="//Ustwianie pinow P0.8 - P0.12, aby funkcjonowaxxxy jako piny GPIO"/>
+    <tok fileIndex="0" linenr="27" column="2" str="PINSEL0"/>
+    <tok fileIndex="0" linenr="27" column="10" str="&amp;="/>
+    <tok fileIndex="0" linenr="27" column="13" str="~"/>
+    <tok fileIndex="0" linenr="27" column="14" str="("/>
+    <tok fileIndex="0" linenr="27" column="15" str="0x03FF0000"/>
+    <tok fileIndex="0" linenr="27" column="25" str=")"/>
+    <tok fileIndex="0" linenr="27" column="26" str=";"/>
+    <tok fileIndex="0" linenr="29" column="2" str="//Ustwienie kierunku pinow P0.8 - P0.12 na wejscie"/>
+    <tok fileIndex="0" linenr="30" column="2" str="IODIR0"/>
+    <tok fileIndex="0" linenr="30" column="9" str="&amp;="/>
+    <tok fileIndex="0" linenr="30" column="12" str="~"/>
+    <tok fileIndex="0" linenr="30" column="13" str="("/>
+    <tok fileIndex="0" linenr="30" column="14" str="JOYSTICK_ALL"/>
+    <tok fileIndex="0" linenr="30" column="26" str=")"/>
+    <tok fileIndex="0" linenr="30" column="27" str=";"/>
+    <tok fileIndex="0" linenr="31" column="1" str="}"/>
+    <tok fileIndex="0" linenr="33" column="1" str="/*x *  @briefxxxFunckja pobierajaca stan polozenia joysticka.x *x *  @DescriptionxFunkcja pobierajaca stan polozenia joysticka po przez sprawdzenie, ktory z pinxxxw P0.8 - P0.12 jest aktywny.x *x *  @param xxxbrakx *x *  @returns  xxnicx *x *  @side effectsxZwraca jeden z pieciu stanow joysticka, reprezentowanych przez typ enum JoystickState.x */"/>
+    <tok fileIndex="0" linenr="44" column="1" str="JoystickState"/>
+    <tok fileIndex="0" linenr="44" column="15" str="getJoystickState"/>
+    <tok fileIndex="0" linenr="44" column="31" str="("/>
+    <tok fileIndex="0" linenr="44" column="32" str="void"/>
+    <tok fileIndex="0" linenr="44" column="36" str=")"/>
+    <tok fileIndex="0" linenr="45" column="1" str="{"/>
+    <tok fileIndex="0" linenr="46" column="2" str="//Zmienna przechowujaca odczytany stan pozycji joysticka, ktory ma zostanie zworcony"/>
+    <tok fileIndex="0" linenr="47" column="2" str="JoystickState"/>
+    <tok fileIndex="0" linenr="47" column="16" str="returnState"/>
+    <tok fileIndex="0" linenr="47" column="28" str="="/>
+    <tok fileIndex="0" linenr="47" column="30" str="JIDLE"/>
+    <tok fileIndex="0" linenr="47" column="35" str=";"/>
+    <tok fileIndex="0" linenr="48" column="2" str="//Switch, w ktxxxory zostanie ustawiony odpowiedni stan portu na podstawie stanu aktywnoxxxci odpowiedniego pinu"/>
+    <tok fileIndex="0" linenr="49" column="2" str="if"/>
+    <tok fileIndex="0" linenr="49" column="5" str="("/>
+    <tok fileIndex="0" linenr="49" column="6" str="("/>
+    <tok fileIndex="0" linenr="49" column="7" str="IOPIN0"/>
+    <tok fileIndex="0" linenr="49" column="14" str="&amp;"/>
+    <tok fileIndex="0" linenr="49" column="16" str="JOYSTICK_LEFT"/>
+    <tok fileIndex="0" linenr="49" column="29" str=")"/>
+    <tok fileIndex="0" linenr="49" column="31" str="=="/>
+    <tok fileIndex="0" linenr="49" column="34" str="0"/>
+    <tok fileIndex="0" linenr="49" column="35" str=")"/>
+    <tok fileIndex="0" linenr="50" column="2" str="{"/>
+    <tok fileIndex="0" linenr="51" column="3" str="returnState"/>
+    <tok fileIndex="0" linenr="51" column="15" str="="/>
+    <tok fileIndex="0" linenr="51" column="17" str="JLEFT"/>
+    <tok fileIndex="0" linenr="51" column="22" str=";"/>
+    <tok fileIndex="0" linenr="52" column="2" str="}"/>
+    <tok fileIndex="0" linenr="53" column="2" str="else"/>
+    <tok fileIndex="0" linenr="53" column="7" str="if"/>
+    <tok fileIndex="0" linenr="53" column="10" str="("/>
+    <tok fileIndex="0" linenr="53" column="11" str="("/>
+    <tok fileIndex="0" linenr="53" column="12" str="IOPIN0"/>
+    <tok fileIndex="0" linenr="53" column="19" str="&amp;"/>
+    <tok fileIndex="0" linenr="53" column="21" str="JOYSTICK_UP"/>
+    <tok fileIndex="0" linenr="53" column="32" str=")"/>
+    <tok fileIndex="0" linenr="53" column="34" str="=="/>
+    <tok fileIndex="0" linenr="53" column="37" str="0"/>
+    <tok fileIndex="0" linenr="53" column="38" str=")"/>
+    <tok fileIndex="0" linenr="54" column="2" str="{"/>
+    <tok fileIndex="0" linenr="55" column="3" str="returnState"/>
+    <tok fileIndex="0" linenr="55" column="15" str="="/>
+    <tok fileIndex="0" linenr="55" column="17" str="JUP"/>
+    <tok fileIndex="0" linenr="55" column="20" str=";"/>
+    <tok fileIndex="0" linenr="56" column="2" str="}"/>
+    <tok fileIndex="0" linenr="57" column="2" str="else"/>
+    <tok fileIndex="0" linenr="57" column="7" str="if"/>
+    <tok fileIndex="0" linenr="57" column="10" str="("/>
+    <tok fileIndex="0" linenr="57" column="11" str="("/>
+    <tok fileIndex="0" linenr="57" column="12" str="IOPIN0"/>
+    <tok fileIndex="0" linenr="57" column="19" str="&amp;"/>
+    <tok fileIndex="0" linenr="57" column="21" str="JOYSTICK_RIGHT"/>
+    <tok fileIndex="0" linenr="57" column="35" str=")"/>
+    <tok fileIndex="0" linenr="57" column="37" str="=="/>
+    <tok fileIndex="0" linenr="57" column="40" str="0"/>
+    <tok fileIndex="0" linenr="57" column="41" str=")"/>
+    <tok fileIndex="0" linenr="58" column="2" str="{"/>
+    <tok fileIndex="0" linenr="59" column="3" str="returnState"/>
+    <tok fileIndex="0" linenr="59" column="15" str="="/>
+    <tok fileIndex="0" linenr="59" column="17" str="JRIGHT"/>
+    <tok fileIndex="0" linenr="59" column="23" str=";"/>
+    <tok fileIndex="0" linenr="60" column="2" str="}"/>
+    <tok fileIndex="0" linenr="61" column="2" str="else"/>
+    <tok fileIndex="0" linenr="61" column="7" str="if"/>
+    <tok fileIndex="0" linenr="61" column="10" str="("/>
+    <tok fileIndex="0" linenr="61" column="11" str="("/>
+    <tok fileIndex="0" linenr="61" column="12" str="IOPIN0"/>
+    <tok fileIndex="0" linenr="61" column="19" str="&amp;"/>
+    <tok fileIndex="0" linenr="61" column="21" str="JOYSTICK_DOWN"/>
+    <tok fileIndex="0" linenr="61" column="34" str=")"/>
+    <tok fileIndex="0" linenr="61" column="36" str="=="/>
+    <tok fileIndex="0" linenr="61" column="39" str="0"/>
+    <tok fileIndex="0" linenr="61" column="40" str=")"/>
+    <tok fileIndex="0" linenr="62" column="2" str="{"/>
+    <tok fileIndex="0" linenr="63" column="3" str="returnState"/>
+    <tok fileIndex="0" linenr="63" column="15" str="="/>
+    <tok fileIndex="0" linenr="63" column="17" str="JDOWN"/>
+    <tok fileIndex="0" linenr="63" column="22" str=";"/>
+    <tok fileIndex="0" linenr="64" column="2" str="}"/>
+    <tok fileIndex="0" linenr="65" column="2" str="else"/>
+    <tok fileIndex="0" linenr="65" column="7" str="if"/>
+    <tok fileIndex="0" linenr="65" column="10" str="("/>
+    <tok fileIndex="0" linenr="65" column="11" str="("/>
+    <tok fileIndex="0" linenr="65" column="12" str="IOPIN0"/>
+    <tok fileIndex="0" linenr="65" column="19" str="&amp;"/>
+    <tok fileIndex="0" linenr="65" column="21" str="JOYSTICK_CENTER"/>
+    <tok fileIndex="0" linenr="65" column="36" str=")"/>
+    <tok fileIndex="0" linenr="65" column="38" str="=="/>
+    <tok fileIndex="0" linenr="65" column="41" str="0"/>
+    <tok fileIndex="0" linenr="65" column="42" str=")"/>
+    <tok fileIndex="0" linenr="66" column="2" str="{"/>
+    <tok fileIndex="0" linenr="67" column="3" str="returnState"/>
+    <tok fileIndex="0" linenr="67" column="15" str="="/>
+    <tok fileIndex="0" linenr="67" column="17" str="JCENTER"/>
+    <tok fileIndex="0" linenr="67" column="24" str=";"/>
+    <tok fileIndex="0" linenr="68" column="2" str="}"/>
+    <tok fileIndex="0" linenr="69" column="2" str="else"/>
+    <tok fileIndex="0" linenr="70" column="2" str="{"/>
+    <tok fileIndex="0" linenr="71" column="3" str="returnState"/>
+    <tok fileIndex="0" linenr="71" column="15" str="="/>
+    <tok fileIndex="0" linenr="71" column="17" str="JIDLE"/>
+    <tok fileIndex="0" linenr="71" column="22" str=";"/>
+    <tok fileIndex="0" linenr="72" column="2" str="}"/>
+    <tok fileIndex="0" linenr="74" column="2" str="return"/>
+    <tok fileIndex="0" linenr="74" column="9" str="returnState"/>
+    <tok fileIndex="0" linenr="74" column="20" str=";"/>
+    <tok fileIndex="0" linenr="75" column="1" str="}"/>
+  </rawtokens>
+  <suppressions>
+    <suppression errorId="misra-c2012-2.3" />
+    <suppression errorId="misra-c2012-2.5" />
+    <suppression errorId="misra-c2012-11.4" />
+  </suppressions>
+<dump cfg="">
+  <standards>
+    <c version="c11"/>
+    <cpp version="c++23"/>
+  </standards>
+  <directivelist>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="2" str="#include &lt;lpc2xxx.h&gt;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="3" str="#include &quot;joystick.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="6" str="#define JOYSTICK_ALL 0x00001F00"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="7" str="#define JOYSTICK_UP 0x00000400"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="8" str="#define JOYSTICK_DOWN 0x00001000"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="9" str="#define JOYSTICK_LEFT 0x00000200"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="10" str="#define JOYSTICK_RIGHT 0x00000800"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="11" str="#define JOYSTICK_CENTER 0x00000100"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="8" str="#ifndef JOYSTICK_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="9" str="#define JOYSTICK_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="46" str="#endif"/>
+  </directivelist>
+  <macro-usage>
+    <macro name="JOYSTICK_H" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" line="9" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" useline="8" usecolumn="9" is-known-value="true"/>
+    <macro name="JOYSTICK_ALL" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" line="6" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" useline="30" usecolumn="14" is-known-value="true"/>
+    <macro name="JOYSTICK_UP" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" line="7" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" useline="53" usecolumn="21" is-known-value="true"/>
+    <macro name="JOYSTICK_DOWN" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" line="8" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" useline="61" usecolumn="21" is-known-value="true"/>
+    <macro name="JOYSTICK_LEFT" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" line="9" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" useline="49" usecolumn="16" is-known-value="true"/>
+    <macro name="JOYSTICK_RIGHT" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" line="10" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" useline="57" usecolumn="21" is-known-value="true"/>
+    <macro name="JOYSTICK_CENTER" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" line="11" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" useline="65" usecolumn="21" is-known-value="true"/>
+  </macro-usage>
+  <tokenlist>
+    <token id="0000014122FD2F20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="9" str="enum" scope="000001412300CD80" type="name"/>
+    <token id="0000014122FD7D80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="0" str="JoystickState" scope="000001412300CD80" type="name" type-scope="000001412300C100"/>
+    <token id="0000014122FD3E20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="14" str="{" scope="000001412300C100" link="0000014122FD3160" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD3880" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="16" str="JIDLE" scope="000001412300C100" type="name" values="00000141234084A0" astParent="0000014122FD34C0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD34C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="22" str="=" scope="000001412300C100" type="op" isAssignmentOp="true" values="0000014123408200" astParent="0000014122FD29E0" astOperand1="0000014122FD3880" astOperand2="0000014122FD3220" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD3220" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="24" str="0" scope="000001412300C100" type="number" isInt="true" values="00000141234081E0" astParent="0000014122FD34C0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD29E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="25" str="," scope="000001412300C100" values="0000014123408400" astParent="0000014122FD2D40" astOperand1="0000014122FD34C0" astOperand2="0000014122FD3BE0"/>
+    <token id="0000014122FD2CE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="27" str="JLEFT" scope="000001412300C100" type="name" values="0000014123408380" astParent="0000014122FD3BE0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD3BE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="33" str="=" scope="000001412300C100" type="op" isAssignmentOp="true" values="00000141234087A0" astParent="0000014122FD29E0" astOperand1="0000014122FD2CE0" astOperand2="0000014122FD38E0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD38E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="35" str="1" scope="000001412300C100" type="number" isInt="true" values="0000014123408440" astParent="0000014122FD3BE0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD2D40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="36" str="," scope="000001412300C100" values="00000141234084E0" astParent="0000014122FD39A0" astOperand1="0000014122FD29E0" astOperand2="0000014122FD2DA0"/>
+    <token id="0000014122FD3940" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="38" str="JUP" scope="000001412300C100" type="name" values="00000141234083C0" astParent="0000014122FD2DA0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD2DA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="42" str="=" scope="000001412300C100" type="op" isAssignmentOp="true" values="0000014123408820" astParent="0000014122FD2D40" astOperand1="0000014122FD3940" astOperand2="0000014122FD3AC0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD3AC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="44" str="2" scope="000001412300C100" type="number" isInt="true" values="00000141234085C0" astParent="0000014122FD2DA0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD39A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="45" str="," scope="000001412300C100" values="0000014123408540" astParent="0000014122FD3A00" astOperand1="0000014122FD2D40" astOperand2="0000014122FD2E00"/>
+    <token id="0000014122FD3C40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="47" str="JRIGHT" scope="000001412300C100" type="name" values="0000014123408260" astParent="0000014122FD2E00" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD2E00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="54" str="=" scope="000001412300C100" type="op" isAssignmentOp="true" values="0000014123408580" astParent="0000014122FD39A0" astOperand1="0000014122FD3C40" astOperand2="0000014122FD30A0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD30A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="56" str="3" scope="000001412300C100" type="number" isInt="true" values="0000014123408220" astParent="0000014122FD2E00" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD3A00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="57" str="," scope="000001412300C100" values="0000014123408160" astParent="0000014122FD2F80" astOperand1="0000014122FD39A0" astOperand2="0000014122FD2E60"/>
+    <token id="0000014122FD3A60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="59" str="JDOWN" scope="000001412300C100" type="name" values="00000141234087E0" astParent="0000014122FD2E60" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD2E60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="65" str="=" scope="000001412300C100" type="op" isAssignmentOp="true" values="00000141234082E0" astParent="0000014122FD3A00" astOperand1="0000014122FD3A60" astOperand2="0000014122FD3040" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD3040" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="67" str="4" scope="000001412300C100" type="number" isInt="true" values="0000014123408460" astParent="0000014122FD2E60" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD2F80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="68" str="," scope="000001412300C100" values="0000014123408240" astOperand1="0000014122FD3A00" astOperand2="0000014122FD3520"/>
+    <token id="0000014122FD3E80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="70" str="JCENTER" scope="000001412300C100" type="name" values="0000014123408480" astParent="0000014122FD3520" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD3520" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="78" str="=" scope="000001412300C100" type="op" isAssignmentOp="true" values="00000141234081A0" astParent="0000014122FD2F80" astOperand1="0000014122FD3E80" astOperand2="0000014122FD3100" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD3100" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="80" str="5" scope="000001412300C100" type="number" isInt="true" values="0000014123408180" astParent="0000014122FD3520" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD3160" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="82" str="}" scope="000001412300C100" link="0000014122FD3E20"/>
+    <token id="0000014122FD78A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="14" column="0" str=";" scope="000001412300CD80"/>
+    <token id="0000014122FD7780" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="30" column="1" str="void" scope="000001412300CD80" type="name"/>
+    <token id="0000014122FD3640" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="30" column="6" str="joystickInit" scope="000001412300CD80" type="name" function="000001412146A0A0"/>
+    <token id="0000014122FD4F00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="30" column="18" str="(" scope="000001412300CD80" isRemovedVoidParameter="true" link="0000014122FD4EA0" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014122FD4EA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="30" column="23" str=")" scope="000001412300CD80" link="0000014122FD4F00"/>
+    <token id="0000014122FD4120" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="30" column="24" str=";" scope="000001412300CD80"/>
+    <token id="0000014122FD5200" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="43" column="1" str="JoystickState" scope="000001412300CD80" type="name" type-scope="000001412300C100"/>
+    <token id="0000014122FD4A80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="43" column="15" str="getJoystickState" scope="000001412300CD80" type="name" function="0000014121469740"/>
+    <token id="0000014122FD5680" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="43" column="31" str="(" scope="000001412300CD80" isRemovedVoidParameter="true" link="0000014122FD5560" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD5560" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="43" column="36" str=")" scope="000001412300CD80" link="0000014122FD5680"/>
+    <token id="0000014122FD4D80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.h" linenr="43" column="37" str=";" scope="000001412300CD80"/>
+    <token id="0000014122FD4180" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="24" column="1" str="void" scope="000001412300CD80" type="name"/>
+    <token id="0000014122FD47E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="24" column="6" str="joystickInit" scope="000001412300CD80" type="name" function="000001412146A0A0"/>
+    <token id="0000014122FD4780" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="24" column="18" str="(" scope="000001412300CD80" isRemovedVoidParameter="true" link="0000014122FD4900" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014122FD4900" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="24" column="23" str=")" scope="000001412300CD80" link="0000014122FD4780"/>
+    <token id="0000014122FD4300" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="25" column="1" str="{" scope="000001412300CEC0" link="0000014122FD4540"/>
+    <token id="0000014122FD4420" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="27" column="2" str="PINSEL0" scope="000001412300CEC0" type="name" exprId="2" astParent="0000014122FD4FC0"/>
+    <token id="0000014122FD4FC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="27" column="10" str="&amp;=" scope="000001412300CEC0" type="op" isAssignmentOp="true" exprId="4" astOperand1="0000014122FD4420" astOperand2="0000014122FD5140"/>
+    <token id="0000014122FD5140" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="27" column="13" str="~" scope="000001412300CEC0" type="op" exprId="5" values="00000141234085E0" astParent="0000014122FD4FC0" astOperand1="0000014122FD41E0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD41E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="27" column="15" str="0x03FF0000" scope="000001412300CEC0" type="number" isInt="true" values="0000014123408500" astParent="0000014122FD5140" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD5020" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="27" column="26" str=";" scope="000001412300CEC0"/>
+    <token id="0000014122FD50E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="30" column="2" str="IODIR0" scope="000001412300CEC0" type="name" exprId="3" astParent="0000014122FD5500"/>
+    <token id="0000014122FD5500" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="30" column="9" str="&amp;=" scope="000001412300CEC0" type="op" isAssignmentOp="true" exprId="6" astOperand1="0000014122FD50E0" astOperand2="0000014122FD44E0"/>
+    <token id="0000014122FD44E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="30" column="12" str="~" scope="000001412300CEC0" type="op" exprId="7" values="0000014123408740" astParent="0000014122FD5500" astOperand1="0000014122FD52C0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD52C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="30" column="14" str="0x00001F00" scope="000001412300CEC0" type="number" isInt="true" isExpandedMacro="true" values="00000141234087C0" astParent="0000014122FD44E0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD4840" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="30" column="27" str=";" scope="000001412300CEC0"/>
+    <token id="0000014122FD4540" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="31" column="1" str="}" scope="000001412300CEC0" link="0000014122FD4300"/>
+    <token id="0000014122FD48A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="44" column="1" str="JoystickState" scope="000001412300CD80" type="name" type-scope="000001412300C100"/>
+    <token id="0000014122FD42A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="44" column="15" str="getJoystickState" scope="000001412300CD80" type="name" function="0000014121469740"/>
+    <token id="0000014122FD57A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="44" column="31" str="(" scope="000001412300CD80" isRemovedVoidParameter="true" link="0000014122FD4600" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD4600" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="44" column="36" str=")" scope="000001412300CD80" link="0000014122FD57A0"/>
+    <token id="0000014122FD5260" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="45" column="1" str="{" scope="000001412300C380" link="0000014122FD8500"/>
+    <token id="0000014122FD5800" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="47" column="2" str="JoystickState" scope="000001412300C380" type="name" type-scope="000001412300C100"/>
+    <token id="0000014122FD4960" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="47" column="16" str="returnState" scope="000001412300C380" type="name" varId="1" exprId="1" variable="0000014121494740" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD4360" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="47" column="28" str=";" scope="000001412300C380" isSplittedVarDeclEq="true"/>
+    <token id="0000014122FD7720" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="47" column="16" str="returnState" scope="000001412300C380" type="name" varId="1" exprId="1" variable="0000014121494740" astParent="0000014122FD81A0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD81A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="47" column="28" str="=" scope="000001412300C380" type="op" isAssignmentOp="true" exprId="9" values="00000141234083E0" astOperand1="0000014122FD7720" astOperand2="0000014122FD5860" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD5860" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="47" column="30" str="JIDLE" scope="000001412300C380" type="name" values="0000014123408280" astParent="0000014122FD81A0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD5320" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="47" column="35" str=";" scope="000001412300C380"/>
+    <token id="0000014122FD4CC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="49" column="2" str="if" scope="000001412300C380" type="name" astParent="0000014122FD4D20"/>
+    <token id="0000014122FD4D20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="49" column="5" str="(" scope="000001412300C380" link="0000014122FD4A20" exprId="10" astOperand1="0000014122FD4CC0" astOperand2="0000014122FD45A0"/>
+    <token id="0000014122FD4480" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="49" column="6" str="(" scope="000001412300C380" link="0000014122FD5380" exprId="11"/>
+    <token id="0000014122FD4240" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="49" column="7" str="IOPIN0" scope="000001412300C380" type="name" exprId="8" astParent="0000014122FD49C0"/>
+    <token id="0000014122FD49C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="49" column="14" str="&amp;" scope="000001412300C380" type="op" exprId="12" values="0000014123409040" astParent="0000014122FD45A0" astOperand1="0000014122FD4240" astOperand2="0000014122FD4DE0"/>
+    <token id="0000014122FD4DE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="49" column="16" str="0x00000200" scope="000001412300C380" type="number" isInt="true" isExpandedMacro="true" values="00000141234085A0" astParent="0000014122FD49C0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD5380" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="49" column="29" str=")" scope="000001412300C380" link="0000014122FD4480"/>
+    <token id="0000014122FD45A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="49" column="31" str="==" scope="000001412300C380" type="op" isComparisonOp="true" exprId="13" values="0000014123408FA0" astParent="0000014122FD4D20" astOperand1="0000014122FD49C0" astOperand2="0000014122FD40C0" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014122FD40C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="49" column="34" str="0" scope="000001412300C380" type="number" isInt="true" values="00000141234084C0" astParent="0000014122FD45A0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD4A20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="49" column="35" str=")" scope="000001412300C380" link="0000014122FD4D20"/>
+    <token id="0000014122FD5620" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="50" column="2" str="{" scope="000001412300C240" link="0000014122FD4720"/>
+    <token id="0000014122FD4660" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="51" column="3" str="returnState" scope="000001412300C240" type="name" varId="1" exprId="1" variable="0000014121494740" astParent="0000014122FD43C0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD43C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="51" column="15" str="=" scope="000001412300C240" type="op" isAssignmentOp="true" exprId="14" values="0000014123408300" astOperand1="0000014122FD4660" astOperand2="0000014122FD53E0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD53E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="51" column="17" str="JLEFT" scope="000001412300C240" type="name" values="00000141234082A0" astParent="0000014122FD43C0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD46C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="51" column="22" str=";" scope="000001412300C240"/>
+    <token id="0000014122FD4720" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="52" column="2" str="}" scope="000001412300C240" link="0000014122FD5620"/>
+    <token id="0000014122FD5440" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="53" column="2" str="else" scope="000001412300C380" type="name"/>
+    <token id="0000014122FD5740" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="53" column="0" str="{" scope="000001412300C4C0" link="0000014122FD51A0"/>
+    <token id="0000014122FD55C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="53" column="7" str="if" scope="000001412300C4C0" type="name" astParent="0000014122FD56E0"/>
+    <token id="0000014122FD56E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="53" column="10" str="(" scope="000001412300C4C0" link="0000014122FD5980" exprId="15" astOperand1="0000014122FD55C0" astOperand2="0000014122FD6340"/>
+    <token id="0000014122FD6640" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="53" column="11" str="(" scope="000001412300C4C0" link="0000014122FD5DA0" exprId="16"/>
+    <token id="0000014122FD6100" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="53" column="12" str="IOPIN0" scope="000001412300C4C0" type="name" exprId="8" astParent="0000014122FD6220"/>
+    <token id="0000014122FD6220" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="53" column="19" str="&amp;" scope="000001412300C4C0" type="op" exprId="17" values="0000014123408CA0" astParent="0000014122FD6340" astOperand1="0000014122FD6100" astOperand2="0000014122FD6760"/>
+    <token id="0000014122FD6760" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="53" column="21" str="0x00000400" scope="000001412300C4C0" type="number" isInt="true" isExpandedMacro="true" values="0000014123408320" astParent="0000014122FD6220" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD5DA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="53" column="32" str=")" scope="000001412300C4C0" link="0000014122FD6640"/>
+    <token id="0000014122FD6340" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="53" column="34" str="==" scope="000001412300C4C0" type="op" isComparisonOp="true" exprId="18" values="00000141234089C0" astParent="0000014122FD56E0" astOperand1="0000014122FD6220" astOperand2="0000014122FD58C0" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014122FD58C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="53" column="37" str="0" scope="000001412300C4C0" type="number" isInt="true" values="0000014123408520" astParent="0000014122FD6340" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD5980" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="53" column="38" str=")" scope="000001412300C4C0" link="0000014122FD56E0"/>
+    <token id="0000014122FD7060" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="54" column="2" str="{" scope="000001412300CB00" link="0000014122FD6DC0"/>
+    <token id="0000014122FD6D60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="55" column="3" str="returnState" scope="000001412300CB00" type="name" varId="1" exprId="1" variable="0000014121494740" astParent="0000014122FD63A0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD63A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="55" column="15" str="=" scope="000001412300CB00" type="op" isAssignmentOp="true" exprId="19" values="0000014123408600" astOperand1="0000014122FD6D60" astOperand2="0000014122FD6CA0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD6CA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="55" column="17" str="JUP" scope="000001412300CB00" type="name" values="0000014123408560" astParent="0000014122FD63A0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD6160" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="55" column="20" str=";" scope="000001412300CB00"/>
+    <token id="0000014122FD6DC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="56" column="2" str="}" scope="000001412300CB00" link="0000014122FD7060"/>
+    <token id="0000014122FD60A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="57" column="2" str="else" scope="000001412300C4C0" type="name"/>
+    <token id="0000014122FD4AE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="57" column="0" str="{" scope="000001412300C600" link="0000014122FD4C00"/>
+    <token id="0000014122FD61C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="57" column="7" str="if" scope="000001412300C600" type="name" astParent="0000014122FD6280"/>
+    <token id="0000014122FD6280" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="57" column="10" str="(" scope="000001412300C600" link="0000014122FD5920" exprId="20" astOperand1="0000014122FD61C0" astOperand2="0000014122FD6820"/>
+    <token id="0000014122FD6FA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="57" column="11" str="(" scope="000001412300C600" link="0000014122FD5C80" exprId="21"/>
+    <token id="0000014122FD6D00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="57" column="12" str="IOPIN0" scope="000001412300C600" type="name" exprId="8" astParent="0000014122FD6F40"/>
+    <token id="0000014122FD6F40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="57" column="19" str="&amp;" scope="000001412300C600" type="op" exprId="22" values="0000014123408CE0" astParent="0000014122FD6820" astOperand1="0000014122FD6D00" astOperand2="0000014122FD62E0"/>
+    <token id="0000014122FD62E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="57" column="21" str="0x00000800" scope="000001412300C600" type="number" isInt="true" isExpandedMacro="true" values="0000014123408340" astParent="0000014122FD6F40" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD5C80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="57" column="35" str=")" scope="000001412300C600" link="0000014122FD6FA0"/>
+    <token id="0000014122FD6820" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="57" column="37" str="==" scope="000001412300C600" type="op" isComparisonOp="true" exprId="23" values="0000014123408FE0" astParent="0000014122FD6280" astOperand1="0000014122FD6F40" astOperand2="0000014122FD6400" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014122FD6400" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="57" column="40" str="0" scope="000001412300C600" type="number" isInt="true" values="0000014123408660" astParent="0000014122FD6820" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD5920" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="57" column="41" str=")" scope="000001412300C600" link="0000014122FD6280"/>
+    <token id="0000014122FD7000" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="58" column="2" str="{" scope="000001412300C740" link="0000014122FD59E0"/>
+    <token id="0000014122FD5E60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="59" column="3" str="returnState" scope="000001412300C740" type="name" varId="1" exprId="1" variable="0000014121494740" astParent="0000014122FD5EC0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD5EC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="59" column="15" str="=" scope="000001412300C740" type="op" isAssignmentOp="true" exprId="24" values="0000014123408680" astOperand1="0000014122FD5E60" astOperand2="0000014122FD5CE0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD5CE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="59" column="17" str="JRIGHT" scope="000001412300C740" type="name" values="00000141234088A0" astParent="0000014122FD5EC0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD6460" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="59" column="23" str=";" scope="000001412300C740"/>
+    <token id="0000014122FD59E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="60" column="2" str="}" scope="000001412300C740" link="0000014122FD7000"/>
+    <token id="0000014122FD5A40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="61" column="2" str="else" scope="000001412300C600" type="name"/>
+    <token id="0000014122FD74E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="61" column="0" str="{" scope="000001412300C880" link="0000014122FD7900"/>
+    <token id="0000014122FD64C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="61" column="7" str="if" scope="000001412300C880" type="name" astParent="0000014122FD6E80"/>
+    <token id="0000014122FD6E80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="61" column="10" str="(" scope="000001412300C880" link="0000014122FD6EE0" exprId="25" astOperand1="0000014122FD64C0" astOperand2="0000014122FD5B60"/>
+    <token id="0000014122FD5D40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="61" column="11" str="(" scope="000001412300C880" link="0000014122FD6B20" exprId="26"/>
+    <token id="0000014122FD67C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="61" column="12" str="IOPIN0" scope="000001412300C880" type="name" exprId="8" astParent="0000014122FD6E20"/>
+    <token id="0000014122FD6E20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="61" column="19" str="&amp;" scope="000001412300C880" type="op" exprId="27" values="0000014123408F60" astParent="0000014122FD5B60" astOperand1="0000014122FD67C0" astOperand2="0000014122FD5AA0"/>
+    <token id="0000014122FD5AA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="61" column="21" str="0x00001000" scope="000001412300C880" type="number" isInt="true" isExpandedMacro="true" values="00000141234086C0" astParent="0000014122FD6E20" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD6B20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="61" column="34" str=")" scope="000001412300C880" link="0000014122FD5D40"/>
+    <token id="0000014122FD5B60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="61" column="36" str="==" scope="000001412300C880" type="op" isComparisonOp="true" exprId="28" values="0000014123408DC0" astParent="0000014122FD6E80" astOperand1="0000014122FD6E20" astOperand2="0000014122FD65E0" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014122FD65E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="61" column="39" str="0" scope="000001412300C880" type="number" isInt="true" values="00000141234086E0" astParent="0000014122FD5B60" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD6EE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="61" column="40" str=")" scope="000001412300C880" link="0000014122FD6E80"/>
+    <token id="0000014122FD5BC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="62" column="2" str="{" scope="000001412300CC40" link="0000014122FD6520"/>
+    <token id="0000014122FD6580" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="63" column="3" str="returnState" scope="000001412300CC40" type="name" varId="1" exprId="1" variable="0000014121494740" astParent="0000014122FD6C40" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD6C40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="63" column="15" str="=" scope="000001412300CC40" type="op" isAssignmentOp="true" exprId="29" values="0000014123408720" astOperand1="0000014122FD6580" astOperand2="0000014122FD5B00" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD5B00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="63" column="17" str="JDOWN" scope="000001412300CC40" type="name" values="0000014123408700" astParent="0000014122FD6C40" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD5C20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="63" column="22" str=";" scope="000001412300CC40"/>
+    <token id="0000014122FD6520" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="64" column="2" str="}" scope="000001412300CC40" link="0000014122FD5BC0"/>
+    <token id="0000014122FD5E00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="65" column="2" str="else" scope="000001412300C880" type="name"/>
+    <token id="0000014122FD7C00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="65" column="0" str="{" scope="000001412147BD60" link="0000014122FD8560"/>
+    <token id="0000014122FD5F20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="65" column="7" str="if" scope="000001412147BD60" type="name" astParent="0000014122FD5F80"/>
+    <token id="0000014122FD5F80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="65" column="10" str="(" scope="000001412147BD60" link="0000014122FD68E0" exprId="30" astOperand1="0000014122FD5F20" astOperand2="0000014122FD5FE0"/>
+    <token id="0000014122FD66A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="65" column="11" str="(" scope="000001412147BD60" link="0000014122FD6040" exprId="31"/>
+    <token id="0000014122FD6940" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="65" column="12" str="IOPIN0" scope="000001412147BD60" type="name" exprId="8" astParent="0000014122FD6700"/>
+    <token id="0000014122FD6700" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="65" column="19" str="&amp;" scope="000001412147BD60" type="op" exprId="32" values="0000014123408FC0" astParent="0000014122FD5FE0" astOperand1="0000014122FD6940" astOperand2="0000014122FD6B80"/>
+    <token id="0000014122FD6B80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="65" column="21" str="0x00000100" scope="000001412147BD60" type="number" isInt="true" isExpandedMacro="true" values="0000014123408760" astParent="0000014122FD6700" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD6040" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="65" column="36" str=")" scope="000001412147BD60" link="0000014122FD66A0"/>
+    <token id="0000014122FD5FE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="65" column="38" str="==" scope="000001412147BD60" type="op" isComparisonOp="true" exprId="33" values="0000014123408BC0" astParent="0000014122FD5F80" astOperand1="0000014122FD6700" astOperand2="0000014122FD6880" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014122FD6880" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="65" column="41" str="0" scope="000001412147BD60" type="number" isInt="true" values="0000014123408800" astParent="0000014122FD5FE0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014122FD68E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="65" column="42" str=")" scope="000001412147BD60" link="0000014122FD5F80"/>
+    <token id="0000014122FD69A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="66" column="2" str="{" scope="000001412147A820" link="0000014122FD8740"/>
+    <token id="0000014122FD6A00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="67" column="3" str="returnState" scope="000001412147A820" type="name" varId="1" exprId="1" variable="0000014121494740" astParent="0000014122FD6A60" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD6A60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="67" column="15" str="=" scope="000001412147A820" type="op" isAssignmentOp="true" exprId="34" values="0000014123408AE0" astOperand1="0000014122FD6A00" astOperand2="0000014122FD6AC0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD6AC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="67" column="17" str="JCENTER" scope="000001412147A820" type="name" values="0000014123408780" astParent="0000014122FD6A60" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD6BE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="67" column="24" str=";" scope="000001412147A820"/>
+    <token id="0000014122FD8740" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="68" column="2" str="}" scope="000001412147A820" link="0000014122FD69A0"/>
+    <token id="0000014122FD8440" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="69" column="2" str="else" scope="000001412147BD60" type="name"/>
+    <token id="0000014122FD83E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="70" column="2" str="{" scope="000001412147AD20" link="0000014122FD7240"/>
+    <token id="0000014122FD82C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="71" column="3" str="returnState" scope="000001412147AD20" type="name" varId="1" exprId="1" variable="0000014121494740" astParent="0000014122FD7B40" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD7B40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="71" column="15" str="=" scope="000001412147AD20" type="op" isAssignmentOp="true" exprId="35" values="0000014123408C80" astOperand1="0000014122FD82C0" astOperand2="0000014122FD7300" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD7300" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="71" column="17" str="JIDLE" scope="000001412147AD20" type="name" values="0000014123408A40" astParent="0000014122FD7B40" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD8800" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="71" column="22" str=";" scope="000001412147AD20"/>
+    <token id="0000014122FD7240" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="72" column="2" str="}" scope="000001412147AD20" link="0000014122FD83E0"/>
+    <token id="0000014122FD8560" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="72" column="0" str="}" scope="000001412147BD60" link="0000014122FD7C00"/>
+    <token id="0000014122FD7900" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="72" column="0" str="}" scope="000001412300C880" link="0000014122FD74E0"/>
+    <token id="0000014122FD4C00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="72" column="0" str="}" scope="000001412300C600" link="0000014122FD4AE0"/>
+    <token id="0000014122FD51A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="72" column="0" str="}" scope="000001412300C4C0" link="0000014122FD5740"/>
+    <token id="0000014122FD8260" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="74" column="2" str="return" scope="000001412300C380" type="name" astOperand1="0000014122FD7840" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD7840" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="74" column="9" str="returnState" scope="000001412300C380" type="name" varId="1" exprId="1" variable="0000014121494740" values="0000014123408DE0" astParent="0000014122FD8260" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="000001412300C100"/>
+    <token id="0000014122FD8140" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="74" column="20" str=";" scope="000001412300C380"/>
+    <token id="0000014122FD8500" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/joystick.c" linenr="75" column="1" str="}" scope="000001412300C380" link="0000014122FD5260"/>
+  </tokenlist>
+  <scopes>
+    <scope id="000001412300CD80" type="Global">
+      <functionList>
+        <function id="000001412146A0A0" token="0000014122FD47E0" tokenDef="0000014122FD3640" name="joystickInit" type="Function" access="Public"/>
+        <function id="0000014121469740" token="0000014122FD42A0" tokenDef="0000014122FD4A80" name="getJoystickState" type="Function" access="Public"/>
+      </functionList>
+    </scope>
+    <scope id="000001412300C100" type="Enum" className="JoystickState" bodyStart="0000014122FD3E20" bodyEnd="0000014122FD3160" nestedIn="000001412300CD80" definedType="000001412336ED90"/>
+    <scope id="000001412300CEC0" type="Function" className="joystickInit" bodyStart="0000014122FD4300" bodyEnd="0000014122FD4540" nestedIn="000001412300CD80" function="000001412146A0A0"/>
+    <scope id="000001412300C380" type="Function" className="getJoystickState" bodyStart="0000014122FD5260" bodyEnd="0000014122FD8500" nestedIn="000001412300CD80" function="0000014121469740">
+      <varlist>
+        <var id="0000014121494740"/>
+      </varlist>
+    </scope>
+    <scope id="000001412300C240" type="If" bodyStart="0000014122FD5620" bodyEnd="0000014122FD4720" nestedIn="000001412300C380"/>
+    <scope id="000001412300C4C0" type="Else" bodyStart="0000014122FD5740" bodyEnd="0000014122FD51A0" nestedIn="000001412300C380"/>
+    <scope id="000001412300CB00" type="If" bodyStart="0000014122FD7060" bodyEnd="0000014122FD6DC0" nestedIn="000001412300C4C0"/>
+    <scope id="000001412300C600" type="Else" bodyStart="0000014122FD4AE0" bodyEnd="0000014122FD4C00" nestedIn="000001412300C4C0"/>
+    <scope id="000001412300C740" type="If" bodyStart="0000014122FD7000" bodyEnd="0000014122FD59E0" nestedIn="000001412300C600"/>
+    <scope id="000001412300C880" type="Else" bodyStart="0000014122FD74E0" bodyEnd="0000014122FD7900" nestedIn="000001412300C600"/>
+    <scope id="000001412300CC40" type="If" bodyStart="0000014122FD5BC0" bodyEnd="0000014122FD6520" nestedIn="000001412300C880"/>
+    <scope id="000001412147BD60" type="Else" bodyStart="0000014122FD7C00" bodyEnd="0000014122FD8560" nestedIn="000001412300C880"/>
+    <scope id="000001412147A820" type="If" bodyStart="0000014122FD69A0" bodyEnd="0000014122FD8740" nestedIn="000001412147BD60"/>
+    <scope id="000001412147AD20" type="Else" bodyStart="0000014122FD83E0" bodyEnd="0000014122FD7240" nestedIn="000001412147BD60"/>
+  </scopes>
+  <types>
+    <type id="000001412336ED90" classScope="000001412300C100"/>
+  </types>
+  <variables>
+    <var id="0000014121494740" nameToken="0000014122FD4960" typeStartToken="0000014122FD5800" typeEndToken="0000014122FD5800" access="Local" scope="000001412300C380" constness="0" isArray="false" isClass="false" isConst="false" isExtern="false" isPointer="false" isReference="false" isStatic="false" isVolatile="false"/>
+  </variables>
+  <valueflow>
+    <values id="00000141234084A0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408200">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234081E0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408400">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408380">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234087A0">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408440">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234084E0">
+      <value intvalue="2" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234083C0">
+      <value intvalue="2" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408820">
+      <value intvalue="2" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234085C0">
+      <value intvalue="2" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408540">
+      <value intvalue="3" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408260">
+      <value intvalue="3" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408580">
+      <value intvalue="3" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408220">
+      <value intvalue="3" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408160">
+      <value intvalue="4" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234087E0">
+      <value intvalue="4" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234082E0">
+      <value intvalue="4" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408460">
+      <value intvalue="4" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408240">
+      <value intvalue="5" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408480">
+      <value intvalue="5" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234081A0">
+      <value intvalue="5" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408180">
+      <value intvalue="5" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234085E0">
+      <value intvalue="-67043329" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408500">
+      <value intvalue="67043328" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408740">
+      <value intvalue="-7937" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234087C0">
+      <value intvalue="7936" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234083E0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408280">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123409040">
+      <value intvalue="0" bound="Point" possible="true" path="0"/>
+      <value intvalue="512" bound="Point" possible="true" path="0"/>
+    </values>
+    <values id="00000141234085A0">
+      <value intvalue="512" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408FA0">
+      <value intvalue="1" bound="Point" possible="true" path="0"/>
+      <value intvalue="0" bound="Point" possible="true" path="0"/>
+      <value intvalue="-1" bound="Upper" impossible="true" path="0"/>
+      <value intvalue="2" bound="Lower" impossible="true" path="0"/>
+    </values>
+    <values id="00000141234084C0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408300">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234082A0">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408CA0">
+      <value intvalue="0" bound="Point" possible="true" path="0"/>
+      <value intvalue="1024" bound="Point" possible="true" path="0"/>
+    </values>
+    <values id="0000014123408320">
+      <value intvalue="1024" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234089C0">
+      <value intvalue="1" bound="Point" possible="true" path="0"/>
+      <value intvalue="0" bound="Point" possible="true" path="0"/>
+      <value intvalue="-1" bound="Upper" impossible="true" path="0"/>
+      <value intvalue="2" bound="Lower" impossible="true" path="0"/>
+    </values>
+    <values id="0000014123408520">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408600">
+      <value intvalue="2" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408560">
+      <value intvalue="2" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408CE0">
+      <value intvalue="0" bound="Point" possible="true" path="0"/>
+      <value intvalue="2048" bound="Point" possible="true" path="0"/>
+    </values>
+    <values id="0000014123408340">
+      <value intvalue="2048" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408FE0">
+      <value intvalue="1" bound="Point" possible="true" path="0"/>
+      <value intvalue="0" bound="Point" possible="true" path="0"/>
+      <value intvalue="-1" bound="Upper" impossible="true" path="0"/>
+      <value intvalue="2" bound="Lower" impossible="true" path="0"/>
+    </values>
+    <values id="0000014123408660">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408680">
+      <value intvalue="3" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141234088A0">
+      <value intvalue="3" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408F60">
+      <value intvalue="0" bound="Point" possible="true" path="0"/>
+      <value intvalue="4096" bound="Point" possible="true" path="0"/>
+    </values>
+    <values id="00000141234086C0">
+      <value intvalue="4096" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408DC0">
+      <value intvalue="1" bound="Point" possible="true" path="0"/>
+      <value intvalue="0" bound="Point" possible="true" path="0"/>
+      <value intvalue="-1" bound="Upper" impossible="true" path="0"/>
+      <value intvalue="2" bound="Lower" impossible="true" path="0"/>
+    </values>
+    <values id="00000141234086E0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408720">
+      <value intvalue="4" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408700">
+      <value intvalue="4" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408FC0">
+      <value intvalue="0" bound="Point" possible="true" path="0"/>
+      <value intvalue="256" bound="Point" possible="true" path="0"/>
+    </values>
+    <values id="0000014123408760">
+      <value intvalue="256" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408BC0">
+      <value intvalue="1" bound="Point" possible="true" path="0"/>
+      <value intvalue="0" bound="Point" possible="true" path="0"/>
+      <value intvalue="-1" bound="Upper" impossible="true" path="0"/>
+      <value intvalue="2" bound="Lower" impossible="true" path="0"/>
+    </values>
+    <values id="0000014123408800">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408AE0">
+      <value intvalue="5" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408780">
+      <value intvalue="5" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408C80">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408A40">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="0000014123408DE0">
+      <value intvalue="1" bound="Point" possible="true" path="0"/>
+      <value intvalue="2" bound="Point" possible="true" path="0"/>
+      <value intvalue="3" bound="Point" possible="true" path="0"/>
+      <value intvalue="4" bound="Point" possible="true" path="0"/>
+      <value intvalue="5" bound="Point" possible="true" path="0"/>
+      <value intvalue="0" bound="Point" possible="true" path="0"/>
+    </values>
+  </valueflow>
+</dump>
+</dumps>

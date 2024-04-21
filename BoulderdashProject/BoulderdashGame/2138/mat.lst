@@ -1,0 +1,947 @@
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 1
+
+
+   1              		.cpu arm7tdmi
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 0
+  10              		.eabi_attribute 18, 4
+  11              		.file	"mat.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.rodata
+  16              		.align	2
+  17              		.type	one32, %object
+  18              		.size	one32, 4
+  19              	one32:
+  20 0000 01000000 		.word	1
+  21              		.text
+  22              		.align	1
+  23              		.global	initRedDiod
+  24              		.syntax unified
+  25              		.code	16
+  26              		.thumb_func
+  27              		.fpu softvfp
+  28              		.type	initRedDiod, %function
+  29              	initRedDiod:
+  30              	.LFB0:
+  31              		.file 1 "mat.c"
+   1:mat.c         **** /*
+   2:mat.c         **** * @Descritpion: Zawariera zbior definicji funkcji zwiazanych z ustawianiem
+   3:mat.c         **** *				stanu diod Red LED i Blue LED za pomoca External Match
+   4:mat.c         **** */
+   5:mat.c         **** 
+   6:mat.c         **** #include "general.h"
+   7:mat.c         **** #include <printf_P.h>
+   8:mat.c         **** #include <lpc2xxx.h>
+   9:mat.c         **** #include <config.h>
+  10:mat.c         **** #include "mat.h"
+  11:mat.c         **** 
+  12:mat.c         **** /* Jedynka 32-bitowa */
+  13:mat.c         **** static const tU32 one32 = 1u;
+  14:mat.c         **** 
+  15:mat.c         **** /*
+  16:mat.c         ****  *  @brief			Funkcja incijalizujaca mozliwosc kontroli diody Red LED.
+  17:mat.c         ****  *
+  18:mat.c         ****  *  @Description	Funckja ustawia odpowiednia warto�sc w rejestrze PINSEL1 dla pinu P0.17,
+  19:mat.c         ****  * 					aby stanowil wyjscie MAT1.2 zwiazany ze stanem bitu dla External Match 2
+  20:mat.c         ****  * 					dla Timera #1.
+  21:mat.c         ****  *
+  22:mat.c         ****  *  @param 			brak
+  23:mat.c         ****  *
+  24:mat.c         ****  *  @returns  		nic
+  25:mat.c         ****  *
+  26:mat.c         ****  *  @side effects	Modyfikacja rejestru PINSEL1
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 2
+
+
+  27:mat.c         ****  */
+  28:mat.c         **** void initRedDiod(void)
+  29:mat.c         **** {
+  32              		.loc 1 29 0
+  33              		.cfi_startproc
+  34              		@ Function supports interworking.
+  35              		@ args = 0, pretend = 0, frame = 0
+  36              		@ frame_needed = 1, uses_anonymous_args = 0
+  37 0000 80B5     		push	{r7, lr}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 8
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 14, -4
+  42 0002 00AF     		add	r7, sp, #0
+  43              	.LCFI1:
+  44              		.cfi_def_cfa_register 7
+  30:mat.c         **** 	/*	Ustawienie funkcji pinu P0.17 na wyjscie MAT1.2 reprezentujacego stan bitu dla EM2. */
+  31:mat.c         **** 	PINSEL1 |= (one32 << 3) | (one32 << 2);
+  45              		.loc 1 31 0
+  46 0004 084B     		ldr	r3, .L2
+  47 0006 1968     		ldr	r1, [r3]
+  48 0008 0123     		movs	r3, #1
+  49 000a DA00     		lsls	r2, r3, #3
+  50 000c 0123     		movs	r3, #1
+  51 000e 9B00     		lsls	r3, r3, #2
+  52 0010 1A43     		orrs	r2, r3
+  53 0012 054B     		ldr	r3, .L2
+  54 0014 0A43     		orrs	r2, r1
+  55 0016 1A60     		str	r2, [r3]
+  32:mat.c         **** 	setRedDiodState(FALSE);
+  56              		.loc 1 32 0
+  57 0018 0020     		movs	r0, #0
+  58 001a FFF7FEFF 		bl	setRedDiodState
+  33:mat.c         **** }
+  59              		.loc 1 33 0
+  60 001e C046     		nop
+  61 0020 BD46     		mov	sp, r7
+  62              		@ sp needed
+  63 0022 80BC     		pop	{r7}
+  64 0024 01BC     		pop	{r0}
+  65 0026 0047     		bx	r0
+  66              	.L3:
+  67              		.align	2
+  68              	.L2:
+  69 0028 04C002E0 		.word	-536690684
+  70              		.cfi_endproc
+  71              	.LFE0:
+  72              		.size	initRedDiod, .-initRedDiod
+  73              		.align	1
+  74              		.global	setRedDiodState
+  75              		.syntax unified
+  76              		.code	16
+  77              		.thumb_func
+  78              		.fpu softvfp
+  79              		.type	setRedDiodState, %function
+  80              	setRedDiodState:
+  81              	.LFB1:
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 3
+
+
+  34:mat.c         **** 
+  35:mat.c         **** /*
+  36:mat.c         ****  *  @brief			Funkcja ustawiajaca stan diody Red LED
+  37:mat.c         ****  *
+  38:mat.c         ****  *  @Description	Funkcja zapala albo gasi diode Red LED na podstawie przekazanej wartosci logicznej
+  39:mat.c         ****  * 					po przez ustawienie odpowiednio bitu nr 2 w rejestrze External Match Register dla
+  40:mat.c         ****  * 					Timera #1 (T1EMR).
+  41:mat.c         ****  *
+  42:mat.c         ****  *  @param 			[in]	toSet
+  43:mat.c         ****  *						wartosc logiczna informujaca o tym czy dioda ma byc zapalona
+  44:mat.c         ****  *
+  45:mat.c         ****  *  @returns  		nic
+  46:mat.c         ****  *
+  47:mat.c         ****  *  @side effects	Modyfikacja rejestru T1EMR
+  48:mat.c         ****  */
+  49:mat.c         **** void setRedDiodState(tBool toSet)
+  50:mat.c         **** {
+  82              		.loc 1 50 0
+  83              		.cfi_startproc
+  84              		@ Function supports interworking.
+  85              		@ args = 0, pretend = 0, frame = 8
+  86              		@ frame_needed = 1, uses_anonymous_args = 0
+  87 002c 80B5     		push	{r7, lr}
+  88              	.LCFI2:
+  89              		.cfi_def_cfa_offset 8
+  90              		.cfi_offset 7, -8
+  91              		.cfi_offset 14, -4
+  92 002e 82B0     		sub	sp, sp, #8
+  93              	.LCFI3:
+  94              		.cfi_def_cfa_offset 16
+  95 0030 00AF     		add	r7, sp, #0
+  96              	.LCFI4:
+  97              		.cfi_def_cfa_register 7
+  98 0032 0200     		movs	r2, r0
+  99 0034 FB1D     		adds	r3, r7, #7
+ 100 0036 1A70     		strb	r2, [r3]
+  51:mat.c         **** 	if (toSet == TRUE) {
+ 101              		.loc 1 51 0
+ 102 0038 FB1D     		adds	r3, r7, #7
+ 103 003a 1B78     		ldrb	r3, [r3]
+ 104 003c 012B     		cmp	r3, #1
+ 105 003e 08D1     		bne	.L5
+  52:mat.c         **** 		T1EMR &= ~(one32 << 2);
+ 106              		.loc 1 52 0
+ 107 0040 0A4B     		ldr	r3, .L8
+ 108 0042 1A68     		ldr	r2, [r3]
+ 109 0044 0123     		movs	r3, #1
+ 110 0046 9B00     		lsls	r3, r3, #2
+ 111 0048 D943     		mvns	r1, r3
+ 112 004a 084B     		ldr	r3, .L8
+ 113 004c 0A40     		ands	r2, r1
+ 114 004e 1A60     		str	r2, [r3]
+  53:mat.c         **** 	}
+  54:mat.c         **** 	else
+  55:mat.c         **** 	{
+  56:mat.c         **** 		T1EMR |= one32 << 2;
+  57:mat.c         **** 	}
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 4
+
+
+  58:mat.c         **** }
+ 115              		.loc 1 58 0
+ 116 0050 06E0     		b	.L7
+ 117              	.L5:
+  56:mat.c         **** 	}
+ 118              		.loc 1 56 0
+ 119 0052 064B     		ldr	r3, .L8
+ 120 0054 1968     		ldr	r1, [r3]
+ 121 0056 0123     		movs	r3, #1
+ 122 0058 9A00     		lsls	r2, r3, #2
+ 123 005a 044B     		ldr	r3, .L8
+ 124 005c 0A43     		orrs	r2, r1
+ 125 005e 1A60     		str	r2, [r3]
+ 126              	.L7:
+ 127              		.loc 1 58 0
+ 128 0060 C046     		nop
+ 129 0062 BD46     		mov	sp, r7
+ 130 0064 02B0     		add	sp, sp, #8
+ 131              		@ sp needed
+ 132 0066 80BC     		pop	{r7}
+ 133 0068 01BC     		pop	{r0}
+ 134 006a 0047     		bx	r0
+ 135              	.L9:
+ 136              		.align	2
+ 137              	.L8:
+ 138 006c 3C8000E0 		.word	-536838084
+ 139              		.cfi_endproc
+ 140              	.LFE1:
+ 141              		.size	setRedDiodState, .-setRedDiodState
+ 142              		.align	1
+ 143              		.global	initBlueDiod
+ 144              		.syntax unified
+ 145              		.code	16
+ 146              		.thumb_func
+ 147              		.fpu softvfp
+ 148              		.type	initBlueDiod, %function
+ 149              	initBlueDiod:
+ 150              	.LFB2:
+  59:mat.c         **** 
+  60:mat.c         **** /*
+  61:mat.c         ****  *  @brief			Funkcja incijalizujaca mozliwosc kontroli diody Blue LED.
+  62:mat.c         ****  *
+  63:mat.c         ****  *  @Description	Funckja ustawia odpowiednia wartosc w rejestrze PINSEL1 dla pinu P0.18,
+  64:mat.c         ****  * 					aby stanowil wyjscie MAT1.3 zwiazany ze stanem bitu dla External Match 3
+  65:mat.c         ****  * 					dla Timera #1.
+  66:mat.c         ****  *
+  67:mat.c         ****  *  @param 			brak
+  68:mat.c         ****  *
+  69:mat.c         ****  *  @returns  		nic
+  70:mat.c         ****  *
+  71:mat.c         ****  *  @side effects	Modyfikacja rejestru PINSEL1
+  72:mat.c         ****  */
+  73:mat.c         **** void initBlueDiod(void)
+  74:mat.c         **** {
+ 151              		.loc 1 74 0
+ 152              		.cfi_startproc
+ 153              		@ Function supports interworking.
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 5
+
+
+ 154              		@ args = 0, pretend = 0, frame = 0
+ 155              		@ frame_needed = 1, uses_anonymous_args = 0
+ 156 0070 80B5     		push	{r7, lr}
+ 157              	.LCFI5:
+ 158              		.cfi_def_cfa_offset 8
+ 159              		.cfi_offset 7, -8
+ 160              		.cfi_offset 14, -4
+ 161 0072 00AF     		add	r7, sp, #0
+ 162              	.LCFI6:
+ 163              		.cfi_def_cfa_register 7
+  75:mat.c         **** 	/*	Ustawienie funkcji pinu P0.17 na wyjscie MAT1.2 reprezentujacego stan bitu dla EM2. */
+  76:mat.c         **** 	PINSEL1 |= (one32 << 5) | (one32 << 4);
+ 164              		.loc 1 76 0
+ 165 0074 084B     		ldr	r3, .L11
+ 166 0076 1968     		ldr	r1, [r3]
+ 167 0078 0123     		movs	r3, #1
+ 168 007a 5A01     		lsls	r2, r3, #5
+ 169 007c 0123     		movs	r3, #1
+ 170 007e 1B01     		lsls	r3, r3, #4
+ 171 0080 1A43     		orrs	r2, r3
+ 172 0082 054B     		ldr	r3, .L11
+ 173 0084 0A43     		orrs	r2, r1
+ 174 0086 1A60     		str	r2, [r3]
+  77:mat.c         **** 	setBlueDiodState(FALSE);
+ 175              		.loc 1 77 0
+ 176 0088 0020     		movs	r0, #0
+ 177 008a FFF7FEFF 		bl	setBlueDiodState
+  78:mat.c         **** }
+ 178              		.loc 1 78 0
+ 179 008e C046     		nop
+ 180 0090 BD46     		mov	sp, r7
+ 181              		@ sp needed
+ 182 0092 80BC     		pop	{r7}
+ 183 0094 01BC     		pop	{r0}
+ 184 0096 0047     		bx	r0
+ 185              	.L12:
+ 186              		.align	2
+ 187              	.L11:
+ 188 0098 04C002E0 		.word	-536690684
+ 189              		.cfi_endproc
+ 190              	.LFE2:
+ 191              		.size	initBlueDiod, .-initBlueDiod
+ 192              		.align	1
+ 193              		.global	setBlueDiodState
+ 194              		.syntax unified
+ 195              		.code	16
+ 196              		.thumb_func
+ 197              		.fpu softvfp
+ 198              		.type	setBlueDiodState, %function
+ 199              	setBlueDiodState:
+ 200              	.LFB3:
+  79:mat.c         **** 
+  80:mat.c         **** /*
+  81:mat.c         ****  *  @brief			Funkcja ustawiajaca stan diody Blue LED
+  82:mat.c         ****  *
+  83:mat.c         ****  *  @Description	Funkcja zapala albo gasi diode Blue LED na podstawie przekazanej wartosci logiczne
+  84:mat.c         ****  * 					po przez ustawienie odpowiednio bitu nr 3 w rejestrze External Match Register dla
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 6
+
+
+  85:mat.c         ****  * 					Timera #1 (T1EMR).
+  86:mat.c         ****  *
+  87:mat.c         ****  *  @param 			[in]	toSet
+  88:mat.c         ****  *						wartosc logiczna informujaca o tym czy dioda ma byc zapalona
+  89:mat.c         ****  *
+  90:mat.c         ****  *  @returns  		nic
+  91:mat.c         ****  *
+  92:mat.c         ****  *  @side effects	Modyfikacja rejestru T1EMR
+  93:mat.c         ****  */
+  94:mat.c         **** void setBlueDiodState(tBool toSet)
+  95:mat.c         **** {
+ 201              		.loc 1 95 0
+ 202              		.cfi_startproc
+ 203              		@ Function supports interworking.
+ 204              		@ args = 0, pretend = 0, frame = 8
+ 205              		@ frame_needed = 1, uses_anonymous_args = 0
+ 206 009c 80B5     		push	{r7, lr}
+ 207              	.LCFI7:
+ 208              		.cfi_def_cfa_offset 8
+ 209              		.cfi_offset 7, -8
+ 210              		.cfi_offset 14, -4
+ 211 009e 82B0     		sub	sp, sp, #8
+ 212              	.LCFI8:
+ 213              		.cfi_def_cfa_offset 16
+ 214 00a0 00AF     		add	r7, sp, #0
+ 215              	.LCFI9:
+ 216              		.cfi_def_cfa_register 7
+ 217 00a2 0200     		movs	r2, r0
+ 218 00a4 FB1D     		adds	r3, r7, #7
+ 219 00a6 1A70     		strb	r2, [r3]
+  96:mat.c         **** 	if (toSet == TRUE) {
+ 220              		.loc 1 96 0
+ 221 00a8 FB1D     		adds	r3, r7, #7
+ 222 00aa 1B78     		ldrb	r3, [r3]
+ 223 00ac 012B     		cmp	r3, #1
+ 224 00ae 08D1     		bne	.L14
+  97:mat.c         **** 		T1EMR &= ~(one32 << 3);
+ 225              		.loc 1 97 0
+ 226 00b0 0A4B     		ldr	r3, .L17
+ 227 00b2 1A68     		ldr	r2, [r3]
+ 228 00b4 0123     		movs	r3, #1
+ 229 00b6 DB00     		lsls	r3, r3, #3
+ 230 00b8 D943     		mvns	r1, r3
+ 231 00ba 084B     		ldr	r3, .L17
+ 232 00bc 0A40     		ands	r2, r1
+ 233 00be 1A60     		str	r2, [r3]
+  98:mat.c         **** 	}
+  99:mat.c         **** 	else
+ 100:mat.c         **** 	{
+ 101:mat.c         **** 		T1EMR |= one32 << 3;
+ 102:mat.c         **** 	}
+ 103:mat.c         **** }
+ 234              		.loc 1 103 0
+ 235 00c0 06E0     		b	.L16
+ 236              	.L14:
+ 101:mat.c         **** 	}
+ 237              		.loc 1 101 0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 7
+
+
+ 238 00c2 064B     		ldr	r3, .L17
+ 239 00c4 1968     		ldr	r1, [r3]
+ 240 00c6 0123     		movs	r3, #1
+ 241 00c8 DA00     		lsls	r2, r3, #3
+ 242 00ca 044B     		ldr	r3, .L17
+ 243 00cc 0A43     		orrs	r2, r1
+ 244 00ce 1A60     		str	r2, [r3]
+ 245              	.L16:
+ 246              		.loc 1 103 0
+ 247 00d0 C046     		nop
+ 248 00d2 BD46     		mov	sp, r7
+ 249 00d4 02B0     		add	sp, sp, #8
+ 250              		@ sp needed
+ 251 00d6 80BC     		pop	{r7}
+ 252 00d8 01BC     		pop	{r0}
+ 253 00da 0047     		bx	r0
+ 254              	.L18:
+ 255              		.align	2
+ 256              	.L17:
+ 257 00dc 3C8000E0 		.word	-536838084
+ 258              		.cfi_endproc
+ 259              	.LFE3:
+ 260              		.size	setBlueDiodState, .-setBlueDiodState
+ 261              	.Letext0:
+ 262              		.file 2 "general.h"
+ 263              		.section	.debug_info,"",%progbits
+ 264              	.Ldebug_info0:
+ 265 0000 1E010000 		.4byte	0x11e
+ 266 0004 0200     		.2byte	0x2
+ 267 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 268 000a 04       		.byte	0x4
+ 269 000b 01       		.uleb128 0x1
+ 270 000c 5B000000 		.4byte	.LASF16
+ 271 0010 0C       		.byte	0xc
+ 272 0011 1B000000 		.4byte	.LASF17
+ 273 0015 EE000000 		.4byte	.LASF18
+ 274 0019 00000000 		.4byte	.Ltext0
+ 275 001d E0000000 		.4byte	.Letext0
+ 276 0021 00000000 		.4byte	.Ldebug_line0
+ 277 0025 02       		.uleb128 0x2
+ 278 0026 01       		.byte	0x1
+ 279 0027 08       		.byte	0x8
+ 280 0028 48000000 		.4byte	.LASF0
+ 281 002c 02       		.uleb128 0x2
+ 282 002d 02       		.byte	0x2
+ 283 002e 07       		.byte	0x7
+ 284 002f 0C010000 		.4byte	.LASF1
+ 285 0033 03       		.uleb128 0x3
+ 286 0034 64010000 		.4byte	.LASF9
+ 287 0038 02       		.byte	0x2
+ 288 0039 09       		.byte	0x9
+ 289 003a 43000000 		.4byte	0x43
+ 290 003e 04       		.uleb128 0x4
+ 291 003f 33000000 		.4byte	0x33
+ 292 0043 02       		.uleb128 0x2
+ 293 0044 04       		.byte	0x4
+ 294 0045 07       		.byte	0x7
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 8
+
+
+ 295 0046 0E000000 		.4byte	.LASF2
+ 296 004a 02       		.uleb128 0x2
+ 297 004b 08       		.byte	0x8
+ 298 004c 07       		.byte	0x7
+ 299 004d 21000000 		.4byte	.LASF3
+ 300 0051 02       		.uleb128 0x2
+ 301 0052 01       		.byte	0x1
+ 302 0053 06       		.byte	0x6
+ 303 0054 1F010000 		.4byte	.LASF4
+ 304 0058 02       		.uleb128 0x2
+ 305 0059 02       		.byte	0x2
+ 306 005a 05       		.byte	0x5
+ 307 005b 43010000 		.4byte	.LASF5
+ 308 005f 05       		.uleb128 0x5
+ 309 0060 04       		.byte	0x4
+ 310 0061 05       		.byte	0x5
+ 311 0062 696E7400 		.ascii	"int\000"
+ 312 0066 02       		.uleb128 0x2
+ 313 0067 08       		.byte	0x8
+ 314 0068 05       		.byte	0x5
+ 315 0069 00000000 		.4byte	.LASF6
+ 316 006d 06       		.uleb128 0x6
+ 317 006e 07       		.byte	0x7
+ 318 006f 01       		.byte	0x1
+ 319 0070 25000000 		.4byte	0x25
+ 320 0074 02       		.byte	0x2
+ 321 0075 0F       		.byte	0xf
+ 322 0076 87000000 		.4byte	0x87
+ 323 007a 07       		.uleb128 0x7
+ 324 007b 4D010000 		.4byte	.LASF7
+ 325 007f 00       		.byte	0
+ 326 0080 07       		.uleb128 0x7
+ 327 0081 56000000 		.4byte	.LASF8
+ 328 0085 01       		.byte	0x1
+ 329 0086 00       		.byte	0
+ 330 0087 03       		.uleb128 0x3
+ 331 0088 3D010000 		.4byte	.LASF10
+ 332 008c 02       		.byte	0x2
+ 333 008d 10       		.byte	0x10
+ 334 008e 6D000000 		.4byte	0x6d
+ 335 0092 08       		.uleb128 0x8
+ 336 0093 DB000000 		.4byte	.LASF19
+ 337 0097 01       		.byte	0x1
+ 338 0098 0D       		.byte	0xd
+ 339 0099 3E000000 		.4byte	0x3e
+ 340 009d 05       		.byte	0x5
+ 341 009e 03       		.byte	0x3
+ 342 009f 00000000 		.4byte	one32
+ 343 00a3 09       		.uleb128 0x9
+ 344 00a4 01       		.byte	0x1
+ 345 00a5 53010000 		.4byte	.LASF11
+ 346 00a9 01       		.byte	0x1
+ 347 00aa 5E       		.byte	0x5e
+ 348 00ab 01       		.byte	0x1
+ 349 00ac 9C000000 		.4byte	.LFB3
+ 350 00b0 E0000000 		.4byte	.LFE3
+ 351 00b4 00000000 		.4byte	.LLST3
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 9
+
+
+ 352 00b8 01       		.byte	0x1
+ 353 00b9 CC000000 		.4byte	0xcc
+ 354 00bd 0A       		.uleb128 0xa
+ 355 00be 37010000 		.4byte	.LASF13
+ 356 00c2 01       		.byte	0x1
+ 357 00c3 5E       		.byte	0x5e
+ 358 00c4 87000000 		.4byte	0x87
+ 359 00c8 02       		.byte	0x2
+ 360 00c9 91       		.byte	0x91
+ 361 00ca 77       		.sleb128 -9
+ 362 00cb 00       		.byte	0
+ 363 00cc 0B       		.uleb128 0xb
+ 364 00cd 01       		.byte	0x1
+ 365 00ce E1000000 		.4byte	.LASF14
+ 366 00d2 01       		.byte	0x1
+ 367 00d3 49       		.byte	0x49
+ 368 00d4 01       		.byte	0x1
+ 369 00d5 70000000 		.4byte	.LFB2
+ 370 00d9 9C000000 		.4byte	.LFE2
+ 371 00dd 38000000 		.4byte	.LLST2
+ 372 00e1 01       		.byte	0x1
+ 373 00e2 09       		.uleb128 0x9
+ 374 00e3 01       		.byte	0x1
+ 375 00e4 38000000 		.4byte	.LASF12
+ 376 00e8 01       		.byte	0x1
+ 377 00e9 31       		.byte	0x31
+ 378 00ea 01       		.byte	0x1
+ 379 00eb 2C000000 		.4byte	.LFB1
+ 380 00ef 70000000 		.4byte	.LFE1
+ 381 00f3 64000000 		.4byte	.LLST1
+ 382 00f7 01       		.byte	0x1
+ 383 00f8 0B010000 		.4byte	0x10b
+ 384 00fc 0A       		.uleb128 0xa
+ 385 00fd 37010000 		.4byte	.LASF13
+ 386 0101 01       		.byte	0x1
+ 387 0102 31       		.byte	0x31
+ 388 0103 87000000 		.4byte	0x87
+ 389 0107 02       		.byte	0x2
+ 390 0108 91       		.byte	0x91
+ 391 0109 77       		.sleb128 -9
+ 392 010a 00       		.byte	0
+ 393 010b 0B       		.uleb128 0xb
+ 394 010c 01       		.byte	0x1
+ 395 010d 2B010000 		.4byte	.LASF15
+ 396 0111 01       		.byte	0x1
+ 397 0112 1C       		.byte	0x1c
+ 398 0113 01       		.byte	0x1
+ 399 0114 00000000 		.4byte	.LFB0
+ 400 0118 2C000000 		.4byte	.LFE0
+ 401 011c 9C000000 		.4byte	.LLST0
+ 402 0120 01       		.byte	0x1
+ 403 0121 00       		.byte	0
+ 404              		.section	.debug_abbrev,"",%progbits
+ 405              	.Ldebug_abbrev0:
+ 406 0000 01       		.uleb128 0x1
+ 407 0001 11       		.uleb128 0x11
+ 408 0002 01       		.byte	0x1
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 10
+
+
+ 409 0003 25       		.uleb128 0x25
+ 410 0004 0E       		.uleb128 0xe
+ 411 0005 13       		.uleb128 0x13
+ 412 0006 0B       		.uleb128 0xb
+ 413 0007 03       		.uleb128 0x3
+ 414 0008 0E       		.uleb128 0xe
+ 415 0009 1B       		.uleb128 0x1b
+ 416 000a 0E       		.uleb128 0xe
+ 417 000b 11       		.uleb128 0x11
+ 418 000c 01       		.uleb128 0x1
+ 419 000d 12       		.uleb128 0x12
+ 420 000e 01       		.uleb128 0x1
+ 421 000f 10       		.uleb128 0x10
+ 422 0010 06       		.uleb128 0x6
+ 423 0011 00       		.byte	0
+ 424 0012 00       		.byte	0
+ 425 0013 02       		.uleb128 0x2
+ 426 0014 24       		.uleb128 0x24
+ 427 0015 00       		.byte	0
+ 428 0016 0B       		.uleb128 0xb
+ 429 0017 0B       		.uleb128 0xb
+ 430 0018 3E       		.uleb128 0x3e
+ 431 0019 0B       		.uleb128 0xb
+ 432 001a 03       		.uleb128 0x3
+ 433 001b 0E       		.uleb128 0xe
+ 434 001c 00       		.byte	0
+ 435 001d 00       		.byte	0
+ 436 001e 03       		.uleb128 0x3
+ 437 001f 16       		.uleb128 0x16
+ 438 0020 00       		.byte	0
+ 439 0021 03       		.uleb128 0x3
+ 440 0022 0E       		.uleb128 0xe
+ 441 0023 3A       		.uleb128 0x3a
+ 442 0024 0B       		.uleb128 0xb
+ 443 0025 3B       		.uleb128 0x3b
+ 444 0026 0B       		.uleb128 0xb
+ 445 0027 49       		.uleb128 0x49
+ 446 0028 13       		.uleb128 0x13
+ 447 0029 00       		.byte	0
+ 448 002a 00       		.byte	0
+ 449 002b 04       		.uleb128 0x4
+ 450 002c 26       		.uleb128 0x26
+ 451 002d 00       		.byte	0
+ 452 002e 49       		.uleb128 0x49
+ 453 002f 13       		.uleb128 0x13
+ 454 0030 00       		.byte	0
+ 455 0031 00       		.byte	0
+ 456 0032 05       		.uleb128 0x5
+ 457 0033 24       		.uleb128 0x24
+ 458 0034 00       		.byte	0
+ 459 0035 0B       		.uleb128 0xb
+ 460 0036 0B       		.uleb128 0xb
+ 461 0037 3E       		.uleb128 0x3e
+ 462 0038 0B       		.uleb128 0xb
+ 463 0039 03       		.uleb128 0x3
+ 464 003a 08       		.uleb128 0x8
+ 465 003b 00       		.byte	0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 11
+
+
+ 466 003c 00       		.byte	0
+ 467 003d 06       		.uleb128 0x6
+ 468 003e 04       		.uleb128 0x4
+ 469 003f 01       		.byte	0x1
+ 470 0040 3E       		.uleb128 0x3e
+ 471 0041 0B       		.uleb128 0xb
+ 472 0042 0B       		.uleb128 0xb
+ 473 0043 0B       		.uleb128 0xb
+ 474 0044 49       		.uleb128 0x49
+ 475 0045 13       		.uleb128 0x13
+ 476 0046 3A       		.uleb128 0x3a
+ 477 0047 0B       		.uleb128 0xb
+ 478 0048 3B       		.uleb128 0x3b
+ 479 0049 0B       		.uleb128 0xb
+ 480 004a 01       		.uleb128 0x1
+ 481 004b 13       		.uleb128 0x13
+ 482 004c 00       		.byte	0
+ 483 004d 00       		.byte	0
+ 484 004e 07       		.uleb128 0x7
+ 485 004f 28       		.uleb128 0x28
+ 486 0050 00       		.byte	0
+ 487 0051 03       		.uleb128 0x3
+ 488 0052 0E       		.uleb128 0xe
+ 489 0053 1C       		.uleb128 0x1c
+ 490 0054 0B       		.uleb128 0xb
+ 491 0055 00       		.byte	0
+ 492 0056 00       		.byte	0
+ 493 0057 08       		.uleb128 0x8
+ 494 0058 34       		.uleb128 0x34
+ 495 0059 00       		.byte	0
+ 496 005a 03       		.uleb128 0x3
+ 497 005b 0E       		.uleb128 0xe
+ 498 005c 3A       		.uleb128 0x3a
+ 499 005d 0B       		.uleb128 0xb
+ 500 005e 3B       		.uleb128 0x3b
+ 501 005f 0B       		.uleb128 0xb
+ 502 0060 49       		.uleb128 0x49
+ 503 0061 13       		.uleb128 0x13
+ 504 0062 02       		.uleb128 0x2
+ 505 0063 0A       		.uleb128 0xa
+ 506 0064 00       		.byte	0
+ 507 0065 00       		.byte	0
+ 508 0066 09       		.uleb128 0x9
+ 509 0067 2E       		.uleb128 0x2e
+ 510 0068 01       		.byte	0x1
+ 511 0069 3F       		.uleb128 0x3f
+ 512 006a 0C       		.uleb128 0xc
+ 513 006b 03       		.uleb128 0x3
+ 514 006c 0E       		.uleb128 0xe
+ 515 006d 3A       		.uleb128 0x3a
+ 516 006e 0B       		.uleb128 0xb
+ 517 006f 3B       		.uleb128 0x3b
+ 518 0070 0B       		.uleb128 0xb
+ 519 0071 27       		.uleb128 0x27
+ 520 0072 0C       		.uleb128 0xc
+ 521 0073 11       		.uleb128 0x11
+ 522 0074 01       		.uleb128 0x1
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 12
+
+
+ 523 0075 12       		.uleb128 0x12
+ 524 0076 01       		.uleb128 0x1
+ 525 0077 40       		.uleb128 0x40
+ 526 0078 06       		.uleb128 0x6
+ 527 0079 9742     		.uleb128 0x2117
+ 528 007b 0C       		.uleb128 0xc
+ 529 007c 01       		.uleb128 0x1
+ 530 007d 13       		.uleb128 0x13
+ 531 007e 00       		.byte	0
+ 532 007f 00       		.byte	0
+ 533 0080 0A       		.uleb128 0xa
+ 534 0081 05       		.uleb128 0x5
+ 535 0082 00       		.byte	0
+ 536 0083 03       		.uleb128 0x3
+ 537 0084 0E       		.uleb128 0xe
+ 538 0085 3A       		.uleb128 0x3a
+ 539 0086 0B       		.uleb128 0xb
+ 540 0087 3B       		.uleb128 0x3b
+ 541 0088 0B       		.uleb128 0xb
+ 542 0089 49       		.uleb128 0x49
+ 543 008a 13       		.uleb128 0x13
+ 544 008b 02       		.uleb128 0x2
+ 545 008c 0A       		.uleb128 0xa
+ 546 008d 00       		.byte	0
+ 547 008e 00       		.byte	0
+ 548 008f 0B       		.uleb128 0xb
+ 549 0090 2E       		.uleb128 0x2e
+ 550 0091 00       		.byte	0
+ 551 0092 3F       		.uleb128 0x3f
+ 552 0093 0C       		.uleb128 0xc
+ 553 0094 03       		.uleb128 0x3
+ 554 0095 0E       		.uleb128 0xe
+ 555 0096 3A       		.uleb128 0x3a
+ 556 0097 0B       		.uleb128 0xb
+ 557 0098 3B       		.uleb128 0x3b
+ 558 0099 0B       		.uleb128 0xb
+ 559 009a 27       		.uleb128 0x27
+ 560 009b 0C       		.uleb128 0xc
+ 561 009c 11       		.uleb128 0x11
+ 562 009d 01       		.uleb128 0x1
+ 563 009e 12       		.uleb128 0x12
+ 564 009f 01       		.uleb128 0x1
+ 565 00a0 40       		.uleb128 0x40
+ 566 00a1 06       		.uleb128 0x6
+ 567 00a2 9642     		.uleb128 0x2116
+ 568 00a4 0C       		.uleb128 0xc
+ 569 00a5 00       		.byte	0
+ 570 00a6 00       		.byte	0
+ 571 00a7 00       		.byte	0
+ 572              		.section	.debug_loc,"",%progbits
+ 573              	.Ldebug_loc0:
+ 574              	.LLST3:
+ 575 0000 9C000000 		.4byte	.LFB3-.Ltext0
+ 576 0004 9E000000 		.4byte	.LCFI7-.Ltext0
+ 577 0008 0200     		.2byte	0x2
+ 578 000a 7D       		.byte	0x7d
+ 579 000b 00       		.sleb128 0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 13
+
+
+ 580 000c 9E000000 		.4byte	.LCFI7-.Ltext0
+ 581 0010 A0000000 		.4byte	.LCFI8-.Ltext0
+ 582 0014 0200     		.2byte	0x2
+ 583 0016 7D       		.byte	0x7d
+ 584 0017 08       		.sleb128 8
+ 585 0018 A0000000 		.4byte	.LCFI8-.Ltext0
+ 586 001c A2000000 		.4byte	.LCFI9-.Ltext0
+ 587 0020 0200     		.2byte	0x2
+ 588 0022 7D       		.byte	0x7d
+ 589 0023 10       		.sleb128 16
+ 590 0024 A2000000 		.4byte	.LCFI9-.Ltext0
+ 591 0028 E0000000 		.4byte	.LFE3-.Ltext0
+ 592 002c 0200     		.2byte	0x2
+ 593 002e 77       		.byte	0x77
+ 594 002f 10       		.sleb128 16
+ 595 0030 00000000 		.4byte	0
+ 596 0034 00000000 		.4byte	0
+ 597              	.LLST2:
+ 598 0038 70000000 		.4byte	.LFB2-.Ltext0
+ 599 003c 72000000 		.4byte	.LCFI5-.Ltext0
+ 600 0040 0200     		.2byte	0x2
+ 601 0042 7D       		.byte	0x7d
+ 602 0043 00       		.sleb128 0
+ 603 0044 72000000 		.4byte	.LCFI5-.Ltext0
+ 604 0048 74000000 		.4byte	.LCFI6-.Ltext0
+ 605 004c 0200     		.2byte	0x2
+ 606 004e 7D       		.byte	0x7d
+ 607 004f 08       		.sleb128 8
+ 608 0050 74000000 		.4byte	.LCFI6-.Ltext0
+ 609 0054 9C000000 		.4byte	.LFE2-.Ltext0
+ 610 0058 0200     		.2byte	0x2
+ 611 005a 77       		.byte	0x77
+ 612 005b 08       		.sleb128 8
+ 613 005c 00000000 		.4byte	0
+ 614 0060 00000000 		.4byte	0
+ 615              	.LLST1:
+ 616 0064 2C000000 		.4byte	.LFB1-.Ltext0
+ 617 0068 2E000000 		.4byte	.LCFI2-.Ltext0
+ 618 006c 0200     		.2byte	0x2
+ 619 006e 7D       		.byte	0x7d
+ 620 006f 00       		.sleb128 0
+ 621 0070 2E000000 		.4byte	.LCFI2-.Ltext0
+ 622 0074 30000000 		.4byte	.LCFI3-.Ltext0
+ 623 0078 0200     		.2byte	0x2
+ 624 007a 7D       		.byte	0x7d
+ 625 007b 08       		.sleb128 8
+ 626 007c 30000000 		.4byte	.LCFI3-.Ltext0
+ 627 0080 32000000 		.4byte	.LCFI4-.Ltext0
+ 628 0084 0200     		.2byte	0x2
+ 629 0086 7D       		.byte	0x7d
+ 630 0087 10       		.sleb128 16
+ 631 0088 32000000 		.4byte	.LCFI4-.Ltext0
+ 632 008c 70000000 		.4byte	.LFE1-.Ltext0
+ 633 0090 0200     		.2byte	0x2
+ 634 0092 77       		.byte	0x77
+ 635 0093 10       		.sleb128 16
+ 636 0094 00000000 		.4byte	0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 14
+
+
+ 637 0098 00000000 		.4byte	0
+ 638              	.LLST0:
+ 639 009c 00000000 		.4byte	.LFB0-.Ltext0
+ 640 00a0 02000000 		.4byte	.LCFI0-.Ltext0
+ 641 00a4 0200     		.2byte	0x2
+ 642 00a6 7D       		.byte	0x7d
+ 643 00a7 00       		.sleb128 0
+ 644 00a8 02000000 		.4byte	.LCFI0-.Ltext0
+ 645 00ac 04000000 		.4byte	.LCFI1-.Ltext0
+ 646 00b0 0200     		.2byte	0x2
+ 647 00b2 7D       		.byte	0x7d
+ 648 00b3 08       		.sleb128 8
+ 649 00b4 04000000 		.4byte	.LCFI1-.Ltext0
+ 650 00b8 2C000000 		.4byte	.LFE0-.Ltext0
+ 651 00bc 0200     		.2byte	0x2
+ 652 00be 77       		.byte	0x77
+ 653 00bf 08       		.sleb128 8
+ 654 00c0 00000000 		.4byte	0
+ 655 00c4 00000000 		.4byte	0
+ 656              		.section	.debug_aranges,"",%progbits
+ 657 0000 1C000000 		.4byte	0x1c
+ 658 0004 0200     		.2byte	0x2
+ 659 0006 00000000 		.4byte	.Ldebug_info0
+ 660 000a 04       		.byte	0x4
+ 661 000b 00       		.byte	0
+ 662 000c 0000     		.2byte	0
+ 663 000e 0000     		.2byte	0
+ 664 0010 00000000 		.4byte	.Ltext0
+ 665 0014 E0000000 		.4byte	.Letext0-.Ltext0
+ 666 0018 00000000 		.4byte	0
+ 667 001c 00000000 		.4byte	0
+ 668              		.section	.debug_line,"",%progbits
+ 669              	.Ldebug_line0:
+ 670 0000 57000000 		.section	.debug_str,"MS",%progbits,1
+ 670      02002900 
+ 670      00000201 
+ 670      FB0E0D00 
+ 670      01010101 
+ 671              	.LASF6:
+ 672 0000 6C6F6E67 		.ascii	"long long int\000"
+ 672      206C6F6E 
+ 672      6720696E 
+ 672      7400
+ 673              	.LASF2:
+ 674 000e 756E7369 		.ascii	"unsigned int\000"
+ 674      676E6564 
+ 674      20696E74 
+ 674      00
+ 675              	.LASF17:
+ 676 001b 6D61742E 		.ascii	"mat.c\000"
+ 676      6300
+ 677              	.LASF3:
+ 678 0021 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 678      206C6F6E 
+ 678      6720756E 
+ 678      7369676E 
+ 678      65642069 
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 15
+
+
+ 679              	.LASF12:
+ 680 0038 73657452 		.ascii	"setRedDiodState\000"
+ 680      65644469 
+ 680      6F645374 
+ 680      61746500 
+ 681              	.LASF0:
+ 682 0048 756E7369 		.ascii	"unsigned char\000"
+ 682      676E6564 
+ 682      20636861 
+ 682      7200
+ 683              	.LASF8:
+ 684 0056 54525545 		.ascii	"TRUE\000"
+ 684      00
+ 685              	.LASF16:
+ 686 005b 474E5520 		.ascii	"GNU C11 7.3.1 20180622 (release) [ARM/embedded-7-br"
+ 686      43313120 
+ 686      372E332E 
+ 686      31203230 
+ 686      31383036 
+ 687 008e 616E6368 		.ascii	"anch revision 261907] -mcpu=arm7tdmi -mthumb -mthum"
+ 687      20726576 
+ 687      6973696F 
+ 687      6E203236 
+ 687      31393037 
+ 688 00c1 622D696E 		.ascii	"b-interwork -gdwarf-2 -O0\000"
+ 688      74657277 
+ 688      6F726B20 
+ 688      2D676477 
+ 688      6172662D 
+ 689              	.LASF19:
+ 690 00db 6F6E6533 		.ascii	"one32\000"
+ 690      3200
+ 691              	.LASF14:
+ 692 00e1 696E6974 		.ascii	"initBlueDiod\000"
+ 692      426C7565 
+ 692      44696F64 
+ 692      00
+ 693              	.LASF18:
+ 694 00ee 433A5C45 		.ascii	"C:\\Embedded\\2138MiniDemo\\2138\000"
+ 694      6D626564 
+ 694      6465645C 
+ 694      32313338 
+ 694      4D696E69 
+ 695              	.LASF1:
+ 696 010c 73686F72 		.ascii	"short unsigned int\000"
+ 696      7420756E 
+ 696      7369676E 
+ 696      65642069 
+ 696      6E7400
+ 697              	.LASF4:
+ 698 011f 7369676E 		.ascii	"signed char\000"
+ 698      65642063 
+ 698      68617200 
+ 699              	.LASF15:
+ 700 012b 696E6974 		.ascii	"initRedDiod\000"
+ 700      52656444 
+ 700      696F6400 
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 16
+
+
+ 701              	.LASF13:
+ 702 0137 746F5365 		.ascii	"toSet\000"
+ 702      7400
+ 703              	.LASF10:
+ 704 013d 74426F6F 		.ascii	"tBool\000"
+ 704      6C00
+ 705              	.LASF5:
+ 706 0143 73686F72 		.ascii	"short int\000"
+ 706      7420696E 
+ 706      7400
+ 707              	.LASF7:
+ 708 014d 46414C53 		.ascii	"FALSE\000"
+ 708      4500
+ 709              	.LASF11:
+ 710 0153 73657442 		.ascii	"setBlueDiodState\000"
+ 710      6C756544 
+ 710      696F6453 
+ 710      74617465 
+ 710      00
+ 711              	.LASF9:
+ 712 0164 74553332 		.ascii	"tU32\000"
+ 712      00
+ 713              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 7.3.1 20180622 (release) [AR
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s 			page 17
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 mat.c
+C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s:16     .rodata:00000000 $d
+C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s:19     .rodata:00000000 one32
+C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s:29     .text:00000000 initRedDiod
+C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s:37     .text:00000000 $t
+C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s:80     .text:0000002c setRedDiodState
+C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s:69     .text:00000028 $d
+C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s:73     .text:0000002c $t
+C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s:138    .text:0000006c $d
+C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s:142    .text:00000070 $t
+C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s:149    .text:00000070 initBlueDiod
+C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s:199    .text:0000009c setBlueDiodState
+C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s:188    .text:00000098 $d
+C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s:192    .text:0000009c $t
+C:\Users\embedded\AppData\Local\Temp\cc2BrURg.s:257    .text:000000dc $d
+
+NO UNDEFINED SYMBOLS

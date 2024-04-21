@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<dumps language="c">
+  <platform name="win64" char_bit="8" short_bit="16" int_bit="32" long_bit="32" long_long_bit="64" pointer_bit="64"/>
+  <rawtokens>
+    <file index="0" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c"/>
+    <file index="1" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h"/>
+    <file index="2" name="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h"/>
+    <tok fileIndex="0" linenr="1" column="1" str="#"/>
+    <tok fileIndex="0" linenr="1" column="2" str="include"/>
+    <tok fileIndex="0" linenr="1" column="10" str="&quot;watchdog.h&quot;"/>
+    <tok fileIndex="0" linenr="2" column="1" str="#"/>
+    <tok fileIndex="0" linenr="2" column="2" str="include"/>
+    <tok fileIndex="0" linenr="2" column="10" str="&quot;config.h&quot;"/>
+    <tok fileIndex="0" linenr="4" column="1" str="/* *  @briefxxxFunkcja sxxuxxxxca do incjalizowania Watchdoga. * *  @DescriptionxFunkcja sxxuxxxxca do incjalizowania Watchdoga, z okrexxlonym intervaxxem wyraxxonym w sekundach. * *  @param xxx[in]xinterval *xxxxxxCzas po ktxxrym ma dojxxxx do resetu jexxeli nie doszxxo do potrxxcenia Watchdoga. * *  @returns  xxnic * *  @side effectsxUstawienie wartoxxci rejestru WDMOD oraz WDTC. */"/>
+    <tok fileIndex="0" linenr="16" column="1" str="void"/>
+    <tok fileIndex="0" linenr="16" column="6" str="initWatchdog"/>
+    <tok fileIndex="0" linenr="16" column="18" str="("/>
+    <tok fileIndex="0" linenr="16" column="19" str="tU32"/>
+    <tok fileIndex="0" linenr="16" column="24" str="interval"/>
+    <tok fileIndex="0" linenr="16" column="32" str=")"/>
+    <tok fileIndex="0" linenr="17" column="1" str="{"/>
+    <tok fileIndex="0" linenr="18" column="2" str="WDMOD"/>
+    <tok fileIndex="0" linenr="18" column="9" str="="/>
+    <tok fileIndex="0" linenr="18" column="11" str="WDEN"/>
+    <tok fileIndex="0" linenr="18" column="16" str="|"/>
+    <tok fileIndex="0" linenr="18" column="18" str="WDRESET"/>
+    <tok fileIndex="0" linenr="18" column="25" str=";"/>
+    <tok fileIndex="0" linenr="19" column="2" str="WDTC"/>
+    <tok fileIndex="0" linenr="19" column="8" str="="/>
+    <tok fileIndex="0" linenr="19" column="10" str="interval"/>
+    <tok fileIndex="0" linenr="19" column="19" str="*"/>
+    <tok fileIndex="0" linenr="19" column="21" str="PERIPHERAL_CLOCK"/>
+    <tok fileIndex="0" linenr="19" column="38" str="/"/>
+    <tok fileIndex="0" linenr="19" column="40" str="4"/>
+    <tok fileIndex="0" linenr="19" column="41" str=";"/>
+    <tok fileIndex="0" linenr="20" column="1" str="}"/>
+    <tok fileIndex="0" linenr="22" column="1" str="/*x *  @briefxxxFunkcja sxxuxxxxca do potrxxcenia Watchdoga.x *x *  @DescriptionxFunkcja sxxuxxxxca do potrxxcenia Watchdoga, ktra powoduje reset odliczania czasu do resetu.x *x *  @param xxxbrakx *x *  @returns  xxnicx *x *  @side effectsxUstawienie wartoxxci rejestru WDFEED.x */"/>
+    <tok fileIndex="0" linenr="33" column="1" str="void"/>
+    <tok fileIndex="0" linenr="33" column="6" str="touchWatchdog"/>
+    <tok fileIndex="0" linenr="33" column="19" str="("/>
+    <tok fileIndex="0" linenr="33" column="20" str="void"/>
+    <tok fileIndex="0" linenr="33" column="24" str=")"/>
+    <tok fileIndex="0" linenr="34" column="1" str="{"/>
+    <tok fileIndex="0" linenr="35" column="2" str="WDFEED"/>
+    <tok fileIndex="0" linenr="35" column="9" str="="/>
+    <tok fileIndex="0" linenr="35" column="11" str="0xAA"/>
+    <tok fileIndex="0" linenr="35" column="15" str=";"/>
+    <tok fileIndex="0" linenr="36" column="2" str="WDFEED"/>
+    <tok fileIndex="0" linenr="36" column="9" str="="/>
+    <tok fileIndex="0" linenr="36" column="11" str="0x55"/>
+    <tok fileIndex="0" linenr="36" column="15" str=";"/>
+    <tok fileIndex="0" linenr="37" column="1" str="}"/>
+  </rawtokens>
+  <suppressions>
+    <suppression errorId="misra-c2012-2.3" />
+    <suppression errorId="misra-c2012-2.5" />
+    <suppression errorId="misra-c2012-11.4" />
+  </suppressions>
+<dump cfg="">
+  <standards>
+    <c version="c11"/>
+    <cpp version="c++23"/>
+  </standards>
+  <directivelist>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="1" str="#include &quot;watchdog.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="2" str="#include &quot;config.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="4" str="#ifndef GENERAL_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="5" str="#define GENERAL_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="18" str="#define BIT(n) (1u &lt;&lt; (n))"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="21" str="#endif"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="8" str="#ifndef WATCHDOG_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="9" str="#define WATCHDOG_H"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="12" str="#include &lt;lpc2xxx.h&gt;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="13" str="#include &quot;general.h&quot;"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="16" str="#define WDEN 0x01"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="17" str="#define WDRESET 0x02"/>
+    <directive file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="48" str="#endif"/>
+  </directivelist>
+  <macro-usage>
+    <macro name="GENERAL_H" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="5" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" useline="4" usecolumn="9" is-known-value="true"/>
+    <macro name="WDEN" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" line="16" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" useline="18" usecolumn="11" is-known-value="true"/>
+    <macro name="WATCHDOG_H" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" line="9" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" useline="8" usecolumn="9" is-known-value="true"/>
+    <macro name="WDRESET" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" line="17" column="9" usefile="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" useline="18" usecolumn="18" is-known-value="true"/>
+  </macro-usage>
+  <tokenlist>
+    <token id="0000014121482DE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="9" str="enum" scope="0000014121468110" type="name"/>
+    <token id="0000014121482840" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="0" str="tBool" scope="0000014121468110" type="name" type-scope="0000014121468890"/>
+    <token id="00000141214833E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="13" str="{" scope="0000014121468890" link="0000014121484D60" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468890"/>
+    <token id="00000141214835C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="14" str="FALSE" scope="0000014121468890" type="name" values="00000141232CBB20" astParent="0000014121484100" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468890"/>
+    <token id="0000014121484100" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="20" str="=" scope="0000014121468890" type="op" isAssignmentOp="true" values="00000141232CB9E0" astParent="00000141214845E0" astOperand1="00000141214835C0" astOperand2="00000141214847C0" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468890"/>
+    <token id="00000141214847C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="22" str="0" scope="0000014121468890" type="number" isInt="true" values="00000141232CB920" astParent="0000014121484100" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="00000141214845E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="15" column="23" str="," scope="0000014121468890" values="00000141232CBC80" astOperand1="0000014121484100" astOperand2="0000014121484760"/>
+    <token id="0000014121484F40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="14" str="TRUE" scope="0000014121468890" type="name" values="00000141232CBC60" astParent="0000014121484760" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468890"/>
+    <token id="0000014121484760" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="20" str="=" scope="0000014121468890" type="op" isAssignmentOp="true" values="00000141232CC000" astParent="00000141214845E0" astOperand1="0000014121484F40" astOperand2="0000014121485000" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468890"/>
+    <token id="0000014121485000" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="22" str="!" scope="0000014121468890" type="op" isLogicalOp="true" values="00000141232CC080" astParent="0000014121484760" astOperand1="0000014121484E80" valueType-type="bool" valueType-reference="None"/>
+    <token id="0000014121484E80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="23" str="FALSE" scope="0000014121468890" type="name" values="00000141232CBA60" astParent="0000014121485000" valueType-type="int" valueType-sign="signed" valueType-reference="None" valueType-typeScope="0000014121468890"/>
+    <token id="0000014121484D60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="28" str="}" scope="0000014121468890" link="00000141214833E0"/>
+    <token id="0000014121483380" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" linenr="16" column="0" str=";" scope="0000014121468110"/>
+    <token id="00000141214834A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="33" column="1" str="void" scope="0000014121468110" type="name"/>
+    <token id="0000014121484CA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="33" column="6" str="initWatchdog" scope="0000014121468110" type="name" function="000001412146A460"/>
+    <token id="00000141214842E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="33" column="18" str="(" scope="0000014121468110" link="0000014121483E60" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121484EE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="33" column="0" str="int" scope="0000014121468110" type="name" isUnsigned="true"/>
+    <token id="0000014121483E00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="33" column="24" str="interval" scope="0000014121468110" type="name" varId="1" exprId="1"/>
+    <token id="0000014121483E60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="33" column="32" str=")" scope="0000014121468110" link="00000141214842E0"/>
+    <token id="0000014121483BC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="33" column="33" str=";" scope="0000014121468110"/>
+    <token id="0000014121484D00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="46" column="1" str="void" scope="0000014121468110" type="name"/>
+    <token id="00000141214850C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="46" column="6" str="touchWatchdog" scope="0000014121468110" type="name" function="000001412146A5A0"/>
+    <token id="00000141214840A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="46" column="19" str="(" scope="0000014121468110" isRemovedVoidParameter="true" link="00000141214852A0" valueType-type="void" valueType-reference="None"/>
+    <token id="00000141214852A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="46" column="24" str=")" scope="0000014121468110" link="00000141214840A0"/>
+    <token id="0000014121484160" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.h" linenr="46" column="25" str=";" scope="0000014121468110"/>
+    <token id="0000014121484640" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="16" column="1" str="void" scope="0000014121468110" type="name"/>
+    <token id="0000014121484B20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="16" column="6" str="initWatchdog" scope="0000014121468110" type="name" function="000001412146A460"/>
+    <token id="00000141214848E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="16" column="18" str="(" scope="0000014121468110" link="00000141214843A0" valueType-type="void" valueType-reference="None"/>
+    <token id="0000014121484BE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="16" column="0" str="int" scope="0000014121468110" type="name" isUnsigned="true"/>
+    <token id="0000014121484FA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="16" column="24" str="interval" scope="0000014121468110" type="name" varId="2" exprId="2" variable="0000014121484A60" values="00000141232CBE40" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000141214843A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="16" column="32" str=")" scope="0000014121468110" link="00000141214848E0"/>
+    <token id="0000014121483C80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="17" column="1" str="{" scope="0000014121467C10" link="0000014121484940"/>
+    <token id="0000014121485120" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="18" column="2" str="WDMOD" scope="0000014121467C10" type="name" exprId="3" astParent="00000141214851E0"/>
+    <token id="00000141214851E0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="18" column="9" str="=" scope="0000014121467C10" type="op" isAssignmentOp="true" exprId="6" values="00000141232CBD40" astOperand1="0000014121485120" astOperand2="0000014121484DC0"/>
+    <token id="0000014121485240" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="18" column="11" str="0x01" scope="0000014121467C10" type="number" isInt="true" isExpandedMacro="true" values="00000141232CBF60" astParent="0000014121484DC0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121484DC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="18" column="16" str="|" scope="0000014121467C10" type="op" exprId="7" values="00000141232CBAA0" astParent="00000141214851E0" astOperand1="0000014121485240" astOperand2="0000014121483CE0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121483CE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="18" column="18" str="0x02" scope="0000014121467C10" type="number" isInt="true" isExpandedMacro="true" values="00000141232CBF20" astParent="0000014121484DC0" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121485300" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="18" column="25" str=";" scope="0000014121467C10"/>
+    <token id="0000014121484A00" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="19" column="2" str="WDTC" scope="0000014121467C10" type="name" exprId="4" astParent="0000014121483C20"/>
+    <token id="0000014121483C20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="19" column="8" str="=" scope="0000014121467C10" type="op" isAssignmentOp="true" exprId="8" astOperand1="0000014121484A00" astOperand2="0000014121483F80"/>
+    <token id="0000014121483B60" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="19" column="10" str="interval" scope="0000014121467C10" type="name" varId="2" exprId="2" variable="0000014121484A60" values="00000141232CBA20" astParent="00000141214841C0" valueType-type="int" valueType-sign="unsigned" valueType-reference="None"/>
+    <token id="00000141214841C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="19" column="19" str="*" scope="0000014121467C10" type="op" isArithmeticalOp="true" exprId="9" astParent="0000014121483F80" astOperand1="0000014121483B60" astOperand2="0000014121484400"/>
+    <token id="0000014121484400" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="19" column="21" str="PERIPHERAL_CLOCK" scope="0000014121467C10" type="name" exprId="5" astParent="00000141214841C0"/>
+    <token id="0000014121483F80" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="19" column="38" str="/" scope="0000014121467C10" type="op" isArithmeticalOp="true" exprId="10" astParent="0000014121483C20" astOperand1="00000141214841C0" astOperand2="0000014121483D40"/>
+    <token id="0000014121483D40" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="19" column="40" str="4" scope="0000014121467C10" type="number" isInt="true" values="00000141232CBBA0" astParent="0000014121483F80" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121483DA0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="19" column="41" str=";" scope="0000014121467C10"/>
+    <token id="0000014121484940" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="20" column="1" str="}" scope="0000014121467C10" link="0000014121483C80"/>
+    <token id="0000014121483FE0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="33" column="1" str="void" scope="0000014121468110" type="name"/>
+    <token id="0000014121484220" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="33" column="6" str="touchWatchdog" scope="0000014121468110" type="name" function="000001412146A5A0"/>
+    <token id="0000014121484460" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="33" column="19" str="(" scope="0000014121468110" isRemovedVoidParameter="true" link="00000141214844C0" valueType-type="void" valueType-reference="None"/>
+    <token id="00000141214844C0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="33" column="24" str=")" scope="0000014121468110" link="0000014121484460"/>
+    <token id="00000141214849A0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="34" column="1" str="{" scope="00000141214684D0" link="0000014121484880"/>
+    <token id="0000014121483F20" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="35" column="2" str="WDFEED" scope="00000141214684D0" type="name" exprId="11" astParent="0000014121484040"/>
+    <token id="0000014121484040" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="35" column="9" str="=" scope="00000141214684D0" type="op" isAssignmentOp="true" exprId="12" values="00000141232CBEC0" astOperand1="0000014121483F20" astOperand2="0000014121484280"/>
+    <token id="0000014121484280" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="35" column="11" str="0xAA" scope="00000141214684D0" type="number" isInt="true" values="00000141232CC020" astParent="0000014121484040" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121484AC0" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="35" column="15" str=";" scope="00000141214684D0"/>
+    <token id="0000014121484520" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="36" column="2" str="WDFEED" scope="00000141214684D0" type="name" exprId="11" astParent="0000014121484580"/>
+    <token id="0000014121484580" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="36" column="9" str="=" scope="00000141214684D0" type="op" isAssignmentOp="true" exprId="13" values="00000141232CC040" astOperand1="0000014121484520" astOperand2="0000014121484700"/>
+    <token id="0000014121484700" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="36" column="11" str="0x55" scope="00000141214684D0" type="number" isInt="true" values="00000141232CBB40" astParent="0000014121484580" valueType-type="int" valueType-sign="signed" valueType-reference="None"/>
+    <token id="0000014121484820" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="36" column="15" str=";" scope="00000141214684D0"/>
+    <token id="0000014121484880" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/watchdog.c" linenr="37" column="1" str="}" scope="00000141214684D0" link="00000141214849A0"/>
+  </tokenlist>
+  <scopes>
+    <scope id="0000014121468110" type="Global">
+      <functionList>
+        <function id="000001412146A460" token="0000014121484B20" tokenDef="0000014121484CA0" name="initWatchdog" type="Function" access="Public">
+          <arg nr="1" variable="0000014121484A60"/>
+        </function>
+        <function id="000001412146A5A0" token="0000014121484220" tokenDef="00000141214850C0" name="touchWatchdog" type="Function" access="Public"/>
+      </functionList>
+    </scope>
+    <scope id="0000014121468890" type="Enum" className="tBool" bodyStart="00000141214833E0" bodyEnd="0000014121484D60" nestedIn="0000014121468110" definedType="00000141233BECB0"/>
+    <scope id="0000014121467C10" type="Function" className="initWatchdog" bodyStart="0000014121483C80" bodyEnd="0000014121484940" nestedIn="0000014121468110" function="000001412146A460"/>
+    <scope id="00000141214684D0" type="Function" className="touchWatchdog" bodyStart="00000141214849A0" bodyEnd="0000014121484880" nestedIn="0000014121468110" function="000001412146A5A0"/>
+  </scopes>
+  <types>
+    <type id="00000141233BECB0" classScope="0000014121468890"/>
+  </types>
+  <variables>
+    <var id="0000014121484A60" nameToken="0000014121484FA0" typeStartToken="0000014121484BE0" typeEndToken="0000014121484BE0" access="Argument" scope="0000014121467C10" constness="0" isArray="false" isClass="false" isConst="false" isExtern="false" isPointer="false" isReference="false" isStatic="false" isVolatile="false"/>
+  </variables>
+  <valueflow>
+    <values id="00000141232CBB20">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB9E0">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CB920">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBC80">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBC60">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC000">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC080">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBA60">
+      <value intvalue="0" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBE40">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CBD40">
+      <value intvalue="3" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBF60">
+      <value intvalue="1" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBAA0">
+      <value intvalue="3" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBF20">
+      <value intvalue="2" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBA20">
+      <value intvalue="18446744073709551615" bound="Upper" impossible="true" path="0"/>
+    </values>
+    <values id="00000141232CBBA0">
+      <value intvalue="4" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBEC0">
+      <value intvalue="170" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC020">
+      <value intvalue="170" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CC040">
+      <value intvalue="85" bound="Point" known="true" path="0"/>
+    </values>
+    <values id="00000141232CBB40">
+      <value intvalue="85" bound="Point" known="true" path="0"/>
+    </values>
+  </valueflow>
+  <typedef-info>
+    <info name="tU8" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="7" column="35" used="0"/>
+    <info name="tU16" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="8" column="35" used="0"/>
+    <info name="tU32" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="9" column="35" used="1"/>
+    <info name="tU64" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="10" column="35" used="0"/>
+    <info name="tS8" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="11" column="35" used="0"/>
+    <info name="tS16" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="12" column="35" used="0"/>
+    <info name="tS32" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="13" column="35" used="0"/>
+    <info name="tS64" file="C:/Users/luk18/OneDrive/Pulpit/2138MiniDemo/2138/general.h" line="14" column="35" used="0"/>
+  </typedef-info>
+</dump>
+</dumps>

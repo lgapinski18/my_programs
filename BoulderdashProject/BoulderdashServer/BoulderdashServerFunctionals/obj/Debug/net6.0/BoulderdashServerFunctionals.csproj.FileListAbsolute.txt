@@ -1,0 +1,15 @@
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\bin\Debug\net6.0\BoulderdashServerFunctionals.exe
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\bin\Debug\net6.0\BoulderdashServerFunctionals.deps.json
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\bin\Debug\net6.0\BoulderdashServerFunctionals.runtimeconfig.json
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\bin\Debug\net6.0\BoulderdashServerFunctionals.dll
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\bin\Debug\net6.0\BoulderdashServerFunctionals.pdb
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\obj\Debug\net6.0\BoulderdashServerFunctionals.csproj.AssemblyReference.cache
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\obj\Debug\net6.0\BoulderdashServerFunctionals.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\obj\Debug\net6.0\BoulderdashServerFunctionals.AssemblyInfoInputs.cache
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\obj\Debug\net6.0\BoulderdashServerFunctionals.AssemblyInfo.cs
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\obj\Debug\net6.0\BoulderdashServerFunctionals.csproj.CoreCompileInputs.cache
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\obj\Debug\net6.0\BoulderdashServerFunctionals.dll
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\obj\Debug\net6.0\refint\BoulderdashServerFunctionals.dll
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\obj\Debug\net6.0\BoulderdashServerFunctionals.pdb
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\obj\Debug\net6.0\BoulderdashServerFunctionals.genruntimeconfig.cache
+C:\Users\luk18\OneDrive\Pulpit\Lukasz\Studia\Informatyka_stosowana\SEMESTR-IV\SYSTEMY_WBUDOWANE\BoulderdashServer\BoulderdashServerFunctionals\obj\Debug\net6.0\ref\BoulderdashServerFunctionals.dll

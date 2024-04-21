@@ -1,0 +1,1312 @@
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 1
+
+
+   1              		.cpu arm7tdmi
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 0
+  10              		.eabi_attribute 18, 4
+  11              		.file	"main.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.rodata
+  16              		.align	2
+  17              	.LC0:
+  18 0000 0A0A0A0A 		.ascii	"\012\012\012\012\000"
+  18      00
+  19 0005 000000   		.align	2
+  20              	.LC2:
+  21 0008 0A2A2A2A 		.ascii	"\012***********************************************"
+  21      2A2A2A2A 
+  21      2A2A2A2A 
+  21      2A2A2A2A 
+  21      2A2A2A2A 
+  22 0038 2A2A2A2A 		.ascii	"**********\000"
+  22      2A2A2A2A 
+  22      2A2A00
+  23 0043 00       		.align	2
+  24              	.LC4:
+  25 0044 0A2A00   		.ascii	"\012*\000"
+  26 0047 00       		.align	2
+  27              	.LC6:
+  28 0048 0A2A2053 		.ascii	"\012* Systemy Wbudowane\000"
+  28      79737465 
+  28      6D792057 
+  28      6275646F 
+  28      77616E65 
+  29 005d 000000   		.align	2
+  30              	.LC8:
+  31 0060 0A2A2057 		.ascii	"\012* Wydzial FTIMS\000"
+  31      79647A69 
+  31      616C2046 
+  31      54494D53 
+  31      00
+  32 0071 000000   		.align	2
+  33              	.LC10:
+  34 0074 0A2A2042 		.ascii	"\012* Boulderdash\000"
+  34      6F756C64 
+  34      65726461 
+  34      736800
+  35              		.text
+  36              		.align	1
+  37              		.global	main
+  38              		.syntax unified
+  39              		.code	16
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 2
+
+
+  40              		.thumb_func
+  41              		.fpu softvfp
+  42              		.type	main, %function
+  43              	main:
+  44              	.LFB0:
+  45              		.file 1 "main.c"
+   1:main.c        **** /*************************************************************************************
+   2:main.c        ****  *
+   3:main.c        ****  * @Description:
+   4:main.c        ****  * Program przyk�adowy - odpowiednik "Hello World" dla system�w wbudowanych
+   5:main.c        ****  * Rekomendujemy wkopiowywanie do niniejszego projektu nowych funkcjonalno�ci
+   6:main.c        ****  *
+   7:main.c        ****  *
+   8:main.c        ****  * UWAGA! Po zmianie rozszerzenia na cpp program automatycznie b�dzie u�ywa�
+   9:main.c        ****  * kompilatora g++. Oczywi�cie konieczne jest wprowadzenie odpowiednich zmian w
+  10:main.c        ****  * pliku "makefile"
+  11:main.c        ****  *
+  12:main.c        ****  *
+  13:main.c        ****  * Program przyk�adowy wykorzystuje Timer #0 i Timer #1 do "mrugania" diodami
+  14:main.c        ****  * Dioda P1.16 jest zapalona i gaszona, a czas pomi�dzy tymi zdarzeniami
+  15:main.c        ****  * odmierzany jest przez Timer #0.
+  16:main.c        ****  * Program aktywnie oczekuje na up�yni�cie odmierzanego czasu (1s)
+  17:main.c        ****  *
+  18:main.c        ****  * Druga z diod P1.17 jest gaszona i zapalana w takt przerwa� generowanych
+  19:main.c        ****  * przez timer #1, z okresem 500 ms i wype�nieniem 20%.
+  20:main.c        ****  * Procedura obs�ugi przerwa� zdefiniowana jest w innym pliku (irq/irq_handler.c)
+  21:main.c        ****  * Sama procedura MUSI by� oznaczona dla kompilatora jako procedura obs�ugi
+  22:main.c        ****  * przerwania odpowiedniego typu. W przyk�adzie jest to przerwanie wektoryzowane.
+  23:main.c        ****  * Odpowiednia deklaracja znajduje si� w pliku (irq/irq_handler.h)
+  24:main.c        ****  * 
+  25:main.c        ****  * Pr�cz "mrugania" diodami program wypisuje na konsoli powitalny tekst.
+  26:main.c        ****  * 
+  27:main.c        ****  * @Authors: Micha� Morawski,
+  28:main.c        ****  *           Daniel Arendt, 
+  29:main.c        ****  *           Przemys�aw Ignaciuk,
+  30:main.c        ****  *           Marcin Kwapisz
+  31:main.c        ****  *
+  32:main.c        ****  * @Change log:
+  33:main.c        ****  *           2016.12.01: Wersja oryginalna.
+  34:main.c        ****  *
+  35:main.c        ****  ******************************************************************************/
+  36:main.c        **** 
+  37:main.c        **** #include "general.h"
+  38:main.c        **** #include <lpc2xxx.h>
+  39:main.c        **** #include <printf_P.h>
+  40:main.c        **** #include <printf_init.h>
+  41:main.c        **** #include <consol.h>
+  42:main.c        **** #include <config.h>
+  43:main.c        **** #include "irq/irq_handler.h"
+  44:main.c        **** #include "timer.h"
+  45:main.c        **** #include "VIC.h"
+  46:main.c        **** 
+  47:main.c        **** #include "adc.h"
+  48:main.c        **** #include "game.h"
+  49:main.c        **** #include "functionals.h"
+  50:main.c        **** #include "i2c.h"
+  51:main.c        **** #include "joystick.h"
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 3
+
+
+  52:main.c        **** #include "lcd.h"
+  53:main.c        **** #include "ledi2c.h"
+  54:main.c        **** #include "mat.h"
+  55:main.c        **** #include "pwm.h"
+  56:main.c        **** #include "watchdog.h"
+  57:main.c        **** #include "ethdrv_ENC28J60.h"
+  58:main.c        **** 
+  59:main.c        **** 
+  60:main.c        **** /*
+  61:main.c        ****  *  @brief		Krótko co procedura robi.
+  62:main.c        ****  *  @param 		nazwa  parametru 1
+  63:main.c        ****  *             		opis parametru 1
+  64:main.c        ****  *  @param 		nazwa  parametru 2
+  65:main.c        ****  *             		opis parametru 2
+  66:main.c        ****  *
+  67:main.c        ****  *  @param 		nazwa  parametru n
+  68:main.c        ****  *             		opis parametru n
+  69:main.c        ****  *  @returns  	np. tak: true on success, false otherwise
+  70:main.c        ****  *  @side effects:
+  71:main.c        ****  *            	efekty uboczne
+  72:main.c        ****  */
+  73:main.c        **** int main(void)
+  74:main.c        **** {
+  46              		.loc 1 74 0
+  47              		.cfi_startproc
+  48              		@ Function supports interworking.
+  49              		@ args = 0, pretend = 0, frame = 8
+  50              		@ frame_needed = 1, uses_anonymous_args = 0
+  51 0000 80B5     		push	{r7, lr}
+  52              	.LCFI0:
+  53              		.cfi_def_cfa_offset 8
+  54              		.cfi_offset 7, -8
+  55              		.cfi_offset 14, -4
+  56 0002 82B0     		sub	sp, sp, #8
+  57              	.LCFI1:
+  58              		.cfi_def_cfa_offset 16
+  59 0004 00AF     		add	r7, sp, #0
+  60              	.LCFI2:
+  61              		.cfi_def_cfa_register 7
+  75:main.c        **** 	/* uruchomienie 'simple printf' */
+  76:main.c        ****     printf_init();
+  62              		.loc 1 76 0
+  63 0006 FFF7FEFF 		bl	printf_init
+  77:main.c        **** 
+  78:main.c        ****     /* Powitanie */
+  79:main.c        ****     simplePrintf("\n\n\n\n");
+  64              		.loc 1 79 0
+  65 000a 944B     		ldr	r3, .L43
+  66 000c 1800     		movs	r0, r3
+  67 000e FFF7FEFF 		bl	simplePrintf
+  80:main.c        ****     simplePrintf("\n*********************************************************");
+  68              		.loc 1 80 0
+  69 0012 934B     		ldr	r3, .L43+4
+  70 0014 1800     		movs	r0, r3
+  71 0016 FFF7FEFF 		bl	simplePrintf
+  81:main.c        ****     simplePrintf("\n*");
+  72              		.loc 1 81 0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 4
+
+
+  73 001a 924B     		ldr	r3, .L43+8
+  74 001c 1800     		movs	r0, r3
+  75 001e FFF7FEFF 		bl	simplePrintf
+  82:main.c        ****     simplePrintf("\n* Systemy Wbudowane");
+  76              		.loc 1 82 0
+  77 0022 914B     		ldr	r3, .L43+12
+  78 0024 1800     		movs	r0, r3
+  79 0026 FFF7FEFF 		bl	simplePrintf
+  83:main.c        ****     simplePrintf("\n* Wydzial FTIMS");
+  80              		.loc 1 83 0
+  81 002a 904B     		ldr	r3, .L43+16
+  82 002c 1800     		movs	r0, r3
+  83 002e FFF7FEFF 		bl	simplePrintf
+  84:main.c        ****     simplePrintf("\n* Boulderdash");
+  84              		.loc 1 84 0
+  85 0032 8F4B     		ldr	r3, .L43+20
+  86 0034 1800     		movs	r0, r3
+  87 0036 FFF7FEFF 		bl	simplePrintf
+  85:main.c        ****     simplePrintf("\n*");
+  88              		.loc 1 85 0
+  89 003a 8A4B     		ldr	r3, .L43+8
+  90 003c 1800     		movs	r0, r3
+  91 003e FFF7FEFF 		bl	simplePrintf
+  86:main.c        ****     simplePrintf("\n*********************************************************");
+  92              		.loc 1 86 0
+  93 0042 874B     		ldr	r3, .L43+4
+  94 0044 1800     		movs	r0, r3
+  95 0046 FFF7FEFF 		bl	simplePrintf
+  87:main.c        **** 
+  88:main.c        **** 
+  89:main.c        **** 
+  90:main.c        ****     IODIR |= 0x00006000;
+  96              		.loc 1 90 0
+  97 004a 8A4B     		ldr	r3, .L43+24
+  98 004c 1A68     		ldr	r2, [r3]
+  99 004e 894B     		ldr	r3, .L43+24
+ 100 0050 C021     		movs	r1, #192
+ 101 0052 C901     		lsls	r1, r1, #7
+ 102 0054 0A43     		orrs	r2, r1
+ 103 0056 1A60     		str	r2, [r3]
+  91:main.c        ****     IOSET  = 0x00006000;
+ 104              		.loc 1 91 0
+ 105 0058 874B     		ldr	r3, .L43+28
+ 106 005a C022     		movs	r2, #192
+ 107 005c D201     		lsls	r2, r2, #7
+ 108 005e 1A60     		str	r2, [r3]
+  92:main.c        **** 
+  93:main.c        ****     initAdc();
+ 109              		.loc 1 93 0
+ 110 0060 FFF7FEFF 		bl	initAdc
+  94:main.c        **** 
+  95:main.c        ****     playBackgroundSoundtrack();
+ 111              		.loc 1 95 0
+ 112 0064 FFF7FEFF 		bl	playBackgroundSoundtrack
+  96:main.c        **** 
+  97:main.c        ****     initRedDiod();
+ 113              		.loc 1 97 0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 5
+
+
+ 114 0068 FFF7FEFF 		bl	initRedDiod
+  98:main.c        ****     initBlueDiod();
+ 115              		.loc 1 98 0
+ 116 006c FFF7FEFF 		bl	initBlueDiod
+  99:main.c        **** 
+ 100:main.c        ****     delay_ms(500);
+ 117              		.loc 1 100 0
+ 118 0070 FA23     		movs	r3, #250
+ 119 0072 5B00     		lsls	r3, r3, #1
+ 120 0074 1800     		movs	r0, r3
+ 121 0076 FFF7FEFF 		bl	delay_ms
+ 101:main.c        **** 
+ 102:main.c        ****     setRedDiodState(TRUE);
+ 122              		.loc 1 102 0
+ 123 007a 0120     		movs	r0, #1
+ 124 007c FFF7FEFF 		bl	setRedDiodState
+ 103:main.c        ****     setBlueDiodState(TRUE);
+ 125              		.loc 1 103 0
+ 126 0080 0120     		movs	r0, #1
+ 127 0082 FFF7FEFF 		bl	setBlueDiodState
+ 104:main.c        **** 
+ 105:main.c        ****     delay_ms(500);
+ 128              		.loc 1 105 0
+ 129 0086 FA23     		movs	r3, #250
+ 130 0088 5B00     		lsls	r3, r3, #1
+ 131 008a 1800     		movs	r0, r3
+ 132 008c FFF7FEFF 		bl	delay_ms
+ 106:main.c        **** 
+ 107:main.c        ****     setRedDiodState(FALSE);
+ 133              		.loc 1 107 0
+ 134 0090 0020     		movs	r0, #0
+ 135 0092 FFF7FEFF 		bl	setRedDiodState
+ 108:main.c        ****     setBlueDiodState(FALSE);
+ 136              		.loc 1 108 0
+ 137 0096 0020     		movs	r0, #0
+ 138 0098 FFF7FEFF 		bl	setBlueDiodState
+ 109:main.c        **** 
+ 110:main.c        ****     delay_ms(500);
+ 139              		.loc 1 110 0
+ 140 009c FA23     		movs	r3, #250
+ 141 009e 5B00     		lsls	r3, r3, #1
+ 142 00a0 1800     		movs	r0, r3
+ 143 00a2 FFF7FEFF 		bl	delay_ms
+ 111:main.c        **** 
+ 112:main.c        ****     i2cInit();
+ 144              		.loc 1 112 0
+ 145 00a6 FFF7FEFF 		bl	i2cInit
+ 113:main.c        ****     winLEDMovement();
+ 146              		.loc 1 113 0
+ 147 00aa FFF7FEFF 		bl	winLEDMovement
+ 114:main.c        ****     joystickInit();
+ 148              		.loc 1 114 0
+ 149 00ae FFF7FEFF 		bl	joystickInit
+ 115:main.c        ****     lcdColor(0xFF, 0x00);
+ 150              		.loc 1 115 0
+ 151 00b2 0021     		movs	r1, #0
+ 152 00b4 FF20     		movs	r0, #255
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 6
+
+
+ 153 00b6 FFF7FEFF 		bl	lcdColor
+ 116:main.c        ****     lcdInit();
+ 154              		.loc 1 116 0
+ 155 00ba FFF7FEFF 		bl	lcdInit
+ 117:main.c        **** 
+ 118:main.c        ****     initENC28J60();
+ 156              		.loc 1 118 0
+ 157 00be FFF7FEFF 		bl	initENC28J60
+ 119:main.c        **** 
+ 120:main.c        ****     initGame();
+ 158              		.loc 1 120 0
+ 159 00c2 FFF7FEFF 		bl	initGame
+ 121:main.c        **** 
+ 122:main.c        ****     initWatchdog(30);
+ 160              		.loc 1 122 0
+ 161 00c6 1E20     		movs	r0, #30
+ 162 00c8 FFF7FEFF 		bl	initWatchdog
+ 123:main.c        ****     touchWatchdog();
+ 163              		.loc 1 123 0
+ 164 00cc FFF7FEFF 		bl	touchWatchdog
+ 124:main.c        **** 
+ 125:main.c        ****     tBool mirrorX = FALSE; //Zmienna powiązane ze stanem czy jest aktywne odbiecie lustrzane wzdlu
+ 165              		.loc 1 125 0
+ 166 00d0 FB1D     		adds	r3, r7, #7
+ 167 00d2 0022     		movs	r2, #0
+ 168 00d4 1A70     		strb	r2, [r3]
+ 126:main.c        ****     tBool mirrorY = TRUE; //Zmienna powiązane ze stanem czy jest aktywne odbiecie lustrzane wzdluz
+ 169              		.loc 1 126 0
+ 170 00d6 BB1D     		adds	r3, r7, #6
+ 171 00d8 0122     		movs	r2, #1
+ 172 00da 1A70     		strb	r2, [r3]
+ 127:main.c        **** 
+ 128:main.c        ****     tBool con = TRUE;
+ 173              		.loc 1 128 0
+ 174 00dc 7B1D     		adds	r3, r7, #5
+ 175 00de 0122     		movs	r2, #1
+ 176 00e0 1A70     		strb	r2, [r3]
+ 129:main.c        ****     while (con == TRUE) {
+ 177              		.loc 1 129 0
+ 178 00e2 AFE0     		b	.L2
+ 179              	.L33:
+ 130:main.c        ****        	switch (getAccelerationDirection()) {
+ 180              		.loc 1 130 0
+ 181 00e4 FFF7FEFF 		bl	getAccelerationDirection
+ 182 00e8 0300     		movs	r3, r0
+ 183 00ea 052B     		cmp	r3, #5
+ 184 00ec 4CD8     		bhi	.L35
+ 185 00ee 9A00     		lsls	r2, r3, #2
+ 186 00f0 624B     		ldr	r3, .L43+32
+ 187 00f2 D318     		adds	r3, r2, r3
+ 188 00f4 1B68     		ldr	r3, [r3]
+ 189 00f6 9F46     		mov	pc, r3
+ 190              		.section	.rodata
+ 191 0083 00       		.align	2
+ 192              	.L5:
+ 193 0084 F8000000 		.word	.L4
+ 194 0088 1C010000 		.word	.L6
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 7
+
+
+ 195 008c 64010000 		.word	.L7
+ 196 0090 40010000 		.word	.L8
+ 197 0094 8C010000 		.word	.L36
+ 198 0098 8C010000 		.word	.L36
+ 199              		.text
+ 200              	.L4:
+ 131:main.c        ****        	    case UP:
+ 132:main.c        ****                 if (mirrorX == FALSE) {
+ 201              		.loc 1 132 0
+ 202 00f8 FB1D     		adds	r3, r7, #7
+ 203 00fa 1B78     		ldrb	r3, [r3]
+ 204 00fc 002B     		cmp	r3, #0
+ 205 00fe 47D1     		bne	.L37
+ 133:main.c        ****                     //mirrorX = FALSE;
+ 134:main.c        ****                     mirrorX = TRUE;
+ 206              		.loc 1 134 0
+ 207 0100 FB1D     		adds	r3, r7, #7
+ 208 0102 0122     		movs	r2, #1
+ 209 0104 1A70     		strb	r2, [r3]
+ 135:main.c        ****                     //Wyczysczenie tła gry
+ 136:main.c        ****                     setLcdBackgound();
+ 210              		.loc 1 136 0
+ 211 0106 FFF7FEFF 		bl	setLcdBackgound
+ 137:main.c        ****                     //Odbicie ekranu
+ 138:main.c        ****                     lcdMirror(mirrorX, mirrorY);
+ 212              		.loc 1 138 0
+ 213 010a BB1D     		adds	r3, r7, #6
+ 214 010c 1A78     		ldrb	r2, [r3]
+ 215 010e FB1D     		adds	r3, r7, #7
+ 216 0110 1B78     		ldrb	r3, [r3]
+ 217 0112 1100     		movs	r1, r2
+ 218 0114 1800     		movs	r0, r3
+ 219 0116 FFF7FEFF 		bl	lcdMirror
+ 139:main.c        ****                 }
+ 140:main.c        ****        	        break;
+ 220              		.loc 1 140 0
+ 221 011a 39E0     		b	.L37
+ 222              	.L6:
+ 141:main.c        **** 
+ 142:main.c        ****        	    case DOWN:
+ 143:main.c        ****                 if (mirrorX == TRUE) {
+ 223              		.loc 1 143 0
+ 224 011c FB1D     		adds	r3, r7, #7
+ 225 011e 1B78     		ldrb	r3, [r3]
+ 226 0120 012B     		cmp	r3, #1
+ 227 0122 37D1     		bne	.L38
+ 144:main.c        ****                     //mirrorX = TRUE;
+ 145:main.c        ****                     mirrorX = FALSE;
+ 228              		.loc 1 145 0
+ 229 0124 FB1D     		adds	r3, r7, #7
+ 230 0126 0022     		movs	r2, #0
+ 231 0128 1A70     		strb	r2, [r3]
+ 146:main.c        ****                     //Wyczysczenie tła gry
+ 147:main.c        ****                     setLcdBackgound();
+ 232              		.loc 1 147 0
+ 233 012a FFF7FEFF 		bl	setLcdBackgound
+ 148:main.c        ****                     //Odbicie ekranu
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 8
+
+
+ 149:main.c        ****                     lcdMirror(mirrorX, mirrorY);
+ 234              		.loc 1 149 0
+ 235 012e BB1D     		adds	r3, r7, #6
+ 236 0130 1A78     		ldrb	r2, [r3]
+ 237 0132 FB1D     		adds	r3, r7, #7
+ 238 0134 1B78     		ldrb	r3, [r3]
+ 239 0136 1100     		movs	r1, r2
+ 240 0138 1800     		movs	r0, r3
+ 241 013a FFF7FEFF 		bl	lcdMirror
+ 150:main.c        ****                 }
+ 151:main.c        ****        	        break;
+ 242              		.loc 1 151 0
+ 243 013e 29E0     		b	.L38
+ 244              	.L8:
+ 152:main.c        **** 
+ 153:main.c        ****        	    case LEFT:
+ 154:main.c        ****                 if (mirrorY == TRUE) {
+ 245              		.loc 1 154 0
+ 246 0140 BB1D     		adds	r3, r7, #6
+ 247 0142 1B78     		ldrb	r3, [r3]
+ 248 0144 012B     		cmp	r3, #1
+ 249 0146 27D1     		bne	.L39
+ 155:main.c        ****                     mirrorY = FALSE;
+ 250              		.loc 1 155 0
+ 251 0148 BB1D     		adds	r3, r7, #6
+ 252 014a 0022     		movs	r2, #0
+ 253 014c 1A70     		strb	r2, [r3]
+ 156:main.c        ****                     //Wyczysczenie tła gry
+ 157:main.c        ****                     setLcdBackgound();
+ 254              		.loc 1 157 0
+ 255 014e FFF7FEFF 		bl	setLcdBackgound
+ 158:main.c        ****                     //Odbicie ekranu
+ 159:main.c        ****                     lcdMirror(mirrorX, mirrorY);
+ 256              		.loc 1 159 0
+ 257 0152 BB1D     		adds	r3, r7, #6
+ 258 0154 1A78     		ldrb	r2, [r3]
+ 259 0156 FB1D     		adds	r3, r7, #7
+ 260 0158 1B78     		ldrb	r3, [r3]
+ 261 015a 1100     		movs	r1, r2
+ 262 015c 1800     		movs	r0, r3
+ 263 015e FFF7FEFF 		bl	lcdMirror
+ 160:main.c        ****                 }
+ 161:main.c        ****                 break;
+ 264              		.loc 1 161 0
+ 265 0162 19E0     		b	.L39
+ 266              	.L7:
+ 162:main.c        **** 
+ 163:main.c        ****        	    case RIGHT:
+ 164:main.c        ****                 if (mirrorY == FALSE) {
+ 267              		.loc 1 164 0
+ 268 0164 BB1D     		adds	r3, r7, #6
+ 269 0166 1B78     		ldrb	r3, [r3]
+ 270 0168 002B     		cmp	r3, #0
+ 271 016a 17D1     		bne	.L40
+ 165:main.c        ****                     mirrorY = TRUE;
+ 272              		.loc 1 165 0
+ 273 016c BB1D     		adds	r3, r7, #6
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 9
+
+
+ 274 016e 0122     		movs	r2, #1
+ 275 0170 1A70     		strb	r2, [r3]
+ 166:main.c        ****                     //Wyczysczenie tła gry
+ 167:main.c        ****                     setLcdBackgound();
+ 276              		.loc 1 167 0
+ 277 0172 FFF7FEFF 		bl	setLcdBackgound
+ 168:main.c        ****                     //Odbicie ekranu
+ 169:main.c        ****                     lcdMirror(mirrorX, mirrorY);
+ 278              		.loc 1 169 0
+ 279 0176 BB1D     		adds	r3, r7, #6
+ 280 0178 1A78     		ldrb	r2, [r3]
+ 281 017a FB1D     		adds	r3, r7, #7
+ 282 017c 1B78     		ldrb	r3, [r3]
+ 283 017e 1100     		movs	r1, r2
+ 284 0180 1800     		movs	r0, r3
+ 285 0182 FFF7FEFF 		bl	lcdMirror
+ 170:main.c        ****                 }
+ 171:main.c        ****        	        break;
+ 286              		.loc 1 171 0
+ 287 0186 09E0     		b	.L40
+ 288              	.L35:
+ 172:main.c        **** 
+ 173:main.c        ****        	    case FRONT:
+ 174:main.c        ****        	        break;
+ 175:main.c        **** 
+ 176:main.c        ****        	    case BACK:
+ 177:main.c        ****        	        break;
+ 178:main.c        **** 
+ 179:main.c        ****        	    default:
+ 180:main.c        ****        	        break;
+ 289              		.loc 1 180 0
+ 290 0188 C046     		nop
+ 291 018a 08E0     		b	.L12
+ 292              	.L36:
+ 177:main.c        **** 
+ 293              		.loc 1 177 0
+ 294 018c C046     		nop
+ 295 018e 06E0     		b	.L12
+ 296              	.L37:
+ 140:main.c        **** 
+ 297              		.loc 1 140 0
+ 298 0190 C046     		nop
+ 299 0192 04E0     		b	.L12
+ 300              	.L38:
+ 151:main.c        **** 
+ 301              		.loc 1 151 0
+ 302 0194 C046     		nop
+ 303 0196 02E0     		b	.L12
+ 304              	.L39:
+ 161:main.c        **** 
+ 305              		.loc 1 161 0
+ 306 0198 C046     		nop
+ 307 019a 00E0     		b	.L12
+ 308              	.L40:
+ 171:main.c        **** 
+ 309              		.loc 1 171 0
+ 310 019c C046     		nop
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 10
+
+
+ 311              	.L12:
+ 181:main.c        ****        	}
+ 182:main.c        **** 
+ 183:main.c        ****         switch (getJoystickState()) {
+ 312              		.loc 1 183 0
+ 313 019e FFF7FEFF 		bl	getJoystickState
+ 314 01a2 0300     		movs	r3, r0
+ 315 01a4 052B     		cmp	r3, #5
+ 316 01a6 45D8     		bhi	.L41
+ 317 01a8 9A00     		lsls	r2, r3, #2
+ 318 01aa 354B     		ldr	r3, .L43+36
+ 319 01ac D318     		adds	r3, r2, r3
+ 320 01ae 1B68     		ldr	r3, [r3]
+ 321 01b0 9F46     		mov	pc, r3
+ 322              		.section	.rodata
+ 323              		.align	2
+ 324              	.L18:
+ 325 009c 38020000 		.word	.L42
+ 326 00a0 B2010000 		.word	.L19
+ 327 00a4 D0010000 		.word	.L20
+ 328 00a8 EE010000 		.word	.L21
+ 329 00ac 0C020000 		.word	.L22
+ 330 00b0 2A020000 		.word	.L23
+ 331              		.text
+ 332              	.L19:
+ 184:main.c        ****             case JLEFT:
+ 185:main.c        ****               	touchWatchdog();
+ 333              		.loc 1 185 0
+ 334 01b2 FFF7FEFF 		bl	touchWatchdog
+ 186:main.c        **** 
+ 187:main.c        ****                 if (mirrorY == TRUE)
+ 335              		.loc 1 187 0
+ 336 01b6 BB1D     		adds	r3, r7, #6
+ 337 01b8 1B78     		ldrb	r3, [r3]
+ 338 01ba 012B     		cmp	r3, #1
+ 339 01bc 02D1     		bne	.L24
+ 188:main.c        ****                 {
+ 189:main.c        ****                 	moveLeft();
+ 340              		.loc 1 189 0
+ 341 01be FFF7FEFF 		bl	moveLeft
+ 342 01c2 01E0     		b	.L25
+ 343              	.L24:
+ 190:main.c        ****                 }
+ 191:main.c        ****                 else
+ 192:main.c        ****                 {
+ 193:main.c        ****                 	moveRight();
+ 344              		.loc 1 193 0
+ 345 01c4 FFF7FEFF 		bl	moveRight
+ 346              	.L25:
+ 194:main.c        ****                 }
+ 195:main.c        ****                 blinkGreenLed(1);
+ 347              		.loc 1 195 0
+ 348 01c8 0120     		movs	r0, #1
+ 349 01ca FFF7FEFF 		bl	blinkGreenLed
+ 196:main.c        ****                 break;
+ 350              		.loc 1 196 0
+ 351 01ce 34E0     		b	.L26
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 11
+
+
+ 352              	.L20:
+ 197:main.c        **** 
+ 198:main.c        ****             case JUP:
+ 199:main.c        ****                	touchWatchdog();
+ 353              		.loc 1 199 0
+ 354 01d0 FFF7FEFF 		bl	touchWatchdog
+ 200:main.c        ****                 //moveUp();
+ 201:main.c        ****                 if (mirrorX == FALSE)
+ 355              		.loc 1 201 0
+ 356 01d4 FB1D     		adds	r3, r7, #7
+ 357 01d6 1B78     		ldrb	r3, [r3]
+ 358 01d8 002B     		cmp	r3, #0
+ 359 01da 02D1     		bne	.L27
+ 202:main.c        ****                 {
+ 203:main.c        ****                 	moveUp();
+ 360              		.loc 1 203 0
+ 361 01dc FFF7FEFF 		bl	moveUp
+ 362 01e0 01E0     		b	.L28
+ 363              	.L27:
+ 204:main.c        ****                 }
+ 205:main.c        ****                 else
+ 206:main.c        ****                 {
+ 207:main.c        ****                 	moveDown();
+ 364              		.loc 1 207 0
+ 365 01e2 FFF7FEFF 		bl	moveDown
+ 366              	.L28:
+ 208:main.c        ****                 }
+ 209:main.c        ****                 blinkGreenLed(1);
+ 367              		.loc 1 209 0
+ 368 01e6 0120     		movs	r0, #1
+ 369 01e8 FFF7FEFF 		bl	blinkGreenLed
+ 210:main.c        ****                 break;
+ 370              		.loc 1 210 0
+ 371 01ec 25E0     		b	.L26
+ 372              	.L21:
+ 211:main.c        **** 
+ 212:main.c        ****             case JRIGHT:
+ 213:main.c        ****                	touchWatchdog();
+ 373              		.loc 1 213 0
+ 374 01ee FFF7FEFF 		bl	touchWatchdog
+ 214:main.c        ****                 //moveRight();
+ 215:main.c        ****                 if (mirrorY == TRUE)
+ 375              		.loc 1 215 0
+ 376 01f2 BB1D     		adds	r3, r7, #6
+ 377 01f4 1B78     		ldrb	r3, [r3]
+ 378 01f6 012B     		cmp	r3, #1
+ 379 01f8 02D1     		bne	.L29
+ 216:main.c        ****                 {
+ 217:main.c        ****                 	moveRight();
+ 380              		.loc 1 217 0
+ 381 01fa FFF7FEFF 		bl	moveRight
+ 382 01fe 01E0     		b	.L30
+ 383              	.L29:
+ 218:main.c        ****                 }
+ 219:main.c        ****                 else
+ 220:main.c        ****                 {
+ 221:main.c        ****                 	moveLeft();
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 12
+
+
+ 384              		.loc 1 221 0
+ 385 0200 FFF7FEFF 		bl	moveLeft
+ 386              	.L30:
+ 222:main.c        ****                 }
+ 223:main.c        ****                 blinkGreenLed(1);
+ 387              		.loc 1 223 0
+ 388 0204 0120     		movs	r0, #1
+ 389 0206 FFF7FEFF 		bl	blinkGreenLed
+ 224:main.c        ****                 break;
+ 390              		.loc 1 224 0
+ 391 020a 16E0     		b	.L26
+ 392              	.L22:
+ 225:main.c        **** 
+ 226:main.c        ****             case JDOWN:
+ 227:main.c        ****                	touchWatchdog();
+ 393              		.loc 1 227 0
+ 394 020c FFF7FEFF 		bl	touchWatchdog
+ 228:main.c        ****                 //moveDown();
+ 229:main.c        ****                 if (mirrorX == FALSE)
+ 395              		.loc 1 229 0
+ 396 0210 FB1D     		adds	r3, r7, #7
+ 397 0212 1B78     		ldrb	r3, [r3]
+ 398 0214 002B     		cmp	r3, #0
+ 399 0216 02D1     		bne	.L31
+ 230:main.c        ****                 {
+ 231:main.c        ****                 	moveDown();
+ 400              		.loc 1 231 0
+ 401 0218 FFF7FEFF 		bl	moveDown
+ 402 021c 01E0     		b	.L32
+ 403              	.L31:
+ 232:main.c        ****                 }
+ 233:main.c        ****                 else
+ 234:main.c        ****                 {
+ 235:main.c        ****                 	moveUp();
+ 404              		.loc 1 235 0
+ 405 021e FFF7FEFF 		bl	moveUp
+ 406              	.L32:
+ 236:main.c        ****                 }
+ 237:main.c        ****                 blinkGreenLed(1);
+ 407              		.loc 1 237 0
+ 408 0222 0120     		movs	r0, #1
+ 409 0224 FFF7FEFF 		bl	blinkGreenLed
+ 238:main.c        ****                 break;
+ 410              		.loc 1 238 0
+ 411 0228 07E0     		b	.L26
+ 412              	.L23:
+ 239:main.c        **** 
+ 240:main.c        ****             case JCENTER:
+ 241:main.c        ****                 touchWatchdog();
+ 413              		.loc 1 241 0
+ 414 022a FFF7FEFF 		bl	touchWatchdog
+ 242:main.c        ****                 resetGame();
+ 415              		.loc 1 242 0
+ 416 022e FFF7FEFF 		bl	resetGame
+ 243:main.c        ****                 break;
+ 417              		.loc 1 243 0
+ 418 0232 02E0     		b	.L26
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 13
+
+
+ 419              	.L41:
+ 244:main.c        **** 
+ 245:main.c        ****             case JIDLE:
+ 246:main.c        ****                	//simplePrintf("Joystick State: IDLE");
+ 247:main.c        ****                 break;
+ 248:main.c        **** 
+ 249:main.c        ****             default:
+ 250:main.c        ****                 break;
+ 420              		.loc 1 250 0
+ 421 0234 C046     		nop
+ 422 0236 00E0     		b	.L26
+ 423              	.L42:
+ 247:main.c        **** 
+ 424              		.loc 1 247 0
+ 425 0238 C046     		nop
+ 426              	.L26:
+ 251:main.c        ****         }
+ 252:main.c        **** 
+ 253:main.c        ****         updateScreen();
+ 427              		.loc 1 253 0
+ 428 023a FFF7FEFF 		bl	updateScreen
+ 254:main.c        ****         delay_ms(100);
+ 429              		.loc 1 254 0
+ 430 023e 6420     		movs	r0, #100
+ 431 0240 FFF7FEFF 		bl	delay_ms
+ 432              	.L2:
+ 129:main.c        ****        	switch (getAccelerationDirection()) {
+ 433              		.loc 1 129 0
+ 434 0244 7B1D     		adds	r3, r7, #5
+ 435 0246 1B78     		ldrb	r3, [r3]
+ 436 0248 012B     		cmp	r3, #1
+ 437 024a 00D1     		bne	.LCB332
+ 438 024c 4AE7     		b	.L33	@long jump
+ 439              	.LCB332:
+ 255:main.c        ****     }
+ 256:main.c        **** 
+ 257:main.c        ****     return 0;
+ 440              		.loc 1 257 0
+ 441 024e 0023     		movs	r3, #0
+ 258:main.c        **** }
+ 442              		.loc 1 258 0
+ 443 0250 1800     		movs	r0, r3
+ 444 0252 BD46     		mov	sp, r7
+ 445 0254 02B0     		add	sp, sp, #8
+ 446              		@ sp needed
+ 447 0256 80BC     		pop	{r7}
+ 448 0258 02BC     		pop	{r1}
+ 449 025a 0847     		bx	r1
+ 450              	.L44:
+ 451              		.align	2
+ 452              	.L43:
+ 453 025c 00000000 		.word	.LC0
+ 454 0260 08000000 		.word	.LC2
+ 455 0264 44000000 		.word	.LC4
+ 456 0268 48000000 		.word	.LC6
+ 457 026c 60000000 		.word	.LC8
+ 458 0270 74000000 		.word	.LC10
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 14
+
+
+ 459 0274 088002E0 		.word	-536707064
+ 460 0278 048002E0 		.word	-536707068
+ 461 027c 84000000 		.word	.L5
+ 462 0280 9C000000 		.word	.L18
+ 463              		.cfi_endproc
+ 464              	.LFE0:
+ 465              		.size	main, .-main
+ 466              	.Letext0:
+ 467              		.file 2 "general.h"
+ 468              		.file 3 "functionals.h"
+ 469              		.file 4 "joystick.h"
+ 470              		.section	.debug_info,"",%progbits
+ 471              	.Ldebug_info0:
+ 472 0000 27010000 		.4byte	0x127
+ 473 0004 0200     		.2byte	0x2
+ 474 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 475 000a 04       		.byte	0x4
+ 476 000b 01       		.uleb128 0x1
+ 477 000c 13000000 		.4byte	.LASF21
+ 478 0010 0C       		.byte	0xc
+ 479 0011 3D010000 		.4byte	.LASF22
+ 480 0015 D9000000 		.4byte	.LASF23
+ 481 0019 00000000 		.4byte	.Ltext0
+ 482 001d 84020000 		.4byte	.Letext0
+ 483 0021 00000000 		.4byte	.Ldebug_line0
+ 484 0025 02       		.uleb128 0x2
+ 485 0026 01       		.byte	0x1
+ 486 0027 08       		.byte	0x8
+ 487 0028 A6000000 		.4byte	.LASF0
+ 488 002c 02       		.uleb128 0x2
+ 489 002d 02       		.byte	0x2
+ 490 002e 07       		.byte	0x7
+ 491 002f BB000000 		.4byte	.LASF1
+ 492 0033 02       		.uleb128 0x2
+ 493 0034 04       		.byte	0x4
+ 494 0035 07       		.byte	0x7
+ 495 0036 F7000000 		.4byte	.LASF2
+ 496 003a 02       		.uleb128 0x2
+ 497 003b 08       		.byte	0x8
+ 498 003c 07       		.byte	0x7
+ 499 003d 0A010000 		.4byte	.LASF3
+ 500 0041 02       		.uleb128 0x2
+ 501 0042 01       		.byte	0x1
+ 502 0043 06       		.byte	0x6
+ 503 0044 59010000 		.4byte	.LASF4
+ 504 0048 02       		.uleb128 0x2
+ 505 0049 02       		.byte	0x2
+ 506 004a 05       		.byte	0x5
+ 507 004b 49010000 		.4byte	.LASF5
+ 508 004f 03       		.uleb128 0x3
+ 509 0050 04       		.byte	0x4
+ 510 0051 05       		.byte	0x5
+ 511 0052 696E7400 		.ascii	"int\000"
+ 512 0056 02       		.uleb128 0x2
+ 513 0057 08       		.byte	0x8
+ 514 0058 05       		.byte	0x5
+ 515 0059 2F010000 		.4byte	.LASF6
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 15
+
+
+ 516 005d 04       		.uleb128 0x4
+ 517 005e 07       		.byte	0x7
+ 518 005f 01       		.byte	0x1
+ 519 0060 25000000 		.4byte	0x25
+ 520 0064 02       		.byte	0x2
+ 521 0065 0F       		.byte	0xf
+ 522 0066 77000000 		.4byte	0x77
+ 523 006a 05       		.uleb128 0x5
+ 524 006b CE000000 		.4byte	.LASF7
+ 525 006f 00       		.byte	0
+ 526 0070 05       		.uleb128 0x5
+ 527 0071 0E000000 		.4byte	.LASF8
+ 528 0075 01       		.byte	0x1
+ 529 0076 00       		.byte	0
+ 530 0077 06       		.uleb128 0x6
+ 531 0078 6A010000 		.4byte	.LASF24
+ 532 007c 02       		.byte	0x2
+ 533 007d 10       		.byte	0x10
+ 534 007e 5D000000 		.4byte	0x5d
+ 535 0082 04       		.uleb128 0x4
+ 536 0083 07       		.byte	0x7
+ 537 0084 01       		.byte	0x1
+ 538 0085 25000000 		.4byte	0x25
+ 539 0089 03       		.byte	0x3
+ 540 008a 0F       		.byte	0xf
+ 541 008b B3000000 		.4byte	0xb3
+ 542 008f 07       		.uleb128 0x7
+ 543 0090 555000   		.ascii	"UP\000"
+ 544 0093 00       		.byte	0
+ 545 0094 05       		.uleb128 0x5
+ 546 0095 44010000 		.4byte	.LASF9
+ 547 0099 01       		.byte	0x1
+ 548 009a 05       		.uleb128 0x5
+ 549 009b 29010000 		.4byte	.LASF10
+ 550 009f 02       		.byte	0x2
+ 551 00a0 05       		.uleb128 0x5
+ 552 00a1 93000000 		.4byte	.LASF11
+ 553 00a5 03       		.byte	0x3
+ 554 00a6 05       		.uleb128 0x5
+ 555 00a7 08000000 		.4byte	.LASF12
+ 556 00ab 04       		.byte	0x4
+ 557 00ac 05       		.uleb128 0x5
+ 558 00ad 65010000 		.4byte	.LASF13
+ 559 00b1 05       		.byte	0x5
+ 560 00b2 00       		.byte	0
+ 561 00b3 04       		.uleb128 0x4
+ 562 00b4 07       		.byte	0x7
+ 563 00b5 01       		.byte	0x1
+ 564 00b6 25000000 		.4byte	0x25
+ 565 00ba 04       		.byte	0x4
+ 566 00bb 0E       		.byte	0xe
+ 567 00bc E5000000 		.4byte	0xe5
+ 568 00c0 05       		.uleb128 0x5
+ 569 00c1 53010000 		.4byte	.LASF14
+ 570 00c5 00       		.byte	0
+ 571 00c6 05       		.uleb128 0x5
+ 572 00c7 04010000 		.4byte	.LASF15
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 16
+
+
+ 573 00cb 01       		.byte	0x1
+ 574 00cc 07       		.uleb128 0x7
+ 575 00cd 4A555000 		.ascii	"JUP\000"
+ 576 00d1 02       		.byte	0x2
+ 577 00d2 05       		.uleb128 0x5
+ 578 00d3 B4000000 		.4byte	.LASF16
+ 579 00d7 03       		.byte	0x3
+ 580 00d8 05       		.uleb128 0x5
+ 581 00d9 A0000000 		.4byte	.LASF17
+ 582 00dd 04       		.byte	0x4
+ 583 00de 05       		.uleb128 0x5
+ 584 00df 00000000 		.4byte	.LASF18
+ 585 00e3 05       		.byte	0x5
+ 586 00e4 00       		.byte	0
+ 587 00e5 08       		.uleb128 0x8
+ 588 00e6 01       		.byte	0x1
+ 589 00e7 D4000000 		.4byte	.LASF25
+ 590 00eb 01       		.byte	0x1
+ 591 00ec 49       		.byte	0x49
+ 592 00ed 01       		.byte	0x1
+ 593 00ee 4F000000 		.4byte	0x4f
+ 594 00f2 00000000 		.4byte	.LFB0
+ 595 00f6 84020000 		.4byte	.LFE0
+ 596 00fa 00000000 		.4byte	.LLST0
+ 597 00fe 01       		.byte	0x1
+ 598 00ff 09       		.uleb128 0x9
+ 599 0100 98000000 		.4byte	.LASF19
+ 600 0104 01       		.byte	0x1
+ 601 0105 7D       		.byte	0x7d
+ 602 0106 77000000 		.4byte	0x77
+ 603 010a 02       		.byte	0x2
+ 604 010b 91       		.byte	0x91
+ 605 010c 77       		.sleb128 -9
+ 606 010d 09       		.uleb128 0x9
+ 607 010e 21010000 		.4byte	.LASF20
+ 608 0112 01       		.byte	0x1
+ 609 0113 7E       		.byte	0x7e
+ 610 0114 77000000 		.4byte	0x77
+ 611 0118 02       		.byte	0x2
+ 612 0119 91       		.byte	0x91
+ 613 011a 76       		.sleb128 -10
+ 614 011b 0A       		.uleb128 0xa
+ 615 011c 636F6E00 		.ascii	"con\000"
+ 616 0120 01       		.byte	0x1
+ 617 0121 80       		.byte	0x80
+ 618 0122 77000000 		.4byte	0x77
+ 619 0126 02       		.byte	0x2
+ 620 0127 91       		.byte	0x91
+ 621 0128 75       		.sleb128 -11
+ 622 0129 00       		.byte	0
+ 623 012a 00       		.byte	0
+ 624              		.section	.debug_abbrev,"",%progbits
+ 625              	.Ldebug_abbrev0:
+ 626 0000 01       		.uleb128 0x1
+ 627 0001 11       		.uleb128 0x11
+ 628 0002 01       		.byte	0x1
+ 629 0003 25       		.uleb128 0x25
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 17
+
+
+ 630 0004 0E       		.uleb128 0xe
+ 631 0005 13       		.uleb128 0x13
+ 632 0006 0B       		.uleb128 0xb
+ 633 0007 03       		.uleb128 0x3
+ 634 0008 0E       		.uleb128 0xe
+ 635 0009 1B       		.uleb128 0x1b
+ 636 000a 0E       		.uleb128 0xe
+ 637 000b 11       		.uleb128 0x11
+ 638 000c 01       		.uleb128 0x1
+ 639 000d 12       		.uleb128 0x12
+ 640 000e 01       		.uleb128 0x1
+ 641 000f 10       		.uleb128 0x10
+ 642 0010 06       		.uleb128 0x6
+ 643 0011 00       		.byte	0
+ 644 0012 00       		.byte	0
+ 645 0013 02       		.uleb128 0x2
+ 646 0014 24       		.uleb128 0x24
+ 647 0015 00       		.byte	0
+ 648 0016 0B       		.uleb128 0xb
+ 649 0017 0B       		.uleb128 0xb
+ 650 0018 3E       		.uleb128 0x3e
+ 651 0019 0B       		.uleb128 0xb
+ 652 001a 03       		.uleb128 0x3
+ 653 001b 0E       		.uleb128 0xe
+ 654 001c 00       		.byte	0
+ 655 001d 00       		.byte	0
+ 656 001e 03       		.uleb128 0x3
+ 657 001f 24       		.uleb128 0x24
+ 658 0020 00       		.byte	0
+ 659 0021 0B       		.uleb128 0xb
+ 660 0022 0B       		.uleb128 0xb
+ 661 0023 3E       		.uleb128 0x3e
+ 662 0024 0B       		.uleb128 0xb
+ 663 0025 03       		.uleb128 0x3
+ 664 0026 08       		.uleb128 0x8
+ 665 0027 00       		.byte	0
+ 666 0028 00       		.byte	0
+ 667 0029 04       		.uleb128 0x4
+ 668 002a 04       		.uleb128 0x4
+ 669 002b 01       		.byte	0x1
+ 670 002c 3E       		.uleb128 0x3e
+ 671 002d 0B       		.uleb128 0xb
+ 672 002e 0B       		.uleb128 0xb
+ 673 002f 0B       		.uleb128 0xb
+ 674 0030 49       		.uleb128 0x49
+ 675 0031 13       		.uleb128 0x13
+ 676 0032 3A       		.uleb128 0x3a
+ 677 0033 0B       		.uleb128 0xb
+ 678 0034 3B       		.uleb128 0x3b
+ 679 0035 0B       		.uleb128 0xb
+ 680 0036 01       		.uleb128 0x1
+ 681 0037 13       		.uleb128 0x13
+ 682 0038 00       		.byte	0
+ 683 0039 00       		.byte	0
+ 684 003a 05       		.uleb128 0x5
+ 685 003b 28       		.uleb128 0x28
+ 686 003c 00       		.byte	0
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 18
+
+
+ 687 003d 03       		.uleb128 0x3
+ 688 003e 0E       		.uleb128 0xe
+ 689 003f 1C       		.uleb128 0x1c
+ 690 0040 0B       		.uleb128 0xb
+ 691 0041 00       		.byte	0
+ 692 0042 00       		.byte	0
+ 693 0043 06       		.uleb128 0x6
+ 694 0044 16       		.uleb128 0x16
+ 695 0045 00       		.byte	0
+ 696 0046 03       		.uleb128 0x3
+ 697 0047 0E       		.uleb128 0xe
+ 698 0048 3A       		.uleb128 0x3a
+ 699 0049 0B       		.uleb128 0xb
+ 700 004a 3B       		.uleb128 0x3b
+ 701 004b 0B       		.uleb128 0xb
+ 702 004c 49       		.uleb128 0x49
+ 703 004d 13       		.uleb128 0x13
+ 704 004e 00       		.byte	0
+ 705 004f 00       		.byte	0
+ 706 0050 07       		.uleb128 0x7
+ 707 0051 28       		.uleb128 0x28
+ 708 0052 00       		.byte	0
+ 709 0053 03       		.uleb128 0x3
+ 710 0054 08       		.uleb128 0x8
+ 711 0055 1C       		.uleb128 0x1c
+ 712 0056 0B       		.uleb128 0xb
+ 713 0057 00       		.byte	0
+ 714 0058 00       		.byte	0
+ 715 0059 08       		.uleb128 0x8
+ 716 005a 2E       		.uleb128 0x2e
+ 717 005b 01       		.byte	0x1
+ 718 005c 3F       		.uleb128 0x3f
+ 719 005d 0C       		.uleb128 0xc
+ 720 005e 03       		.uleb128 0x3
+ 721 005f 0E       		.uleb128 0xe
+ 722 0060 3A       		.uleb128 0x3a
+ 723 0061 0B       		.uleb128 0xb
+ 724 0062 3B       		.uleb128 0x3b
+ 725 0063 0B       		.uleb128 0xb
+ 726 0064 27       		.uleb128 0x27
+ 727 0065 0C       		.uleb128 0xc
+ 728 0066 49       		.uleb128 0x49
+ 729 0067 13       		.uleb128 0x13
+ 730 0068 11       		.uleb128 0x11
+ 731 0069 01       		.uleb128 0x1
+ 732 006a 12       		.uleb128 0x12
+ 733 006b 01       		.uleb128 0x1
+ 734 006c 40       		.uleb128 0x40
+ 735 006d 06       		.uleb128 0x6
+ 736 006e 9642     		.uleb128 0x2116
+ 737 0070 0C       		.uleb128 0xc
+ 738 0071 00       		.byte	0
+ 739 0072 00       		.byte	0
+ 740 0073 09       		.uleb128 0x9
+ 741 0074 34       		.uleb128 0x34
+ 742 0075 00       		.byte	0
+ 743 0076 03       		.uleb128 0x3
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 19
+
+
+ 744 0077 0E       		.uleb128 0xe
+ 745 0078 3A       		.uleb128 0x3a
+ 746 0079 0B       		.uleb128 0xb
+ 747 007a 3B       		.uleb128 0x3b
+ 748 007b 0B       		.uleb128 0xb
+ 749 007c 49       		.uleb128 0x49
+ 750 007d 13       		.uleb128 0x13
+ 751 007e 02       		.uleb128 0x2
+ 752 007f 0A       		.uleb128 0xa
+ 753 0080 00       		.byte	0
+ 754 0081 00       		.byte	0
+ 755 0082 0A       		.uleb128 0xa
+ 756 0083 34       		.uleb128 0x34
+ 757 0084 00       		.byte	0
+ 758 0085 03       		.uleb128 0x3
+ 759 0086 08       		.uleb128 0x8
+ 760 0087 3A       		.uleb128 0x3a
+ 761 0088 0B       		.uleb128 0xb
+ 762 0089 3B       		.uleb128 0x3b
+ 763 008a 0B       		.uleb128 0xb
+ 764 008b 49       		.uleb128 0x49
+ 765 008c 13       		.uleb128 0x13
+ 766 008d 02       		.uleb128 0x2
+ 767 008e 0A       		.uleb128 0xa
+ 768 008f 00       		.byte	0
+ 769 0090 00       		.byte	0
+ 770 0091 00       		.byte	0
+ 771              		.section	.debug_loc,"",%progbits
+ 772              	.Ldebug_loc0:
+ 773              	.LLST0:
+ 774 0000 00000000 		.4byte	.LFB0-.Ltext0
+ 775 0004 02000000 		.4byte	.LCFI0-.Ltext0
+ 776 0008 0200     		.2byte	0x2
+ 777 000a 7D       		.byte	0x7d
+ 778 000b 00       		.sleb128 0
+ 779 000c 02000000 		.4byte	.LCFI0-.Ltext0
+ 780 0010 04000000 		.4byte	.LCFI1-.Ltext0
+ 781 0014 0200     		.2byte	0x2
+ 782 0016 7D       		.byte	0x7d
+ 783 0017 08       		.sleb128 8
+ 784 0018 04000000 		.4byte	.LCFI1-.Ltext0
+ 785 001c 06000000 		.4byte	.LCFI2-.Ltext0
+ 786 0020 0200     		.2byte	0x2
+ 787 0022 7D       		.byte	0x7d
+ 788 0023 10       		.sleb128 16
+ 789 0024 06000000 		.4byte	.LCFI2-.Ltext0
+ 790 0028 84020000 		.4byte	.LFE0-.Ltext0
+ 791 002c 0200     		.2byte	0x2
+ 792 002e 77       		.byte	0x77
+ 793 002f 10       		.sleb128 16
+ 794 0030 00000000 		.4byte	0
+ 795 0034 00000000 		.4byte	0
+ 796              		.section	.debug_aranges,"",%progbits
+ 797 0000 1C000000 		.4byte	0x1c
+ 798 0004 0200     		.2byte	0x2
+ 799 0006 00000000 		.4byte	.Ldebug_info0
+ 800 000a 04       		.byte	0x4
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 20
+
+
+ 801 000b 00       		.byte	0
+ 802 000c 0000     		.2byte	0
+ 803 000e 0000     		.2byte	0
+ 804 0010 00000000 		.4byte	.Ltext0
+ 805 0014 84020000 		.4byte	.Letext0-.Ltext0
+ 806 0018 00000000 		.4byte	0
+ 807 001c 00000000 		.4byte	0
+ 808              		.section	.debug_line,"",%progbits
+ 809              	.Ldebug_line0:
+ 810 0000 D2000000 		.section	.debug_str,"MS",%progbits,1
+ 810      02004900 
+ 810      00000201 
+ 810      FB0E0D00 
+ 810      01010101 
+ 811              	.LASF18:
+ 812 0000 4A43454E 		.ascii	"JCENTER\000"
+ 812      54455200 
+ 813              	.LASF12:
+ 814 0008 46524F4E 		.ascii	"FRONT\000"
+ 814      5400
+ 815              	.LASF8:
+ 816 000e 54525545 		.ascii	"TRUE\000"
+ 816      00
+ 817              	.LASF21:
+ 818 0013 474E5520 		.ascii	"GNU C11 7.3.1 20180622 (release) [ARM/embedded-7-br"
+ 818      43313120 
+ 818      372E332E 
+ 818      31203230 
+ 818      31383036 
+ 819 0046 616E6368 		.ascii	"anch revision 261907] -mcpu=arm7tdmi -mthumb -mthum"
+ 819      20726576 
+ 819      6973696F 
+ 819      6E203236 
+ 819      31393037 
+ 820 0079 622D696E 		.ascii	"b-interwork -gdwarf-2 -O0\000"
+ 820      74657277 
+ 820      6F726B20 
+ 820      2D676477 
+ 820      6172662D 
+ 821              	.LASF11:
+ 822 0093 4C454654 		.ascii	"LEFT\000"
+ 822      00
+ 823              	.LASF19:
+ 824 0098 6D697272 		.ascii	"mirrorX\000"
+ 824      6F725800 
+ 825              	.LASF17:
+ 826 00a0 4A444F57 		.ascii	"JDOWN\000"
+ 826      4E00
+ 827              	.LASF0:
+ 828 00a6 756E7369 		.ascii	"unsigned char\000"
+ 828      676E6564 
+ 828      20636861 
+ 828      7200
+ 829              	.LASF16:
+ 830 00b4 4A524947 		.ascii	"JRIGHT\000"
+ 830      485400
+ 831              	.LASF1:
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 21
+
+
+ 832 00bb 73686F72 		.ascii	"short unsigned int\000"
+ 832      7420756E 
+ 832      7369676E 
+ 832      65642069 
+ 832      6E7400
+ 833              	.LASF7:
+ 834 00ce 46414C53 		.ascii	"FALSE\000"
+ 834      4500
+ 835              	.LASF25:
+ 836 00d4 6D61696E 		.ascii	"main\000"
+ 836      00
+ 837              	.LASF23:
+ 838 00d9 433A5C45 		.ascii	"C:\\Embedded\\2138MiniDemo\\2138\000"
+ 838      6D626564 
+ 838      6465645C 
+ 838      32313338 
+ 838      4D696E69 
+ 839              	.LASF2:
+ 840 00f7 756E7369 		.ascii	"unsigned int\000"
+ 840      676E6564 
+ 840      20696E74 
+ 840      00
+ 841              	.LASF15:
+ 842 0104 4A4C4546 		.ascii	"JLEFT\000"
+ 842      5400
+ 843              	.LASF3:
+ 844 010a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 844      206C6F6E 
+ 844      6720756E 
+ 844      7369676E 
+ 844      65642069 
+ 845              	.LASF20:
+ 846 0121 6D697272 		.ascii	"mirrorY\000"
+ 846      6F725900 
+ 847              	.LASF10:
+ 848 0129 52494748 		.ascii	"RIGHT\000"
+ 848      5400
+ 849              	.LASF6:
+ 850 012f 6C6F6E67 		.ascii	"long long int\000"
+ 850      206C6F6E 
+ 850      6720696E 
+ 850      7400
+ 851              	.LASF22:
+ 852 013d 6D61696E 		.ascii	"main.c\000"
+ 852      2E6300
+ 853              	.LASF9:
+ 854 0144 444F574E 		.ascii	"DOWN\000"
+ 854      00
+ 855              	.LASF5:
+ 856 0149 73686F72 		.ascii	"short int\000"
+ 856      7420696E 
+ 856      7400
+ 857              	.LASF14:
+ 858 0153 4A49444C 		.ascii	"JIDLE\000"
+ 858      4500
+ 859              	.LASF4:
+ 860 0159 7369676E 		.ascii	"signed char\000"
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 22
+
+
+ 860      65642063 
+ 860      68617200 
+ 861              	.LASF13:
+ 862 0165 4241434B 		.ascii	"BACK\000"
+ 862      00
+ 863              	.LASF24:
+ 864 016a 74426F6F 		.ascii	"tBool\000"
+ 864      6C00
+ 865              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 7.3.1 20180622 (release) [AR
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s 			page 23
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s:16     .rodata:00000000 $d
+C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s:43     .text:00000000 main
+C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s:51     .text:00000000 $t
+C:\Users\embedded\AppData\Local\Temp\cccRo3vD.s:453    .text:0000025c $d
+
+UNDEFINED SYMBOLS
+printf_init
+simplePrintf
+initAdc
+playBackgroundSoundtrack
+initRedDiod
+initBlueDiod
+delay_ms
+setRedDiodState
+setBlueDiodState
+i2cInit
+winLEDMovement
+joystickInit
+lcdColor
+lcdInit
+initENC28J60
+initGame
+initWatchdog
+touchWatchdog
+getAccelerationDirection
+setLcdBackgound
+lcdMirror
+getJoystickState
+moveLeft
+moveRight
+blinkGreenLed
+moveUp
+moveDown
+resetGame
+updateScreen

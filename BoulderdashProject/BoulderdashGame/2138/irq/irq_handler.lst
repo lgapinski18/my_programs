@@ -1,0 +1,405 @@
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccC5b5QL.s 			page 1
+
+
+   1              		.cpu arm7tdmi
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 6
+   9              		.eabi_attribute 34, 0
+  10              		.eabi_attribute 18, 4
+  11              		.file	"irq_handler.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.align	2
+  16              		.global	IRQ_PutNextSample
+  17              		.syntax unified
+  18              		.arm
+  19              		.fpu softvfp
+  20              		.type	IRQ_PutNextSample, %function
+  21              	IRQ_PutNextSample:
+  22              	.LFB0:
+  23              		.file 1 "irq_handler.c"
+   1:irq_handler.c **** /*
+   2:irq_handler.c ****  *	@Description:	Definicje procedur obslugi przerwan
+   3:irq_handler.c ****  */
+   4:irq_handler.c **** 
+   5:irq_handler.c **** #include "../general.h"
+   6:irq_handler.c **** #include <lpc2xxx.h>
+   7:irq_handler.c **** #include "irq_handler.h"
+   8:irq_handler.c **** #include "../timer.h"
+   9:irq_handler.c **** #include <printf_P.h>
+  10:irq_handler.c **** 
+  11:irq_handler.c **** #include "../dac.h"
+  12:irq_handler.c **** 
+  13:irq_handler.c **** 
+  14:irq_handler.c **** /*
+  15:irq_handler.c ****  *  @brief			Procedura obslugi przerwania zglaszanego przez Timer #1
+  16:irq_handler.c ****  *
+  17:irq_handler.c ****  *  @Description	Funkcja ta stanowi procedure obslugi przerwania zglaszanego przez Timer #1,
+  18:irq_handler.c ****  * 					polega na wywolaniu funkcji putNextSample.
+  19:irq_handler.c ****  *
+  20:irq_handler.c ****  *  @param 			brak
+  21:irq_handler.c ****  *
+  22:irq_handler.c ****  *  @returns  		nic
+  23:irq_handler.c ****  *
+  24:irq_handler.c ****  *  @side effects	Modyfikacja rejestru T1IR Timer'a #1
+  25:irq_handler.c ****  * 					Zerowanie rejestru VICVectAddr
+  26:irq_handler.c ****  */
+  27:irq_handler.c **** void IRQ_PutNextSample(void)
+  28:irq_handler.c **** {
+  24              		.loc 1 28 0
+  25              		.cfi_startproc
+  26              		@ Interrupt Service Routine.
+  27              		@ args = 0, pretend = 0, frame = 0
+  28              		@ frame_needed = 1, uses_anonymous_args = 0
+  29 0000 04E04EE2 		sub	lr, lr, #4
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccC5b5QL.s 			page 2
+
+
+  30 0004 1F582DE9 		push	{r0, r1, r2, r3, r4, fp, ip, lr}
+  31              	.LCFI0:
+  32              		.cfi_def_cfa_offset 32
+  33              		.cfi_offset 0, -32
+  34              		.cfi_offset 1, -28
+  35              		.cfi_offset 2, -24
+  36              		.cfi_offset 3, -20
+  37              		.cfi_offset 4, -16
+  38              		.cfi_offset 11, -12
+  39              		.cfi_offset 12, -8
+  40              		.cfi_offset 14, -4
+  41 0008 1CB08DE2 		add	fp, sp, #28
+  42              	.LCFI1:
+  43              		.cfi_def_cfa 11, 4
+  29:irq_handler.c **** 	/* Sprawdzenie, czy wystapilo odpowiednie przerwanie */
+  30:irq_handler.c **** 	if ((TIMER_MR0_INT & T1IR) != 0u)
+  44              		.loc 1 30 0
+  45 000c 34309FE5 		ldr	r3, .L3
+  46 0010 003093E5 		ldr	r3, [r3]
+  47 0014 013003E2 		and	r3, r3, #1
+  48 0018 000053E3 		cmp	r3, #0
+  49 001c 0300000A 		beq	.L2
+  31:irq_handler.c **** 	{
+  32:irq_handler.c **** 		putNextSample();
+  50              		.loc 1 32 0
+  51 0020 FEFFFFEB 		bl	putNextSample
+  33:irq_handler.c **** 
+  34:irq_handler.c **** 		T1IR = (tU32)TIMER_MR0_INT; /* Poinformowanie Timera #1, iz jego przerwanie zostalo obsluzone */
+  52              		.loc 1 34 0
+  53 0024 1C309FE5 		ldr	r3, .L3
+  54 0028 0120A0E3 		mov	r2, #1
+  55 002c 002083E5 		str	r2, [r3]
+  56              	.L2:
+  35:irq_handler.c **** 	}
+  36:irq_handler.c **** 
+  37:irq_handler.c **** 	VICVectAddr = 0; /* Informacja dla kontrolera o zakonczeniu obslugi przerwania */
+  57              		.loc 1 37 0
+  58 0030 14309FE5 		ldr	r3, .L3+4
+  59 0034 0020A0E3 		mov	r2, #0
+  60 0038 002083E5 		str	r2, [r3]
+  38:irq_handler.c **** }
+  61              		.loc 1 38 0
+  62 003c 0000A0E1 		nop
+  63 0040 1CD04BE2 		sub	sp, fp, #28
+  64              	.LCFI2:
+  65              		.cfi_def_cfa 13, 32
+  66              		@ sp needed
+  67 0044 1F98FDE8 		ldmfd	sp!, {r0, r1, r2, r3, r4, fp, ip, pc}^
+  68              	.L4:
+  69              		.align	2
+  70              	.L3:
+  71 0048 008000E0 		.word	-536838144
+  72 004c 30F0FFFF 		.word	-4048
+  73              		.cfi_endproc
+  74              	.LFE0:
+  75              		.size	IRQ_PutNextSample, .-IRQ_PutNextSample
+  76              	.Letext0:
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccC5b5QL.s 			page 3
+
+
+  77              		.file 2 "../general.h"
+  78              		.section	.debug_info,"",%progbits
+  79              	.Ldebug_info0:
+  80 0000 7B000000 		.4byte	0x7b
+  81 0004 0200     		.2byte	0x2
+  82 0006 00000000 		.4byte	.Ldebug_abbrev0
+  83 000a 04       		.byte	0x4
+  84 000b 01       		.uleb128 0x1
+  85 000c 90000000 		.4byte	.LASF7
+  86 0010 0C       		.byte	0xc
+  87 0011 4E000000 		.4byte	.LASF8
+  88 0015 0D000000 		.4byte	.LASF9
+  89 0019 00000000 		.4byte	.Ltext0
+  90 001d 50000000 		.4byte	.Letext0
+  91 0021 00000000 		.4byte	.Ldebug_line0
+  92 0025 02       		.uleb128 0x2
+  93 0026 01       		.byte	0x1
+  94 0027 08       		.byte	0x8
+  95 0028 6B000000 		.4byte	.LASF0
+  96 002c 02       		.uleb128 0x2
+  97 002d 02       		.byte	0x2
+  98 002e 07       		.byte	0x7
+  99 002f 3B000000 		.4byte	.LASF1
+ 100 0033 03       		.uleb128 0x3
+ 101 0034 66000000 		.4byte	.LASF10
+ 102 0038 02       		.byte	0x2
+ 103 0039 09       		.byte	0x9
+ 104 003a 3E000000 		.4byte	0x3e
+ 105 003e 02       		.uleb128 0x2
+ 106 003f 04       		.byte	0x4
+ 107 0040 07       		.byte	0x7
+ 108 0041 00000000 		.4byte	.LASF2
+ 109 0045 02       		.uleb128 0x2
+ 110 0046 08       		.byte	0x8
+ 111 0047 07       		.byte	0x7
+ 112 0048 79000000 		.4byte	.LASF3
+ 113 004c 02       		.uleb128 0x2
+ 114 004d 01       		.byte	0x1
+ 115 004e 06       		.byte	0x6
+ 116 004f 2F000000 		.4byte	.LASF4
+ 117 0053 02       		.uleb128 0x2
+ 118 0054 02       		.byte	0x2
+ 119 0055 05       		.byte	0x5
+ 120 0056 5C000000 		.4byte	.LASF5
+ 121 005a 04       		.uleb128 0x4
+ 122 005b 04       		.byte	0x4
+ 123 005c 05       		.byte	0x5
+ 124 005d 696E7400 		.ascii	"int\000"
+ 125 0061 02       		.uleb128 0x2
+ 126 0062 08       		.byte	0x8
+ 127 0063 05       		.byte	0x5
+ 128 0064 1A010000 		.4byte	.LASF6
+ 129 0068 05       		.uleb128 0x5
+ 130 0069 01       		.byte	0x1
+ 131 006a 08010000 		.4byte	.LASF11
+ 132 006e 01       		.byte	0x1
+ 133 006f 1B       		.byte	0x1b
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccC5b5QL.s 			page 4
+
+
+ 134 0070 01       		.byte	0x1
+ 135 0071 00000000 		.4byte	.LFB0
+ 136 0075 50000000 		.4byte	.LFE0
+ 137 0079 00000000 		.4byte	.LLST0
+ 138 007d 01       		.byte	0x1
+ 139 007e 00       		.byte	0
+ 140              		.section	.debug_abbrev,"",%progbits
+ 141              	.Ldebug_abbrev0:
+ 142 0000 01       		.uleb128 0x1
+ 143 0001 11       		.uleb128 0x11
+ 144 0002 01       		.byte	0x1
+ 145 0003 25       		.uleb128 0x25
+ 146 0004 0E       		.uleb128 0xe
+ 147 0005 13       		.uleb128 0x13
+ 148 0006 0B       		.uleb128 0xb
+ 149 0007 03       		.uleb128 0x3
+ 150 0008 0E       		.uleb128 0xe
+ 151 0009 1B       		.uleb128 0x1b
+ 152 000a 0E       		.uleb128 0xe
+ 153 000b 11       		.uleb128 0x11
+ 154 000c 01       		.uleb128 0x1
+ 155 000d 12       		.uleb128 0x12
+ 156 000e 01       		.uleb128 0x1
+ 157 000f 10       		.uleb128 0x10
+ 158 0010 06       		.uleb128 0x6
+ 159 0011 00       		.byte	0
+ 160 0012 00       		.byte	0
+ 161 0013 02       		.uleb128 0x2
+ 162 0014 24       		.uleb128 0x24
+ 163 0015 00       		.byte	0
+ 164 0016 0B       		.uleb128 0xb
+ 165 0017 0B       		.uleb128 0xb
+ 166 0018 3E       		.uleb128 0x3e
+ 167 0019 0B       		.uleb128 0xb
+ 168 001a 03       		.uleb128 0x3
+ 169 001b 0E       		.uleb128 0xe
+ 170 001c 00       		.byte	0
+ 171 001d 00       		.byte	0
+ 172 001e 03       		.uleb128 0x3
+ 173 001f 16       		.uleb128 0x16
+ 174 0020 00       		.byte	0
+ 175 0021 03       		.uleb128 0x3
+ 176 0022 0E       		.uleb128 0xe
+ 177 0023 3A       		.uleb128 0x3a
+ 178 0024 0B       		.uleb128 0xb
+ 179 0025 3B       		.uleb128 0x3b
+ 180 0026 0B       		.uleb128 0xb
+ 181 0027 49       		.uleb128 0x49
+ 182 0028 13       		.uleb128 0x13
+ 183 0029 00       		.byte	0
+ 184 002a 00       		.byte	0
+ 185 002b 04       		.uleb128 0x4
+ 186 002c 24       		.uleb128 0x24
+ 187 002d 00       		.byte	0
+ 188 002e 0B       		.uleb128 0xb
+ 189 002f 0B       		.uleb128 0xb
+ 190 0030 3E       		.uleb128 0x3e
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccC5b5QL.s 			page 5
+
+
+ 191 0031 0B       		.uleb128 0xb
+ 192 0032 03       		.uleb128 0x3
+ 193 0033 08       		.uleb128 0x8
+ 194 0034 00       		.byte	0
+ 195 0035 00       		.byte	0
+ 196 0036 05       		.uleb128 0x5
+ 197 0037 2E       		.uleb128 0x2e
+ 198 0038 00       		.byte	0
+ 199 0039 3F       		.uleb128 0x3f
+ 200 003a 0C       		.uleb128 0xc
+ 201 003b 03       		.uleb128 0x3
+ 202 003c 0E       		.uleb128 0xe
+ 203 003d 3A       		.uleb128 0x3a
+ 204 003e 0B       		.uleb128 0xb
+ 205 003f 3B       		.uleb128 0x3b
+ 206 0040 0B       		.uleb128 0xb
+ 207 0041 27       		.uleb128 0x27
+ 208 0042 0C       		.uleb128 0xc
+ 209 0043 11       		.uleb128 0x11
+ 210 0044 01       		.uleb128 0x1
+ 211 0045 12       		.uleb128 0x12
+ 212 0046 01       		.uleb128 0x1
+ 213 0047 40       		.uleb128 0x40
+ 214 0048 06       		.uleb128 0x6
+ 215 0049 9642     		.uleb128 0x2116
+ 216 004b 0C       		.uleb128 0xc
+ 217 004c 00       		.byte	0
+ 218 004d 00       		.byte	0
+ 219 004e 00       		.byte	0
+ 220              		.section	.debug_loc,"",%progbits
+ 221              	.Ldebug_loc0:
+ 222              	.LLST0:
+ 223 0000 00000000 		.4byte	.LFB0-.Ltext0
+ 224 0004 08000000 		.4byte	.LCFI0-.Ltext0
+ 225 0008 0200     		.2byte	0x2
+ 226 000a 7D       		.byte	0x7d
+ 227 000b 00       		.sleb128 0
+ 228 000c 08000000 		.4byte	.LCFI0-.Ltext0
+ 229 0010 0C000000 		.4byte	.LCFI1-.Ltext0
+ 230 0014 0200     		.2byte	0x2
+ 231 0016 7D       		.byte	0x7d
+ 232 0017 20       		.sleb128 32
+ 233 0018 0C000000 		.4byte	.LCFI1-.Ltext0
+ 234 001c 44000000 		.4byte	.LCFI2-.Ltext0
+ 235 0020 0200     		.2byte	0x2
+ 236 0022 7B       		.byte	0x7b
+ 237 0023 04       		.sleb128 4
+ 238 0024 44000000 		.4byte	.LCFI2-.Ltext0
+ 239 0028 50000000 		.4byte	.LFE0-.Ltext0
+ 240 002c 0200     		.2byte	0x2
+ 241 002e 7D       		.byte	0x7d
+ 242 002f 20       		.sleb128 32
+ 243 0030 00000000 		.4byte	0
+ 244 0034 00000000 		.4byte	0
+ 245              		.section	.debug_aranges,"",%progbits
+ 246 0000 1C000000 		.4byte	0x1c
+ 247 0004 0200     		.2byte	0x2
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccC5b5QL.s 			page 6
+
+
+ 248 0006 00000000 		.4byte	.Ldebug_info0
+ 249 000a 04       		.byte	0x4
+ 250 000b 00       		.byte	0
+ 251 000c 0000     		.2byte	0
+ 252 000e 0000     		.2byte	0
+ 253 0010 00000000 		.4byte	.Ltext0
+ 254 0014 50000000 		.4byte	.Letext0-.Ltext0
+ 255 0018 00000000 		.4byte	0
+ 256 001c 00000000 		.4byte	0
+ 257              		.section	.debug_line,"",%progbits
+ 258              	.Ldebug_line0:
+ 259 0000 4E000000 		.section	.debug_str,"MS",%progbits,1
+ 259      02003400 
+ 259      00000201 
+ 259      FB0E0D00 
+ 259      01010101 
+ 260              	.LASF2:
+ 261 0000 756E7369 		.ascii	"unsigned int\000"
+ 261      676E6564 
+ 261      20696E74 
+ 261      00
+ 262              	.LASF9:
+ 263 000d 433A5C45 		.ascii	"C:\\Embedded\\2138MiniDemo\\2138\\irq\000"
+ 263      6D626564 
+ 263      6465645C 
+ 263      32313338 
+ 263      4D696E69 
+ 264              	.LASF4:
+ 265 002f 7369676E 		.ascii	"signed char\000"
+ 265      65642063 
+ 265      68617200 
+ 266              	.LASF1:
+ 267 003b 73686F72 		.ascii	"short unsigned int\000"
+ 267      7420756E 
+ 267      7369676E 
+ 267      65642069 
+ 267      6E7400
+ 268              	.LASF8:
+ 269 004e 6972715F 		.ascii	"irq_handler.c\000"
+ 269      68616E64 
+ 269      6C65722E 
+ 269      6300
+ 270              	.LASF5:
+ 271 005c 73686F72 		.ascii	"short int\000"
+ 271      7420696E 
+ 271      7400
+ 272              	.LASF10:
+ 273 0066 74553332 		.ascii	"tU32\000"
+ 273      00
+ 274              	.LASF0:
+ 275 006b 756E7369 		.ascii	"unsigned char\000"
+ 275      676E6564 
+ 275      20636861 
+ 275      7200
+ 276              	.LASF3:
+ 277 0079 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 277      206C6F6E 
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccC5b5QL.s 			page 7
+
+
+ 277      6720756E 
+ 277      7369676E 
+ 277      65642069 
+ 278              	.LASF7:
+ 279 0090 474E5520 		.ascii	"GNU C11 7.3.1 20180622 (release) [ARM/embedded-7-br"
+ 279      43313120 
+ 279      372E332E 
+ 279      31203230 
+ 279      31383036 
+ 280 00c3 616E6368 		.ascii	"anch revision 261907] -mcpu=arm7tdmi -mthumb-interw"
+ 280      20726576 
+ 280      6973696F 
+ 280      6E203236 
+ 280      31393037 
+ 281 00f6 6F726B20 		.ascii	"ork -gdwarf-2 -O0\000"
+ 281      2D676477 
+ 281      6172662D 
+ 281      32202D4F 
+ 281      3000
+ 282              	.LASF11:
+ 283 0108 4952515F 		.ascii	"IRQ_PutNextSample\000"
+ 283      5075744E 
+ 283      65787453 
+ 283      616D706C 
+ 283      6500
+ 284              	.LASF6:
+ 285 011a 6C6F6E67 		.ascii	"long long int\000"
+ 285      206C6F6E 
+ 285      6720696E 
+ 285      7400
+ 286              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2018-q2-update) 7.3.1 20180622 (release) [AR
+ARM GAS  C:\Users\embedded\AppData\Local\Temp\ccC5b5QL.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 irq_handler.c
+C:\Users\embedded\AppData\Local\Temp\ccC5b5QL.s:15     .text:00000000 $a
+C:\Users\embedded\AppData\Local\Temp\ccC5b5QL.s:21     .text:00000000 IRQ_PutNextSample
+C:\Users\embedded\AppData\Local\Temp\ccC5b5QL.s:71     .text:00000048 $d
+
+UNDEFINED SYMBOLS
+putNextSample
