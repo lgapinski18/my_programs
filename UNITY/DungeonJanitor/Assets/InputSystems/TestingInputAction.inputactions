@@ -1,0 +1,54 @@
+{
+    "name": "TestingInputAction",
+    "maps": [
+        {
+            "name": "testing",
+            "id": "e9fdedaf-a667-40f1-813f-1daf3c292cf8",
+            "actions": [
+                {
+                    "name": "TestPathfinding",
+                    "type": "Value",
+                    "id": "36d9ae5e-887c-4cf6-8f9a-1e1824cfdb40",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "TestMoving",
+                    "type": "Value",
+                    "id": "738e8dd2-b30a-4853-b66e-0f165ca267c2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7d68e462-284e-4ead-b3d0-d85364fbeb43",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestPathfinding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e2b6aa7c-fd1a-441b-9021-7447013785cb",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestMoving",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

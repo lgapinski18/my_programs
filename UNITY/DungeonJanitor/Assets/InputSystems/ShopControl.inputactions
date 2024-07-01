@@ -1,0 +1,34 @@
+{
+    "name": "ShopControl",
+    "maps": [
+        {
+            "name": "gameplay",
+            "id": "1ecb9811-998e-4302-bd62-162a8f3ff78b",
+            "actions": [
+                {
+                    "name": "SkipMessage",
+                    "type": "Button",
+                    "id": "b27e36b9-9a4c-4803-ae3a-0e436084254c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "efe41d20-2320-4b42-998d-2dd310976fc7",
+                    "path": "<Keyboard>/f",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkipMessage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

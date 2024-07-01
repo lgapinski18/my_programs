@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6100800f0e7d99044a44a29e3dde1082, type: 3}
+  m_Name: NormalRockCorpse
+  m_EditorClassIdentifier: 
+  itemName: NormalRockBody
+  icon: {fileID: 21300000, guid: 0a02c4bd12ae7554f927bb6048a8ff35, type: 3}
+  model: {fileID: 9091473215932854115, guid: bc85973b2ef5046429554f1bfa65ca82, type: 3}
+  isOnMap: 1
+  itemSize: 2

@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Interactable
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Walls
+  - Furnitures
+  - Floor
+  - Corridors
+  - MonsterFOV
+  - Monster
+  - TaskElements
+  - Player
+  - Stains
+  - Traps
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - Tmp
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Floor
+    uniqueID: 1077086565
+    locked: 0
+  - name: Corridor
+    uniqueID: 1471296199
+    locked: 0
+  - name: Wall
+    uniqueID: 4159868061
+    locked: 0
+  - name: Dungeon Elements
+    uniqueID: 1367887617
+    locked: 0
+  - name: Furniture
+    uniqueID: 988514441
+    locked: 0
+  - name: Player
+    uniqueID: 1090142389
+    locked: 0
+  - name: UpperFurniture
+    uniqueID: 483796111
+    locked: 0
+  - name: UI
+    uniqueID: 4151686187
+    locked: 0
+  - name: UI-Back
+    uniqueID: 2484213087
+    locked: 0
+  - name: UI-Mid
+    uniqueID: 1921277189
+    locked: 0
+  - name: UI-Front
+    uniqueID: 626540015
+    locked: 0
+  - name: Minimap Wall
+    uniqueID: 4255394861
+    locked: 0
+  - name: Minimap Floor
+    uniqueID: 3817212143
+    locked: 0
+  - name: Minimap Protrait
+    uniqueID: 3453377827
+    locked: 0
