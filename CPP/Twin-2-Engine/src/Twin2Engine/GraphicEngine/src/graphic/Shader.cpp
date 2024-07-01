@@ -1,7 +1,7 @@
 #include <graphic/Shader.h>
 #include <graphic/manager/ShaderManager.h>
 
-using namespace Twin2Engine::GraphicEngine;
+using namespace Twin2Engine::Graphic;
 using namespace Twin2Engine::Manager;
 
 Shader::Shader(const Shader&& shader)
@@ -55,6 +55,11 @@ void Shader::SetFloat(const std::string& name, float value) const
     glUniform1f(glGetUniformLocation(shaderProgramID, name.c_str()), value);
 }
 
+void Shader::SetFloatArray(const std::string& name, float* values, size_t size) const
+{
+    glUniform1fv(glGetUniformLocation(shaderProgramID, name.c_str()), size, values);
+}
+
 void Shader::SetVec2(const std::string& name, const glm::vec2& value) const
 {
     glUniform2fv(glGetUniformLocation(shaderProgramID, name.c_str()), 1, glm::value_ptr(value));
@@ -73,6 +78,11 @@ void Shader::SetVec4(const std::string& name, const glm::vec4& value) const
 void Shader::SetMat4(const std::string& name, glm::mat4& value) const
 {
     glUniformMatrix4fv(glGetUniformLocation(shaderProgramID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
+}
+
+void Shader::SetMat3(const std::string& name, glm::mat3& value) const
+{
+    glUniformMatrix3fv(glGetUniformLocation(shaderProgramID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 }
 
 GLuint Shader::GetProgramId() const

@@ -1,9 +1,9 @@
-#ifndef _MATERIALS_MANAGER_H_
-#define _MATERIALS_MANAGER_H_
+#pragma once
 
 #include <graphic/Material.h>
 #include <graphic/manager/ShaderManager.h>
 #include <graphic/manager/TextureManager.h>
+#include <graphic/MaterialParametersBuilder.h>
 
 namespace Twin2Engine::Manager
 {
@@ -12,28 +12,49 @@ namespace Twin2Engine::Manager
 
 	class MaterialsManager
 	{
-		friend class GraphicEngine::Material;
+		friend class Graphic::Material;
 		friend class SceneManager;
 		friend class PrefabManager;
+	
+	private:
+		static std::hash<std::string> _stringHash;
+		static const std::unordered_map<size_t, int> _typeHandleMap;
+		static std::map<size_t, Graphic::Material*> _loadedMaterials;
+		static std::map<size_t, std::string> _materialsPaths;
 
-		static std::hash<std::string> stringHash;
-		static const std::unordered_map<size_t, int> typeHandleMap;
-		static std::map<size_t, GraphicEngine::MaterialData*> loadedMaterials;
-
-		static std::map<size_t, std::string> materialsPaths;
+#if _DEBUG
+		// For ImGui
+		static bool _fileDialogOpen;
+		static ImFileDialogInfo _fileDialogInfo;
+#endif
 
 		static void UnloadMaterial(size_t managerId);
-		static void UnloadMaterial(const std::string& path);
-		static GraphicEngine::Material LoadMaterial(const std::string& materialName);
-		//static int DetermineSize(const std::string& type);
+		static void UnloadMaterial(const std::string& materialPath);
+		static Graphic::Material* LoadMaterial(const std::string& materialPath);
+
+#if _DEBUG
+		static void SaveMaterial(const std::string& materialPath, Graphic::Material* mat);
+#endif
 	public:
 
-		static GraphicEngine::Material GetMaterial(size_t managerId);
-		static GraphicEngine::Material GetMaterial(const std::string& name);
-		static GraphicEngine::Material CreateMaterial(const std::string& newMaterialName, const std::string& shaderName, const std::vector<std::string>& materialParametersNames, const std::vector<std::string>& textureParametersNames);
+		static bool IsMaterialLoaded(size_t managerId);
+		static bool IsMaterialLoaded(const std::string& materialPath);
+
+		static Graphic::Material* GetMaterial(size_t managerId);
+		static Graphic::Material* GetMaterial(const std::string& materialPath);
+
+		static std::string GetMaterialPath(size_t managerId);
+		static std::string GetMaterialPath(Graphic::Material* material);
+
+		static std::string GetMaterialName(size_t managerId);
+		static std::map<size_t, std::string> GetAllMaterialsNames();
+
+		static void UnloadAll();
 
 		static YAML::Node Serialize();
+
+#if _DEBUG
+		static void DrawEditor(bool* p_open);
+#endif
 	};
 }
-
-#endif

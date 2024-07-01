@@ -1,11 +1,11 @@
-#ifndef _GAMEOBJECT_H_
-#define _GAMEOBJECT_H_
+#pragma once
 
 using std::list;
 using std::string;
 
 #include <core/Component.h>
 #include <core/Transform.h>
+#include <physic/LayersData.h>
 
 using Twin2Engine::Core::Component;
 
@@ -31,7 +31,7 @@ namespace Twin2Engine::Core
 	private:
 
 		static size_t _currentFreeId;
-		static std::list<size_t> _freedIds;
+		static std::vector<size_t> _freedIds;
 		static size_t GetFreeId();
 		static void FreeId(size_t id);
 		
@@ -49,20 +49,33 @@ namespace Twin2Engine::Core
 
 		bool _isStatic;
 
+#if _DEBUG
+		// For ImGui
+		ImFileDialogInfo _fileDialogPrefabSaveInfo;
+		bool _saveGameObjectAsPrefab = false;
+#endif
 
 		//Layer
 		//Tag
 		void SetActiveInHierarchy(bool activeInHierarchy);
+		void UpdateActiveInChildren();
 
 		GameObject(size_t id);
 	public:
 		GameObject();
+
+#pragma region EVENTS
+		Tools::EventHandler<GameObject*> OnActiveChangedEvent;
+		Tools::EventHandler<GameObject*> OnStaticChangedEvent;
+		Tools::EventHandler<GameObject*> OnDestroyedEvent;
+#pragma endregion
 
 		virtual ~GameObject();
 
 		size_t Id() const;
 
 		bool GetActiveInHierarchy() const;
+		bool GetActiveSelf() const;
 		bool GetActive() const;
 		void SetActive(bool active);
 
@@ -80,9 +93,14 @@ namespace Twin2Engine::Core
 		void AddTag(std::string_view tagName);
 		void RemoveTag(std::string_view tagName);
 		bool HasTag(std::string_view tagName);
-		Layer layer = Layer::DEFAULT;
+		//Layer layer = Layer::DEFAULT;
 
 		YAML::Node Serialize() const;
+		bool Deserialize(const YAML::Node& node);
+		
+#if _DEBUG
+		void DrawEditor();
+#endif
 
 #pragma region COMPONENTS_MANAGEMENT
 
@@ -91,6 +109,7 @@ namespace Twin2Engine::Core
 
 	private:
 		void AddComponent(Component* comp);
+		void AddComponentNoInit(Component* comp);
 	public:
 
 		template<class T>
@@ -111,17 +130,31 @@ namespace Twin2Engine::Core
 		template<class T>
 		list<typename std::enable_if<std::is_base_of<Component, T>::value, T*>::type>
 			GetComponentsInParent();
+		template<class T>
+		typename std::enable_if<std::is_base_of<Component, T>::value, T*>::type
+			GetComponentInParents();
+		template<class T>
+		list<typename std::enable_if<std::is_base_of<Component, T>::value, T*>::type>
+			GetComponentsInParents();
 
 		void RemoveComponent(Component* component);
 		template<class T, std::enable_if<std::is_base_of<Component, T>::value, bool>::type = true>
 		void RemoveComponents() {
-			components.remove_if([](Component* component) { return dynamic_cast<T*>(component) != nullptr; });
+			components.remove_if([](Component* component) { 
+				if (dynamic_cast<T*>(component) != nullptr)
+				{
+					component->OnDestroy();
+					//delete component;
+					return true;
+				}
+				return false;
+			});
 		}
 
 #pragma endregion
 	
-		static GameObject* Instatiate(GameObject* gameObject);
-		static GameObject* Instatiate(GameObject* gameObject, Transform* parent);
+		static GameObject* Instantiate(GameObject* gameObject);
+		static GameObject* Instantiate(GameObject* gameObject, Transform* parent);
 	};
 }
 
@@ -132,9 +165,7 @@ T* Twin2Engine::Core::GameObject::AddComponent()
 	static_assert(std::is_base_of<Component, T>::value);
 	T* component = new T();
 
-	component->Init(this);
-
-	components.push_back(component);
+	AddComponent(component);
 
 	return component;
 }
@@ -161,7 +192,15 @@ list<typename std::enable_if<std::is_base_of<Component, T>::value, T*>::type>
 Twin2Engine::Core::GameObject::GetComponents()
 {
 	list<T*> foundComponents;
-	std::copy_if(components.begin(), components.end(), std::back_inserter(foundComponents), [](Component* component) { return dynamic_cast<T*>(component) != nullptr; });
+	//std::copy_if(components.begin(), components.end(), std::back_inserter(foundComponents), [](Component* component) { return dynamic_cast<T*>(component) != nullptr; });
+	for (auto itr = components.begin(); itr != components.end(); itr++)
+	{
+		T* componentCast = dynamic_cast<T*>(*itr);
+		if (componentCast != nullptr)
+		{
+			foundComponents.push_back(componentCast);
+		}
+	}
 	return foundComponents;
 }
 
@@ -186,15 +225,11 @@ list<typename std::enable_if<std::is_base_of<Component, T>::value, T*>::type>
 Twin2Engine::Core::GameObject::GetComponentsInChildren()
 {
 	// Przeszukiwanie w g��b
-	list<T*> comps = list<T*>();
+	list<T*> comps;
 	for (size_t i = 0; i < _transform->GetChildCount(); ++i) {
 		GameObject* obj = _transform->GetChildAt(i)->GetGameObject();
-		auto listOfComponents = obj->GetComponents<T>();
-		comps.insert(comps.cend(), listOfComponents.begin(), listOfComponents.end());
-		listOfComponents = obj->GetComponentsInChildren<T>();
-		comps.insert(comps.cend(), listOfComponents.begin(), listOfComponents.end());
-		//comps.push_back(obj->GetComponents<T>());
-		//comps.push_back(obj->GetComponentsInChildren<T>());
+		comps.merge(obj->GetComponents<T>());
+		comps.merge(obj->GetComponentsInChildren<T>());
 	}
 	return comps;
 }
@@ -213,8 +248,30 @@ list<typename std::enable_if<std::is_base_of<Component, T>::value, T*>::type>
 Twin2Engine::Core::GameObject::GetComponentsInParent()
 {
 	Transform* parent = _transform->GetParent();
-	if (parent == nullptr) return nullptr;
+	if (parent == nullptr) return list<T*>();
 	return parent->GetGameObject()->GetComponents<T>();
 }
 
-#endif // !_GAMEOBJECT_H_
+template<class T>
+typename std::enable_if<std::is_base_of<Component, T>::value, T*>::type
+Twin2Engine::Core::GameObject::GetComponentInParents()
+{
+	Transform* parent = _transform->GetParent();
+	if (parent == nullptr) return nullptr;
+	T* comp = parent->GetGameObject()->GetComponent<T>();
+	if (comp == nullptr) return parent->GetGameObject()->GetComponentInParents<T>();
+	return comp;
+}
+
+template<class T>
+list<typename std::enable_if<std::is_base_of<Component, T>::value, T*>::type>
+Twin2Engine::Core::GameObject::GetComponentsInParents()
+{
+	Transform* parent = _transform->GetParent();
+	if (parent == nullptr) return list<T*>();
+
+	list<T*> comps;
+	comps.merge(parent->GetGameObject()->GetComponents<T>());
+	comps.merge(parent->GetGameObject()->GetComponentsInParents<T>());
+	return comps;
+}

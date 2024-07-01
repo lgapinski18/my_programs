@@ -17,6 +17,12 @@ namespace Twin2Engine::Manager {
 		static Soloud _soloud;
 		static map<size_t, Wav*> _loadedAudio;
 
+#if _DEBUG
+		// For ImGui
+		static bool _fileDialogOpen;
+		static ImFileDialogInfo _fileDialogInfo;
+#endif
+
 		static map<size_t, string> _audiosPaths;
 
 		static bool _init;
@@ -47,6 +53,8 @@ namespace Twin2Engine::Manager {
 		static void SetVolume(handle h, float value);
 		static void SetLooping(handle h, bool loop);
 
+		static string GetAudioName(string path);
+		static string GetAudioName(size_t id);
 		static float GetVolume(handle h);
 		static SoLoud::time GetAudioTime(string path);
 		static SoLoud::time GetAudioTime(size_t id);
@@ -54,13 +62,19 @@ namespace Twin2Engine::Manager {
 		static SoLoud::time GetPlayPosition(handle h);
 		static bool IsPaused(handle h);
 		static bool IsHandleValid(handle h);
+		static bool IsAudioValid(size_t id);
 		static bool IsLooping(handle h);
 
 		static void FadeVolume(handle h, float to, SoLoud::time seconds);
 
+		static std::map<size_t, string> GetAllAudiosNames();
 		static void UnloadAll();
 
 		static YAML::Node Serialize();
+		
+#if _DEBUG
+		static void DrawEditor(bool* p_open);
+#endif
 
 		friend class SceneManager;
 		friend class PrefabManager;

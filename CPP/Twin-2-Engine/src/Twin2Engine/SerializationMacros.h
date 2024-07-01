@@ -1,10 +1,11 @@
 #ifndef _SERIALIZATION_MACROS_H_
 #define _SERIALIZATION_MACROS_H_
 
+#include <tools/macros.h>
 
 // Macro to clone each field
-#define CloneField(fieldName) \
-    cloned->fieldName = fieldName; \
+/*#define CloneField(fieldName) \
+    cloned->fieldName = fieldName;
 
 
 
@@ -24,7 +25,7 @@
 
 // Macro to end the clone function definition
 #define CloneFunctionEnd() \
-    } \
+    } \*/
 
 // Macro to define the clone function
 //#define CloneFunction(className, baseClassName, ...) \

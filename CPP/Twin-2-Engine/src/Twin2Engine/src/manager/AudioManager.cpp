@@ -1,10 +1,20 @@
 #include <manager/AudioManager.h>
 #include <spdlog/spdlog.h>
+#include <filesystem>
+
+#if _DEBUG
+#include <regex>
+#endif
 
 using namespace Twin2Engine::Manager;
 
 Soloud AudioManager::_soloud = Soloud();
 map<size_t, Wav*> AudioManager::_loadedAudio = map<size_t, Wav*>();
+
+#if _DEBUG
+bool AudioManager::_fileDialogOpen = false;
+ImFileDialogInfo AudioManager::_fileDialogInfo;
+#endif
 
 map<size_t, string> AudioManager::_audiosPaths;
 
@@ -13,7 +23,7 @@ bool AudioManager::_init = false;
 void AudioManager::UnloadAudio(size_t id)
 {
     if (_loadedAudio.count(id) == 0) {
-        spdlog::error("AudioManager::Audio not found");
+        SPDLOG_ERROR("AudioManager::Audio not found");
         return;
     }
 
@@ -50,7 +60,7 @@ size_t AudioManager::LoadAudio(string path)
     if (_loadedAudio.size() == 0 && !_init) {
         SoLoud::result res = _soloud.init();
         if (res != 0) {
-            spdlog::error(_soloud.getErrorString(res));
+            SPDLOG_ERROR(_soloud.getErrorString(res));
             return 0;
         }
         else {
@@ -62,23 +72,31 @@ size_t AudioManager::LoadAudio(string path)
         return h;
     }
 
-    Wav* sample = new Wav();
-    result res = sample->load(path.c_str());
-    if (res != 0) {
-        spdlog::error(_soloud.getErrorString(res));
+    if (filesystem::exists(path))
+    {
+        Wav* sample = new Wav();
+        result res = sample->load(path.c_str());
+        if (res != 0) {
+            SPDLOG_ERROR(_soloud.getErrorString(res));
+            return 0;
+        }
+
+        _loadedAudio[h] = sample;
+        _audiosPaths[h] = path;
+
+        return h;
+    }
+    else
+    {
+        SPDLOG_ERROR("AudioManager::Audio file '{0}' not found!", path);
         return 0;
     }
-
-    _loadedAudio[h] = sample;
-    _audiosPaths[h] = path;
-
-    return h;
 }
 
 handle AudioManager::GetAudioHandle(string path)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return 0;
     }
 
@@ -89,13 +107,13 @@ handle AudioManager::GetAudioHandle(string path)
 handle AudioManager::GetAudioHandle(size_t id)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return 0;
     }
 
     if (_loadedAudio.count(id) == 0) {
-        spdlog::error("AudioManager::Audio not found");
-        return SoLoud::time();
+        SPDLOG_ERROR("AudioManager::Audio not found");
+        return 0;
     }
 
     return _soloud.play(*_loadedAudio[id], -1.f, 0.f, true);
@@ -104,7 +122,7 @@ handle AudioManager::GetAudioHandle(size_t id)
 handle AudioManager::PlayAudioInstance(string path)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return 0;
     }
 
@@ -115,12 +133,12 @@ handle AudioManager::PlayAudioInstance(string path)
 handle AudioManager::PlayAudioInstance(size_t id)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return 0;
     }
 
     if (_loadedAudio.count(id) == 0) {
-        spdlog::error("AudioManager::Audio not found");
+        SPDLOG_ERROR("AudioManager::Audio not found");
         return 0;
     }
 
@@ -135,7 +153,7 @@ void AudioManager::PlayAudio(handle h)
 void AudioManager::PauseAudio(handle h)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return;
     }
 
@@ -143,14 +161,14 @@ void AudioManager::PauseAudio(handle h)
         _soloud.setPause(h, true);
     }
     else {
-        spdlog::error("AudioManager::Handle Not Valid");
+        SPDLOG_ERROR("AudioManager::Handle Not Valid");
     }
 }
 
 void AudioManager::ResumeAudio(handle h)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return;
     }
 
@@ -158,14 +176,14 @@ void AudioManager::ResumeAudio(handle h)
         _soloud.setPause(h, false);
     }
     else {
-        spdlog::error("AudioManager::Handle Not Valid");
+        SPDLOG_ERROR("AudioManager::Handle Not Valid");
     }
 }
 
 void AudioManager::StopAudio(handle h)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return;
     }
 
@@ -173,7 +191,7 @@ void AudioManager::StopAudio(handle h)
         _soloud.stop(h);
     }
     else {
-        spdlog::error("AudioManager::Handle Not Valid");
+        SPDLOG_ERROR("AudioManager::Handle Not Valid");
     }
 }
 
@@ -185,12 +203,12 @@ void AudioManager::StopWav(string path)
 void AudioManager::StopWav(size_t id)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return;
     }
 
     if (_loadedAudio.count(id) == 0) {
-        spdlog::error("AudioManager::Audio not found");
+        SPDLOG_ERROR("AudioManager::Audio not found");
         return;
     }
 
@@ -205,7 +223,7 @@ void AudioManager::StopAll()
 void AudioManager::SetPositionAudio(handle h, SoLoud::time seconds)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return;
     }
 
@@ -213,14 +231,14 @@ void AudioManager::SetPositionAudio(handle h, SoLoud::time seconds)
         _soloud.seek(h, seconds);
     }
     else {
-        spdlog::error("AudioManager::Handle Not Valid");
+        SPDLOG_ERROR("AudioManager::Handle Not Valid");
     }
 }
 
 void AudioManager::SetVolume(handle h, float value)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return;
     }
 
@@ -228,14 +246,14 @@ void AudioManager::SetVolume(handle h, float value)
         _soloud.setVolume(h, value);
     }
     else {
-        spdlog::error("AudioManager::Handle Not Valid");
+        SPDLOG_ERROR("AudioManager::Handle Not Valid");
     }
 }
 
 void AudioManager::SetLooping(handle h, bool loop)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return;
     }
 
@@ -243,19 +261,36 @@ void AudioManager::SetLooping(handle h, bool loop)
         _soloud.setLooping(h, loop);
     }
     else {
-        spdlog::error("AudioManager::Handle Not Valid");
+        SPDLOG_ERROR("AudioManager::Handle Not Valid");
     }
+}
+
+string AudioManager::GetAudioName(string path)
+{
+    size_t h = hash<string>{}(path);
+    return GetAudioName(h);
+}
+
+string AudioManager::GetAudioName(size_t id)
+{
+    if (_loadedAudio.count(id) == 0) {
+        SPDLOG_ERROR("AudioManager::Audio not found");
+        return "";
+    }
+
+    string p = _audiosPaths[id];
+    return std::filesystem::path(p).stem().string();
 }
 
 float AudioManager::GetVolume(handle h)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return 0.f;
     }
 
     if (!IsHandleValid(h)) {
-        spdlog::error("AudioManager::Handle Not Valid");
+        SPDLOG_ERROR("AudioManager::Handle Not Valid");
         return 0.f;
     }
 
@@ -265,14 +300,14 @@ float AudioManager::GetVolume(handle h)
 SoLoud::time AudioManager::GetAudioTime(string path)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return SoLoud::time();
     }
 
     size_t h = hash<string>{}(path);
 
     if (_loadedAudio.count(h) == 0) {
-        spdlog::error("AudioManager::Audio not found");
+        SPDLOG_ERROR("AudioManager::Audio not found");
         return SoLoud::time();
     }
 
@@ -282,12 +317,12 @@ SoLoud::time AudioManager::GetAudioTime(string path)
 SoLoud::time AudioManager::GetAudioTime(size_t id)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return SoLoud::time();
     }
 
     if (_loadedAudio.count(id) == 0) {
-        spdlog::error("AudioManager::Audio not found");
+        SPDLOG_ERROR("AudioManager::Audio not found");
         return SoLoud::time();
     }
 
@@ -297,12 +332,12 @@ SoLoud::time AudioManager::GetAudioTime(size_t id)
 bool AudioManager::IsPaused(handle h)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return false;
     }
 
     if (!IsHandleValid(h)) {
-        spdlog::error("AudioManager::Handle Not Valid");
+        SPDLOG_ERROR("AudioManager::Handle Not Valid");
         return false;
     }
 
@@ -312,22 +347,27 @@ bool AudioManager::IsPaused(handle h)
 bool AudioManager::IsHandleValid(handle h)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return false;
     }
 
     return _soloud.isValidVoiceHandle(h);
 }
 
+bool AudioManager::IsAudioValid(size_t id)
+{
+    return _loadedAudio.contains(id);
+}
+
 SoLoud::time AudioManager::GetPlayTime(handle h)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return SoLoud::time();
     }
 
     if (!IsHandleValid(h)) {
-        spdlog::error("AudioManager::Handle Not Valid");
+        SPDLOG_ERROR("AudioManager::Handle Not Valid");
         return SoLoud::time();
     }
 
@@ -337,12 +377,12 @@ SoLoud::time AudioManager::GetPlayTime(handle h)
 SoLoud::time AudioManager::GetPlayPosition(handle h)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return SoLoud::time();
     }
 
     if (!IsHandleValid(h)) {
-        spdlog::error("AudioManager::Handle Not Valid");
+        SPDLOG_ERROR("AudioManager::Handle Not Valid");
         return SoLoud::time();
     }
 
@@ -352,12 +392,12 @@ SoLoud::time AudioManager::GetPlayPosition(handle h)
 bool AudioManager::IsLooping(handle h)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return false;
     }
 
     if (!IsHandleValid(h)) {
-        spdlog::error("AudioManager::Handle Not Valid");
+        SPDLOG_ERROR("AudioManager::Handle Not Valid");
         return false;
     }
 
@@ -367,7 +407,7 @@ bool AudioManager::IsLooping(handle h)
 void AudioManager::FadeVolume(handle h, float to, SoLoud::time seconds)
 {
     if (!_init) {
-        spdlog::error("AudioManager::SoLoud engine not initialized");
+        SPDLOG_ERROR("AudioManager::SoLoud engine not initialized");
         return;
     }
 
@@ -375,7 +415,7 @@ void AudioManager::FadeVolume(handle h, float to, SoLoud::time seconds)
         _soloud.fadeVolume(h, to, seconds);
     }
     else {
-        spdlog::error("AudioManager::Handle Not Valid");
+        SPDLOG_ERROR("AudioManager::Handle Not Valid");
     }
 }
 
@@ -393,11 +433,90 @@ void AudioManager::UnloadAll()
     _init = false;
 }
 
+std::map<size_t, string> AudioManager::GetAllAudiosNames()
+{
+    std::map<size_t, std::string> names = std::map<size_t, std::string>();
+
+    for (auto item : _audiosPaths) {
+        names[item.first] = std::filesystem::path(item.second).stem().string();
+    }
+    return names;
+}
+
 YAML::Node AudioManager::Serialize()
 {
     YAML::Node audios;
+    size_t id = 0;
     for (const auto& audioPair : _audiosPaths) {
-        audios.push_back(audioPair.second);
+        YAML::Node audio;
+        audio["id"] = id++;
+        audio["path"] = audioPair.second;
+        audios.push_back(audio);
     }
     return audios;
 }
+
+#if _DEBUG
+void AudioManager::DrawEditor(bool* p_open)
+{
+    if (!ImGui::Begin("Audio Manager", p_open)) {
+        ImGui::End();
+        return;
+    }
+
+    ImGuiTreeNodeFlags node_flag = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
+    bool node_open = ImGui::TreeNodeEx(string("Audios##Audio Manager").c_str(), node_flag);
+
+    std::list<size_t> clicked = std::list<size_t>();
+    clicked.clear();
+    if (node_open) {
+        int i = 0;
+        for (auto& item : _audiosPaths) {
+            string n = GetAudioName(item.second);
+            ImGui::BulletText(n.c_str());
+            ImGui::SameLine(ImGui::GetContentRegionAvail().x - 10);
+            if (ImGui::Button(string(ICON_FA_TRASH_CAN "##Remove Audio Manager").append(std::to_string(i)).c_str())) {
+                clicked.push_back(item.first);
+            }
+            ++i;
+        }
+        ImGui::TreePop();
+    }
+
+    if (clicked.size() > 0) {
+        clicked.sort();
+
+        for (int i = clicked.size() - 1; i > -1; --i)
+        {
+            UnloadAudio(clicked.back());
+
+            clicked.pop_back();
+        }
+    }
+
+    clicked.clear();
+
+    if (ImGui::Button("Load Audio##Audio Manager", ImVec2(ImGui::GetContentRegionAvail().x, 0.f))) {
+        _fileDialogOpen = true;
+        _fileDialogInfo.type = ImGuiFileDialogType_OpenFile;
+        _fileDialogInfo.title = "Open File##Audio Manager";
+        _fileDialogInfo.directoryPath = std::filesystem::path(std::filesystem::current_path().string() + "\\res\\music");
+    }
+
+    if (ImGui::FileDialog(&_fileDialogOpen, &_fileDialogInfo))
+    {
+        // Result path in: m_fileDialogInfo.resultPath
+        string path = std::filesystem::relative(_fileDialogInfo.resultPath).string();
+
+        if (std::regex_search(path, std::regex("(?:[/\\\\]res[/\\\\])"))) {
+
+            LoadAudio(path.substr(path.find("res")));
+        }
+        else {
+            LoadAudio(path);
+        }
+    }
+
+    ImGui::End();
+}
+#endif

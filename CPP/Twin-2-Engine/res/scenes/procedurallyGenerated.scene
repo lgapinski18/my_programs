@@ -1,0 +1,7526 @@
+Textures:
+  - id: 0
+    path: res/textures/tiles/tile_regress/yellow2_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 1
+    path: res/textures/tiles/blue2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 2
+    path: res/textures/tiles/green1.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 3
+    path: res/textures/tiles/affectedTile.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 4
+    path: res/textures/tiles/tile_regress/red2_2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 5
+    path: res/textures/tiles/white2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 6
+    path: res/textures/tiles/pink1d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 7
+    path: res/textures/tiles/tile_regress/purple2_2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 8
+    path: res/textures/UI/patron_base.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 9
+    path: res/textures/patrons/Jutrzenka.png
+    fileFormat: !<RGBA> 6408
+    engineFormat: !<RGBA> 6408
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 10
+    path: res/textures/tiles/pink1.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 11
+    path: res/textures/tiles/tile_regress/cyan1_2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 12
+    path: res\textures\UI\continue.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 13
+    path: res/textures/tiles/tile_regress/cyan2_2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 14
+    path: res\textures\UI\you_won_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 15
+    path: res/textures/tiles/tile_regress/blue1_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 16
+    path: res/textures/UI/ButtonFrame.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 17
+    path: res/textures/UI/HexBar.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 18
+    path: res/textures/tiles/tile_regress/cyan2_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 19
+    path: res/textures/patrons/Perun.png
+    fileFormat: !<RGBA> 6408
+    engineFormat: !<RGBA> 6408
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 20
+    path: res/textures/UI/abilities.png
+    fileFormat: !<SRGBA> 35906
+    engineFormat: !<RGBA> 6408
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 21
+    path: res/textures/tiles/red2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 22
+    path: res/textures/UI/player_colour/yellowB.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 23
+    path: res/textures/UI/player_colour/purpleB.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 24
+    path: res/textures/tiles/tile_regress/green1_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 25
+    path: res/textures/tiles/green2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 26
+    path: res/textures/tiles/tile_regress/purple1_2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 27
+    path: res/textures/tiles/blue3d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 28
+    path: res/textures/tiles/tile_regress/red1_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 29
+    path: res/textures/tiles/red1.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 30
+    path: res/textures/UI/title.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 31
+    path: res/textures/carTextures/red.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 32
+    path: res/textures/particles/shield2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 33
+    path: res/textures/pictograms/PopularityGainingSpeedPictogram.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 34
+    path: res/textures/tiles/pink2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 35
+    path: res/textures/radioTowerBuildingTexture.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 36
+    path: res/textures/cityTextures/yellow.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 37
+    path: res/textures/tiles/blue3.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 38
+    path: res/textures/particle.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 39
+    path: res/textures/cityTextures/blue.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 40
+    path: res/textures/particles/brokenShield.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 41
+    path: res/textures/UI/concert.png
+    fileFormat: !<SRGBA> 35906
+    engineFormat: !<RGBA> 6408
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 42
+    path: res/textures/tiles/cyan2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 43
+    path: res\textures\UI\new_game.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 44
+    path: res/textures/tiles/red2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 45
+    path: res/textures/tiles/purple2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 46
+    path: res/textures/UI/fanMeeting.png
+    fileFormat: !<SRGBA> 35906
+    engineFormat: !<RGBA> 6408
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 47
+    path: res/textures/tiles/cyan3.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 48
+    path: res/textures/tiles/tile_regress/cyan1_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 49
+    path: res/textures/tiles/tile_regress/red1_2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 50
+    path: res/textures/particles/starParticle.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 51
+    path: res/textures/UI/graph.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 52
+    path: res\textures\UI\title2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 53
+    path: res/textures/tiles/pink2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 54
+    path: res/textures/tiles/tile_regress/blue2_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 55
+    path: res/textures/tiles/blue2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 56
+    path: res\textures\UI\shape_hexagon.png
+    fileFormat: !<SRGBA> 35906
+    engineFormat: !<RGBA> 6408
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 57
+    path: res/textures/UI/player_colour/blueB.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 58
+    path: res/textures/tiles/pink3d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 59
+    path: res/textures/tiles/purple1.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 60
+    path: res/textures/carTextures/green.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 61
+    path: res/textures/UI/player_colour/pinkB.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 62
+    path: res/textures/tiles/purple1d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 63
+    path: res/textures/UI/guitar.png
+    fileFormat: !<SRGBA> 35906
+    engineFormat: !<RGBA> 6408
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 64
+    path: res/textures/tiles/yellow2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 65
+    path: res/textures/tiles/tile_regress/red2_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 66
+    path: res/textures/tiles/green3d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 67
+    path: res/textures/tiles/cyan3d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 68
+    path: res/textures/tiles/purple3d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 69
+    path: res/textures/tiles/green2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 70
+    path: res\textures\white_circle.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 71
+    path: res/textures/tiles/pink3.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 72
+    path: res/textures/tiles/yellow2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 73
+    path: res/textures/cityTextures/purple.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 74
+    path: res/textures/ArrowParticle.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 75
+    path: res/textures/tiles/yellow3d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 76
+    path: res/textures/tiles/red3d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 77
+    path: res/textures/mountainTex2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 78
+    path: res/textures/tiles/tile_regress/purple2_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 79
+    path: res/textures/cityTextures/neutral.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 80
+    path: res/textures/UI/vs2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 81
+    path: res/textures/UI/HexBarFill.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 82
+    path: res/textures/tiles/tile_regress/blue1_2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 83
+    path: res/textures/tiles/purple3.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 84
+    path: res/textures/UI/pure_background.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 85
+    path: res/textures/tiles/purple2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 86
+    path: res/textures/carTextures/cyan.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 87
+    path: res/textures/cityTextureColour.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 88
+    path: res\textures\UI\shape_hexagon_border.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 89
+    path: res/textures/tiles/cyan2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 90
+    path: res/textures/cityTextures/green.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 91
+    path: res\textures\white.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 92
+    path: res/textures/tiles/tile_regress/green2_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 93
+    path: res/textures/tiles/blue1d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 94
+    path: res/textures/tiles/cyan1.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 95
+    path: res/textures/tiles/red3.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 96
+    path: res/textures/tiles/green1d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 97
+    path: res/textures/UI/player_colour/redB.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 98
+    path: res/textures/UI/launchpad.png
+    fileFormat: !<SRGBA> 35906
+    engineFormat: !<RGBA> 6408
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 99
+    path: res/textures/UI/player_colour/greenB.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 100
+    path: res/textures/tiles/tile_regress/pink2_2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 101
+    path: res/textures/tiles/tile_regress/pink1_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 102
+    path: res/textures/UI/you_lost.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 103
+    path: res/textures/particles/blackStarParticle.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 104
+    path: res/textures/tiles/blue1.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 105
+    path: res\textures\UI\arrows.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 106
+    path: res/textures/tiles/yellow1.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 107
+    path: res/textures/UI/player_colour/cyanB.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 108
+    path: res/textures/UI/drum.png
+    fileFormat: !<SRGBA> 35906
+    engineFormat: !<RGBA> 6408
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 109
+    path: res/textures/carTextures/blue.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 110
+    path: res/textures/tiles/tile_regress/pink2_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 111
+    path: res/textures/tiles/yellow3.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 112
+    path: res/textures/tiles/tile_regress/green2_2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 113
+    path: res/textures/UI/you_won.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 114
+    path: res/textures/tiles/tile_regress/yellow1_2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 115
+    path: res/textures/tiles/yellow1d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 116
+    path: res\textures\UI\menu.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 117
+    path: res/textures/tiles/tile_regress/green1_2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 118
+    path: res/textures/cityTextures/pink.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 119
+    path: res/textures/carTextures/yellow.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 120
+    path: res/textures/tiles/tile_regress/blue2_2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 121
+    path: res\textures\UI\graphArrow.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 122
+    path: res/textures/tiles/tile_regress/yellow2_2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 123
+    path: res/textures/tiles/green3.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 124
+    path: res/textures/tiles/tile_regress/pink1_2d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 125
+    path: res/textures/carTextures/pink.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 126
+    path: res/textures/tiles/tile_regress/yellow1_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 127
+    path: res/textures/radioTowerTexture.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 128
+    path: res\textures\UI\pause.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 129
+    path: res/textures/cityTextures/red.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 130
+    path: res/textures/patrons/Rusalka.png
+    fileFormat: !<RGBA> 6408
+    engineFormat: !<RGBA> 6408
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 131
+    path: res\textures\UI\album.png
+    fileFormat: !<SRGBA> 35906
+    engineFormat: !<RGBA> 6408
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 132
+    path: res/textures/tiles/cyan1d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 133
+    path: res\textures\UI\you_lost_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 134
+    path: res/textures/tiles/red1d.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 135
+    path: res/textures/carTextures/purple.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 136
+    path: res/textures/tiles/tile_regress/purple1_2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 137
+    path: res/textures/cityTextures/cyan.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 138
+    path: res/textures/patrons/Swarozyc.png
+    fileFormat: !<RGBA> 6408
+    engineFormat: !<RGBA> 6408
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+Sprites:
+  - id: 0
+    alias: ArrowLeft
+    texture: 105
+    x: 512
+    y: 0
+    width: 256
+    height: 256
+  - id: 1
+    alias: Pause
+    texture: 128
+    x: 0
+    y: 0
+    width: 75
+    height: 75
+  - id: 2
+    alias: MiniGame_Red_Back
+    texture: 97
+    x: 0
+    y: 0
+    width: 310
+    height: 540
+  - id: 3
+    alias: MiniGame_You_Won
+    texture: 14
+    x: 0
+    y: 0
+    width: 640
+    height: 134
+  - id: 4
+    alias: MiniGame_Purple_Back
+    texture: 23
+    x: 0
+    y: 0
+    width: 310
+    height: 540
+  - id: 5
+    alias: Launchpad
+    texture: 98
+    x: 0
+    y: 0
+    width: 256
+    height: 256
+  - id: 6
+    alias: Fans
+    texture: 46
+    x: 0
+    y: 0
+    width: 256
+    height: 256
+  - id: 7
+    alias: Drum
+    texture: 108
+    x: 0
+    y: 0
+    width: 256
+    height: 256
+  - id: 8
+    alias: Guitar
+    texture: 63
+    x: 0
+    y: 0
+    width: 256
+    height: 256
+  - id: 9
+    alias: PerunImage
+    texture: 19
+    x: 0
+    y: 0
+    width: 700
+    height: 700
+  - id: 10
+    alias: MiniGame_VS
+    texture: 80
+    x: 0
+    y: 0
+    width: 750
+    height: 540
+  - id: 11
+    alias: ArrowDown
+    texture: 105
+    x: 256
+    y: 0
+    width: 256
+    height: 256
+  - id: 12
+    alias: MiniGame_You_Lost
+    texture: 133
+    x: 0
+    y: 0
+    width: 640
+    height: 134
+  - id: 13
+    alias: CityPictogram
+    texture: 33
+    x: 0
+    y: 0
+    width: 64
+    height: 64
+  - id: 14
+    alias: HexTileShape
+    texture: 56
+    x: 0
+    y: 0
+    width: 346
+    height: 400
+  - id: 15
+    alias: HexTileShapeBorder
+    texture: 88
+    x: 0
+    y: 0
+    width: 348
+    height: 400
+  - id: 16
+    alias: HexBar
+    texture: 17
+    x: 0
+    y: 0
+    width: 750
+    height: 45
+  - id: 17
+    alias: ButtonFrame
+    texture: 16
+    x: 0
+    y: 0
+    width: 144
+    height: 153
+  - id: 18
+    alias: MiniGame_Title
+    texture: 52
+    x: 0
+    y: 0
+    width: 640
+    height: 100
+  - id: 19
+    alias: ArrowRight
+    texture: 105
+    x: 768
+    y: 0
+    width: 256
+    height: 256
+  - id: 20
+    alias: MenuButton
+    texture: 116
+    x: 0
+    y: 0
+    width: 200
+    height: 75
+  - id: 21
+    alias: HexBarFill
+    texture: 81
+    x: 0
+    y: 0
+    width: 735
+    height: 35
+  - id: 22
+    alias: HexagonSprite
+    texture: 56
+    x: 0
+    y: 0
+    width: 256
+    height: 256
+  - id: 23
+    alias: GraphArrow
+    texture: 121
+    x: 0
+    y: 0
+    width: 72
+    height: 100
+  - id: 24
+    alias: Concert
+    texture: 41
+    x: 0
+    y: 0
+    width: 256
+    height: 256
+  - id: 25
+    alias: Abilities
+    texture: 20
+    x: 0
+    y: 0
+    width: 800
+    height: 225
+  - id: 26
+    alias: MiniGame_Cyan_Back
+    texture: 107
+    x: 0
+    y: 0
+    width: 310
+    height: 540
+  - id: 27
+    alias: Rusalka
+    texture: 130
+    x: 0
+    y: 0
+    width: 700
+    height: 700
+  - id: 28
+    alias: NewGameButton
+    texture: 43
+    x: 0
+    y: 0
+    width: 200
+    height: 75
+  - id: 29
+    alias: MiniGame_Background
+    texture: 84
+    x: 0
+    y: 0
+    width: 640
+    height: 540
+  - id: 30
+    alias: MiniGame_Yellow_Back
+    texture: 22
+    x: 0
+    y: 0
+    width: 310
+    height: 540
+  - id: 31
+    alias: ContinueButton
+    texture: 12
+    x: 0
+    y: 0
+    width: 200
+    height: 75
+  - id: 32
+    alias: MiniGame_Blue_Back
+    texture: 57
+    x: 0
+    y: 0
+    width: 310
+    height: 540
+  - id: 33
+    alias: MiniGame_Green_Back
+    texture: 99
+    x: 0
+    y: 0
+    width: 310
+    height: 540
+  - id: 34
+    alias: Album
+    texture: 131
+    x: 0
+    y: 0
+    width: 256
+    height: 256
+  - id: 35
+    alias: PatronsBackground
+    texture: 8
+    x: 0
+    y: 0
+    width: 200
+    height: 300
+  - id: 36
+    alias: PopularityGainingSpeedPictogram
+    texture: 33
+    x: 0
+    y: 0
+    width: 64
+    height: 64
+  - id: 37
+    alias: White_Circle
+    texture: 70
+    x: 0
+    y: 0
+    width: 100
+    height: 100
+  - id: 38
+    alias: White_Box
+    texture: 91
+    x: 0
+    y: 0
+    width: 100
+    height: 100
+  - id: 39
+    alias: MiniGame_StrengthGraph
+    texture: 51
+    x: 0
+    y: 0
+    width: 256
+    height: 256
+  - id: 40
+    alias: MiniGame_Pink_Back
+    texture: 61
+    x: 0
+    y: 0
+    width: 310
+    height: 540
+  - id: 41
+    alias: JutrzenkaImage
+    texture: 9
+    x: 0
+    y: 0
+    width: 700
+    height: 700
+  - id: 42
+    alias: ArrowUp
+    texture: 105
+    x: 0
+    y: 0
+    width: 256
+    height: 256
+  - id: 43
+    alias: Swarozyc
+    texture: 138
+    x: 0
+    y: 0
+    width: 700
+    height: 700
+Fonts:
+  - id: 0
+    path: res/fonts/Caveat-Regular.ttf
+  - id: 1
+    path: res/fonts/Metal-Lord.otf
+GIFS: ~
+Audio:
+  - id: 0
+    path: res/music/Pop/Summer_Beats_Carnival.mp3
+  - id: 1
+    path: res/music/Metal/Whispers_In_Silent_Steel.mp3
+  - id: 2
+    path: res/music/Rock/Classic_Rock_Anthem_For_The_Ages.mp3
+  - id: 3
+    path: res/music/Minigame/Drum.mp3
+  - id: 4
+    path: res/music/Minigame/Guitar.mp3
+  - id: 5
+    path: res/music/Electric/Thunder_Echoes_Loudly.mp3
+  - id: 6
+    path: res/music/Minigame/Win.mp3
+  - id: 7
+    path: res/music/Minigame/Launchpad.mp3
+  - id: 8
+    path: res\music\Classic\Urban_Strings_Symphony.mp3
+  - id: 9
+    path: res/music/Minigame/Defeat.mp3
+  - id: 10
+    path: res\music\Disco\80s-disco-beats.mp3
+  - id: 11
+    path: res\music\Classic\Empires_Collide_On_Streets.mp3
+  - id: 12
+    path: res/music/Pop/Twilight_Whispers_Embrace.mp3
+Materials:
+  - id: 0
+    path: res/materials/tiles/daltonist/yellow/YellowHexTileStage3.material
+  - id: 1
+    path: res/materials/tiles/normal/yellow/YellowHexTileStage3.material
+  - id: 2
+    path: res/materials/tiles/normal/green/GreenHexTileRegressStage1.material
+  - id: 3
+    path: res/materials/tiles/normal/cyan/CyanHexTileStage2.material
+  - id: 4
+    path: res/materials/car/CarMaterial_Blue.material
+  - id: 5
+    path: res/materials/tiles/normal/red/RedHexTileRegressStage1.material
+  - id: 6
+    path: res/materials/city/CityMaterial_Blue.material
+  - id: 7
+    path: res/materials/tiles/normal/pink/PinkHexTileRegressStage2.material
+  - id: 8
+    path: res/materials/tiles/daltonist/purple/PurpleHexTileStage2.material
+  - id: 9
+    path: res/materials/tiles/daltonist/cyan/CyanHexTileRegressStage2.material
+  - id: 10
+    path: res/materials/tiles/normal/green/GreenHexTileStage3.material
+  - id: 11
+    path: res/materials/city/CityMaterial_Neutral.material
+  - id: 12
+    path: res/materials/tiles/daltonist/cyan/CyanHexTileStage3.material
+  - id: 13
+    path: res/materials/tiles/normal/green/GreenHexTileRegressStage2.material
+  - id: 14
+    path: res/materials/tiles/daltonist/cyan/CyanHexTileStage2.material
+  - id: 15
+    path: res/materials/enviroment/CloudMaterial.material
+  - id: 16
+    path: res/materials/Water.material
+  - id: 17
+    path: res/materials/tiles/daltonist/cyan/CyanHexTileStage1.material
+  - id: 18
+    path: res/materials/tiles/normal/blue/BlueHexTileStage3.material
+  - id: 19
+    path: res/materials/tiles/normal/pink/PinkHexTileRegressStage1.material
+  - id: 20
+    path: res/materials/tiles/daltonist/blue/BlueHexTileStage1.material
+  - id: 21
+    path: res/materials/Basic2.material
+  - id: 22
+    path: res/materials/tiles/borders/blue/BlueHexTileBorder.material
+  - id: 23
+    path: res/materials/MountainsUnlit.material
+  - id: 24
+    path: res/materials/tiles/normal/yellow/YellowHexTileRegressStage1.material
+  - id: 25
+    path: res/materials/tiles/daltonist/red/RedHexTileStage2.material
+  - id: 26
+    path: res/materials/CityLights.material
+  - id: 27
+    path: res/materials/tiles/daltonist/yellow/YellowHexTileStage1.material
+  - id: 28
+    path: res/materials/city/CityMaterial_Purple.material
+  - id: 29
+    path: res/materials/tiles/daltonist/blue/BlueHexTileStage2.material
+  - id: 30
+    path: res/materials/tiles/daltonist/red/RedHexTileStage3.material
+  - id: 31
+    path: res/materials/city/CityMaterial_Cyan.material
+  - id: 32
+    path: res/materials/tiles/borders/green/GreenHexTileBorder.material
+  - id: 33
+    path: res/materials/tiles/daltonist/red/RedHexTileStage1.material
+  - id: 34
+    path: res/materials/tiles/normal/red/RedHexTileStage1.material
+  - id: 35
+    path: res/materials/tiles/daltonist/purple/PurpleHexTileRegressStage1.material
+  - id: 36
+    path: res/materials/tiles/borders/yellow/YellowHexTileBorder.material
+  - id: 37
+    path: res/materials/YellowBasic.material
+  - id: 38
+    path: res/materials/tiles/normal/purple/PurpleHexTileRegressStage2.material
+  - id: 39
+    path: res/materials/tiles/normal/pink/PinkHexTileStage3.material
+  - id: 40
+    path: res/materials/RadioTowerBuilding.material
+  - id: 41
+    path: res/materials/tiles/daltonist/green/GreenHexTileStage2.material
+  - id: 42
+    path: res/materials/tiles/daltonist/purple/PurpleHexTileStage1.material
+  - id: 43
+    path: res/materials/tiles/normal/purple/PurpleHexTileStage3.material
+  - id: 44
+    path: res/materials/tiles/daltonist/yellow/YellowHexTileStage2.material
+  - id: 45
+    path: res/materials/tiles/normal/purple/PurpleHexTileStage2.material
+  - id: 46
+    path: res/materials/tiles/daltonist/blue/BlueHexTileStage3.material
+  - id: 47
+    path: res/materials/tiles/normal/red/RedHexTileStage2.material
+  - id: 48
+    path: res/materials/tiles/normal/yellow/YellowHexTileStage2.material
+  - id: 49
+    path: res/materials/tiles/normal/cyan/CyanHexTileRegressStage2.material
+  - id: 50
+    path: res/materials/tiles/daltonist/pink/PinkHexTileStage2.material
+  - id: 51
+    path: res/materials/tiles/normal/yellow/YellowHexTileStage1.material
+  - id: 52
+    path: res/materials/city/CityMaterial_Yellow.material
+  - id: 53
+    path: res/materials/tiles/normal/red/RedHexTileRegressStage2.material
+  - id: 54
+    path: res/materials/tiles/borders/cyan/CyanHexTileBorder.material
+  - id: 55
+    path: res/materials/tiles/daltonist/yellow/YellowHexTileRegressStage1.material
+  - id: 56
+    path: res/materials/car/CarMaterial_Purple.material
+  - id: 57
+    path: res/materials/tiles/daltonist/green/GreenHexTileStage1.material
+  - id: 58
+    path: res/materials/tiles/daltonist/purple/PurpleHexTileStage3.material
+  - id: 59
+    path: res/materials/tiles/normal/cyan/CyanHexTileStage1.material
+  - id: 60
+    path: res/materials/city/CityMaterial_Green.material
+  - id: 61
+    path: res/materials/tiles/normal/green/GreenHexTileStage1.material
+  - id: 62
+    path: res/materials/tiles/daltonist/blue/BlueHexTileRegressStage1.material
+  - id: 63
+    path: res/materials/tiles/borders/neutral/NeutralHexTileBorder.material
+  - id: 64
+    path: res/materials/car/CarMaterial_Red.material
+  - id: 65
+    path: res/materials/tiles/normal/blue/BlueHexTileStage1.material
+  - id: 66
+    path: res/materials/tiles/borders/red/RedHexTileBorder.material
+  - id: 67
+    path: res/materials/city/CityMaterial_Red.material
+  - id: 68
+    path: res/materials/tiles/daltonist/pink/PinkHexTileRegressStage2.material
+  - id: 69
+    path: res/materials/tiles/normal/neutral/NeutralHexTile.material
+  - id: 70
+    path: res/materials/tiles/normal/green/GreenHexTileStage2.material
+  - id: 71
+    path: res/materials/tiles/borders/purple/PurpleHexTileBorder.material
+  - id: 72
+    path: res/materials/tiles/daltonist/pink/PinkHexTileRegressStage1.material
+  - id: 73
+    path: res/materials/car/CarMaterial_Yellow.material
+  - id: 74
+    path: res/materials/tiles/normal/yellow/YellowHexTileRegressStage2.material
+  - id: 75
+    path: res/materials/tiles/BlueAffectedHexTile.material
+  - id: 76
+    path: res/materials/car/CarMaterial_Green.material
+  - id: 77
+    path: res/materials/tiles/daltonist/pink/PinkHexTileStage1.material
+  - id: 78
+    path: res/materials/tiles/daltonist/green/GreenHexTileStage3.material
+  - id: 79
+    path: res/materials/tiles/normal/purple/PurpleHexTileRegressStage1.material
+  - id: 80
+    path: res/materials/tiles/normal/cyan/CyanHexTileStage3.material
+  - id: 81
+    path: res/materials/tiles/daltonist/purple/PurpleHexTileRegressStage2.material
+  - id: 82
+    path: res/materials/tiles/normal/blue/BlueHexTileRegressStage2.material
+  - id: 83
+    path: res/materials/tiles/daltonist/green/GreenHexTileRegressStage2.material
+  - id: 84
+    path: res/materials/tiles/normal/pink/PinkHexTileStage1.material
+  - id: 85
+    path: res/materials/car/CarMaterial_Pink.material
+  - id: 86
+    path: res/materials/tiles/daltonist/blue/BlueHexTileRegressStage2.material
+  - id: 87
+    path: res/materials/tiles/borders/pink/PinkHexTileBorder.material
+  - id: 88
+    path: res/materials/tiles/daltonist/red/RedHexTileRegressStage2.material
+  - id: 89
+    path: res/materials/RadioTower.material
+  - id: 90
+    path: res/materials/tiles/daltonist/green/GreenHexTileRegressStage1.material
+  - id: 91
+    path: res/materials/tiles/normal/blue/BlueHexTileStage2.material
+  - id: 92
+    path: res/materials/tiles/daltonist/red/RedHexTileRegressStage1.material
+  - id: 93
+    path: res/materials/tiles/daltonist/yellow/YellowHexTileRegressStage2.material
+  - id: 94
+    path: res/materials/tiles/normal/blue/BlueHexTileRegressStage1.material
+  - id: 95
+    path: res/materials/tiles/normal/purple/PurpleHexTileStage1.material
+  - id: 96
+    path: res/materials/CityMaterial.material
+  - id: 97
+    path: res/materials/tiles/daltonist/cyan/CyanHexTileRegressStage1.material
+  - id: 98
+    path: res/materials/tiles/normal/red/RedHexTileStage3.material
+  - id: 99
+    path: res/materials/tiles/daltonist/pink/PinkHexTileStage3.material
+  - id: 100
+    path: res/materials/city/CityMaterial_Pink.material
+  - id: 101
+    path: res/materials/tiles/normal/cyan/CyanHexTileRegressStage1.material
+  - id: 102
+    path: res/materials/car/CarMaterial_Cyan.material
+  - id: 103
+    path: res/materials/tiles/normal/pink/PinkHexTileStage2.material
+Models:
+  - id: 0
+    path: res/models/radioTower.obj
+  - id: 1
+    path: res/models/mount3.obj
+  - id: 2
+    path: res/models/hexagonalPlane.obj
+  - id: 3
+    path: res/models/Star.obj
+  - id: 4
+    path: res\models\cloud_1.obj
+  - id: 5
+    path: res/models/cloud.obj
+  - id: 6
+    path: res/models/hexagon.obj
+  - id: 7
+    path: "{Cube}"
+  - id: 8
+    path: res/models/car.obj
+  - id: 9
+    path: "{Plane}"
+  - id: 10
+    path: res/models/city.obj
+  - id: 11
+    path: res/models/citylights.obj
+  - id: 12
+    path: "{Sphere}"
+Prefabs:
+  - id: 0
+    path: res\prefabs\AreaTakenGraphTopHexagon.prefab
+  - id: 1
+    path: res/prefabs/tilemap/mapElements/city.prefab
+  - id: 2
+    path: res/prefabs/Enemy.prefab
+  - id: 3
+    path: res/prefabs/ShadowingHexPlane.prefab
+  - id: 4
+    path: res\prefabs\tilemap\mapElements\mountain_2.prefab
+  - id: 5
+    path: res/prefabs/tilemap/mapElements/radioStation.prefab
+  - id: 6
+    path: res/prefabs/GodRay.prefab
+  - id: 7
+    path: res\prefabs\AreaTakenGraph_2.prefab
+  - id: 8
+    path: res/prefabs/tilemap/tiles/blueHexTile.prefab
+  - id: 9
+    path: res/prefabs/tilemap/mapElements/mountain_3.prefab
+  - id: 10
+    path: res/prefabs/Human.prefab
+  - id: 11
+    path: res\prefabs\AreaTakenGraphEdge.prefab
+  - id: 12
+    path: res\prefabs\AreaTakenGraphBottomHexagon.prefab
+  - id: 13
+    path: res/prefabs/Player.prefab
+  - id: 14
+    path: res/prefabs/tilemap/mapElements/mountain_2.prefab
+  - id: 15
+    path: res/prefabs/tilemap/tiles/redHexTile.prefab
+  - id: 16
+    path: res\prefabs\AreaTakenGraphBorderHexagon.prefab
+  - id: 17
+    path: res/prefabs/tilemap/mapSector.prefab
+  - id: 18
+    path: res/prefabs/tilemap/tiles/hexTile.prefab
+  - id: 19
+    path: res/prefabs/tilemap/tiles/greenHexTile.prefab
+  - id: 20
+    path: res/prefabs/tilemap/mapRegion.prefab
+  - id: 21
+    path: res\prefabs\AreaTakenGraphTopEdge.prefab
+  - id: 22
+    path: res/prefabs/CityLights.prefab
+ScriptableObjects: ~
+GameObjects:
+  - id: 1
+    name: Camera
+    isStatic: false
+    isActive: true
+    transform:
+      id: 1
+      position:
+        x: 0
+        y: 14.5
+        z: 11
+      scale:
+        x: 0
+        y: 0
+        z: 0
+      rotation:
+        x: -55.5
+        y: -88.5999985
+        z: 0
+    components:
+      - id: 2
+        enabled: true
+        type: Camera
+        fov: 45
+        nearPlane: 0.100000001
+        farPlane: 1000
+        cameraFilter: 0
+        cameraType: 1
+        cameraMode: 0
+        samples: 10
+        renderRes: 0
+        gamma: 1
+        brightness: 0
+        contrast: 1
+        worldUp:
+          x: 0
+          y: 1
+          z: 0
+        isMain: true
+        isFrustum: true
+        isSSAO: true
+        ssaoSampleRadius: 0.699999988
+        ssaoBias: 0.00999999978
+        blurMSize: 5
+      - id: 3
+        enabled: true
+        type: MovementController
+        DragControl: true
+        DragScale: 0.00999999978
+        WsadControl: true
+        WsadVelocity: 4.5
+        BorderControl: false
+        BorderVelocity: 3
+    children:
+      []
+  - id: 2
+    name: MapGenerator
+    isStatic: false
+    isActive: true
+    transform:
+      id: 4
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5
+        enabled: true
+        type: HexagonalTilemap
+        edgeLength: 0.5
+      - id: 6
+        enabled: true
+        type: ContentGenerator
+        mapElementGenerators:
+          - res/scriptableobjects/RegionsGeneratorByKMeans.so
+          - res/scriptableobjects/SectorGeneratorForRegionsByKMeans.so
+          - res/scriptableobjects/LakeGenerator.so
+          - res/scriptableobjects/MountainsGenerator.so
+          - res/scriptableobjects/CityGenerator.so
+          - res/scriptableobjects/RadioStationGeneratorSectorBased.so
+          - res/scriptableobjects/MapValidator.so
+      - id: 7
+        enabled: true
+        type: MapGenerator
+        prefabHexagonalTile: 18
+        additionalTile: 15
+        filledTile: 8
+        pointTile: 19
+        generationRadiusMin: 5
+        generationRadiusMax: 5
+        minPointsNumber: 5
+        maxPointsNumber: 5
+        angleDeltaRange: 5
+      - id: 8
+        enabled: true
+        type: AStarPathfinder
+        maxMappingDistance: 1
+    children:
+      []
+  - id: 3
+    name: Directional Light
+    isStatic: false
+    isActive: true
+    transform:
+      id: 9
+      position:
+        x: -21.0562897
+        y: 21.8504906
+        z: 10.341733
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 10
+        enabled: true
+        type: DirectionalLight
+        direction:
+          x: 0.666660011
+          y: -0.666660011
+          z: -0.333330005
+        color:
+          x: 1
+          y: 1
+          z: 1
+        power: 1
+    children:
+      []
+  - id: 4
+    name: Water
+    isStatic: false
+    isActive: true
+    transform:
+      id: 11
+      position:
+        x: 0
+        y: -0.349999994
+        z: 0
+      scale:
+        x: 63
+        y: 1
+        z: 63
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 12
+        enabled: true
+        type: PlaneGenerator
+        isTransparent: true
+        rows: 82
+        columns: 82
+        materials:
+          - 16
+        transparencyPriority: -1
+    children:
+      []
+  - id: 5
+    name: GameManager
+    isStatic: false
+    isActive: true
+    transform:
+      id: 13
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 14
+        enabled: false
+        type: GameTimer
+        secondsPerDay: 1
+        daysPerWeek: 30
+        weeksPerMonth: 1
+        monthsPerYear: 12
+      - id: 15
+        enabled: true
+        type: ConcertRoad
+        marker: 22
+      - id: 16
+        enabled: true
+        type: GameManager
+        enemyPrefab: 2
+        prefabPlayer: 13
+        carMaterials:
+          - 4
+          - 64
+          - 76
+          - 56
+          - 73
+          - 102
+          - 85
+        patronsData:
+          - res/scriptableobjects/patrons/Perun.so
+          - res/scriptableobjects/patrons/Jutrzenka.so
+          - res/scriptableobjects/patrons/Rusalka.so
+          - res/scriptableobjects/patrons/Zuarasiz.so
+          - res/scriptableobjects/patrons/Patron5.so
+          - res/scriptableobjects/patrons/Patron6.so
+        RockBackgroundMusics:
+          - 2
+        ElectricBackgroundMusics:
+          - 5
+        PopBackgroundMusics:
+          - 0
+          - 12
+        HeavyMetalBackgroundMusics:
+          - 1
+        ClassicBackgroundMusics:
+          - 11
+          - 8
+        DiscoBackgroundMusics:
+          - 10
+      - id: 162
+        enabled: true
+        type: Audio
+        audio: 3
+        loop: true
+        volume: 0.5
+        playOnStart: false
+    children:
+      []
+  - id: 23
+    name: GameCanvas
+    isStatic: false
+    isActive: true
+    transform:
+      id: 56
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 57
+        enabled: true
+        type: Canvas
+        layer: 0
+        size:
+          x: 1920
+          y: 1080
+        worldSpace: false
+    children:
+      - 24
+      - 62
+      - 876
+      - 602
+  - id: 24
+    name: Abilities
+    isStatic: false
+    isActive: true
+    transform:
+      id: 58
+      position:
+        x: 0
+        y: -415
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 59
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 25
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 750
+        height: 250
+        layer: -2
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      - 68
+      - 26
+      - 66
+      - 29
+      - 67
+      - 39
+      - 32
+      - 38
+  - id: 68
+    name: FansMeetingButtonFrame
+    isStatic: false
+    isActive: true
+    transform:
+      id: 153
+      position:
+        x: 0
+        y: -21
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 165
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 17
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 130
+        height: 140
+        layer: -1
+        fillEnabled: false
+        fillType: !<CIRCLE> 2
+        fillSubType: !<CW> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      - 25
+      - 102
+  - id: 25
+    name: FansBg
+    isStatic: false
+    isActive: true
+    transform:
+      id: 60
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 61
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 38
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 120
+        height: 120
+        layer: 0
+        fillEnabled: true
+        fillType: !<CIRCLE> 2
+        fillSubType: !<CW> 0
+        fillOffset: 0
+        fillProgress: 0
+      - id: 62
+        enabled: true
+        type: Button
+        width: 150
+        height: 150
+        interactable: false
+        onHoverPresetEvents: true
+        animTimeFactor: 4
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 1
+          y: 1
+          z: 1
+        scaleEnd:
+          x: 1.10000002
+          y: 1.10000002
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+    children:
+      - 27
+  - id: 27
+    name: Fans
+    isStatic: false
+    isActive: true
+    transform:
+      id: 65
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 0.5
+        y: 0.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 66
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 6
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 200
+        height: 200
+        layer: 1
+        fillEnabled: false
+        fillType: !<CIRCLE> 2
+        fillSubType: !<CW> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 102
+    name: KeyFansMeeting
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5067
+      position:
+        x: -45
+        y: 45
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5069
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00X"
+        font: 1
+        size: 30
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 0
+          y: 1
+          z: 0.409266233
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 26
+    name: FansCost
+    isStatic: false
+    isActive: true
+    transform:
+      id: 63
+      position:
+        x: 0
+        y: -105
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 64
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: ""
+        font: 1
+        size: 30
+        autoSize: true
+        minSize: 10
+        maxSize: 30
+        width: 150
+        height: 50
+        color:
+          x: 0.105882354
+          y: 0.0823529437
+          z: 0.176470593
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 66
+    name: ConcertButtonFrame
+    isStatic: false
+    isActive: true
+    transform:
+      id: 155
+      position:
+        x: 265
+        y: -21
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 164
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 17
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 130
+        height: 140
+        layer: -1
+        fillEnabled: false
+        fillType: !<CIRCLE> 2
+        fillSubType: !<CW> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      - 28
+      - 103
+  - id: 28
+    name: ConcertBg
+    isStatic: false
+    isActive: true
+    transform:
+      id: 67
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 68
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 38
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 120
+        height: 120
+        layer: 0
+        fillEnabled: true
+        fillType: !<CIRCLE> 2
+        fillSubType: !<CW> 0
+        fillOffset: 0
+        fillProgress: 0
+      - id: 69
+        enabled: true
+        type: Button
+        width: 150
+        height: 150
+        interactable: false
+        onHoverPresetEvents: true
+        animTimeFactor: 4
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 1
+          y: 1
+          z: 1
+        scaleEnd:
+          x: 1.10000002
+          y: 1.10000002
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+    children:
+      - 30
+  - id: 30
+    name: Concert
+    isStatic: false
+    isActive: true
+    transform:
+      id: 72
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 0.5
+        y: 0.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 73
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 24
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 200
+        height: 200
+        layer: 1
+        fillEnabled: false
+        fillType: !<CIRCLE> 2
+        fillSubType: !<CW> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      - 90
+  - id: 90
+    name: PopularityGainingPictogram
+    isStatic: false
+    isActive: false
+    transform:
+      id: 167
+      position:
+        x: 80
+        y: 80
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 168
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 36
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 64
+        height: 64
+        layer: 0
+        fillEnabled: false
+        fillType: !<CIRCLE> 2
+        fillSubType: !<CW> 0
+        fillOffset: 0
+        fillProgress: 0
+    children:
+      []
+  - id: 103
+    name: KeyConcert
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5070
+      position:
+        x: -45
+        y: 40
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5072
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00C"
+        font: 1
+        size: 30
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 0
+          y: 1
+          z: 0.407843143
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 29
+    name: ConcertCost
+    isStatic: false
+    isActive: true
+    transform:
+      id: 70
+      position:
+        x: 265
+        y: -105
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 71
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: ""
+        font: 1
+        size: 30
+        autoSize: true
+        minSize: 10
+        maxSize: 30
+        width: 150
+        height: 50
+        color:
+          x: 0.105882354
+          y: 0.0823529437
+          z: 0.176470593
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 67
+    name: AlbumButtonFrame
+    isStatic: false
+    isActive: true
+    transform:
+      id: 157
+      position:
+        x: -265
+        y: -21
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 161
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 17
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 130
+        height: 140
+        layer: -1
+        fillEnabled: false
+        fillType: !<CIRCLE> 2
+        fillSubType: !<CW> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      - 31
+      - 101
+  - id: 31
+    name: AlbumBg
+    isStatic: false
+    isActive: true
+    transform:
+      id: 74
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 75
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 38
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 120
+        height: 120
+        layer: 0
+        fillEnabled: true
+        fillType: !<CIRCLE> 2
+        fillSubType: !<CW> 0
+        fillOffset: 0
+        fillProgress: 0
+      - id: 76
+        enabled: true
+        type: Button
+        width: 130
+        height: 140
+        interactable: false
+        onHoverPresetEvents: true
+        animTimeFactor: 4
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 1
+          y: 1
+          z: 1
+        scaleEnd:
+          x: 1.10000002
+          y: 1.10000002
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+    children:
+      - 33
+  - id: 33
+    name: Album
+    isStatic: false
+    isActive: true
+    transform:
+      id: 79
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 0.5
+        y: 0.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 80
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 34
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 200
+        height: 200
+        layer: 1
+        fillEnabled: false
+        fillType: !<CIRCLE> 2
+        fillSubType: !<CW> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 101
+    name: KeyAlbum
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5064
+      position:
+        x: -45
+        y: 45
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5066
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00Z"
+        font: 1
+        size: 30
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 0
+          y: 1
+          z: 0.407843143
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 39
+    name: MoneyText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 90
+      position:
+        x: -217
+        y: 92.5
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 91
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00M\x00o\x00n\x00e\x00y\x00:\x00 \x000\x00$"
+        font: 1
+        size: 30
+        autoSize: true
+        minSize: 10
+        maxSize: 30
+        width: 300
+        height: 50
+        color:
+          x: 0.105882354
+          y: 0.0823529437
+          z: 0.176470593
+          w: 1
+        alignX: !<LEFT> 0
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      - 83
+  - id: 83
+    name: NegativeMoneyText
+    isStatic: false
+    isActive: false
+    transform:
+      id: 90
+      position:
+        x: 150
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 166
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00-"
+        font: 1
+        size: 30
+        autoSize: true
+        minSize: 10
+        maxSize: 30
+        width: 300
+        height: 50
+        color:
+          x: 1
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<LEFT> 0
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 32
+    name: AlbumCost
+    isStatic: false
+    isActive: true
+    transform:
+      id: 77
+      position:
+        x: -265
+        y: -105
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 78
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: ""
+        font: 1
+        size: 30
+        autoSize: true
+        minSize: 10
+        maxSize: 30
+        width: 150
+        height: 50
+        color:
+          x: 0.105882354
+          y: 0.0823529437
+          z: 0.176470593
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 38
+    name: DateText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 88
+      position:
+        x: 216
+        y: 92.5
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 89
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x002\x000\x002\x000\x00.\x000\x001\x00.\x000\x001"
+        font: 1
+        size: 30
+        autoSize: true
+        minSize: 10
+        maxSize: 30
+        width: 300
+        height: 50
+        color:
+          x: 0.105882354
+          y: 0.0823529437
+          z: 0.176470593
+          w: 1
+        alignX: !<RIGHT> 2
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 62
+    name: PopularityGainingBonusBar
+    isStatic: false
+    isActive: true
+    transform:
+      id: 145
+      position:
+        x: 0
+        y: -267
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 146
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 16
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 750
+        height: 45
+        layer: 0
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 147
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 21
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 735
+        height: 35
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 148
+        enabled: true
+        type: PopularityGainingBonusBarController
+        maxBonus: 100
+        maxLength: 280
+    children:
+      - 63
+      - 64
+      - 91
+  - id: 63
+    name: CurrentBonusBar
+    isStatic: false
+    isActive: true
+    transform:
+      id: 149
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 150
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 21
+        color:
+          x: 1
+          y: 0
+          z: 0
+          w: 1
+        width: 736
+        height: 35
+        layer: 2
+        fillEnabled: true
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 0
+    children:
+      []
+  - id: 64
+    name: PossibleBonusBar
+    isStatic: false
+    isActive: true
+    transform:
+      id: 151
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 152
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 21
+        color:
+          x: 1
+          y: 0
+          z: 0
+          w: 0.431372553
+        width: 735
+        height: 35
+        layer: 2
+        fillEnabled: true
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 0
+    children:
+      []
+  - id: 91
+    name: PopularityGainingPictogram
+    isStatic: false
+    isActive: false
+    transform:
+      id: 169
+      position:
+        x: -180
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 170
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 36
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 64
+        height: 64
+        layer: 0
+        fillEnabled: false
+        fillType: !<CIRCLE> 2
+        fillSubType: !<CW> 0
+        fillOffset: 0
+        fillProgress: 0
+    children:
+      []
+  - id: 876
+    name: ChooseStartingPosition
+    isStatic: false
+    isActive: false
+    transform:
+      id: 5764
+      position:
+        x: 0
+        y: 443
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5765
+        enabled: true
+        type: Image
+        isTransparent: false
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 360
+        height: 70
+        layer: 0
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 5766
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00C\x00h\x00o\x00o\x00s\x00e\x00 \x00S\x00t\x00a\x00r\x00t\x00i\x00n\x00g\x00 \x00C\x00i\x00t\x00y"
+        font: 1
+        size: 30
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 602
+    name: AreaTakenGraph
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5750
+      position:
+        x: -700
+        y: 40
+        z: 0
+      scale:
+        x: 1
+        y: 0.600000024
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5751
+        enabled: true
+        type: AreaTakenGraph
+        layer: 0
+        topHexagonPrefab: 0
+        edgePrefab: 11
+        topEdgePrefab: 21
+        topValueHexagonPrefab: 12
+    children:
+      []
+  - id: 61
+    name: PaperRockScissorCanvas
+    isStatic: false
+    isActive: true
+    transform:
+      id: 143
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 144
+        enabled: true
+        type: Canvas
+        layer: 1
+        size:
+          x: 1920
+          y: 1080
+        worldSpace: false
+      - id: 163
+        enabled: true
+        type: Audio
+        audio: 6
+        loop: false
+        volume: 1
+        playOnStart: false
+      - id: 160
+        enabled: true
+        type: MinigameManager
+        MinNumberOfWins: 2
+        PlayerScoreId: 156
+        EnemyScoreId: 158
+        PlayerImageId: 35
+        EnemyImageId: 37
+        LaunchpadButtonId: 27
+        GuitarButtonId: 30
+        DrumButtonId: 33
+        WonPanelId: 20
+        LostPanelId: 21
+        ArrowLDGameObject: 14
+        ArrowDGGameObject: 15
+        ArrowGLGameObject: 16
+        WinSound: 6
+        DefeatSound: 9
+        LaunchpadSound: 7
+        GuitarSound: 4
+        DrumSound: 3
+    children:
+      - 65
+      - 7
+      - 20
+      - 21
+      - 12
+      - 13
+      - 9
+      - 10
+      - 11
+      - 8
+      - 14
+      - 15
+      - 16
+      - 17
+      - 22
+      - 6
+      - 18
+  - id: 65
+    name: Background
+    isStatic: false
+    isActive: true
+    transform:
+      id: 153
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 154
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 29
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 750
+        height: 540
+        layer: 0
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 7
+    name: Title
+    isStatic: false
+    isActive: true
+    transform:
+      id: 21
+      position:
+        x: 0
+        y: 200
+        z: 0
+      scale:
+        x: 1.5
+        y: 1.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 22
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 18
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 320
+        height: 50
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 20
+    name: WonMinigamePanel
+    isStatic: false
+    isActive: false
+    transform:
+      id: 50
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 51
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 38
+        color:
+          x: 0.34117648
+          y: 0.34117648
+          z: 0.34117648
+          w: 0.784313738
+        width: 750
+        height: 540
+        layer: 3
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      - 100
+  - id: 100
+    name: YouWonText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5134
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5135
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 3
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 640
+        height: 134
+        layer: 4
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 21
+    name: LostMinigamePanel
+    isStatic: false
+    isActive: false
+    transform:
+      id: 52
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 53
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 38
+        color:
+          x: 0.34117648
+          y: 0.34117648
+          z: 0.34117648
+          w: 0.784313738
+        width: 750
+        height: 540
+        layer: 3
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      - 99
+  - id: 99
+    name: YouLostText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5132
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5133
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 12
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 640
+        height: 134
+        layer: 4
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 12
+    name: PlayerMinigameImage
+    isStatic: false
+    isActive: true
+    transform:
+      id: 34
+      position:
+        x: -235
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 35
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 2
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 280
+        height: 540
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 13
+    name: EnemyMinigameImage
+    isStatic: false
+    isActive: true
+    transform:
+      id: 36
+      position:
+        x: 235
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 180
+    components:
+      - id: 37
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 32
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 280
+        height: 540
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 9
+    name: LaunchpadButton
+    isStatic: false
+    isActive: true
+    transform:
+      id: 25
+      position:
+        x: -3
+        y: 71
+        z: 0
+      scale:
+        x: 0.5
+        y: 0.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 26
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 5
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 256
+        height: 256
+        layer: 2
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 27
+        enabled: true
+        type: Button
+        width: 256
+        height: 256
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 2
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 0.5
+          y: 0.5
+          z: 1
+        scaleEnd:
+          x: 0.550000012
+          y: 0.550000012
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+    children:
+      []
+  - id: 10
+    name: GuitarButton
+    isStatic: false
+    isActive: true
+    transform:
+      id: 28
+      position:
+        x: -123
+        y: -104
+        z: 0
+      scale:
+        x: 0.5
+        y: 0.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 29
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 8
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 256
+        height: 256
+        layer: 2
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 30
+        enabled: true
+        type: Button
+        width: 256
+        height: 256
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 2
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 0.5
+          y: 0.5
+          z: 1
+        scaleEnd:
+          x: 0.550000012
+          y: 0.550000012
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+    children:
+      []
+  - id: 11
+    name: DrumButton
+    isStatic: false
+    isActive: true
+    transform:
+      id: 31
+      position:
+        x: 109
+        y: -117
+        z: 0
+      scale:
+        x: 0.5
+        y: 0.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 32
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 7
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 256
+        height: 256
+        layer: 2
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 33
+        enabled: true
+        type: Button
+        width: 256
+        height: 256
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 2
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 0.5
+          y: 0.5
+          z: 1
+        scaleEnd:
+          x: 0.550000012
+          y: 0.550000012
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+    children:
+      []
+  - id: 8
+    name: StrengthGraph
+    isStatic: false
+    isActive: false
+    transform:
+      id: 23
+      position:
+        x: 0
+        y: -70
+        z: 0
+      scale:
+        x: 1.5
+        y: 1.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 24
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 39
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 256
+        height: 256
+        layer: 2
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 14
+    name: GraphArrowLD
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5098
+      position:
+        x: 110
+        y: 22
+        z: 0
+      scale:
+        x: 1.5
+        y: 1.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5099
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 23
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 70
+        height: 100
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 15
+    name: GraphArrowDG
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5100
+      position:
+        x: -9
+        y: -184
+        z: 0
+      scale:
+        x: 1.5
+        y: 1.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: -123
+    components:
+      - id: 5101
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 23
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 70
+        height: 100
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 16
+    name: GraphArrowGL
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5102
+      position:
+        x: -124
+        y: 20
+        z: 0
+      scale:
+        x: 1.5
+        y: 1.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 116
+    components:
+      - id: 5103
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 23
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 70
+        height: 100
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 17
+    name: PlayerScore
+    isStatic: false
+    isActive: true
+    transform:
+      id: 155
+      position:
+        x: -270
+        y: -45
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 156
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x002\x00/\x002"
+        font: 1
+        size: 70
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 150
+        height: 150
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 22
+    name: EnemyScore
+    isStatic: false
+    isActive: true
+    transform:
+      id: 157
+      position:
+        x: 270
+        y: -45
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 158
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x000\x00/\x002"
+        font: 1
+        size: 70
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 150
+        height: 150
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 6
+    name: PlayerText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5450
+      position:
+        x: -270
+        y: 35
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5451
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00Y\x00o\x00u"
+        font: 1
+        size: 40
+        autoSize: true
+        minSize: 10
+        maxSize: 40
+        width: 150
+        height: 50
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 18
+    name: EnemyText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5452
+      position:
+        x: 270
+        y: 35
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5453
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00E\x00n\x00e\x00m\x00y"
+        font: 1
+        size: 40
+        autoSize: true
+        minSize: 10
+        maxSize: 40
+        width: 150
+        height: 50
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 19
+    name: PatronChoiceCanvas
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5505
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5506
+        enabled: true
+        type: Canvas
+        layer: 2
+        size:
+          x: 1920
+          y: 1080
+        worldSpace: false
+      - id: 5507
+        enabled: true
+        type: PatronChoicePanelController
+        patrons:
+          - res/scriptableobjects/patrons/Perun.so
+          - res/scriptableobjects/patrons/Jutrzenka.so
+          - res/scriptableobjects/patrons/Rusalka.so
+          - res/scriptableobjects/patrons/Zuarasiz.so
+        patronsButtons:
+          - 116
+          - 125
+          - 5518
+          - 134
+    children:
+      - 34
+      - 48
+      - 52
+      - 56
+      - 35
+      - 36
+      - 37
+      - 76
+  - id: 34
+    name: Background
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5508
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5509
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 38
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 0.564705908
+        width: 1920
+        height: 1080
+        layer: -1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 48
+    name: Patron_1
+    isStatic: false
+    isActive: true
+    transform:
+      id: 114
+      position:
+        x: -411
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 1
+        z: 0
+    components:
+      - id: 115
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 35
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 200
+        height: 300
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 116
+        enabled: true
+        type: Button
+        width: 200
+        height: 300
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 0.100000001
+        scaleFunc: 0
+        scaleFuncType: 0
+        scaleStart:
+          x: 1
+          y: 1
+          z: 1
+        scaleEnd:
+          x: 1
+          y: 1
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: true
+        snapToMouse: false
+        objectToDisplay: 77
+        playAudioOnClick: false
+    children:
+      - 49
+      - 50
+      - 51
+      - 77
+  - id: 49
+    name: PatronImage
+    isStatic: false
+    isActive: true
+    transform:
+      id: 117
+      position:
+        x: 0
+        y: 50
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 118
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 9
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 150
+        height: 150
+        layer: 2
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 50
+    name: PatronDescription
+    isStatic: false
+    isActive: true
+    transform:
+      id: 119
+      position:
+        x: 0
+        y: -83
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 120
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00M\x00o\x00v\x00e\x00 \x00R\x00a\x00n\x00g\x00e\x00\n\x00B\x00o\x00n\x00u\x00s\x00:\x00 \x00+\x001\x00.\x000\x000"
+        font: 1
+        size: 24
+        autoSize: false
+        minSize: 5
+        maxSize: 20
+        width: 150
+        height: 100
+        color:
+          x: 0.864864886
+          y: 0.864864886
+          z: 0
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 51
+    name: PatronName
+    isStatic: false
+    isActive: true
+    transform:
+      id: 121
+      position:
+        x: 0
+        y: -45
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 122
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00P\x00e\x00r\x00u\x00n"
+        font: 1
+        size: 30
+        autoSize: true
+        minSize: 10
+        maxSize: 30
+        width: 150
+        height: 50
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 77
+    name: PatronBackground
+    isStatic: false
+    isActive: false
+    transform:
+      id: 5471
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1.14999998
+        y: 1.10000002
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5472
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 38
+        color:
+          x: 1
+          y: 1
+          z: 0
+          w: 1
+        width: 200
+        height: 300
+        layer: 0
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 52
+    name: Patron_2
+    isStatic: false
+    isActive: true
+    transform:
+      id: 123
+      position:
+        x: -137
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 1
+        z: 0
+    components:
+      - id: 124
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 35
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 200
+        height: 300
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 125
+        enabled: true
+        type: Button
+        width: 200
+        height: 300
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 0.100000001
+        scaleFunc: 0
+        scaleFuncType: 0
+        scaleStart:
+          x: 1
+          y: 1
+          z: 1
+        scaleEnd:
+          x: 1
+          y: 1
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: true
+        snapToMouse: false
+        objectToDisplay: 78
+        playAudioOnClick: false
+    children:
+      - 53
+      - 54
+      - 55
+      - 78
+  - id: 53
+    name: PatronImage
+    isStatic: false
+    isActive: true
+    transform:
+      id: 126
+      position:
+        x: 0
+        y: 50
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 127
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 41
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 150
+        height: 150
+        layer: 2
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 54
+    name: PatronDescription
+    isStatic: false
+    isActive: true
+    transform:
+      id: 128
+      position:
+        x: 0
+        y: -83
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 129
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00A\x00b\x00i\x00l\x00i\x00t\x00i\x00e\x00s\x00 \x00R\x00a\x00n\x00g\x00e\x00\n\x00B\x00o\x00n\x00u\x00s\x00:\x00 \x00+\x001\x00.\x000\x000"
+        font: 1
+        size: 24
+        autoSize: false
+        minSize: 5
+        maxSize: 20
+        width: 150
+        height: 100
+        color:
+          x: 0.876447856
+          y: 0.00338397408
+          z: 0.527222633
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 55
+    name: PatronName
+    isStatic: false
+    isActive: true
+    transform:
+      id: 130
+      position:
+        x: 0
+        y: -45
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 131
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00J\x00u\x00r\x00z\x00e\x00n\x00k\x00a"
+        font: 1
+        size: 30
+        autoSize: true
+        minSize: 10
+        maxSize: 30
+        width: 150
+        height: 50
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 78
+    name: PatronBackground
+    isStatic: false
+    isActive: false
+    transform:
+      id: 5473
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1.14999998
+        y: 1.10000002
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5474
+        enabled: true
+        type: Image
+        isTransparent: false
+        color:
+          x: 1
+          y: 0
+          z: 0.600000024
+          w: 1
+        width: 200
+        height: 300
+        layer: 0
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 56
+    name: Patron_4
+    isStatic: false
+    isActive: true
+    transform:
+      id: 132
+      position:
+        x: 411
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 1
+        z: 0
+    components:
+      - id: 133
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 35
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 200
+        height: 300
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 134
+        enabled: true
+        type: Button
+        width: 200
+        height: 300
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 0.100000001
+        scaleFunc: 0
+        scaleFuncType: 0
+        scaleStart:
+          x: 1
+          y: 1
+          z: 1
+        scaleEnd:
+          x: 1
+          y: 1
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: true
+        snapToMouse: false
+        objectToDisplay: 79
+        playAudioOnClick: false
+    children:
+      - 57
+      - 58
+      - 59
+      - 79
+  - id: 57
+    name: PatronImage
+    isStatic: false
+    isActive: true
+    transform:
+      id: 135
+      position:
+        x: 0
+        y: 50
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 136
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 43
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 150
+        height: 150
+        layer: 2
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 58
+    name: PatronDescription
+    isStatic: false
+    isActive: true
+    transform:
+      id: 137
+      position:
+        x: 0
+        y: -83
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 138
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00M\x00o\x00n\x00e\x00y\x00 \x00G\x00a\x00i\x00n\x00\n\x00B\x00o\x00n\x00u\x00s\x00:\x00 \x00x\x002\x00.\x000\x000"
+        font: 1
+        size: 24
+        autoSize: false
+        minSize: 5
+        maxSize: 20
+        width: 150
+        height: 100
+        color:
+          x: 0.806949794
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 59
+    name: PatronName
+    isStatic: false
+    isActive: true
+    transform:
+      id: 139
+      position:
+        x: 0
+        y: -45
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 140
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00Z\x00u\x00a\x00r\x00a\x00s\x00i\x00z"
+        font: 1
+        size: 30
+        autoSize: true
+        minSize: 10
+        maxSize: 30
+        width: 150
+        height: 50
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 79
+    name: PatronBackground
+    isStatic: false
+    isActive: false
+    transform:
+      id: 5432
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1.14999998
+        y: 1.10000002
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5436
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 38
+        color:
+          x: 1
+          y: 0
+          z: 0
+          w: 1
+        width: 200
+        height: 300
+        layer: 0
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 35
+    name: Patron_3
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5510
+      position:
+        x: 137
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5513
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 35
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 200
+        height: 300
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 5518
+        enabled: true
+        type: Button
+        width: 200
+        height: 300
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 0.100000001
+        scaleFunc: 0
+        scaleFuncType: 0
+        scaleStart:
+          x: 1
+          y: 1
+          z: 1
+        scaleEnd:
+          x: 1
+          y: 1
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: true
+        snapToMouse: false
+        objectToDisplay: 80
+        playAudioOnClick: false
+    children:
+      - 47
+      - 70
+      - 71
+      - 80
+  - id: 47
+    name: PatronImage
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5519
+      position:
+        x: 0
+        y: 50
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5520
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 27
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 150
+        height: 150
+        layer: 2
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 70
+    name: PatronDescription
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5525
+      position:
+        x: 0
+        y: -83
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5526
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00A\x00b\x00i\x00l\x00i\x00t\x00i\x00e\x00s\x00 \x00P\x00r\x00i\x00c\x00e\x00 \x00D\x00i\x00s\x00c\x00o\x00u\x00n\x00t\x00\n\x00B\x00o\x00n\x00u\x00s\x00:\x00 \x00-\x003\x000\x00.\x000\x000\x00%"
+        font: 1
+        size: 15
+        autoSize: false
+        minSize: 5
+        maxSize: 20
+        width: 150
+        height: 100
+        color:
+          x: 0
+          y: 0
+          z: 1
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 71
+    name: PatronName
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5527
+      position:
+        x: 0
+        y: -45
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5528
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00R\x00u\x00s\x00a\x00l\x00k\x00a"
+        font: 1
+        size: 30
+        autoSize: true
+        minSize: 10
+        maxSize: 30
+        width: 150
+        height: 50
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 80
+    name: PatronBackground
+    isStatic: false
+    isActive: false
+    transform:
+      id: 5433
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1.14999998
+        y: 1.10000002
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5437
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 38
+        color:
+          x: 0
+          y: 0
+          z: 1
+          w: 1
+        width: 200
+        height: 300
+        layer: 0
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 36
+    name: Patron_5
+    isStatic: false
+    isActive: false
+    transform:
+      id: 5511
+      position:
+        x: 412
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5514
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 35
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 200
+        height: 300
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 5517
+        enabled: true
+        type: Button
+        width: 200
+        height: 300
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 0.100000001
+        scaleFunc: 0
+        scaleFuncType: 0
+        scaleStart:
+          x: 1
+          y: 1
+          z: 1
+        scaleEnd:
+          x: 1
+          y: 1
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: true
+        snapToMouse: false
+        objectToDisplay: 81
+        playAudioOnClick: false
+    children:
+      - 60
+      - 72
+      - 73
+      - 81
+  - id: 60
+    name: PatronImage
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5521
+      position:
+        x: 0
+        y: 50
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5522
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 41
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 150
+        height: 150
+        layer: 2
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 72
+    name: PatronDescription
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5529
+      position:
+        x: -20
+        y: -70
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5536
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00P\x00a\x00t\x00r\x00o\x00n\x005\x00 \x00D\x00e\x00s\x00c\x00r\x00i\x00p\x00t\x00i\x00o\x00n\x00\n\x00M\x00o\x00n\x00e\x00y\x00 \x00G\x00a\x00i\x00n\x00\n\x00B\x00o\x00n\x00u\x00s\x00:\x00 \x00x\x001\x00.\x001\x000\x000\x000\x000\x000"
+        font: 1
+        size: 14
+        autoSize: true
+        minSize: 5
+        maxSize: 20
+        width: 150
+        height: 100
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<LEFT> 0
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 73
+    name: PatronName
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5530
+      position:
+        x: 0
+        y: -45
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5535
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00P\x00a\x00t\x00r\x00o\x00n\x005"
+        font: 1
+        size: 30
+        autoSize: true
+        minSize: 10
+        maxSize: 30
+        width: 150
+        height: 50
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 81
+    name: PatronBackground
+    isStatic: false
+    isActive: false
+    transform:
+      id: 5434
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1.14999998
+        y: 1.10000002
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5438
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 38
+        color:
+          x: 0.486274511
+          y: 0
+          z: 0.486274511
+          w: 1
+        width: 200
+        height: 300
+        layer: 0
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 37
+    name: Patron_6
+    isStatic: false
+    isActive: false
+    transform:
+      id: 5512
+      position:
+        x: 686
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5515
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 35
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 200
+        height: 300
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 5516
+        enabled: true
+        type: Button
+        width: 200
+        height: 300
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 0.100000001
+        scaleFunc: 0
+        scaleFuncType: 0
+        scaleStart:
+          x: 1
+          y: 1
+          z: 1
+        scaleEnd:
+          x: 1
+          y: 1
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: true
+        snapToMouse: false
+        objectToDisplay: 82
+        playAudioOnClick: false
+    children:
+      - 69
+      - 74
+      - 75
+      - 82
+  - id: 69
+    name: PatronImage
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5523
+      position:
+        x: 0
+        y: 50
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5524
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 9
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 150
+        height: 150
+        layer: 2
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 74
+    name: PatronDescription
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5531
+      position:
+        x: -20
+        y: -70
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5534
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00P\x00a\x00t\x00r\x00o\x00n\x006\x00 \x00D\x00e\x00s\x00c\x00r\x00i\x00p\x00t\x00i\x00o\x00n\x00\n\x00A\x00b\x00i\x00l\x00i\x00t\x00i\x00e\x00s\x00 \x00P\x00r\x00i\x00c\x00e\x00 \x00D\x00i\x00s\x00c\x00o\x00u\x00n\x00t\x00\n\x00B\x00o\x00n\x00u\x00s\x00:\x00 \x00-\x003\x000\x00%"
+        font: 1
+        size: 13
+        autoSize: true
+        minSize: 5
+        maxSize: 20
+        width: 150
+        height: 100
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<LEFT> 0
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 75
+    name: PatronName
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5532
+      position:
+        x: 0
+        y: -45
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5533
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00P\x00a\x00t\x00r\x00o\x00n\x006"
+        font: 1
+        size: 30
+        autoSize: true
+        minSize: 10
+        maxSize: 30
+        width: 150
+        height: 50
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 82
+    name: PatronBackground
+    isStatic: false
+    isActive: false
+    transform:
+      id: 5435
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1.14999998
+        y: 1.10000002
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5439
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 38
+        color:
+          x: 0.576470613
+          y: 0
+          z: 0
+          w: 1
+        width: 200
+        height: 300
+        layer: 0
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 76
+    name: Info
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5469
+      position:
+        x: 0
+        y: 300
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5470
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00C\x00h\x00o\x00o\x00s\x00e\x00 \x00Y\x00o\x00u\x00r\x00 \x00P\x00a\x00t\x00r\x00o\x00n\x00!"
+        font: 1
+        size: 80
+        autoSize: true
+        minSize: 10
+        maxSize: 80
+        width: 900
+        height: 200
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 84
+    name: RadioStationCanvas
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5383
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5384
+        enabled: true
+        type: Canvas
+        layer: 1
+        size:
+          x: 1920
+          y: 1080
+        worldSpace: false
+      - id: 5385
+        enabled: true
+        type: RadioStationPlayingController
+        generatedNotesNumber: 4
+        notesAreaWidth: 100
+        notesAreaHeight: 100
+        timeLimit: 5
+        resultShowingTime: 1.5
+        timeChangeColorPercent: 25
+        correctNoteColor:
+          x: 0
+          y: 1
+          z: 0.34117648
+          w: 1
+        wrongNoteColor:
+          x: 1
+          y: 0.141176477
+          z: 0.141176477
+          w: 1
+        notesSpritesIds:
+          - 42
+          - 19
+          - 11
+          - 0
+        playTextObjectId: 98
+        resultTextObjectId: 85
+        remainingTimeTextId: 5401
+        notesAreaImageId: 5403
+        buttonUp: 5393
+        buttonRight: 5395
+        buttonDown: 5397
+        buttonLeft: 5399
+      - id: 5407
+        enabled: true
+        type: Audio
+        audio: 0
+        loop: false
+        volume: 1
+        playOnStart: false
+    children:
+      - 40
+      - 41
+      - 42
+      - 43
+      - 44
+      - 45
+      - 46
+      - 85
+      - 98
+  - id: 40
+    name: Background
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5386
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5387
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 38
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 0.564705908
+        width: 1920
+        height: 1080
+        layer: 0
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 41
+    name: ButtonUp
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5388
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 0.5
+        y: 0.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5392
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 42
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 256
+        height: 256
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 5393
+        enabled: true
+        type: Button
+        width: 256
+        height: 256
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 2
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 0.5
+          y: 0.5
+          z: 1
+        scaleEnd:
+          x: 0.519999981
+          y: 0.519999981
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+    children:
+      - 86
+  - id: 86
+    name: ButtonUpShortcut
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5625
+      position:
+        x: 0
+        y: -145
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5626
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00W"
+        font: 1
+        size: 120
+        autoSize: true
+        minSize: 10
+        maxSize: 120
+        width: 256
+        height: 50
+        color:
+          x: 0.852253318
+          y: 1
+          z: 0.277992249
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 42
+    name: ButtonRight
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5389
+      position:
+        x: 125
+        y: -125
+        z: 0
+      scale:
+        x: 0.5
+        y: 0.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5394
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 19
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 256
+        height: 256
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 5395
+        enabled: true
+        type: Button
+        width: 256
+        height: 256
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 2
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 0.5
+          y: 0.5
+          z: 1
+        scaleEnd:
+          x: 0.519999981
+          y: 0.519999981
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+    children:
+      - 88
+  - id: 88
+    name: ButtonRightShortcut
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5628
+      position:
+        x: -145
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5631
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00D"
+        font: 1
+        size: 120
+        autoSize: true
+        minSize: 10
+        maxSize: 120
+        width: 256
+        height: 50
+        color:
+          x: 0.204633176
+          y: 1
+          z: 0.438022494
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 43
+    name: ButtonDown
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5390
+      position:
+        x: 0
+        y: -250
+        z: 0
+      scale:
+        x: 0.5
+        y: 0.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5396
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 11
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 256
+        height: 256
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 5397
+        enabled: true
+        type: Button
+        width: 256
+        height: 256
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 2
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 0.5
+          y: 0.5
+          z: 1
+        scaleEnd:
+          x: 0.519999981
+          y: 0.519999981
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+    children:
+      - 89
+  - id: 89
+    name: ButtonDownShortcut
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5629
+      position:
+        x: 0
+        y: 145
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5630
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00S"
+        font: 1
+        size: 120
+        autoSize: true
+        minSize: 10
+        maxSize: 120
+        width: 256
+        height: 50
+        color:
+          x: 0.709679186
+          y: 0.208494186
+          z: 1
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 44
+    name: ButtonLeft
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5391
+      position:
+        x: -125
+        y: -125
+        z: 0
+      scale:
+        x: 0.5
+        y: 0.5
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5398
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 0
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 256
+        height: 256
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 5399
+        enabled: true
+        type: Button
+        width: 256
+        height: 256
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 2
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 0.5
+          y: 0.5
+          z: 1
+        scaleEnd:
+          x: 0.519999981
+          y: 0.519999981
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+    children:
+      - 87
+  - id: 87
+    name: ButtonLeftShortcut
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5627
+      position:
+        x: 145
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5632
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00A"
+        font: 1
+        size: 120
+        autoSize: true
+        minSize: 10
+        maxSize: 120
+        width: 256
+        height: 50
+        color:
+          x: 0.239382267
+          y: 0.674020946
+          z: 1
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 45
+    name: RemainingTimeText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5400
+      position:
+        x: 0
+        y: 375
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5401
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x000\x00.\x000\x000\x00s"
+        font: 1
+        size: 50
+        autoSize: true
+        minSize: 10
+        maxSize: 50
+        width: 256
+        height: 128
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 46
+    name: NotesArea
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5402
+      position:
+        x: 0
+        y: 205
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5403
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 38
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 0
+        width: 620
+        height: 200
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 85
+    name: ResultTextObject
+    isStatic: false
+    isActive: false
+    transform:
+      id: 5404
+      position:
+        x: 0
+        y: 205
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5405
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x004\x00/\x004"
+        font: 1
+        size: 150
+        autoSize: true
+        minSize: 10
+        maxSize: 150
+        width: 620
+        height: 128
+        color:
+          x: 0
+          y: 1
+          z: 0.34117648
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 3
+      - id: 5406
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 38
+        color:
+          x: 0.030888021
+          y: 0.030888021
+          z: 0.030888021
+          w: 1
+        width: 270
+        height: 140
+        layer: 2
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 98
+    name: PlayText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5479
+      position:
+        x: 0
+        y: 205
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5480
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00C\x00l\x00i\x00c\x00k\x00 \x00[\x00L\x00M\x00B\x00]\x00 \x00T\x00o\x00 \x00S\x00t\x00a\x00r\x00t"
+        font: 1
+        size: 100
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 500
+        height: 100
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 2
+    children:
+      []
+  - id: 552
+    name: Canvas
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5465
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5466
+        enabled: true
+        type: Canvas
+        layer: 3
+        size:
+          x: 1920
+          y: 1080
+        worldSpace: false
+    children:
+      - 92
+  - id: 92
+    name: PauseButton
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5467
+      position:
+        x: -870
+        y: 460
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5475
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 1
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 100
+        height: 100
+        layer: 0
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 5476
+        enabled: true
+        type: Button
+        width: 100
+        height: 100
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 3
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 1
+          y: 1
+          z: 1
+        scaleEnd:
+          x: 1.10000002
+          y: 1.10000002
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+    children:
+      []
+  - id: 93
+    name: PauseCanvas
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5477
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5478
+        enabled: true
+        type: Canvas
+        layer: 4
+        size:
+          x: 1920
+          y: 1080
+        worldSpace: false
+      - id: 5454
+        enabled: true
+        type: PauseManager
+        pauseButtonId: 5476
+        resumeButtonId: 10762
+        menuButtonId: 10764
+        pauseCanvas: 93
+    children:
+      - 94
+      - 95
+      - 96
+      - 97
+  - id: 94
+    name: Background
+    isStatic: false
+    isActive: true
+    transform:
+      id: 10757
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 10758
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 38
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 0.564705908
+        width: 1920
+        height: 1080
+        layer: 0
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 95
+    name: Resume
+    isStatic: false
+    isActive: true
+    transform:
+      id: 10759
+      position:
+        x: 0
+        y: 80
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 10761
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 31
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 200
+        height: 75
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 10762
+        enabled: true
+        type: Button
+        width: 200
+        height: 75
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 2
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 1
+          y: 1
+          z: 1
+        scaleEnd:
+          x: 1.10000002
+          y: 1.10000002
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+    children:
+      []
+  - id: 96
+    name: Menu
+    isStatic: false
+    isActive: true
+    transform:
+      id: 10760
+      position:
+        x: 0
+        y: -20
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 10763
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 20
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 200
+        height: 75
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 10764
+        enabled: true
+        type: Button
+        width: 200
+        height: 75
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 2
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 1
+          y: 1
+          z: 1
+        scaleEnd:
+          x: 1.10000002
+          y: 1.10000002
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+    children:
+      []
+  - id: 97
+    name: PauseText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 10765
+      position:
+        x: 0
+        y: 275
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 10766
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00P\x00A\x00U\x00S\x00E"
+        font: 1
+        size: 120
+        autoSize: true
+        minSize: 10
+        maxSize: 120
+        width: 500
+        height: 100
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 104
+    name: GameOverCanvas
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5576
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5577
+        enabled: true
+        type: Canvas
+        layer: 5
+        size:
+          x: 1920
+          y: 1080
+        worldSpace: false
+      - id: 5761
+        enabled: true
+        type: GameOverManager
+        gameOverCanvas: 104
+        newGameButtonId: 5613
+        menuButtonId: 5617
+        timeTextId: 5623
+        albumsNumTextId: 5591
+        concertsNumTextId: 5604
+        fansNumTextId: 5598
+    children:
+      - 105
+      - 106
+      - 107
+      - 109
+      - 108
+      - 122
+      - 123
+      - 124
+  - id: 105
+    name: Background
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5578
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5579
+        enabled: true
+        type: Image
+        isTransparent: true
+        sprite: 38
+        color:
+          x: 0
+          y: 0
+          z: 0
+          w: 0.564705908
+        width: 1920
+        height: 1080
+        layer: 0
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 106
+    name: GameOverText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5580
+      position:
+        x: 0
+        y: 313
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5581
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00G\x00A\x00M\x00E\x00 \x00O\x00V\x00E\x00R\x00!"
+        font: 1
+        size: 150
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 1
+          y: 0
+          z: 0
+          w: 1
+        alignX: !<CENTER> 1
+        alignY: !<CENTER> 1
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 107
+    name: AlbumText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5582
+      position:
+        x: -237
+        y: 64
+        z: 0
+      scale:
+        x: 0.699999988
+        y: 0.699999988
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      []
+    children:
+      - 110
+      - 111
+      - 112
+      - 119
+  - id: 110
+    name: Text1
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5588
+      position:
+        x: -462
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5589
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00Y\x00o\x00u\x00 \x00r\x00e\x00l\x00e\x00a\x00s\x00e\x00d\x00 "
+        font: 1
+        size: 50
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        alignX: !<LEFT> 0
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 111
+    name: AlbumNumber
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5590
+      position:
+        x: 95
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5591
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x001\x000\x000\x000\x000\x000\x000"
+        font: 1
+        size: 60
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 0.123552203
+          y: 1
+          z: 0
+          w: 1
+        alignX: !<RIGHT> 2
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 112
+    name: Text2
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5592
+      position:
+        x: 104
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5593
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00a\x00l\x00b\x00u\x00m\x00s\x00!"
+        font: 1
+        size: 50
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        alignX: !<LEFT> 0
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 119
+    name: Image
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5606
+      position:
+        x: -524
+        y: 13
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5607
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 34
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 100
+        height: 100
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 109
+    name: FansText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5586
+      position:
+        x: -239
+        y: -123
+        z: 0
+      scale:
+        x: 0.699999988
+        y: 0.699999988
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      []
+    children:
+      - 113
+      - 114
+      - 115
+      - 120
+  - id: 113
+    name: Text1
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5594
+      position:
+        x: -462
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5597
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00Y\x00o\x00u\x00 \x00o\x00r\x00g\x00a\x00n\x00i\x00z\x00e\x00d\x00 \x00f\x00a\x00n\x00 \x00m\x00e\x00e\x00t\x00i\x00n\x00g\x00s\x00 "
+        font: 1
+        size: 50
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        alignX: !<LEFT> 0
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 114
+    name: FansNumber
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5595
+      position:
+        x: 477
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5598
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x001\x000\x000\x000\x000\x000\x000"
+        font: 1
+        size: 60
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 1
+          y: 0.880308867
+          z: 0
+          w: 1
+        alignX: !<RIGHT> 2
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 115
+    name: Text
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5596
+      position:
+        x: 489
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5599
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00t\x00i\x00m\x00e\x00s\x00!"
+        font: 1
+        size: 50
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        alignX: !<LEFT> 0
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 120
+    name: Image
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5608
+      position:
+        x: -524
+        y: 22
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5609
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 6
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 100
+        height: 100
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 108
+    name: ConcertText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5584
+      position:
+        x: -240
+        y: -30
+        z: 0
+      scale:
+        x: 0.699999988
+        y: 0.699999988
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      []
+    children:
+      - 116
+      - 117
+      - 118
+      - 121
+  - id: 116
+    name: Text1
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5600
+      position:
+        x: -462
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5601
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00Y\x00o\x00u\x00 \x00p\x00l\x00a\x00y\x00e\x00d\x00 "
+        font: 1
+        size: 50
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        alignX: !<LEFT> 0
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 117
+    name: ConcertNumber
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5602
+      position:
+        x: 52
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5604
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x001\x000\x000\x000\x000\x000\x000"
+        font: 1
+        size: 60
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 0.673812091
+          y: 0
+          z: 0.872586846
+          w: 1
+        alignX: !<RIGHT> 2
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 118
+    name: Text2
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5603
+      position:
+        x: 63
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5605
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00c\x00o\x00n\x00c\x00e\x00r\x00t\x00s\x00!"
+        font: 1
+        size: 50
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        alignX: !<LEFT> 0
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 121
+    name: Image
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5610
+      position:
+        x: -501
+        y: 11
+        z: 0
+      scale:
+        x: 0.850000024
+        y: 0.850000024
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5611
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 24
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 100
+        height: 100
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 122
+    name: NewGameButton
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5612
+      position:
+        x: 0
+        y: -231
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5613
+        enabled: true
+        type: Button
+        width: 200
+        height: 75
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 2
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 1
+          y: 1
+          z: 1
+        scaleEnd:
+          x: 1.10000002
+          y: 1.10000002
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+      - id: 5614
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 28
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 200
+        height: 75
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []
+  - id: 123
+    name: MenuButton
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5615
+      position:
+        x: 0
+        y: -327
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5616
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 20
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        width: 200
+        height: 75
+        layer: 1
+        fillEnabled: false
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<LEFT> 0
+        fillOffset: 0
+        fillProgress: 1
+      - id: 5617
+        enabled: true
+        type: Button
+        width: 200
+        height: 75
+        interactable: true
+        onHoverPresetEvents: true
+        animTimeFactor: 2
+        scaleFunc: 9
+        scaleFuncType: 2
+        scaleStart:
+          x: 1
+          y: 1
+          z: 1
+        scaleEnd:
+          x: 1.10000002
+          y: 1.10000002
+          z: 1
+        colorFunc: 0
+        colorFuncType: 0
+        colorStart:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        colorEnd:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        displayObjectOnHover: false
+        playAudioOnClick: false
+    children:
+      []
+  - id: 124
+    name: TimeLivedText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5618
+      position:
+        x: -84
+        y: 187
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      []
+    children:
+      - 125
+      - 126
+  - id: 125
+    name: Text1
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5620
+      position:
+        x: -395
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5621
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x00Y\x00o\x00u\x00r\x00 \x00t\x00e\x00a\x00m\x00 \x00l\x00a\x00s\x00t\x00e\x00d\x00:"
+        font: 1
+        size: 40
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 1
+          y: 1
+          z: 1
+          w: 1
+        alignX: !<LEFT> 0
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []
+  - id: 126
+    name: TimeText
+    isStatic: false
+    isActive: true
+    transform:
+      id: 5622
+      position:
+        x: -23
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 5623
+        enabled: true
+        type: Text
+        isTransparent: false
+        text: "\x000\x00 \x00Y\x00E\x00A\x00R\x00S\x00 \x000\x00 \x00M\x00O\x00N\x00T\x00H\x00S\x00 \x00 \x00A\x00N\x00D\x00 \x000\x00 \x00D\x00A\x00Y\x00S"
+        font: 1
+        size: 40
+        autoSize: false
+        minSize: 0
+        maxSize: 0
+        width: 0
+        height: 0
+        color:
+          x: 0.720412612
+          y: 1
+          z: 0.532818556
+          w: 1
+        alignX: !<LEFT> 0
+        alignY: !<BOTTOM> 0
+        textWrapping: false
+        overflow: !<Overflow> 0
+        layer: 1
+    children:
+      []

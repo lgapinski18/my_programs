@@ -1,8 +1,8 @@
 #pragma once
 
-#include <core/EventHandler.h>
+#include <tools/EventHandler.h>
 
-namespace Twin2Engine::GraphicEngine {
+namespace Twin2Engine::Graphic {
 	class Window {
 	private:
 		static Window* _instance;
@@ -18,7 +18,7 @@ namespace Twin2Engine::GraphicEngine {
 
 		static void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 	public:
-		static Twin2Engine::Core::MethodEventHandler OnWindowSizeEvent;
+		static Twin2Engine::Tools::MethodEventHandler OnWindowSizeEvent;
 		
 		virtual ~Window();
 
@@ -48,6 +48,7 @@ namespace Twin2Engine::GraphicEngine {
 		bool IsMousePassThrough() const;
 #pragma endregion
 #pragma region GLOBAL_SETTERS
+		void SetIcon(const std::string& path);
 		void SetTitle(const std::string& title);
 		void SetWindowSize(const glm::ivec2& size);
 		void SetFullscreen(GLFWmonitor* monitor, const glm::ivec2& size, int refreshRate = 60);
@@ -107,5 +108,6 @@ namespace Twin2Engine::GraphicEngine {
 
 		void Use() const;
 		void Update() const;
+		void DrawEditor();
 	};
 }

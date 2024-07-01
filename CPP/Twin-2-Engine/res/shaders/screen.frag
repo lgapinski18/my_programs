@@ -1,15 +1,18 @@
 #version 450 core
 layout (std140, binding = 1) uniform WindowData
 {
-    vec2 windowSize;
+    ivec2 windowSize;
     float nearPlane;
     float farPlane;
     float gamma;
+    float time;
+    float deltaTime;
 };
 
 in vec2 TexCoord;
 uniform sampler2D screenTexture;
 uniform sampler2D depthTexture;
+uniform sampler2D ssaoTexture;
 
 out vec4 Color;  
 
@@ -17,7 +20,24 @@ uniform bool hasBlur;
 uniform bool hasVignette;
 uniform bool hasNegative;
 uniform bool hasGrayscale;
+uniform bool hasOutline;
+uniform bool hasDepthOfField;
+
 uniform bool displayDepth;
+uniform bool displaySSAO;
+
+uniform float brightness;
+uniform float contrast;
+
+// Gaussian Blur
+uniform int blurMSize;
+uniform float blurKernel[40];
+
+// Depth Of Field 2
+uniform bool depthOfField2;
+uniform float quadraticDepthOfField;
+uniform float linearDepthOfField;
+uniform float constantDepthOfField;
 
 vec3 applyVignette(vec3 color) {
     vec2 position = TexCoord.xy - vec2(0.5);  
@@ -56,7 +76,36 @@ vec3 getDepthValue(vec2 coord) {
     return vec3(Linear01Depth(texture(depthTexture, coord).r, nearPlane, farPlane));
 }
 
-vec3 applyBlur() {
+int getDepthOffset(int i, int offset) {
+    return min((1 + i + offset) % 4, 1) * (1 - 2 * (int((i + offset) / 4) % 2));
+}
+
+bool IsEdge(vec2 coord) {
+    float depth = getDepthValue(coord).r;
+    vec2 offset = 1.0 / textureSize(depthTexture, 0);
+
+    for (int i = 0; i < 8; i+=2) {
+        float nearDepth = getDepthValue(coord.xy + (vec2(getDepthOffset(i, 1), getDepthOffset(i, -1)) * offset)).r;
+        if (abs(depth - nearDepth) > 0.0007) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+vec3 getColor(vec2 coord) {
+    vec3 outlineColor = vec3(1.0);
+    vec3 res = displayDepth ? getDepthValue(coord) : (displaySSAO ? texture(ssaoTexture, coord).rrr : texture(screenTexture, coord).rgb);
+
+    if (hasOutline) {
+        res = IsEdge(coord) ? ((displayDepth || displaySSAO) ? outlineColor / 2.0 : outlineColor) : res;
+    }
+
+    return res;
+}
+
+vec3 applyBlurFast() {
     vec2 direction = normalize(vec2(1.0));
     vec2 resolution = displayDepth ? textureSize(depthTexture, 0) : textureSize(screenTexture, 0);
     vec2 uv = TexCoord;
@@ -66,31 +115,100 @@ vec3 applyBlur() {
     vec2 off2 = vec2(3.2941176470588234) * direction;
     vec2 off3 = vec2(5.176470588235294) * direction;
 
-    color += (displayDepth ? getDepthValue(uv) : texture(screenTexture, uv).rgb) * 0.1964825501511404;
-    color += (displayDepth ? getDepthValue(uv + (off1 / resolution)) : texture(screenTexture, uv + (off1 / resolution)).rgb) * 0.2969069646728344;
-    color += (displayDepth ? getDepthValue(uv - (off1 / resolution)) : texture(screenTexture, uv - (off1 / resolution)).rgb) * 0.2969069646728344;
+    color += getColor(uv) * 0.1964825501511404;
+    color += getColor(uv + (off1 / resolution)) * 0.2969069646728344;
+    color += getColor(uv - (off1 / resolution)) * 0.2969069646728344;
 
-    color += (displayDepth ? getDepthValue(uv + (off2 / resolution)) : texture(screenTexture, uv + (off2 / resolution)).rgb) * 0.09447039785044732;
-    color += (displayDepth ? getDepthValue(uv - (off2 / resolution)) : texture(screenTexture, uv - (off2 / resolution)).rgb) * 0.09447039785044732;
+    color += getColor(uv + (off2 / resolution)) * 0.09447039785044732;
+    color += getColor(uv - (off2 / resolution)) * 0.09447039785044732;
 
-    color += (displayDepth ? getDepthValue(uv + (off3 / resolution)) : texture(screenTexture, uv + (off3 / resolution)).rgb) * 0.010381362401148057;
-    color += (displayDepth ? getDepthValue(uv - (off3 / resolution)) : texture(screenTexture, uv - (off3 / resolution)).rgb) * 0.010381362401148057;
+    color += getColor(uv + (off3 / resolution)) * 0.010381362401148057;
+    color += getColor(uv - (off3 / resolution)) * 0.010381362401148057;
     return color;
+}
+
+vec3 applyBlurGaussian() {
+    if (blurMSize != 0) {
+        //declare stuff
+        vec3 result = vec3(0.0);
+        const int kSize = (blurMSize - 1) / 2;
+        vec2 tex_offset = displayDepth ? 1.0 / textureSize(depthTexture, 0) : 1.0 / textureSize(screenTexture, 0);
+
+        float Z = 0.0;
+
+        //get the normalization factor (as the gaussian has been clamped)
+        for (int j = 0; j < blurMSize; ++j)
+        {
+            Z += blurKernel[j];
+        }
+
+        //read out the texels
+        for (int i =- kSize; i <= kSize; ++i)
+        {
+            for (int j =- kSize; j <= kSize; ++j)
+            {
+                vec3 c = getColor(TexCoord.xy + vec2(tex_offset.x * i, tex_offset.y * j));
+                result += blurKernel[kSize + j] * blurKernel[kSize + i] * c;
+            }
+        }
+        return result / (Z * Z);
+    }
+    else {
+        return getColor(TexCoord.xy);
+    }
+}
+
+vec3 applyDepthOfField(vec3 currentOutput) {
+    float currentDepth = getDepthValue(TexCoord).r;
+    float centerDepth = getDepthValue(vec2(0.5, 0.5)).r;
+
+    //vec3 blurred = vec3(0.0, 0.0, 0.0);
+    vec3 blurred = applyBlurGaussian();
+    
+    vec2 resolution = textureSize(screenTexture, 0);
+
+    //float distance = currentDepth - centerDepth;
+    float distance = length(currentDepth - centerDepth) * 150;
+    distance = (distance < 0) ? -distance : distance;
+
+    distance = clamp(distance, 0.0, 1.0);
+
+    //return distance * blurred + (1.0 - distance) * currentOutput;
+    return distance * blurred + (1.0 - distance) * currentOutput;
+}
+
+vec3 applyDepthOfField2(vec3 color) {
+
+    vec3 focusColor = color;
+    vec3 outOfFocusColor = applyBlurGaussian();
+
+    float focusDist = texture(depthTexture, vec2(0.5)).r;
+
+    float currDist = texture(depthTexture, TexCoord).r;
+
+    float dist = abs(focusDist - currDist);
+
+    float blur = clamp(quadraticDepthOfField * dist * dist + linearDepthOfField * dist + constantDepthOfField, 0.0, 1.0);
+
+    return mix(focusColor, outOfFocusColor, blur);
 }
 
 void main() {
 
-    vec3 res = vec3(0);
-
-    if (displayDepth) {
-        res = getDepthValue(TexCoord);
-    }
-    else {
-        res = texture(screenTexture, TexCoord).rgb;
-    }
+    vec3 res = getColor(TexCoord);
 
     if (hasBlur) {
-        res = applyBlur();
+        res = applyBlurFast();
+    }
+
+    if (hasDepthOfField)
+    {
+        if (depthOfField2) {
+            res = applyDepthOfField2(res);
+        }
+        else {
+            res = applyDepthOfField(res);
+        }        
     }
 
     if (hasGrayscale) {
@@ -105,5 +223,15 @@ void main() {
         res = applyNegative(res);
     }
 
-    Color = vec4(pow(res, vec3(1.0/gamma)), 1.0);
+    vec3 afterGamma = pow(res, vec3(1.0/gamma));
+
+    // saturation (lerp between grayScale and normal) i dont think we need it
+
+    // apply contrast
+    afterGamma = (afterGamma - vec3(0.5)) * max(contrast, 0.0) + vec3(0.5);
+
+    // apply brightness
+    afterGamma += vec3(brightness);
+
+    Color = vec4(afterGamma, 1.0);
 }

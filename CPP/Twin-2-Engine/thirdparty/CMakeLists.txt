@@ -22,7 +22,6 @@ target_include_directories(stb_image PRIVATE ${STB_IMAGE_DIR})
 #add_library(freetype STATIC ${FREETYPE_DIR}/src/freetype.cpp)
 #target_include_directories(freetype PRIVATE ${FREETYPE_DIR}/include)
 
-
 # tinygltf
 #set(TINY_GTLF_DIR ${CMAKE_CURRENT_LIST_DIR}/tiny_gltf)
 #set(tinygltf_SOURCE_DIR ${TINY_GTLF_DIR} CACHE INTERNAL "")
@@ -31,9 +30,7 @@ target_include_directories(stb_image PRIVATE ${STB_IMAGE_DIR})
 ##target_include_directories(tinygltf PRIVATE ${TINY_GTLF_DIR} ${stb_image_SOURCE_DIR})
 #target_include_directories(tinygltf PRIVATE ${TINY_GTLF_DIR})
 
-get_property(is_miniaudio GLOBAL PROPERTY IS_MINI_AUDIO)
-
-if(is_miniaudio)
+if(IS_MINI_AUDIO)
     # miniaudio
     set(MINIAUDIO_DIR ${CMAKE_CURRENT_LIST_DIR}/miniaudio)
     set(miniaudio_SOURCE_DIR ${MINIAUDIO_DIR}/include CACHE INTERNAL "")
@@ -42,6 +39,8 @@ if(is_miniaudio)
                             ${MINIAUDIO_DIR}/src/*.c)
     add_library(miniaudio STATIC ${miniaudio_SOURCE_FILES})
     target_include_directories(miniaudio PRIVATE ${MINIAUDIO_DIR}/include)
+
+    set_target_properties(miniaudio PROPERTIES FOLDER "thirdparty")
 else()
     # soloud
     add_compile_definitions(WITH_MINIAUDIO)
@@ -52,30 +51,15 @@ else()
                             ${SOLOUD_DIR}/src/*.c)
     add_library(soloud STATIC ${soloud_SOURCE_FILES})
     target_include_directories(soloud PRIVATE ${SOLOUD_DIR}/include)
-endif()
-
-get_property(find_memory_leaks GLOBAL PROPERTY FIND_MEMORY_LEAKS)
-
-if(find_memory_leaks AND (NOT CMAKE_BUILD_TYPE STREQUAL "Release"))
-    set(TRACEY_LEAK_DIR ${CMAKE_CURRENT_LIST_DIR}/tracey_leak)
-    set(tracey_leak_SOURCE_DIR ${TRACEY_LEAK_DIR}/include CACHE INTERNAL "")
-    file(GLOB_RECURSE tracey_leak_SOURCE_FILES 
-                            ${TRACEY_LEAK_DIR}/src/*.cpp
-                            ${TRACEY_LEAK_DIR}/src/*.c)
-    add_library(tracey_leak STATIC ${tracey_leak_SOURCE_FILES})
-    target_include_directories(tracey_leak PRIVATE ${TRACEY_LEAK_DIR}/include)
-
-    set(THREADS_PREFER_PTHREAD_FLAG ON)
-    find_package(Threads REQUIRED)
-    set_target_properties(tracey_leak PROPERTIES FOLDER "thirdparty")
+    set_target_properties(soloud PROPERTIES FOLDER "thirdparty")
 endif()
 
 # other
-CPMAddPackage("gh:assimp/assimp@5.3.1")
+CPMAddPackage("gh:assimp/assimp@5.4.1")
 CPMAddPackage("gh:glfw/glfw#3.4")
 #CPMAddPackage("gh:syoyo/tinygltf@2.8.21")
 CPMAddPackage("gh:g-truc/glm#1.0.1")
-CPMAddPackage("gh:gabime/spdlog@1.13.0")
+CPMAddPackage("gh:gabime/spdlog@1.14.1")
 CPMAddPackage("gh:jbeder/yaml-cpp#0.8.0")
 CPMAddPackage("gh:freetype/freetype#VER-2-13-2")
 
@@ -89,8 +73,9 @@ set_target_properties(glad
                       #tinygltf
                       freetype PROPERTIES FOLDER "thirdparty")
 
-if(NOT CMAKE_BUILD_TYPE STREQUAL "Release")
-    CPMAddPackage("gh:ocornut/imgui@1.90.4")
+if (NOT CMAKE_BUILD_TYPE STREQUAL "Release")
+
+    CPMAddPackage("gh:ocornut/imgui@1.90.8-docking")
 
     set(imgui_SOURCE_DIR ${imgui_SOURCE_DIR} CACHE INTERNAL "")
     add_library(imgui STATIC ${imgui_SOURCE_DIR}/imgui.cpp
@@ -100,12 +85,25 @@ if(NOT CMAKE_BUILD_TYPE STREQUAL "Release")
 					         ${imgui_SOURCE_DIR}/imgui_widgets.cpp)
 
     set_target_properties(imgui PROPERTIES FOLDER "thirdparty")
+
+    if(FIND_MEMORY_LEAKS)
+        set(TRACEY_LEAK_DIR ${CMAKE_CURRENT_LIST_DIR}/tracey_leak)
+        set(tracey_leak_SOURCE_DIR ${TRACEY_LEAK_DIR}/include CACHE INTERNAL "")
+        file(GLOB_RECURSE tracey_leak_SOURCE_FILES 
+                                ${TRACEY_LEAK_DIR}/src/*.cpp
+                                ${TRACEY_LEAK_DIR}/src/*.c)
+        add_library(tracey_leak STATIC ${tracey_leak_SOURCE_FILES})
+        target_include_directories(tracey_leak PRIVATE ${TRACEY_LEAK_DIR}/include)
+
+        set(THREADS_PREFER_PTHREAD_FLAG ON)
+        find_package(Threads REQUIRED)
+        set_target_properties(tracey_leak PROPERTIES FOLDER "thirdparty")
+    endif()
 endif()
-          
-if(is_miniaudio)
-    set_target_properties(miniaudio PROPERTIES FOLDER "thirdparty")
-else()
-    set_target_properties(soloud PROPERTIES FOLDER "thirdparty")
+
+if(TRACY_PROFILER)
+    CPMAddPackage("gh:wolfpld/tracy@0.10")
+    set_target_properties(TracyClient PROPERTIES FOLDER "thirdparty")
 endif()
 
 if (TARGET zlibstatic)

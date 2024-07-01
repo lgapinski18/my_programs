@@ -1,0 +1,33 @@
+Textures: ~
+Sprites: ~
+Fonts: ~
+GIFS: ~
+Audio: ~
+Materials: ~
+Models: ~
+Prefabs: ~
+ScriptableObjects: ~
+Root:
+  name: MapRegion
+  isStatic: false
+  isActive: true
+  transform:
+    id: 0
+    enabled: true
+    position:
+      x: 0
+      y: 0
+      z: 0
+    scale:
+      x: 1
+      y: 1
+      z: 1
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+  components:
+    - id: 1
+      enabled: true
+      type: MapRegion
+      regionType: 0

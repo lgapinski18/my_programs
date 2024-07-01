@@ -1,58 +1,106 @@
 #include <core/SphereColliderComponent.h>
-#include "core/GameObject.h"
-#include <CollisionManager.h>
-#include <core/YamlConverters.h>
-#include <GameCollider.h>
+#include <core/GameObject.h>
+#include <physic/CollisionManager.h>
+#include <tools/YamlConverters.h>
+#include <physic/GameCollider.h>
 #include <core/ColliderComponent.h>
 
+using namespace Twin2Engine::Core;
+using namespace Twin2Engine::Physic;
 
-Twin2Engine::Core::SphereColliderComponent::SphereColliderComponent() : ColliderComponent()
+void SphereColliderComponent::UnDirty()
 {
-	collider = new CollisionSystem::GameCollider(this, new CollisionSystem::SphereColliderData());
+	ColliderComponent::UnDirty();
+	dirtyFlag = false;
 }
 
-void Twin2Engine::Core::SphereColliderComponent::SetRadius(float radius)
+void SphereColliderComponent::SetRadius(float radius)
 {
-	((CollisionSystem::SphereColliderData*)collider->shapeColliderData)->Radius = radius;
+	((SphereColliderData*)collider->shapeColliderData)->Radius = radius;
 }
 
-void Twin2Engine::Core::SphereColliderComponent::Initialize()
+void SphereColliderComponent::Initialize()
 {
-	collider->colliderComponent = this;
-	PositionChangeAction = [this](Transform* transform) {
+	if (collider == nullptr) {
+		collider = new GameCollider(this, ColliderShape::SPHERE);
+	}
+
+	TransformChangeAction = [this](Transform* transform) {
 		collider->shapeColliderData->Position = transform->GetTransformMatrix() * glm::vec4(collider->shapeColliderData->LocalPosition, 1.0f);
-
-		if (boundingVolume != nullptr) {
-			boundingVolume->shapeColliderData->Position = collider->shapeColliderData->Position;
-		}
 	};
 
-	PositionChangeAction(GetTransform());
+	ColliderComponent::Initialize();
+
+	TransformChangeAction(GetTransform());
 }
 
-void Twin2Engine::Core::SphereColliderComponent::OnEnable()
+void SphereColliderComponent::Update()
 {
-	PositionChangeActionId = GetTransform()->OnEventPositionChanged += PositionChangeAction;
-	CollisionSystem::CollisionManager::Instance()->RegisterCollider(collider);
+	if (dirtyFlag) {
+		UnDirty();
+	}
+
+	ColliderComponent::Update();
 }
 
-void Twin2Engine::Core::SphereColliderComponent::OnDisable()
+void SphereColliderComponent::OnEnable()
 {
-	GetTransform()->OnEventPositionChanged -= PositionChangeActionId;
-	CollisionSystem::CollisionManager::Instance()->UnregisterCollider(collider);
+	ColliderComponent::OnEnable();
+	TransformChangeActionId = GetTransform()->OnEventTransformChanged += TransformChangeAction;
 }
 
-void Twin2Engine::Core::SphereColliderComponent::OnDestroy()
+void SphereColliderComponent::OnDisable()
 {
-	GetTransform()->OnEventPositionChanged -= PositionChangeActionId;
-	CollisionSystem::CollisionManager::Instance()->UnregisterCollider(collider);
+	ColliderComponent::OnDisable();
+	GetTransform()->OnEventTransformChanged -= TransformChangeActionId;
 }
 
-YAML::Node Twin2Engine::Core::SphereColliderComponent::Serialize() const
+void SphereColliderComponent::OnDestroy()
+{
+	ColliderComponent::OnDestroy();
+	GetTransform()->OnEventTransformChanged -= TransformChangeActionId;
+}
+
+YAML::Node SphereColliderComponent::Serialize() const
 {
 	YAML::Node node = ColliderComponent::Serialize();
-	node["subTypes"].push_back(node["type"].as<std::string>());
 	node["type"] = "SphereCollider";
-	node["radius"] = ((CollisionSystem::SphereColliderData*)collider->shapeColliderData)->Radius;
+
+	if (collider != nullptr) {
+		node["radius"] = ((SphereColliderData*)collider->shapeColliderData)->Radius;
+	}
+	else {
+		node["radius"] = 0.f;
+	}
+
 	return node;
 }
+
+bool SphereColliderComponent::Deserialize(const YAML::Node& node)
+{
+	if (!node["radius"]) return false;
+
+	if (collider == nullptr) {
+		collider = new GameCollider(this, ColliderShape::SPHERE);
+	}
+		
+	if (!ColliderComponent::Deserialize(node)) return false;
+
+	((SphereColliderData*)collider->shapeColliderData)->Radius = node["radius"].as<float>();
+
+	return true;
+}
+
+#if _DEBUG
+void SphereColliderComponent::DrawEditor()
+{
+	string id = string(std::to_string(this->GetId()));
+	string name = string("Sphere Collider##Component").append(id);
+	if (ImGui::CollapsingHeader(name.c_str())) {
+		if (Component::DrawInheritedFields()) return;
+		ImGui::DragFloat(string("Radius##").append(id).c_str(), &((SphereColliderData*)collider->shapeColliderData)->Radius, 0.1f);
+
+		DrawInheritedFields();
+	}
+}
+#endif

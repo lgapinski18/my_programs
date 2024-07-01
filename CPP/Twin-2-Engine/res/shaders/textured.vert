@@ -11,11 +11,12 @@ layout (std430, binding = 1) buffer MaterialIndexes {
     int materialIndex[1024];
 } materialIndexes;
 
-
-layout (std140, binding = 0) uniform Matrices
+layout (std140, binding = 0) uniform CameraData
 {
     mat4 projection;
     mat4 view;
+	vec3 viewPos;
+    bool isSSAO;
 };
 
 struct MaterialInput
@@ -31,9 +32,10 @@ layout(std140, binding = 2) uniform MaterialInputBuffer {
 layout (location = 0) out vec3 position;
 layout (location = 1) out vec3 normal;
 layout (location = 2) out vec2 texCoords;
+layout (location = 3) out vec4 clipSpacePos;
 
 
-layout (location = 3) flat out uint materialIndex;
+layout (location = 4) flat out uint materialIndex;
 
 
 void main()
@@ -46,6 +48,7 @@ void main()
     
 
     gl_Position = projection * view * instanceData.transform[instanceId] * vec4(aPos, 1.0);
+    clipSpacePos = gl_Position;
 
     materialIndex = materialIndexes.materialIndex[instanceId];
 }

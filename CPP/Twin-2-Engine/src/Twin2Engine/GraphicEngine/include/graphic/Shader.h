@@ -6,7 +6,7 @@ namespace Twin2Engine
         class ShaderManager;
     }
 
-    namespace GraphicEngine 
+    namespace Graphic 
     {
         class Shader
         {
@@ -30,10 +30,12 @@ namespace Twin2Engine
             void SetInt(const std::string& name, int value) const;
             void SetUInt(const std::string& name, unsigned int value) const;
             void SetFloat(const std::string& name, float value) const;
+            void SetFloatArray(const std::string& name, float* values, size_t size) const;
             void SetVec2(const std::string& name, const glm::vec2& value) const;
             void SetVec3(const std::string& name, const glm::vec3& value) const;
             void SetVec4(const std::string& name, const glm::vec4& value) const;
             void SetMat4(const std::string& name, glm::mat4& value) const;
+            void SetMat3(const std::string& name, glm::mat3& value) const;
 
             glm::mat4 GetMat4(const std::string& name) const;
         };

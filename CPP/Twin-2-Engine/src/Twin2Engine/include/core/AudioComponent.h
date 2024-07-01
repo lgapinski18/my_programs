@@ -9,12 +9,15 @@ using namespace std;
 namespace Twin2Engine::Core {
 	class AudioComponent : public Component {
 	private:
+		string _audioName = "";
 		size_t _audioId = 0;
 		handle _audioHandle = 0;
 
+		bool _playOnStart = false;
 		bool _loaded = false;
 		bool _loop = false;
 		float _volume = 1.0f;
+		
 	public:
 
 		void SetAudio(string path);
@@ -24,22 +27,27 @@ namespace Twin2Engine::Core {
 		void Stop();
 		void Loop();
 		void UnLoop();
-		void SetTimePosition(SoLoud::time seconds);
+		void SetPlayPosition(SoLoud::time seconds);
 		void SetVolume(float value);
+		void SetPlayOnStart(bool value);
+		size_t GetAudio();
+		string GetAudioName();
 		SoLoud::time GetAudioLength();
 		SoLoud::time GetPlayPosition();
 		SoLoud::time GetPlayTime();
 		float GetVolume();
 		bool IsPaused();
 		bool IsLooping();
+		bool IsPlayOnStartSet();
 
-		/*
-		virtual void Initialize();
-		virtual void Update();
-		virtual void OnEnable();
-		virtual void OnDisable();
-		*/
+		void Initialize() override;
+		void OnDisable() override;
 		void OnDestroy() override;
 		virtual YAML::Node Serialize() const override;
+		virtual bool Deserialize(const YAML::Node& node) override;
+		
+#if _DEBUG
+		virtual void DrawEditor() override;
+#endif
 	};
 }

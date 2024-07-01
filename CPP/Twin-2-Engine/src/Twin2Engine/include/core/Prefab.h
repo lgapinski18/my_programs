@@ -21,6 +21,10 @@ namespace Twin2Engine::Core {
 
 		void SetRootObject(const YAML::Node& rootObjectNode);
 
+		void Deserialize(const YAML::Node& prefabNode) override;
+
+		// TODO: DODAC EDYTOR PODOBNY DO SCENMANAGERA
+
 		friend class Manager::PrefabManager;
 		friend class Manager::SceneManager;
 	};

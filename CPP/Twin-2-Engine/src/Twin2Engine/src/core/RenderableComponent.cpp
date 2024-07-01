@@ -1,7 +1,7 @@
 #include <core/RenderableComponent.h>
 
 using namespace Twin2Engine::Core;
-using namespace Twin2Engine::GraphicEngine;
+using namespace Twin2Engine::Graphic;
 using namespace std;
 
 vector<RenderableComponent*> RenderableComponent::_components = vector<RenderableComponent*>();
@@ -21,9 +21,20 @@ RenderableComponent::~RenderableComponent()
 	}
 }
 
-void RenderableComponent::Render()
+bool RenderableComponent::IsTransparent() const
 {
+	return _isTransparent;
 }
+
+void RenderableComponent::SetIsTransparent(bool value)
+{
+	if (_isTransparent != value) {
+		_isTransparent = value;
+		OnTransparentChangedEvent.Invoke(this);
+	}
+}
+
+void RenderableComponent::Render() {}
 
 YAML::Node RenderableComponent::Serialize() const
 {
@@ -33,12 +44,22 @@ YAML::Node RenderableComponent::Serialize() const
 	return node;
 }
 
-bool RenderableComponent::IsTransparent() const
-{
-	return _isTransparent;
+bool RenderableComponent::Deserialize(const YAML::Node& node) {
+	if (!node["isTransparent"] || !Component::Deserialize(node)) return false;
+
+	_isTransparent = node["isTransparent"].as<bool>();
+
+	return true;
 }
 
-void RenderableComponent::SetIsTransparent(bool value)
+#if _DEBUG
+void RenderableComponent::DrawEditor()
 {
-	_isTransparent = value;
+	string id = string(std::to_string(this->GetId()));
+	string name = string("Renderable##Component").append(id);
+	if (ImGui::CollapsingHeader(name.c_str())) {
+		if (Component::DrawInheritedFields()) return;
+		ImGui::Checkbox(string("Transparent##").append(id).c_str(), &_isTransparent);
+	}
 }
+#endif

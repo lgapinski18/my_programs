@@ -1,0 +1,62 @@
+Textures: ~
+Sprites: ~
+Fonts: ~
+GIFS: ~
+Audio: ~
+Materials:
+  - id: 0
+    path: res/materials/Basic2.material
+Models:
+  - id: 2
+    path: "{Cube}"
+  - id: 3
+    path: "{Plane}"
+Prefabs:
+  - id: 0
+    path: res/prefabs/testPrefab.prefab
+ScriptableObjects: ~
+Root:
+  name: testPrefabRoot
+  isStatic: false
+  isActive: true
+  transform:
+    id: 0
+    enabled: true
+    position:
+      x: 0
+      y: 0
+      z: 0
+    scale:
+      x: 1
+      y: 1
+      z: 1
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+  components:
+    []
+GameObjects:
+  - id: 1
+    name: testPrefabChild1
+    isStatic: false
+    isActive: true
+    transform:
+      id: 1
+      enabled: true
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      []
+    children:
+      []

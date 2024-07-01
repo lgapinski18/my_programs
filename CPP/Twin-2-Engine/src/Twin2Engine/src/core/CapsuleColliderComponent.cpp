@@ -1,84 +1,138 @@
 #include <core/CapsuleColliderComponent.h>
-#include <CollisionManager.h>
+#include <physic/CollisionManager.h>
 #include <core/GameObject.h>
-#include <core/YamlConverters.h>
+#include <tools/YamlConverters.h>
 
-Twin2Engine::Core::CapsuleColliderComponent::CapsuleColliderComponent() : ColliderComponent()
+using namespace Twin2Engine::Physic;
+using namespace Twin2Engine::Core;
+
+void CapsuleColliderComponent::UnDirty()
 {
-	collider = new CollisionSystem::GameCollider(this, new CollisionSystem::CapsuleColliderData());
+	ColliderComponent::UnDirty();
+	((CapsuleColliderData*)collider->shapeColliderData)->EndPosition = GetTransform()->GetTransformMatrix() * glm::vec4(((CapsuleColliderData*)collider->shapeColliderData)->EndLocalPosition, 1.0f);
+
+	dirtyFlag = false;
 }
 
-void Twin2Engine::Core::CapsuleColliderComponent::SetEndPosition(float x, float y, float z)
+void CapsuleColliderComponent::SetEndPosition(float x, float y, float z)
 {
-	((CollisionSystem::CapsuleColliderData*)collider->shapeColliderData)->EndLocalPosition.x = x;
-	((CollisionSystem::CapsuleColliderData*)collider->shapeColliderData)->EndLocalPosition.y = y;
-	((CollisionSystem::CapsuleColliderData*)collider->shapeColliderData)->EndLocalPosition.z = z;
+	((CapsuleColliderData*)collider->shapeColliderData)->EndLocalPosition.x = x;
+	((CapsuleColliderData*)collider->shapeColliderData)->EndLocalPosition.y = y;
+	((CapsuleColliderData*)collider->shapeColliderData)->EndLocalPosition.z = z;
 	dirtyFlag = true;
 }
 
-void Twin2Engine::Core::CapsuleColliderComponent::SetRadius(float radius)
+void CapsuleColliderComponent::SetEndPosition(const glm::vec3& pos)
 {
-	((CollisionSystem::CapsuleColliderData*)collider->shapeColliderData)->Radius = radius;
+	SetEndPosition(pos.x, pos.y, pos.z);
 }
 
-void Twin2Engine::Core::CapsuleColliderComponent::Initialize()
+void CapsuleColliderComponent::SetRadius(float radius)
 {
-	collider->colliderComponent = this;
+	((CapsuleColliderData*)collider->shapeColliderData)->Radius = radius;
+}
+
+void CapsuleColliderComponent::Initialize()
+{
+	if (collider == nullptr) {
+		collider = new GameCollider(this, ColliderShape::CAPSULE);
+	}
+
 	TransformChangeAction = [this](Transform* transform) {
 		glm::mat4 TransformMatrix = transform->GetTransformMatrix();
-		CollisionSystem::CapsuleColliderData* capsuleData = (CollisionSystem::CapsuleColliderData*)collider->shapeColliderData;
+		CapsuleColliderData* capsuleData = (CapsuleColliderData*)collider->shapeColliderData;
 		capsuleData->EndPosition = TransformMatrix * glm::vec4(capsuleData->EndLocalPosition, 1.0f);
-		//collider->shapeColliderData->Position = collider->shapeColliderData->LocalPosition + GetGameObject()->GetTransform()->GetGlobalPosition();
 		capsuleData->Position = TransformMatrix * glm::vec4(capsuleData->LocalPosition, 1.0f);
-
-		if (boundingVolume != nullptr) {
-			boundingVolume->shapeColliderData->Position = collider->shapeColliderData->Position;
-		}
 	};
+
+	ColliderComponent::Initialize();
 
 	TransformChangeAction(GetTransform());
 }
 
-void Twin2Engine::Core::CapsuleColliderComponent::OnEnable()
+void CapsuleColliderComponent::Update()
 {
-	TransformChangeActionId = GetTransform()->OnEventTransformChanged += TransformChangeAction;
-	CollisionSystem::CollisionManager::Instance()->RegisterCollider(collider);
-}
-
-void Twin2Engine::Core::CapsuleColliderComponent::OnDisable()
-{
-	GetTransform()->OnEventTransformChanged -= TransformChangeActionId;
-	CollisionSystem::CollisionManager::Instance()->UnregisterCollider(collider);
-}
-
-void Twin2Engine::Core::CapsuleColliderComponent::OnDestroy()
-{
-	GetTransform()->OnEventTransformChanged -= TransformChangeActionId;
-	CollisionSystem::CollisionManager::Instance()->UnregisterCollider(collider);
-}
-
-void Twin2Engine::Core::CapsuleColliderComponent::Update()
-{
-	Twin2Engine::Core::ColliderComponent::Update();
-
 	if (dirtyFlag) {
-		((CollisionSystem::CapsuleColliderData*)collider->shapeColliderData)->EndPosition = GetTransform()->GetTransformMatrix()
-			* glm::vec4(((CollisionSystem::CapsuleColliderData*)collider->shapeColliderData)->EndLocalPosition, 1.0f);
-
-		dirtyFlag = false;
+		UnDirty();
 	}
+
+	ColliderComponent::Update();
 }
 
-YAML::Node Twin2Engine::Core::CapsuleColliderComponent::Serialize() const
+void CapsuleColliderComponent::OnEnable()
+{
+	ColliderComponent::OnEnable();
+	TransformChangeActionId = GetTransform()->OnEventTransformChanged += TransformChangeAction;
+}
+
+void CapsuleColliderComponent::OnDisable()
+{
+	ColliderComponent::OnDisable();
+	GetTransform()->OnEventTransformChanged -= TransformChangeActionId;
+}
+
+void CapsuleColliderComponent::OnDestroy()
+{
+	ColliderComponent::OnDestroy();
+	GetTransform()->OnEventTransformChanged -= TransformChangeActionId;
+}
+
+YAML::Node CapsuleColliderComponent::Serialize() const
 {
 	YAML::Node node = ColliderComponent::Serialize();
-	node["subTypes"].push_back(node["type"].as<std::string>());
 	node["type"] = "CapsuleCollider";
-	node["endPosition"] = glm::vec3(
-		((CollisionSystem::CapsuleColliderData*)collider->shapeColliderData)->EndPosition.x,
-		((CollisionSystem::CapsuleColliderData*)collider->shapeColliderData)->EndPosition.y,
-		((CollisionSystem::CapsuleColliderData*)collider->shapeColliderData)->EndPosition.z
-	);
-	node["radius"] = ((CollisionSystem::CapsuleColliderData*)collider->shapeColliderData)->Radius;
+
+	if (collider != nullptr) {
+		node["endPosition"] = ((CapsuleColliderData*)collider->shapeColliderData)->EndLocalPosition;
+		node["radius"] = ((CapsuleColliderData*)collider->shapeColliderData)->Radius;
+	}
+	else {
+		node["endPosition"] = glm::vec3(0.f);
+		node["radius"] = 0.f;
+	}
+
 	return node;
 }
+
+bool CapsuleColliderComponent::Deserialize(const YAML::Node& node)
+{
+	if (!node["endPosition"] || !node["radius"]) return false;
+
+	if (collider == nullptr) {
+		collider = new GameCollider(this, ColliderShape::CAPSULE);
+	}
+
+	if (!ColliderComponent::Deserialize(node)) return false;
+
+	((CapsuleColliderData*)collider->shapeColliderData)->EndPosition = node["endPosition"].as<glm::vec3>();
+	((CapsuleColliderData*)collider->shapeColliderData)->Radius = node["radius"].as<float>();
+
+	return true;
+}
+
+#if _DEBUG
+void CapsuleColliderComponent::DrawEditor()
+{
+	string id = string(std::to_string(this->GetId()));
+	string name = string("Capsule Collider##Component").append(id);
+	if (ImGui::CollapsingHeader(name.c_str())) {
+		if (Component::DrawInheritedFields()) return;
+
+		float v = ((CapsuleColliderData*)collider->shapeColliderData)->Radius;
+		ImGui::DragFloat(string("Radius##").append(id).c_str(), &v, 0.1f, 0.f, FLT_MAX);
+
+		if (v != ((CapsuleColliderData*)collider->shapeColliderData)->Radius) {
+			SetRadius(v);
+		}
+
+		glm::vec3 ep = ((CapsuleColliderData*)collider->shapeColliderData)->EndLocalPosition;
+		ImGui::DragFloat3(string("EndPosition##").append(id).c_str(), glm::value_ptr(ep), 0.1f);
+
+		if (ep != ((CapsuleColliderData*)collider->shapeColliderData)->EndLocalPosition) {
+			SetEndPosition(ep);
+		}
+
+		DrawInheritedFields();
+	}
+}
+#endif

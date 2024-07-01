@@ -2,8 +2,6 @@ shaderprogram:
   name: origin/UI
   shaders:
     - ui.vert
+    - ui.geom
     - ui.frag
-  parameters:
-    - name: texture
-      type: uint
-      value: 0
+  parameters: []

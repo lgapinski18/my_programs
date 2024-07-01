@@ -1,36 +1,37 @@
-#ifndef _DIRECTIONALLIGHTCOMPONENT_H_
-#define _DIRECTIONALLIGHTCOMPONENT_H_
+#pragma once
 
+#include <graphic/Light.h>
 #include <core/LightComponent.h>
+#include <tools/EventHandler.h>
 
-namespace Twin2Engine {
-	namespace Core {
-		class DirectionalLightComponent : public LightComponent {
-			friend class GameObject;
+namespace Twin2Engine::Core {
+	class DirectionalLightComponent : public LightComponent {
+		friend class GameObject;
+	private:
+		bool dirtyFlag = false;
+		//glm::vec3 localDirection;
+		Graphic::DirectionalLight* light = new Graphic::DirectionalLight();
+		Tools::Action<Transform*> OnChangePosition;
+		size_t OnChangePositionId;
+		Tools::Method OnViewerChange;
+		size_t OnViewerChangeId;
 
-			private:
-				bool dirtyFlag = false;
-				//glm::vec3 localDirection;
-				LightingSystem::DirectionalLight* light = nullptr;
-				Twin2Engine::Core::Action<Transform*> OnChangePosition;
-				size_t OnChangePositionId;
-				Twin2Engine::Core::Action<> OnViewerChange;
-				size_t OnViewerChangeId;
-			protected:
-				DirectionalLightComponent() : LightComponent() {};
-			public:
+	public:
+		virtual void Initialize() override;
+		virtual void Update() override;
+		virtual void OnEnable() override;
+		virtual void OnDisable() override;
+		virtual void OnDestroy() override;
 
-				virtual void Initialize() override;
-				virtual void Update() override;
-				virtual void OnEnable() override;
-				virtual void OnDisable() override;
-				virtual void OnDestroy() override;
+		void SetDirection(glm::vec3 dir);
+		void SetColor(glm::vec3 color);
+		void SetPower(float power);
 
-				void SetDirection(glm::vec3 dir);
-				void SetColor(glm::vec3 color);
-				void SetPower(float& power);
-		};
-	}
+		virtual YAML::Node Serialize() const override;
+		virtual bool Deserialize(const YAML::Node& node) override;
+		
+#if _DEBUG
+		virtual void DrawEditor() override;
+#endif
+	};
 }
-
-#endif // !_DIRECTIONALLIGHTCOMPONENT_H_

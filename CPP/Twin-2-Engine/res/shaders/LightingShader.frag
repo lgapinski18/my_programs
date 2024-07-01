@@ -1,8 +1,10 @@
-#version 430
+#version 450
+//LightingShader.frag
 
 in vec3 position;
-in vec3 normal;
 in vec2 texCoords;
+in vec3 normal;
+in vec4 clipSpacePos;
 
 in vec4 color1;
 in vec4 color2;
@@ -12,7 +14,8 @@ flat in uint materialIndex;
 out vec4 FragColor;
 
 //shadow maps
-uniform sampler2D DirLightShadowMaps[4];
+uniform sampler2D DirLightShadowMaps[4]; //0 - 0 Static; 1 - 0 Dynamic; 2 - 1 Static; 3 - 1 - Dynmic
+uniform sampler2D occlusionMap;
 
 uniform vec4 uColor;
 uniform bool uNoTexture = true;
@@ -26,10 +29,12 @@ struct MaterialInput
 
 layout (std140, binding = 1) uniform WindowData
 {
-    vec2 windowSize;
+    ivec2 windowSize;
     float nearPlane;
     float farPlane;
     float gamma;
+    float time;
+    float deltaTime;
 };
 
 layout(std140, binding = 2) uniform MaterialInputBuffer {
@@ -49,9 +54,9 @@ struct PointLight {
 struct SpotLight {
 	vec3 position;      // Position of the spot light in world space
 	vec3 direction;     // Direction of the spot light
-	vec3 color;         // Color of the spot light
 	float power;		  // Light source power
-	//float cutOff;       // Inner cutoff angle (in radians)
+	vec3 color;         // Color of the spot light
+	float cutOff;       // Inner cutoff angle (in radians)
 	float outerCutOff;  // Outer cutoff angle (in radians)
 	float constant;     // Constant attenuation
 	float linear;       // Linear attenuation
@@ -59,64 +64,88 @@ struct SpotLight {
 };
 
 struct DirectionalLight {
-	vec3 position;      // Position of the spot light in world space
 	vec3 direction;     // Direction of the spot light
-	mat4 lightSpaceMatrix;
 	vec3 color;         // Color of the spot light
+	mat4 lightSpaceMatrix;
 	float power;		  // Light source power
+    int padding1;
+    int padding2;
+    int padding3;
 };
 
-layout (std430, binding = 3) buffer Lights {
+layout (std430, binding = 2) buffer Lights {
 	uint numberOfPointLights;
 	uint numberOfSpotLights;
 	uint numberOfDirLights;
     PointLight pointLights[8];
     SpotLight spotLights[8];
-    DirectionalLight directionalLights[4];
+    DirectionalLight directionalLights[2];
 };
 
-layout(std140, binding = 4) uniform LightingData {
+layout (std140, binding = 0) uniform CameraData
+{
+    mat4 projection;
+    mat4 view;
+	vec3 viewPos;
+    bool isSSAO;
+};
+
+layout(std140, binding = 3) uniform LightingData {
     vec3 AmbientLight;
+	float shininness;
 	vec3 ViewerPosition;
-	float highlightParam;
-	//float gamma;
+	int shadingType;
 };
 
 
 //LIGHTING END
-
-//zero w cieniu ; 1 - oœwietlone
-float ShadowCalculation(vec4 fragPosLightSpace, vec3 N, uint shadowMapId)
-{
+//zero w cieniu ; 1 - oï¿½wietlone
+float ShadowCalculation(vec4 fragPosLightSpace, vec3 N, uint shadowMapId) {
     // perform perspective divide
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     // transform to [0,1] range
     projCoords = projCoords * 0.5 + 0.5;
-    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
-    float closestDepth = texture(DirLightShadowMaps[shadowMapId], projCoords.xy).r; 
     // get depth of current fragment from light's perspective
     float currentDepth = projCoords.z;
+
     // calculate bias (based on depth map resolution and slope)
-   
-    vec3 lightDir = normalize(directionalLights[shadowMapId].position - position);
-    float bias = max(0.01 * (1.0 - dot(N, lightDir)), 0.005);
+    //vec3 lightDir = normalize(directionalLights[shadowMapId].position - position);
+    //float bias = max(0.001 * (1.0 - dot(N, lightDir)), 0.0005);
     //float bias = 0.005;
     // check whether current frag pos is in shadow
+    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
     //float shadow = (currentDepth) < closestDepth  ? 1.0 : 0.0;
-
+    
+    //uint smId = shadowMapId;
+    //float closestDepthStatic = texture(DirLightShadowMaps[smId], projCoords.xy).r; 
+    //float closestDepthDynamic = texture(DirLightShadowMaps[smId + 1], projCoords.xy).r; 
+    //if (closestDepthStatic > closestDepthDynamic) {
+    //    smId += 1;
+    //}
+       
     // PCF
     float shadow = 0.0;
     vec2 texelSize = 0.5 * 1.0 / textureSize(DirLightShadowMaps[shadowMapId], 0);
-    for(int x = -2; x <= 2; ++x)
+    float pcfDepth = 0.0;
+    float pcfDepthD = 0.0;
+    for(int x = -1; x <= 1; ++x)
     {
-        for(int y = -2; y <= 2; ++y)
+        for(int y = -1; y <= 1; ++y)
         {
-            float pcfDepth = texture(DirLightShadowMaps[shadowMapId], projCoords.xy + vec2(x, y) * texelSize).r; 
-            shadow += currentDepth  < pcfDepth  ? 1.0 : 0.0;        
-            //shadow += (currentDepth - bias) < pcfDepth  ? 1.0 : 0.0;
-            }    
+            pcfDepth =  texture(DirLightShadowMaps[shadowMapId], projCoords.xy + vec2(x, y) * texelSize).r;
+            pcfDepthD = texture(DirLightShadowMaps[shadowMapId + 1], projCoords.xy + vec2(x, y) * texelSize).r;
+            if (pcfDepth > pcfDepthD) {
+                pcfDepth = pcfDepthD;
+            }
+            shadow += (currentDepth - 0.0002) < pcfDepth  ? 1.0 : 0.0;
+            //shadow += (currentDepth - bias) < pcfDepth  ? 1.0 : 0.0;        
+        }    
     }
-    shadow /= 25.0;
+    shadow *= 0.11;
+    
+    //ESM
+    //float closestDepth = texture(DirLightShadowMaps[shadowMapId], projCoords.xy).r; 
+    //float shadow = exp(10.0 * (closestDepth - currentDepth));
     
     // keep the shadow at 0.0 when outside the far_plane region of the light's frustum.
     if(projCoords.z > 1.0)
@@ -132,11 +161,10 @@ float countLambertianPart(vec3 L, vec3 N) {
 float countBlinnPhongPart(vec3 L, vec3 E, vec3 N) {
     vec3 H = normalize(L + E);
     float specAngle = max(dot(H, N), 0.0);
-    return pow(specAngle, highlightParam); //<---------
+    return pow(specAngle, shininness); //<---------
 }
 
-void main()
-{
+void main() {
 	FragColor = materialInput[materialIndex].color1 + materialInput[materialIndex].color2;
 
 	vec3 LightColor = vec3(0.0);
@@ -202,15 +230,20 @@ void main()
 
         lambertian = countLambertianPart(L, N);
 		
-		specular = 0.0;
-        if (lambertian > 0.0) {
-            specular = countBlinnPhongPart(L, E, N);
-        }
-
-        //LightColor += (lambertian + specular) * directionalLights[i].color * directionalLights[i].power;
-        LightColor += (lambertian + specular) * directionalLights[i].color * directionalLights[i].power * ShadowCalculation(directionalLights[i].lightSpaceMatrix * vec4(position , 1.0), N, i);
+		//specular = 0.0;
+        //if (lambertian > 0.0) {
+        //    specular = countBlinnPhongPart(L, E, N);
+        //}
+    
+        //LightColor += lambertian * directionalLights[i].color * directionalLights[i].power;
+        //LightColor += (lambertian + specular) * directionalLights[i].color * directionalLights[i].power * ShadowCalculation(directionalLights[i].lightSpaceMatrix * vec4(position , 1.0), N, i);
+        LightColor += lambertian * directionalLights[i].color * directionalLights[i].power * ShadowCalculation(directionalLights[i].lightSpaceMatrix * vec4(position , 1.0), N, i);
     }
 	
-    FragColor *= vec4(LightColor + AmbientLight, 1.0); //
-	FragColor = vec4(pow(FragColor.rgb, vec3(gamma)), 1.0);
+    vec2 NDCSpaceFragPos = clipSpacePos.xy / clipSpacePos.w;
+    vec2 textureLookupPos = NDCSpaceFragPos * 0.5 + 0.5;
+    float visibility_factor = isSSAO ? texture(occlusionMap, textureLookupPos).r : 1.0;
+
+    FragColor *= vec4(LightColor + AmbientLight * visibility_factor, FragColor.a);
+	FragColor = vec4(pow(FragColor.rgb, vec3(gamma)), FragColor.a);
 }

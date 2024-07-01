@@ -1,67 +1,94 @@
-#ifndef _MATERIAL_PARAMETERS_H_
-#define _MATERIAL_PARAMETERS_H_
+#pragma once
+
+#include <tools/YamlConverters.h>
+#include <tools/STD140Struct.h>
 
 namespace Twin2Engine
-{
+ {
 	namespace Manager {
 		class MaterialsManager;
 	}
 
-	namespace GraphicEngine {
+	namespace Graphic {
+		class MaterialParametersBuilder;
+
 		class MaterialParameters
 		{
 			friend class Manager::MaterialsManager;
-
-			std::map<size_t, std::vector<char>> _variablesValuesMappings;
-			std::map<size_t, char> _textureMappings;
-			std::vector<GLuint> _textures;
-			std::vector<GLuint> _samplers;
+			friend class MaterialParametersBuilder;
 
 			static std::hash<std::string> hasher;
 
+			GLuint _materialParametersDataUBO = 0;
+
+			Tools::STD140Struct _parameters;
+
+#if _DEBUG
+			std::map<size_t, std::string> _textureNames;
+#endif
+
+			std::map<size_t, char> _textureMappings;
+			std::vector<GLuint> _textures;
+
+
 			MaterialParameters();
-			template<class T>
-			void Add(const std::string& variableName, T value);
-			void Add(const std::string& variableName, size_t size, void* value);
+			MaterialParameters(const Tools::STD140Struct& parameters, const std::map<size_t, char>& textureMappings, const std::vector<GLuint>& textures);
 
-			void AddTexture2D(const std::string& textureName, unsigned int textureId);
 		public:
-			MaterialParameters(const std::vector<std::string>& variableNames, const std::vector<std::string>& textureParametersNames);
+			template<class T>
+			typename std::enable_if_t<Tools::is_type_in_v<T, bool, int, uint32_t, float, double>, bool>
+			Set(const std::string& variableName, const T& value) {
+				if (_parameters.Set(variableName, value)) {
+					glBindBuffer(GL_UNIFORM_BUFFER, _materialParametersDataUBO);
+					glBufferSubData(GL_UNIFORM_BUFFER, 0, _parameters.GetSize(), _parameters.GetData().data());
+					glBindBuffer(GL_UNIFORM_BUFFER, NULL);
+					return true;
+				}
+				return false;
+			}
+
+			template<class V, class T = V::value_type, size_t L = V::length()>
+			typename std::enable_if_t<std::is_same_v<V, glm::vec<L, T>>
+									&& Tools::is_type_in_v<T, bool, int, uint32_t, float, double>
+									&& Tools::is_num_in_range_v<L, 1, 4>, bool>
+			Set(const std::string& variableName, const V& value) {
+				if (_parameters.Set(variableName, value)) {
+					glBindBuffer(GL_UNIFORM_BUFFER, _materialParametersDataUBO);
+					glBufferSubData(GL_UNIFORM_BUFFER, 0, _parameters.GetSize(), _parameters.GetData().data());
+					glBindBuffer(GL_UNIFORM_BUFFER, NULL);
+					return true;
+				}
+				return false;
+			}
+
+
+			~MaterialParameters();
 
 			template<class T>
-			bool Set(const std::string& variableName, T value);
+			typename std::enable_if_t<Tools::is_type_in_v<T, bool, int, uint32_t, float, double>, T>
+			Get(const std::string& variableName) const {
+				return _parameters.Get<T>(variableName);
+			}
+
+			template<class V, class T = V::value_type, size_t L = V::length()>
+			typename std::enable_if_t<std::is_same_v<V, glm::vec<L, T>>
+									&& Tools::is_type_in_v<T, bool, int, uint32_t, float, double>
+									&& Tools::is_num_in_range_v<L, 1, 4>, V>
+			Get(const std::string& variableName) const {
+				return _parameters.Get<V>(variableName);
+			}
+
+#if _DEBUG
+			YAML::Node Serialize() const;
+			void DrawEditor(size_t id);
+#endif
 
 			void SetTexture2D(const std::string& textureName, unsigned int textureId);
 			void UploadTextures2D(unsigned int programId, int& beginLocation, int& textureBinded);
 
-			std::vector<char> GetData() const;
+			GLuint GetDataUBO() const;
+			const char* GetData() const;
+			size_t GetSize() const;
 		};
-
-		template<class T>
-		bool MaterialParameters::Set(const std::string& variableName, T value)
-		{
-			size_t hashed = hasher(variableName);
-
-			if (_variablesValuesMappings.contains(hashed))
-			{
-				const char* ptr = reinterpret_cast<const char*>(&value);
-				std::vector<char> result(ptr, ptr + sizeof(value));
-				_variablesValuesMappings[hashed] = result;
-				return true;
-			}
-			return false;
-		}
-
-		template<class T>
-		void MaterialParameters::Add(const std::string& variableName, T value)
-		{
-			size_t hashed = hasher(variableName);
-
-			const char* ptr = reinterpret_cast<const char*>(&value);
-			std::vector<char> result(ptr, ptr + sizeof(value));
-			_variablesValuesMappings[hashed] = result;
-		}
 	}
 }
-
-#endif

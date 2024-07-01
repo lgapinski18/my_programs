@@ -1,0 +1,10 @@
+material:
+  name: tiles/borders/neutral/NeutralHexTileBorder
+  shader: origin/Basic
+  parameters:
+    - name: color1
+      type: vec4
+      value: [0.68, 0.68, 0.68, 1.0]
+    - name: color2
+      type: vec4
+      value: [0.68, 0.68, 0.68, 1.0]

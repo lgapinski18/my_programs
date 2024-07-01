@@ -1,0 +1,107 @@
+Textures:
+  - id: 0
+    path: res\textures\UI\shape_hexagon.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+  - id: 1
+    path: res\textures\UI\shape_hexagon_border.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+Sprites:
+  - id: 0
+    alias: HexTileShape
+    texture: 0
+    x: 0
+    y: 0
+    width: 346
+    height: 400
+  - id: 1
+    alias: HexTileShapeBorder
+    texture: 1
+    x: 0
+    y: 0
+    width: 348
+    height: 400
+Fonts: ~
+Audio: ~
+Materials: ~
+Models:
+  - id: 0
+    path: "{Plane}"
+  - id: 1
+    path: "{Sphere}"
+Prefabs: ~
+ScriptableObjects: ~
+Root:
+  name: GraphEdge
+  isStatic: false
+  isActive: true
+  transform:
+    id: 5526
+    position:
+      x: 0
+      y: -25
+      z: 0
+    scale:
+      x: 1
+      y: 1
+      z: 1
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+  components:
+    - id: 5
+      enabled: true
+      type: Mask
+      width: 200
+      height: 200
+      fillEnabled: true
+      fillType: !<CIRCLE> 2
+      fillSubType: !<CW> 0
+      fillOffset: 0
+      fillProgress: 1
+GameObjects:
+  - id: 3
+    name: Image
+    isStatic: false
+    isActive: true
+    transform:
+      id: 3
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      - id: 4
+        enabled: true
+        type: Image
+        isTransparent: false
+        sprite: 0
+        color:
+          x: 0.717647076
+          y: 0.717647076
+          z: 0.717647076
+          w: 1
+        width: 200
+        height: 200
+        layer: 1
+        fillEnabled: true
+        fillType: !<HORIZONTAL> 0
+        fillSubType: !<RIGHT> 2
+        fillOffset: 0
+        fillProgress: 1
+    children:
+      []

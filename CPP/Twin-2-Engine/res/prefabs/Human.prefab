@@ -1,0 +1,50 @@
+Textures: ~
+Sprites: ~
+Fonts: ~
+GIFS: ~
+Audio: ~
+Materials:
+  - id: 0
+    path: res/materials/Basic2.material
+Models:
+  - id: 0
+    path: "{Sphere}"
+Prefabs: ~
+ScriptableObjects: ~
+Root:
+  name: Human
+  isStatic: false
+  isActive: true
+  transform:
+    id: 0
+    enabled: true
+    position:
+      x: 0
+      y: 0
+      z: 0
+    scale:
+      x: 0.05
+      y: 0.05
+      z: 0.05
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+  components:
+    - id: 1
+      enabled: true
+      type: MeshRenderer
+      isTransparent: false
+      model: 0
+      materials:
+        - 0
+    - id: 2
+      enabled: true
+      type: Human
+      achievingDestinationAccuracity: 0.300000003
+    - id: 3
+      enabled: true
+      type: HumanMovement
+      speed: 1
+      forwardDetectionDistance: 0.05
+      achievingDestinationAccuracity: 0.1

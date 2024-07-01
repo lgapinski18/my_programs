@@ -1,8 +1,11 @@
 #pragma once
 
-#include <graphic/InstatiatingMesh.h>
+#include <graphic/InstantiatingMesh.h>
 #include <graphic/Material.h>
 #include <graphic/Shader.h>
+#include <core/CameraComponent.h>
+#include <core/GameObject.h>
+#include <core/MeshRenderer.h>
 
 // RENDERING
 #define MAX_INSTANCE_NUMBER_PER_DRAW 1024
@@ -16,51 +19,175 @@
 // UBO
 #define BINDING_POINT_MATERIAL_INPUT 2
 
+#define RENERING_TYPE_MESH_SHADER_MATERIAL false
+#define RENERING_TYPE_SHADER_MATERIAL_MESH true
+#define RENERING_TYPE_SHADER_MESH_MATERIAL true
+
+#define USE_NAMED_BUFFER_SUBDATA 0
+
+#define MATERIAL_INPUT_SINGLE_UBO false
+#define MATERIAL_INPUT_MANY_INPUT true
+
 namespace Twin2Engine
 {
-	namespace GraphicEngine {
-		class GraphicEngineManager;
-		class InstatiatingMesh;
+	namespace Graphic {
+		class GraphicEngine;
+		class InstantiatingMesh;
 		class Material;
+	}
+
+	namespace Core {
+		class MeshRenderer;
 	}
 
 	namespace Manager {
 
-		struct InstanceData
-		{
-			glm::mat4 transformMatrix;
-			unsigned int materialInputId;
-		};
-
-		struct MeshRenderData {
-			std::vector<GraphicEngine::InstatiatingMesh*> meshes;
-			std::vector<GraphicEngine::Material> materials;
-			glm::mat4 transform;
-			bool isTransparent;
-		};
+		//struct InstanceData
+		//{
+		//	glm::mat4 transformMatrix;
+		//	unsigned int materialInputId;
+		//};
+		//
+		//struct MeshRenderData {
+		//	std::vector<Graphic::InstantiatingMesh*> meshes;
+		//	std::vector<Graphic::Material> materials;
+		//	glm::mat4 transform;
+		//	bool isTransparent;
+		//};
 
 		class MeshRenderingManager
 		{
-			friend class GraphicEngine::GraphicEngineManager;
+			friend class Twin2Engine::Graphic::GraphicEngine;
 
 		private:
-			static std::map<GraphicEngine::InstatiatingMesh*, std::map<GraphicEngine::Shader*, std::map<GraphicEngine::Material, std::queue<MeshRenderData>>>>  _renderQueue;
-			static std::map<GraphicEngine::InstatiatingMesh*, std::map<GraphicEngine::Shader*, std::map<GraphicEngine::Material, std::queue<MeshRenderData>>>>  _depthMapRenderQueue;
-			static std::map<GraphicEngine::InstatiatingMesh*, std::queue<MeshRenderData>> _depthQueue;
+			struct RenderedSegment
+			{
+				glm::mat4* begin;
+				unsigned int count;
+			};
+			struct MeshRenderingData
+			{
+				std::vector<glm::mat4> modelTransforms;
+				std::vector<Twin2Engine::Core::MeshRenderer*> meshRenderers;
+				std::list<RenderedSegment> rendered;
+				unsigned int renderedCount;
+			};
+			struct MeshRenderingTransparentData
+			{
+				std::vector<glm::mat4> modelTransforms;
+				std::vector<Twin2Engine::Core::MeshRenderer*> meshRenderers;
+			};
+			struct MeshRenderingTransparentDataPair
+			{
+				glm::mat4* modelTransformPtr;
+				Graphic::Material* materialPtr;
+				Graphic::InstantiatingMesh* meshPtr;
+			};
+			struct MeshRenderingTransparentDataPriority
+			{
+				int transparencyPriority;
+				float distance;
+			};
+			static std::vector<MeshRenderingTransparentDataPair> _transparentQueueData;
+			static std::vector<size_t> _transparentQueueOrder;
+			static std::vector<MeshRenderingTransparentDataPriority> _transparentQueueOrderingPriorities;
+
+			struct MeshRenderingDataDepthMap
+			{
+				std::list<RenderedSegment> rendered;
+				unsigned int renderedCount;
+			};
+			struct DataToUnregister {
+				Graphic::Shader* _sh;
+				Graphic::Material* _mat;
+				Graphic::InstantiatingMesh* _mesh;
+				size_t _pos;
+			};
+
+			struct Flags {
+				bool IsStaticChanged : 1;
+			};
+
+			static Flags _flags;
+
+			struct RegisteredData
+			{
+				std::unordered_map<Graphic::Shader*, std::unordered_map<Graphic::Material*, std::unordered_map<Graphic::InstantiatingMesh*, MeshRenderingData>>>* renderingQueue;
+				Graphic::Material* material;
+				Graphic::InstantiatingMesh* mesh;
+			};
+
+			static std::unordered_map<Twin2Engine::Core::MeshRenderer*, std::vector<RegisteredData>> _registeredRenderers;
+
+			static std::unordered_map<Graphic::Shader*, std::unordered_map<Graphic::Material*, std::unordered_map<Graphic::InstantiatingMesh*, MeshRenderingData>>>  _renderQueueStatic;
+			static std::unordered_map<Graphic::Shader*, std::unordered_map<Graphic::Material*, std::unordered_map<Graphic::InstantiatingMesh*, MeshRenderingData>>>  _renderQueueStaticTransparent;
+			//static std::unordered_map<Graphic::Shader*, std::map<Graphic::Material, std::unordered_map<Graphic::InstantiatingMesh*, MeshRenderingData>>>  _depthMapenderQueueStatic;
+
+			static std::unordered_map<Graphic::InstantiatingMesh*, MeshRenderingDataDepthMap> _depthMapQueueStatic;
+			static std::unordered_map<Graphic::InstantiatingMesh*, MeshRenderingDataDepthMap> _depthQueueStatic;
+
+
+			static std::unordered_map<Graphic::Shader*, std::unordered_map<Graphic::Material*, std::unordered_map<Graphic::InstantiatingMesh*, MeshRenderingData>>>  _renderQueueDynamic;
+			static std::unordered_map<Graphic::Shader*, std::unordered_map<Graphic::Material*, std::unordered_map<Graphic::InstantiatingMesh*, MeshRenderingData>>>  _renderQueueDynamicTransparent;
+			//static std::unordered_map<Graphic::Shader*, std::map<Graphic::Material, std::unordered_map<Graphic::InstantiatingMesh*, MeshRenderingData>>>  _depthMapenderQueueDynamic;
+
+			static std::unordered_map<Graphic::InstantiatingMesh*, MeshRenderingDataDepthMap> _depthMapQueueDynamic;
+			static std::unordered_map<Graphic::InstantiatingMesh*, MeshRenderingDataDepthMap> _depthQueueDynamic;
+
 
 			static GLuint _instanceDataSSBO;
 			static GLuint _materialIndexSSBO;
 			static GLuint _materialInputUBO;
 
+			static glm::mat4* _modelTransforms;
+			static unsigned int* _materialsIndexes;
+
+			static void UpdateQueues();
+			static void UpdateTransparentQueues();
+
+			static void PreRenderShadow();
+			static void PreRender();
 			static void Render();
-			static void RenderDepthMap();
+			static void RenderTransparent();
+
 		public:
 			static void Init();
 			static void UnloadAll();
 
-			static void Render(MeshRenderData meshData);
-			static void RenderDepthMap(const unsigned int& bufferWidth, const unsigned int& bufferHeight, const GLuint& depthFBO, const GLuint& depthMapTex,
-									   glm::mat4& projectionViewMatrix);
+			static bool Register(Twin2Engine::Core::MeshRenderer* meshRenderer);
+			static bool Unregister(Twin2Engine::Core::MeshRenderer* meshRenderer);
+
+			//static bool RegisterStatic(Twin2Engine::Core::MeshRenderer* meshRenderer);
+			//static bool UnregisterStatic(Twin2Engine::Core::MeshRenderer* meshRenderer);
+			//
+			//static bool RegisterDynamic(Twin2Engine::Core::MeshRenderer* meshRenderer);
+			//static bool UnregisterDynamic(Twin2Engine::Core::MeshRenderer* meshRenderer);
+
+			//Przed u¿yciem tej funkcji nale¿y zapewniæ, i¿ glViewport jest ustawiony w nastêpuj¹cy sposób: glViewport(0, 0, depthTexWidth, depthTexHeight), po uruchomieñiu funkcji nale¿y przywróciæ rozmiar viewportu do rozmiaru okna gry
+			static void RenderDepthMapDynamic(const GLuint& depthFBO, glm::mat4& projectionViewMatrix);
+			static void RenderDepthMapStatic(const GLuint& depthFBO, const GLuint& depthREplacingTexId, const GLuint& depthReplcedTexId, glm::mat4& projectionViewMatrix);
+			static void RenderCloudDepthMap(std::unordered_map<Twin2Engine::Graphic::InstantiatingMesh*, std::vector<Twin2Engine::Core::Transform*>>& depthQueue) {
+				std::vector<glm::mat4> transformationMatrixes;
+				for (auto& pair : depthQueue) {
+					if (pair.second.size() != 0) {
+						transformationMatrixes.reserve(pair.second.size());
+						for (auto& t : pair.second) {
+							transformationMatrixes.push_back(t->GetTransformMatrix());
+						}
+
+						glBindBuffer(GL_SHADER_STORAGE_BUFFER, _instanceDataSSBO);
+						glBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(glm::mat4) * pair.second.size(), transformationMatrixes.data());
+						glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+						pair.first->Draw(pair.second.size());
+
+						GLenum error = glGetError();
+						if (error != GL_NO_ERROR) {
+							SPDLOG_ERROR("Error: {}", error);
+						}
+						transformationMatrixes.clear();
+					}
+				}
+			}
 		};
 	}
 }

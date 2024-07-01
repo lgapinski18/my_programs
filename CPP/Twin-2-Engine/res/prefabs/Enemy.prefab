@@ -1,0 +1,81 @@
+Textures:
+  - id: 0
+    path: res/textures/carTextures/red.png
+    fileFormat: !<SRGB> 35904
+    engineFormat: !<RGB> 6407
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+Sprites: ~
+Fonts: ~
+GIFS: ~
+Audio: ~
+Materials:
+  - id: 0
+    path: res/materials/car/CarMaterial_Red.material
+Models:
+  - id: 0
+    path: res/models/car.obj
+Prefabs:
+  - id: 0
+    path: res/prefabs/ConcertCanvas.prefab
+ScriptableObjects: ~
+Root:
+  name: Enemy
+  isStatic: false
+  isActive: true
+  transform:
+    id: 0
+    enabled: true
+    position:
+      x: 0
+      y: 0
+      z: 0
+    scale:
+      x: 0.125
+      y: 0.125
+      z: 0.125
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+  components:
+    - id: 1
+      enabled: true
+      type: MeshRenderer
+      isTransparent: false
+      model: 0
+      materials:
+        - 0
+    - id: 2
+      enabled: true
+      type: Enemy
+      moneyFunction: res/scriptableobjects/MoneyFunctionData.so
+      fansRadius: 2
+      fansStartMoney: 12
+      albumStartMoney: 8
+      albumTakeOverSpeedBuff: 1.2
+      albumTakeOverSpeedDebuff: 0.8
+      albumLooseInterestDebuff: 0.0
+    - id: 3
+      enabled: true
+      type: EnemyMovement
+      speed: 1.0
+      maxSteps: 5
+      nextWaypointDistance: 0.05
+      heightOverSurface: 0
+    - id: 4
+      enabled: true
+      type: ConcertAbilityController
+      lastingTime: 10
+      moneyRequired: 10
+      cooldownTime: 5
+      additionalTakingOverSpeed: 30
+      moneyFunction: res/scriptableobjects/MoneyFunctionData.so
+      animation: 1
+    - id: 5
+      enabled: true
+      type: MoneyGainFromTiles
+      gainingInterval: 1
+      moneyBaseFactor: 1

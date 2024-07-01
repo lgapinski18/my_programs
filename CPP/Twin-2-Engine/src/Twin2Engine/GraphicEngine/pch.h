@@ -13,6 +13,9 @@
 #include <list>
 #include <set>
 #include <queue>
+#if _DEBUG
+#include <regex>
+#endif
 
 // GLAD
 #include <glad/glad.h>
@@ -35,3 +38,13 @@
 
 // SPDLOG
 #include <spdlog/spdlog.h>
+
+// STB_IMAGE
+#include <stb_image.h>
+
+// TRACY
+#if TRACY_PROFILER
+	#include <tracy/Tracy.hpp>
+	#include <tracy/TracyOpenGL.hpp>
+	#define TRACY_ENABLE
+#endif

@@ -1,8 +1,5 @@
 cmake_minimum_required(VERSION 3.21 FATAL_ERROR)
-project(Twin2Game VERSION 1.0)
-
-set_property(GLOBAL PROPERTY IS_MINI_AUDIO false)
-set_property(GLOBAL PROPERTY FIND_MEMORY_LEAKS false)
+project(Twin2Game VERSION 1.2)
 
 IF (WIN32)
   message(NOTICE "\n")
@@ -13,6 +10,7 @@ IF (WIN32)
   message(NOTICE "\n")
 ENDIF()
 
+
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 include(global_settings)
@@ -20,13 +18,13 @@ include(global_settings)
 #creating global variables
 
 #shader variables
-set(SHADER_ORIGIN_FOLDER ${CMAKE_CURRENT_SOURCE_DIR})
+#set(SHADER_ORIGIN_FOLDER ${CMAKE_CURRENT_SOURCE_DIR})
 
 # ---- Dependencies ----
 add_subdirectory(thirdparty)
 
 # ---- Tools ----
-add_subdirectory(tools)
+#add_subdirectory(tools)
 
 # ---- Main project's files ----
 add_subdirectory(src)

@@ -1,20 +1,12 @@
-#ifndef _MODEL_DATA_H_
-#define _MODEL_DATA_H_
+#pragma once
 
-#include <graphic/InstatiatingMesh.h>
+#include <graphic/InstantiatingMesh.h>
 
-namespace Twin2Engine::GraphicEngine
+namespace Twin2Engine::Graphic
 {
     struct ModelData
     {
         size_t id;
-        std::vector<InstatiatingMesh*> meshes;
+        std::vector<InstantiatingMesh*> meshes;
     };
-
-    //bool operator<(const ModelData& data1, const ModelData& data2)
-    //{
-    //    return data1.modelHash < data2.modelHash;
-    //}
 }
-
-#endif

@@ -1,0 +1,73 @@
+Textures:
+  - id: 0
+    path: res/textures/stone.jpg
+    fileFormat: !<SRGB> 35904
+    engineFormat: !<RGB> 6407
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+Sprites:
+  - id: 0
+    alias: stone
+    texture: 0
+Fonts:
+  - id: 0
+    path: res/fonts/Caveat-Regular.ttf
+GIFS: ~
+Audio:
+  - id: 0
+    path: res/music/acoustic-guitar.mp3
+Materials:
+  - id: 0
+    path: res/materials/textured.material
+Models:
+  - id: 0
+    path: "{Cube}"
+Prefabs: ~
+ScriptableObjects: ~
+Root:
+  name: testPrefabRoot
+  isStatic: false
+  isActive: true
+  transform:
+    id: 0
+    enabled: true
+    position:
+      x: 0
+      y: 0
+      z: 0
+    scale:
+      x: 1
+      y: 1
+      z: 1
+    rotation:
+      x: 0
+      y: 0
+      z: 0
+  components:
+    []
+GameObjects:
+  - id: 1
+    name: testPrefabChild1
+    isStatic: false
+    isActive: true
+    transform:
+      id: 1
+      enabled: true
+      position:
+        x: 0
+        y: 0
+        z: 0
+      scale:
+        x: 1
+        y: 1
+        z: 1
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+    components:
+      []
+    children:
+      []

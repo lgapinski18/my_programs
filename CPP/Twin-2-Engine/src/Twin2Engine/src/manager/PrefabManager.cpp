@@ -2,15 +2,26 @@
 #include <graphic/manager/MaterialsManager.h>
 #include <graphic/manager/ModelsManager.h>
 #include <manager/SceneManager.h>
-#include <core/YamlConverters.h>
+#include <manager/ScriptableObjectManager.h>
+#include <tools/YamlConverters.h>
+
+#if _DEBUG
+#include <regex>
+#endif
 
 using namespace Twin2Engine::Manager;
 using namespace Twin2Engine::Core;
-using namespace Twin2Engine::GraphicEngine;
+using namespace Twin2Engine::Graphic;
 using namespace std;
 
 hash<string> PrefabManager::_hasher;
 map<size_t, Prefab*> PrefabManager::_prefabs;
+
+#if _DEBUG
+bool PrefabManager::_fileDialogOpen = false;
+ImFileDialogInfo PrefabManager::_fileDialogInfo;
+#endif
+
 map<size_t, string> PrefabManager::_prefabsPaths;
 
 void PrefabManager::SaveGameObject(const GameObject* obj, YAML::Node gameObjects)
@@ -45,89 +56,24 @@ Prefab* PrefabManager::LoadPrefab(const string& path)
 		return _prefabs[pathHash];
 	}
 
-	SPDLOG_INFO("Loading Prefab '{0}'", path);
-	Prefab* prefab = new Prefab(pathHash);
-
-	YAML::Node prefabNode = YAML::LoadFile(path);
-
-#pragma region LOAD_TEXTURES_FROM_PREFAB_FILE
-	vector<string> texturePaths;
-	for (const YAML::Node& texNode : prefabNode["Textures"]) {
-		string path = texNode["path"].as<string>();
-		TextureData data;
-		if (texNode["sWrapMode"] || texNode["tWrapMode"] || texNode["minFilterMode"] || texNode["magFilterMode"])
-			data = texNode.as<TextureData>();
-		if (texNode["fileFormat"] && texNode["engineFormat"]) {
-			prefab->AddTexture2D(path, texNode["engineFormat"].as<TextureFormat>(), texNode["fileFormat"].as<TextureFileFormat>(), data);
-		}
-		else {
-			if (texNode["fileFormat"] && !texNode["engineFormat"]) {
-				SPDLOG_ERROR("Przy podanym parametrze 'fileFormat' brakuje parametru 'engineFormat'");
-			}
-			else if (!texNode["fileFormat"] && texNode["engineFormat"]) {
-				SPDLOG_ERROR("Przy podanym parametrze 'fileFormat' brakuje parametru 'engineFormat'");
-			}
-			prefab->AddTexture2D(path, data);
-		}
-		texturePaths.push_back(path);
+	if (filesystem::exists(path)) {
+		SPDLOG_INFO("Loading Prefab '{0}'", path);
+		Prefab* prefab = new Prefab(pathHash);
+		prefab->Deserialize(YAML::LoadFile(path));
+		_prefabs[pathHash] = prefab;
+		_prefabsPaths[pathHash] = path;
+		return prefab;
 	}
-#pragma endregion
-#pragma region LOAD_SPRITES_FROM_PREFAB_FILE
-	for (const YAML::Node& spriteNode : prefabNode["Sprites"]) {
-		if (spriteNode["x"] && spriteNode["y"] && spriteNode["width"] && spriteNode["height"]) {
-			prefab->AddSprite(spriteNode["alias"].as<string>(), texturePaths[spriteNode["texture"].as<size_t>()], spriteNode.as<SpriteData>());
-		}
-		else {
-			if (spriteNode["x"] || spriteNode["y"] || spriteNode["width"] || spriteNode["height"]) {
-				SPDLOG_ERROR("Nie podano wszystkich parametrów poprawnie: x, y, width, height");
-			}
-			prefab->AddSprite(spriteNode["alias"].as<string>(), texturePaths[spriteNode["texture"].as<size_t>()]);
-		}
+	else {
+		SPDLOG_CRITICAL("Prefab file '{0}' not found!", path);
+		return nullptr;
 	}
-#pragma endregion
-#pragma region LOAD_FONTS_FROM_PREFAB_FILE
-	for (const YAML::Node& fontNode : prefabNode["Fonts"]) {
-		prefab->AddFont(fontNode.as<string>());
-	}
-#pragma endregion
-#pragma region LOAD_AUDIO_FROM_PREFAB_FILE
-	for (const YAML::Node& audioNode : prefabNode["Audio"]) {
-		prefab->AddAudio(audioNode.as<string>());
-	}
-#pragma endregion
-#pragma region LOAD_MATERIALS_FROM_PREFAB_FILE
-	for (const YAML::Node& materialNode : prefabNode["Materials"]) {
-		prefab->AddMaterial(materialNode.as<string>());
-	}
-#pragma endregion
-#pragma region LOAD_MODELS_FROM_PREFAB_FILE
-	for (const YAML::Node& modelNode : prefabNode["Models"]) {
-		prefab->AddModel(modelNode.as<string>());
-	}
-#pragma endregion
-#pragma region LOAD_PREFABS_FROM_PREFAB_FILE
-	for (const YAML::Node& subPrefabNode : prefabNode["Prefabs"]) {
-		prefab->AddPrefab(subPrefabNode.as<string>());
-	}
-#pragma endregion
-#pragma region LOAD_ROOT_GAMEOBJECT_DATA_FROM_PREFAB_FILE
-	prefab->SetRootObject(prefabNode["Root"]);
-#pragma endregion
-#pragma region LOAD_GAMEOBJECTS_DATA_FROM_PREFAB_FILE
-	for (const YAML::Node& gameObjectNode : prefabNode["GameObjects"]) {
-		prefab->AddGameObject(gameObjectNode);
-	}
-#pragma endregion
-
-	_prefabs[pathHash] = prefab;
-	_prefabsPaths[pathHash] = path;
-	return prefab;
 }
 
 Prefab* PrefabManager::GetPrefab(size_t id)
 {
-	if (_prefabs.find(id) == _prefabs.end()) {
-		SPDLOG_ERROR("Prefab of ID '{0}' not found", id);
+	if (!_prefabs.contains(id)) {
+		SPDLOG_ERROR("Prefab of ID '{0}', Path: '{1}' not found", id, _prefabsPaths[id]);
 		return nullptr;
 	}
 	return _prefabs[id];
@@ -141,6 +87,58 @@ Prefab* PrefabManager::GetPrefab(const string& path)
 		return LoadPrefab(path);
 	}
 	return prefab;
+}
+
+std::string PrefabManager::GetPrefabName(size_t id)
+{
+	if (_prefabs.count(id) == 0) {
+		spdlog::error("PrefabManager::Prefab not found");
+		return "";
+	}
+
+	string p = _prefabsPaths[id];
+	return std::filesystem::path(p).stem().string();
+}
+
+std::string PrefabManager::GetPrefabName(const std::string& path)
+{
+	size_t h = hash<string>{}(path);
+	return GetPrefabName(h);
+}
+
+string PrefabManager::GetPrefabPath(const Prefab* prefab)
+{
+	if (prefab != nullptr)
+	{
+		//size_t id = 0;
+		//bool foundId = false;
+		//for (const auto& pair : _prefabs)
+		//{
+		//	if (pair.second == prefab)
+		//	{
+		//		id = pair.first;
+		//		break;
+		//	}
+		//}
+		//if (foundId)
+		//{
+			if (_prefabsPaths.contains(prefab->_id))
+			{
+				//return _prefabsPaths[id];
+				return _prefabsPaths[prefab->_id];
+			}
+		//}
+	}
+	return "";
+}
+
+std::map<size_t, string> PrefabManager::GetAllPrefabsNames() {
+	std::map<size_t, std::string> names = std::map<size_t, std::string>();
+
+	for (auto item : _prefabsPaths) {
+		names[item.first] = std::filesystem::path(item.second).stem().string();
+	}
+	return names;
 }
 
 void PrefabManager::SaveAsPrefab(const GameObject* obj, const std::string& path)
@@ -171,6 +169,10 @@ void PrefabManager::SaveAsPrefab(const GameObject* obj, const std::string& path)
 #pragma region SAVING_PREFABS
 	prefabNode["Prefabs"] = PrefabManager::Serialize();
 #pragma endregion
+#pragma region SAVING_SCRIPTABLE_OBJECTS
+	prefabNode["ScriptableObjects"];
+	ScriptableObjectManager::SceneSerializationBegin();
+#pragma endregion
 #pragma region SAVING_ROOT_OBJECT
 	YAML::Node rootNode = obj->Serialize();
 	rootNode.remove("id");
@@ -184,6 +186,9 @@ void PrefabManager::SaveAsPrefab(const GameObject* obj, const std::string& path)
 	}
 #pragma endregion
 
+	prefabNode["ScriptableObjects"] = ScriptableObjectManager::Serialize();
+	ScriptableObjectManager::SceneSerializationEnd();
+
 	ofstream file{ path };
 	file << prefabNode;
 	file.close();
@@ -191,7 +196,7 @@ void PrefabManager::SaveAsPrefab(const GameObject* obj, const std::string& path)
 
 void PrefabManager::UnloadAll()
 {
-	for (const auto& prefabPair : _prefabs) {
+	for (auto& prefabPair : _prefabs) {
 		delete prefabPair.second;
 	}
 	_prefabs.clear();
@@ -201,8 +206,77 @@ void PrefabManager::UnloadAll()
 YAML::Node PrefabManager::Serialize()
 {
 	YAML::Node prefabs;
+	size_t id = 0;
 	for (const auto& prefabPair : _prefabsPaths) {
-		prefabs.push_back(prefabPair.second);
+		YAML::Node prefab;
+		prefab["id"] = id++;
+		prefab["path"] = prefabPair.second;
+		prefabs.push_back(prefab);
 	}
 	return prefabs;
 }
+
+#if _DEBUG
+void PrefabManager::DrawEditor(bool* p_open)
+{
+	if (!ImGui::Begin("Prefab Manager", p_open)) {
+		ImGui::End();
+		return;
+	}
+
+	ImGuiTreeNodeFlags node_flag = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
+	bool node_open = ImGui::TreeNodeEx(string("Prefabs##Prefab Manager").c_str(), node_flag);
+
+	std::list<size_t> clicked = std::list<size_t>();
+	clicked.clear();
+	if (node_open) {
+		int i = 0;
+		for (auto& item : _prefabsPaths) {
+			string n = GetPrefabName(item.second);
+			ImGui::BulletText(n.c_str());
+			ImGui::SameLine(ImGui::GetContentRegionAvail().x - 10);
+			if (ImGui::Button(string(ICON_FA_TRASH_CAN "##Remove Prefab Manager").append(std::to_string(i)).c_str())) {
+				clicked.push_back(item.first);
+			}
+			++i;
+		}
+		ImGui::TreePop();
+	}
+
+	if (clicked.size() > 0) {
+		clicked.sort();
+
+		for (int i = clicked.size() - 1; i > -1; --i)
+		{
+			UnloadPrefab(clicked.back());
+
+			clicked.pop_back();
+		}
+	}
+
+	clicked.clear();
+
+	if (ImGui::Button("Load Prefab##Prefab Manager", ImVec2(ImGui::GetContentRegionAvail().x, 0.f))) {
+		_fileDialogOpen = true;
+		_fileDialogInfo.type = ImGuiFileDialogType_OpenFile;
+		_fileDialogInfo.title = "Open File##Prefab Manager";
+		_fileDialogInfo.directoryPath = std::filesystem::path(std::filesystem::current_path().string() + "\\res\\prefabs");
+	}
+
+	if (ImGui::FileDialog(&_fileDialogOpen, &_fileDialogInfo))
+	{
+		// Result path in: m_fileDialogInfo.resultPath
+		string path = std::filesystem::relative(_fileDialogInfo.resultPath).string();
+
+		if (std::regex_search(path, std::regex("(?:[/\\\\]res[/\\\\])"))) {
+
+			LoadPrefab(path.substr(path.find("res")));
+		}
+		else {
+			LoadPrefab(path);
+		}
+	}
+
+	ImGui::End();
+}
+#endif

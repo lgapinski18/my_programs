@@ -1,0 +1,74 @@
+Textures:
+  - id: 0
+    path: res/textures/tiles/white2.png
+    sWrapMode: !<MIRRORED_REPEAT> 33648
+    tWrapMode: !<MIRRORED_REPEAT> 33648
+    minFilterMode: !<NEAREST_MIPMAP_LINEAR> 9986
+    magFilterMode: !<LINEAR> 9729
+Sprites: ~
+Fonts: ~
+GIFS: ~
+Audio: ~
+Materials:
+  - id: 0
+    path: res/materials/GreenHexTile.material
+Models:
+  - id: 0
+    path: res/models/hexagon.obj
+Prefabs: ~
+ScriptableObjects: ~
+Root:
+  name: GreenHexTile
+  isStatic: false
+  isActive: true
+  transform:
+    id: 0
+    enabled: true
+    position:
+      x: 0
+      y: 0
+      z: 0
+    scale:
+      x: 1
+      y: 1
+      z: 1
+    rotation:
+      x: 0
+      y: 90
+      z: 0
+  components:
+    - id: 1
+      enabled: true
+      type: MapHexTile
+      hexTileType: 0
+    - id: 2
+      enabled: true
+      type: MeshRenderer
+      isTransparent: false
+      model: 0
+      materials:
+        - 0
+    - id: 3
+      enabled: true
+      type: HexagonalCollider
+      colliderId: 0
+      trigger: true
+      static: false
+      layer: 2
+      layersFilter:
+        - 2
+        - 2
+        - 1
+        - 0
+        - 2
+        - 2
+        - 2
+        - 2
+      boundingVolumeRadius: 0.5
+      position:
+        x: 0
+        y: -0.5
+        z: 0
+      baseLength: 0.5
+      halfHeight: 0.5
+      rotation: -90

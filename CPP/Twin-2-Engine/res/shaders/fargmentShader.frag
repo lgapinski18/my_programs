@@ -1,4 +1,4 @@
-#version 430
+#version 450
 
 in vec3 position;
 in vec2 texCoords;
@@ -20,10 +20,12 @@ struct MaterialInput
 
 layout (std140, binding = 1) uniform WindowData
 {
-    vec2 windowSize;
+    ivec2 windowSize;
     float nearPlane;
     float farPlane;
     float gamma;
+    float time;
+    float deltaTime;
 };
 
 layout(std140, binding = 2) uniform MaterialInputBuffer {
@@ -35,5 +37,5 @@ void main()
 	//FragColor = uColor;
 	//FragColor = color1 + color2;
 	//FragColor = materialInput[materialIndex].color1 + materialInput[materialIndex].color2;
-	FragColor = vec4(vec3(vec3(pow(materialInput[materialIndex].color1.rgb, vec3(gamma))) + vec3(pow(materialInput[materialIndex].color2.rgb, vec3(gamma)))), 1.0);
+	FragColor = vec4(vec3(vec3(pow(materialInput[materialIndex].color1.rgb * materialInput[materialIndex].color2.rgb, vec3(gamma)))), 1.0);
 }
