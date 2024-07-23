@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- PLEASE NO CHANGES BELOW THIS LINE (UNTIL I SAY SO) -->
+  <script language="javascript" type="text/javascript" src="libraries/p5.min.js"></script>
+  <script language="javascript" type="text/javascript" src="libraries/p5.sound.min.js"></script>
+  <script language="javascript" type="text/javascript" src="WebApp.js"></script>
+  <!-- OK, YOU CAN MAKE CHANGES BELOW THIS LINE AGAIN -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+  </style> -->
+</head>
+
+<body>
+    <h1>Generator sygnałów</h1>
+    
+    <br/>
+    
+    <div class="OscilatorDiv">
+        <p class="SignalTitle">Sygnał sinusoidalny:</p>
+        <br/>
+        
+        <div class="ParamSec">
+            <label class="sectionTitle" for="SinAmpNum">Amplituda:</label>
+            <br/>
+            <input id="SinAmpNum" type="number" name="SinAmpNum" value="1" min="0" step="0.01" onchange="AmpSin()"/>
+        </div>
+        
+        <br/>
+        
+        <div class="ParamSec">
+            <label class="sectionTitle" for="SinFregNum">Częstotliwość [Hz]:</label>
+            <br/>
+            <input id="SinFregNum" type="number" name="SinFregNum" value="100" min="0" onchange="FreqSin()"/>
+        </div>
+        
+        <br/>
+        
+        <div class="ParamSec">
+            <label class="sectionTitle" for="SinPanSlideBar">Kierunek paronamiczny:</label>
+            <br/>
+            <input id="SinPanSlideBar" type="range" list="SinPanSlideBarM" name="SinPanSlideBar" value="0" min="-1" max="1" step="0.1" onchange="PanSin()"/>
+            <datalist id="SinPanSlideBarM">
+                <option value="-1" label="-1"/>
+                <option value="0" label="0"/>
+                <option value="1" label="1"/>
+            </datalist>
+        </div>
+        
+        <br/>
+        
+        <input id="SinPlayButton" class="playButton" type="button" value="." onclick="PlayPauseSin()"></input>
+    </div>
+    
+    
+    <div class="OscilatorDiv">
+        <p class="SignalTitle">Sygnał trójkątny:</p>
+        <br/>
+        
+        <div class="ParamSec">
+            <label class="sectionTitle" for="TriAmpNum">Amplituda:</label>
+            <br/>
+            <input id="TriAmpNum" type="number" name="TriAmpNum" value="1" min="0" step="0.01" onchange="AmpTri()"/>
+        </div>
+        
+        <br/>
+        
+        <div class="ParamSec">
+            <label class="sectionTitle" for="TriFregNum">Częstotliwość [Hz]:</label>
+            <br/>
+            <input id="TriFregNum" type="number" name="TriFregNum" value="100" min="0" onchange="FreqTri()"/>
+        </div>
+        
+        <br/>
+        
+        <div class="ParamSec">
+            <label class="sectionTitle" for="TriPanSlideBar">Kierunek paronamiczny:</label>
+            <br/>
+            <input id="TriPanSlideBar" type="range" list="TriPanSlideBarM" name="TriPanSlideBar" value="0" min="-1" max="1" step="0.1" onchange="TriSin()"/>
+            <datalist id="TriPanSlideBarM">
+                <option value="-1" label="-1"/>
+                <option value="0" label="0"/>
+                <option value="1" label="1"/>
+            </datalist>
+        </div>
+        
+        <br/>
+        
+        <input id="TriPlayButton" class="playButton" type="button" value="." onclick="PlayPauseTri()"></input>
+    </div>
+    
+    
+    <div class="OscilatorDiv">
+        <p class="SignalTitle">Sygnał prostokątny:</p>
+        <br/>
+        
+        <div class="ParamSec">
+            <label class="sectionTitle" for="SqrAmpNum">Amplituda:</label>
+            <br/>
+            <input id="SqrAmpNum" type="number" name="SqrAmpNum" value="1" min="0" step="0.01" onchange="AmpSqr()"/>
+        </div>
+        
+        <br/>
+        
+        <div class="ParamSec">
+            <label class="sectionTitle" for="SqrFregNum">Częstotliwość [Hz]:</label>
+            <br/>
+            <input id="SqrFregNum" type="number" name="SqrFregNum" value="100" min="0" onchange="FreqSqr()"/>
+        </div>
+        
+        <br/>
+        
+        <div class="ParamSec">
+            <label class="sectionTitle" for="SinPanSlideBar">Kierunek paronamiczny:</label>
+            <br/>
+            <input id="SqrPanSlideBar" type="range" list="SqrPanSlideBarM" name="SqrPanSlideBar" value="0" min="-1" max="1" step="0.1" onchange="PanSqr()"/>
+            <datalist id="SqrPanSlideBarM">
+                <option value="-1" label="-1"/>
+                <option value="0" label="0"/>
+                <option value="1" label="1"/>
+            </datalist>
+        </div>
+        
+        <br/>
+        
+        <input id="SqrPlayButton" class="playButton" type="button" value="." onclick="PlayPauseSqr()"></input>
+    </div>
+    
+    
+    <div class="OscilatorDiv">
+        <p class="SignalTitle">Sygnał piłokształtny:</p>
+        <br/>
+        
+        <div class="ParamSec">
+            <label class="sectionTitle" for="SawAmpNum">Amplituda:</label>
+            <br/>
+            <input id="SawAmpNum" type="number" name="SawAmpNum" value="1" min="0" step="0.01" onchange="AmpSaw()"/>
+        </div>
+        
+        <br/>
+        
+        <div class="ParamSec">
+            <label class="sectionTitle" for="SawFregNum">Częstotliwość [Hz]:</label>
+            <br/>
+            <input id="SawFregNum" type="number" name="SawFregNum" value="100" min="0" onchange="FreqSaw()"/>
+        </div>
+        
+        <br/>
+        
+        <div class="ParamSec">
+            <label class="sectionTitle" for="SawPanSlideBar">Kierunek paronamiczny:</label>
+            <br/>
+            <input id="SawPanSlideBar" type="range" list="SawPanSlideBarM" name="SawPanSlideBar" value="0" min="-1" max="1" step="0.1" onchange="PanSaw()"/>
+            <datalist id="SawPanSlideBarM">
+                <option value="-1" label="-1"/>
+                <option value="0" label="0"/>
+                <option value="1" label="1"/>
+            </datalist>
+        </div>
+        
+        <br/>
+        
+        <input id="SawPlayButton" class="playButton" type="button" value="." onclick="PlayPauseSaw()"></input>
+    </div>
+    
+     <!-- <script src="libraries/p5.min.js"></script> <!--  -->
+     <!-- <script src="libraries/p5.sound.min.js"></script> -->
+     <!-- <script src="WebApp.js"></script> <!--  -->
+</body>
+</html>

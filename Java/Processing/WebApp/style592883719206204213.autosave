@@ -1,0 +1,31 @@
+datalist {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  writing-mode: horizontal-lr;
+  width: 19vw;
+}
+
+option {
+  padding: 0;
+}
+
+input[type="range"] {
+  width: 20vw;
+  margin: 0;
+}
+
+.OscilatorDiv {
+  width: 50vw;
+  border-style: dashed;
+  border-radius: 5vw;
+  padding: 2vw;
+}
+
+.sectionTitle {
+  border-bottom: 2px solid;
+}
+
+.ParamSec {
+   
+}

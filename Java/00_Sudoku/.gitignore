@@ -1,0 +1,10 @@
+target/
+logs/
+logs/View.log
+velocity.log
+
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### IntelliJ IDEA ###
+.idea

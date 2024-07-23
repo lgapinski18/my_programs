@@ -1,0 +1,55 @@
+package pl.sudoku.model;
+
+/*-
+ * #%L
+ * Sudoku
+ * %%
+ * Copyright (C) 2022 mka_PN_1200_3
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
+
+/**
+ * Klasa będąca fabryką Dao dla SudokuBoard.
+ * @author Lukasz Gapinski 242387
+ * @author Mateusz Gapinski 242387
+ * @version 1.0
+ */
+public class SudokuBoardDaoFactory {
+
+    /**
+     * Metoda wytwórcza tworząca FileSudokuBoardDao.
+     * @param fileName Nazwa pliku, do którego ma mieć dostęp Dao
+     * @return Zwraca Dao dla SudokuBoard do pliku o konkretnej nazwie.
+     * @version 1.0
+     * @since 1.0
+     */
+    public static Dao<SudokuBoard> getFileDao(String fileName) {
+        return new FileSudokuBoardDao(fileName);
+    }
+
+    /**
+     * Metoda wytwórcza tworząca JdbcSudokuBoardDao.
+     * @param dataBaseName Nazwa bazy danych.
+     * @param name Nazwa SudokuBoard w bazie danych
+     * @param levelOfDifficultyName Nazwa Poziomu trudności dla zapisywanej planszy.
+     * @return Zwraca Dao dla SudokuBoard do odpowiedniejbazydanych dla planszy o konkretnej nazwie.
+     */
+    public static Dao<SudokuBoard> getJdbcDao(String dataBaseName, String name,
+                                              String levelOfDifficultyName) {
+        return new JdbcSudokuBoardDao(dataBaseName, name, levelOfDifficultyName);
+    }
+}

@@ -1,0 +1,125 @@
+//import * as psound from "p5.sound.min";
+//import "libraries/p5.sound.min.js"; //https://p5js.org/reference/#/libraries/p5.sound
+
+var sine = new p5.Oscillator('sine');
+var tri = new p5.TriOsc();
+var sqr = new p5.SqrOsc();
+var saw = new p5.SawOsc();
+
+var SinPlaying = false;
+var TriPlaying = false;
+var SqrPlaying = false;
+var SawPlaying = false;
+
+
+function setup() {
+    createCanvas(width, height);
+    
+    sine.freq(100);
+    sine.amp(1);
+    sine.pan(0.0);
+    
+    tri.freq(100);
+    tri.amp(1);
+    tri.pan(0.0);
+    
+    sqr.freq(100);
+    sqr.amp(1);
+    sqr.pan(0.0);
+    
+    saw.freq(100);
+    saw.amp(1);
+    saw.pan(0.0);
+    
+    /*const value = document.querySelector("#SinFregOut");
+    const input = document.querySelector("#SinFregNum");
+    value.textContent = input.value;
+    input.addEventListener("input", (event) => {
+      value.textContent = event.target.value;
+    });*/
+}
+
+
+/*function draw() {
+    background(220);
+}*/
+
+function FreqSin() {
+  var freq = document.querySelector("#SinFregNum");
+  sine.freq(freq.getAttribute('value'));
+}
+
+function FreqTri() {
+  var freq = document.querySelector("#TriFregNum");
+  tri.freq(freq.getAttribute('value'));
+}
+
+function FreqSqr() {
+  var freq = document.querySelector("#SqrFregNum");
+  sqr.freq(freq.getAttribute('value'));
+}
+
+function FreqSaw() {
+  var freq = document.querySelector("#SawFregNum");
+  saw.freq(freq.getAttribute('value'));
+}
+
+function PlayPauseSin() {
+  var playButton = document.querySelector("#SinPlayButton");
+  
+  if (SinPlaying) {
+    sine.stop();
+    SinPlaying = false;
+	  playButton.setAttribute('class', 'playButton');
+  }
+  else {
+    sine.start();
+    SinPlaying = true;
+    playButton.setAttribute('class', 'pauseButton');
+  }
+}
+
+function PlayPauseTri() {
+  var playButton = document.querySelector("#TriPlayButton");
+  
+  if (TriPlaying) {
+    tri.stop();
+    TriPlaying = false;
+    playButton.setAttribute('class', 'playButton');
+  }
+  else {
+    tri.start();
+    TriPlaying = true;
+    playButton.setAttribute('class', 'pauseButton');
+  }
+}
+
+function PlayPauseSqr() {
+  var playButton = document.querySelector("#SqrPlayButton");
+  
+  if (SqrPlaying) {
+    sqr.stop();
+    SqrPlaying = false;
+    playButton.setAttribute('class', 'playButton');
+  }
+  else {
+    sqr.start();
+    SqrPlaying = true;
+    playButton.setAttribute('class', 'pauseButton');
+  }
+}
+
+function PlayPauseSaw() {
+  var playButton = document.querySelector("#SawPlayButton");
+  
+  if (SawPlaying) {
+    saw.stop();
+    SawPlaying = false;
+    playButton.setAttribute('class', 'playButton');
+  }
+  else {
+    saw.start();
+    SawPlaying = true;
+    playButton.setAttribute('class', 'pauseButton');
+  }
+}

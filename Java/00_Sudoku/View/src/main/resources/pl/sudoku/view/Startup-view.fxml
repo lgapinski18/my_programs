@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="468.0" prefWidth="462.0" stylesheets="@Startup-view_styles.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.sudoku.view.StartupController">
+   <children>
+      <Button fx:id="newGameButton" alignment="CENTER" layoutX="131.0" layoutY="182.0" mnemonicParsing="false" onMouseClicked="#newGameButtonClick" styleClass="startup_button" stylesheets="@Startup-view_styles.css" text="%newGame" />
+      <Label alignment="CENTER" layoutX="75.0" layoutY="72.0" styleClass="startup_label" stylesheets="@Startup-view_styles.css" text="SUDOKU" />
+      <Button alignment="CENTER" layoutX="131.0" layoutY="246.0" mnemonicParsing="false" onMouseClicked="#loadButtonClick" styleClass="startup_button" text="%loadGame" />
+      <Button alignment="CENTER" layoutX="131.0" layoutY="370.0" mnemonicParsing="false" onMouseClicked="#exitButtonClick" styleClass="startup_button" text="%exit" />
+      <Button alignment="CENTER" layoutX="131.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#settingsButtonClick" styleClass="startup_button" text="%settings" />
+      <Pane fx:id="startupSettings" layoutX="8.0" layoutY="15.0" prefHeight="437.0" prefWidth="431.0" styleClass="startup_settings" stylesheets="@Startup-view_styles.css" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="60.0" layoutY="14.0" styleClass="startup_settings_label" text="%SETTINGS" textAlignment="CENTER" />
+            <CheckBox fx:id="autoverificationCheckBox" layoutX="32.0" layoutY="123.0" mnemonicParsing="false" styleClass="startup_settings_checkbox" text="%turnOnAutover" />
+            <Button layoutX="329.0" layoutY="390.0" mnemonicParsing="false" onMouseClicked="#returnButtonClicked" prefHeight="34.0" prefWidth="86.0" styleClass="startup_settings_button" text="%return" />
+            <ChoiceBox fx:id="languageSelection" layoutX="38.0" layoutY="170.0" prefHeight="17.0" prefWidth="189.0" />
+            <ListView fx:id="authorsList" layoutX="240.0" layoutY="123.0" prefHeight="200.0" prefWidth="178.0" style="-fx-background-color: rgba(0,0,0,0);" />
+            <Label layoutX="253.0" layoutY="83.0" prefHeight="34.0" prefWidth="164.0" text="%authors" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
